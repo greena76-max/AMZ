@@ -38,104 +38,221 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-  <!-- Top Navigation Bar -->
-  <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg">
+  <!-- TOP NAVIGATION BAR (BUTTON #1) -->
+  <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg border-b border-emerald-800">
     <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
       <div>
         <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
         <p class="urdu-text text-sm sm:text-base text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
       </div>
+      
+      <!-- BUTTON 1 -->
       <button onclick="openBookingModal()" 
-        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow transition flex items-center gap-2 border border-emerald-400">
+        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105">
         <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
-        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ</span>
+        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
       </button>
     </div>
   </nav>
 
-  <!-- Hero Banner -->
-  <section class="bg-gradient-to-b from-emeraldDark to-emeraldMid text-white py-12 px-4 text-center relative overflow-hidden">
+  <!-- HERO BANNER (BUTTON #2) -->
+  <section class="bg-gradient-to-b from-emeraldDark via-emeraldMid to-emeraldDark text-white py-14 px-4 text-center relative overflow-hidden">
     <div class="max-w-4xl mx-auto relative z-10">
-      <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Natural Healing & Sunnah Therapy</span>
+      <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Sunnah Health Care & Natural Medicine</span>
+      
       <h2 class="text-3xl sm:text-5xl font-black mt-4 uppercase tracking-wider">TAYYABA DAWAKHANA & HIJAMA CENTER</h2>
       <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-2">طیبہ دواخانہ اینڈ حجامہ سنٹر میں خوش آمدید</p>
-      <p class="text-gray-200 mt-4 max-w-2xl mx-auto text-sm sm:text-base">Experience authentic Cupping (Hijama) therapy according to Sunnah standards in a clean, hygienic, and professional environment.</p>
       
-      <div class="mt-8 flex justify-center gap-4">
+      <p class="text-gray-200 mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Experience authentic Cupping (Hijama) therapy and pure Desi/Unani medicine under strict hygiene standards for holistic natural healing.
+      </p>
+      
+      <!-- BUTTON 2 -->
+      <div class="mt-8 flex justify-center">
         <button onclick="openBookingModal()" 
-          class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-xl shadow-xl transition transform hover:-translate-y-0.5 flex items-center gap-3">
-          <span class="uppercase tracking-wider">Book Appointment Now</span>
-          <span class="urdu-text text-lg">اپائنٹمنٹ بُک کریں</span>
+          class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-2xl shadow-2xl transition transform hover:-translate-y-1 flex items-center gap-3 border-2 border-emerald-300">
+          <span class="uppercase tracking-wider text-sm sm:text-base">Book Appointment Now</span>
+          <span class="urdu-text text-xl">اپائنٹمنٹ بُک کریں</span>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- Benefits & Information Section -->
+  <!-- SIDE-BY-SIDE VISUAL SERVICES SECTION (Medicine & Hijama Equipment) -->
   <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="text-center mb-10">
-      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Benefits of Hijama / حجامہ کے فوائد</h3>
-      <div class="w-16 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Our Specialty & Facilities</h3>
+      <p class="urdu-text text-xl text-emeraldMid">ہمارے دواخانہ اور حجامہ سنٹر کی خصوصیات</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
     </div>
 
-    <!-- Cards Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       
-      <!-- Card 1 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-12 h-12 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-xl mb-4">01</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark text-lg">Body Detoxification</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">جسم سے زہریلے مادوں کا اخراج</span>
+      <!-- LEFT SIDE: DESI / UNANI MEDICINE -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Herbal Medicine" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">Pure Desi & Unani Medicines</h4>
+            <p class="urdu-text text-emerald-200 text-base">خالص دیسی جڑی بوٹیوں سے تیار کردہ ادویات</p>
+          </div>
         </div>
-        <p class="text-gray-600 text-sm">Hijama removes stagnant and impure blood from microcirculation, detoxifying your body naturally.</p>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Natural Herbal Formulations</span>
+              <span class="urdu-text font-bold text-emeraldDark">قدرتی جڑی بوٹیاں</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>No Chemical Side Effects</span>
+              <span class="urdu-text font-bold text-emeraldDark">بغیر کسی سائیڈ ایفیکٹ کے</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Personalized Medical Consultation</span>
+              <span class="urdu-text font-bold text-emeraldDark">تجربہ کار طبیب سے مشورہ</span>
+            </li>
+          </ul>
+        </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-12 h-12 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-xl mb-4">02</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark text-lg">Pain Relief</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">دردوں سے فوری ریلیف</span>
+      <!-- RIGHT SIDE: STERILE HIJAMA EQUIPMENT -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80" alt="Hijama Equipment" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">100% Disposable & Sterile Cupping Tools</h4>
+            <p class="urdu-text text-emerald-200 text-base">جدید اور جراثیم سے پاک حجامہ آلات</p>
+          </div>
         </div>
-        <p class="text-gray-600 text-sm">Highly effective for back pain, joint stiffness, migraines, and muscle tightness.</p>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-12 h-12 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-xl mb-4">03</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark text-lg">Sunnah Health Care</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ سے علاج</span>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Single-use Disposable Cups & Blades</span>
+              <span class="urdu-text font-bold text-emeraldDark">ایک بار استعمال ہونے والے کپ</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Hygienic Surgical Vacuum Pumps</span>
+              <span class="urdu-text font-bold text-emeraldDark">مکمل طور پر سیف اور ڈسپوزبل</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Pain-free Sunnah Cupping Technique</span>
+              <span class="urdu-text font-bold text-emeraldDark">سنت کے مطابق علاج</span>
+            </li>
+          </ul>
         </div>
-        <p class="text-gray-600 text-sm">Performed under strict hygienic guidelines adhering to Sunnah cupping principles.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- CTA Banner -->
-  <section class="bg-emeraldLight border-y border-emerald-100 py-10 text-center px-4">
-    <h3 class="text-xl sm:text-2xl font-bold text-emeraldDark">Ready to feel healthier? Schedule your session today.</h3>
-    <p class="urdu-text text-xl text-emeraldMid mt-1">کیا آپ اپنا حجامہ کروانا چاہتے ہیں؟ ابھی اپنی باری طے کریں۔</p>
-    <button onclick="openBookingModal()" 
-      class="mt-5 bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3 px-8 rounded-xl shadow-lg transition">
-      Book Appointment / اپائنٹمنٹ بُک کریں
-    </button>
+  <!-- SPECIAL LADIES SECTION (باپردہ سہولت) -->
+  <section class="max-w-6xl mx-auto px-4 mb-12">
+    <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-emerald-400 relative overflow-hidden">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+        <div class="text-center md:text-left">
+          <span class="bg-emerald-200 text-emeraldDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Female Treatment Facility</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Separate & Private Facility for Ladies</h3>
+          <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-1">خواتین کے لیے علیحدہ اور باپرادہ حجامہ کی سہولت دستیاب ہے</p>
+          <p class="text-emerald-100 text-sm mt-2 max-w-xl">Experienced female cupping therapists are available for female patients in a completely private environment.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[220px]">
+          <span class="urdu-text text-2xl font-bold text-emerald-200 block">لیڈیز لیڈی معالج</span>
+          <span class="text-xs text-gray-200 uppercase tracking-widest font-semibold">100% Privacy Guaranteed</span>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
-    <p>© 2026 TAYYABA DAWAKHANA & HIJAMA CENTER. All rights reserved.</p>
+  <!-- EXTENDED HIJAMA BENEFITS SECTION -->
+  <section class="max-w-6xl mx-auto px-4 py-8 mb-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Health Benefits of Hijama / حجامہ کے فوائد</h3>
+      <p class="urdu-text text-xl text-emeraldMid">حجامہ کروانے کے طبی و روحانی فوائد</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <!-- 6 Benefits Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      
+      <!-- Benefit 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">01</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Body Detox</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">زہریلے مادوں سے پاک</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Removes toxic, damaged, and stagnant blood cells from the skin surface.</p>
+      </div>
+
+      <!-- Benefit 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">02</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Joint & Back Pain</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">کمر اور جوڑوں کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Provides immediate relief in chronic backache, sciatica, joint stiffness, and muscle pain.</p>
+      </div>
+
+      <!-- Benefit 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">03</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Migraine & Headaches</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">شقیقہ اور آدھے سر کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reduces pressure in cranial blood vessels, treating severe migraines and chronic headaches.</p>
+      </div>
+
+      <!-- Benefit 4 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">04</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">High Blood Pressure</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">بلڈ پریشر اور شوگر</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Helps stabilize blood circulation, cholesterol levels, and overall vascular balance.</p>
+      </div>
+
+      <!-- Benefit 5 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">05</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Stress & Anxiety</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">ذہنی تناؤ اور بے خوابی</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Relaxes the nervous system, improving sleep quality and relieving mental exhaustion.</p>
+      </div>
+
+      <!-- Benefit 6 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">06</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Sunnah Healing</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ کا برکت والا علاج</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reviving a blessed Prophetic tradition for spiritual, mental, and physical wellness.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-emeraldDark text-gray-300 py-8 text-center text-xs border-t border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h4 class="font-extrabold text-sm text-white uppercase tracking-wider mb-1">TAYYABA DAWAKHANA & HIJAMA CENTER</h4>
+      <p class="urdu-text text-base text-emerald-200">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      <p class="mt-4 text-gray-400">© 2026 TAYYABA DAWAKHANA & HIJAMA CENTER. All rights reserved.</p>
+    </div>
   </footer>
 
-  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT) -->
-  <div id="bookingModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
+  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT - TRIGGERED BY BUTTONS) -->
+  <div id="bookingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
     
     <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
       
       <!-- Close Button -->
-      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/20 hover:bg-black/40 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
         &times;
       </button>
 
@@ -218,11 +335,11 @@
           </select>
         </div>
 
-        <!-- Submit Button -->
+        <!-- Submit Button inside Modal -->
         <button type="submit" id="submitBtn" 
-          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
-          <span class="uppercase tracking-wider text-xs sm:text-sm">Book Appointment</span>
-          <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
+          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
         </button>
 
       </form>
@@ -233,7 +350,7 @@
     </div>
   </div>
 
-  <!-- JavaScript Functions -->
+  <!-- JavaScript Logic -->
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
     const form = document.getElementById('appointmentForm');
@@ -283,8 +400,8 @@
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
         submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-xs sm:text-sm">Book Appointment</span>
-          <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
         `;
         form.reset();
       })
@@ -297,8 +414,1280 @@
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
         submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-xs sm:text-sm">Book Appointment</span>
-          <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        `;
+      });
+    });
+  </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAYYABA DAWAKHANA & HIJAMA CENTER</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Jameel Noori Nastaliq Font -->
+  <link href="https://fonts.cdnfonts.com/css/jameel-noori-nastaleeq" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emeraldDark: '#113f23',
+            emeraldMid: '#1b5e20',
+            emeraldAccent: '#2e7d32',
+            emeraldLight: '#f4f9f5',
+          },
+          fontFamily: {
+            urdu: ['Jameel Noori Nastaleeq', 'Urdu Typesetting', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    .urdu-text {
+      font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- TOP NAVIGATION BAR (BUTTON #1) -->
+  <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg border-b border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div>
+        <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
+        <p class="urdu-text text-sm sm:text-base text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      </div>
+      
+      <!-- BUTTON 1 -->
+      <button onclick="openBookingModal()" 
+        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105">
+        <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
+        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER (BUTTON #2) -->
+  <section class="bg-gradient-to-b from-emeraldDark via-emeraldMid to-emeraldDark text-white py-14 px-4 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Sunnah Health Care & Natural Medicine</span>
+      
+      <h2 class="text-3xl sm:text-5xl font-black mt-4 uppercase tracking-wider">TAYYABA DAWAKHANA & HIJAMA CENTER</h2>
+      <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-2">طیبہ دواخانہ اینڈ حجامہ سنٹر میں خوش آمدید</p>
+      
+      <p class="text-gray-200 mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Experience authentic Cupping (Hijama) therapy and pure Desi/Unani medicine under strict hygiene standards for holistic natural healing.
+      </p>
+      
+      <!-- BUTTON 2 -->
+      <div class="mt-8 flex justify-center">
+        <button onclick="openBookingModal()" 
+          class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-2xl shadow-2xl transition transform hover:-translate-y-1 flex items-center gap-3 border-2 border-emerald-300">
+          <span class="uppercase tracking-wider text-sm sm:text-base">Book Appointment Now</span>
+          <span class="urdu-text text-xl">اپائنٹمنٹ بُک کریں</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDE-BY-SIDE VISUAL SERVICES SECTION (Medicine & Hijama Equipment) -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Our Specialty & Facilities</h3>
+      <p class="urdu-text text-xl text-emeraldMid">ہمارے دواخانہ اور حجامہ سنٹر کی خصوصیات</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      
+      <!-- LEFT SIDE: DESI / UNANI MEDICINE -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Herbal Medicine" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">Pure Desi & Unani Medicines</h4>
+            <p class="urdu-text text-emerald-200 text-base">خالص دیسی جڑی بوٹیوں سے تیار کردہ ادویات</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Natural Herbal Formulations</span>
+              <span class="urdu-text font-bold text-emeraldDark">قدرتی جڑی بوٹیاں</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>No Chemical Side Effects</span>
+              <span class="urdu-text font-bold text-emeraldDark">بغیر کسی سائیڈ ایفیکٹ کے</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Personalized Medical Consultation</span>
+              <span class="urdu-text font-bold text-emeraldDark">تجربہ کار طبیب سے مشورہ</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: STERILE HIJAMA EQUIPMENT -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80" alt="Hijama Equipment" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">100% Disposable & Sterile Cupping Tools</h4>
+            <p class="urdu-text text-emerald-200 text-base">جدید اور جراثیم سے پاک حجامہ آلات</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Single-use Disposable Cups & Blades</span>
+              <span class="urdu-text font-bold text-emeraldDark">ایک بار استعمال ہونے والے کپ</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Hygienic Surgical Vacuum Pumps</span>
+              <span class="urdu-text font-bold text-emeraldDark">مکمل طور پر سیف اور ڈسپوزبل</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Pain-free Sunnah Cupping Technique</span>
+              <span class="urdu-text font-bold text-emeraldDark">سنت کے مطابق علاج</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPECIAL LADIES SECTION (باپردہ سہولت) -->
+  <section class="max-w-6xl mx-auto px-4 mb-12">
+    <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-emerald-400 relative overflow-hidden">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+        <div class="text-center md:text-left">
+          <span class="bg-emerald-200 text-emeraldDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Female Treatment Facility</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Separate & Private Facility for Ladies</h3>
+          <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-1">خواتین کے لیے علیحدہ اور باپرادہ حجامہ کی سہولت دستیاب ہے</p>
+          <p class="text-emerald-100 text-sm mt-2 max-w-xl">Experienced female cupping therapists are available for female patients in a completely private environment.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[220px]">
+          <span class="urdu-text text-2xl font-bold text-emerald-200 block">لیڈیز لیڈی معالج</span>
+          <span class="text-xs text-gray-200 uppercase tracking-widest font-semibold">100% Privacy Guaranteed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTENDED HIJAMA BENEFITS SECTION -->
+  <section class="max-w-6xl mx-auto px-4 py-8 mb-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Health Benefits of Hijama / حجامہ کے فوائد</h3>
+      <p class="urdu-text text-xl text-emeraldMid">حجامہ کروانے کے طبی و روحانی فوائد</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <!-- 6 Benefits Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      
+      <!-- Benefit 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">01</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Body Detox</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">زہریلے مادوں سے پاک</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Removes toxic, damaged, and stagnant blood cells from the skin surface.</p>
+      </div>
+
+      <!-- Benefit 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">02</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Joint & Back Pain</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">کمر اور جوڑوں کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Provides immediate relief in chronic backache, sciatica, joint stiffness, and muscle pain.</p>
+      </div>
+
+      <!-- Benefit 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">03</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Migraine & Headaches</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">شقیقہ اور آدھے سر کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reduces pressure in cranial blood vessels, treating severe migraines and chronic headaches.</p>
+      </div>
+
+      <!-- Benefit 4 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">04</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">High Blood Pressure</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">بلڈ پریشر اور شوگر</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Helps stabilize blood circulation, cholesterol levels, and overall vascular balance.</p>
+      </div>
+
+      <!-- Benefit 5 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">05</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Stress & Anxiety</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">ذہنی تناؤ اور بے خوابی</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Relaxes the nervous system, improving sleep quality and relieving mental exhaustion.</p>
+      </div>
+
+      <!-- Benefit 6 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">06</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Sunnah Healing</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ کا برکت والا علاج</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reviving a blessed Prophetic tradition for spiritual, mental, and physical wellness.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-emeraldDark text-gray-300 py-8 text-center text-xs border-t border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h4 class="font-extrabold text-sm text-white uppercase tracking-wider mb-1">TAYYABA DAWAKHANA & HIJAMA CENTER</h4>
+      <p class="urdu-text text-base text-emerald-200">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      <p class="mt-4 text-gray-400">© 2026 TAYYABA DAWAKHANA & HIJAMA CENTER. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT - TRIGGERED BY BUTTONS) -->
+  <div id="bookingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
+    
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
+        &times;
+      </button>
+
+      <!-- Top Green Decorative Header -->
+      <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md pr-12">
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">
+          TAYYABA DAWAKHANA & HIJAMA CENTER
+        </h2>
+        <p class="urdu-text text-lg sm:text-xl text-emerald-200 -mt-1">
+          طیبہ دواخانہ اینڈ حجامہ سنٹر
+        </p>
+        <div class="mt-1 inline-block bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase border border-white/20">
+          ONLINE APPOINTMENT PORTAL
+        </div>
+      </div>
+
+      <!-- Booking Form -->
+      <form id="appointmentForm" class="p-6 space-y-4">
+        
+        <!-- Full Name -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">مریض کا نام</span>
+          </div>
+          <input type="text" id="fullName" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="Enter patient name">
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">فون نمبر</span>
+          </div>
+          <input type="tel" id="phone" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="03001234567">
+        </div>
+
+        <!-- Date & Time Slot Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">تاریخ</span>
+            </div>
+            <input type="date" id="appointmentDate" required 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">وقت</span>
+            </div>
+            <select id="timeSlot" 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+              <option>10:00 AM - 12:00 PM</option>
+              <option>02:00 PM - 04:00 PM</option>
+              <option>05:00 PM - 07:00 PM</option>
+              <option>08:00 PM - 10:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Therapy Type -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">علاج کی قسم</span>
+          </div>
+          <select id="therapyType" 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+            <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
+            <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
+            <option>Full Body Detox — فل باڈی ڈیٹاکس</option>
+            <option>General Consultation — عام معائنہ</option>
+          </select>
+        </div>
+
+        <!-- Submit Button inside Modal -->
+        <button type="submit" id="submitBtn" 
+          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        </button>
+
+      </form>
+
+      <!-- Status Message -->
+      <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
+    const form = document.getElementById('appointmentForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      submitBtn.innerHTML = `
+        <span class="uppercase tracking-wider text-xs sm:text-sm">Booking...</span>
+        <span class="urdu-text text-base">بُکنگ ہو رہی ہے...</span>
+      `;
+
+      const data = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        appointmentDate: document.getElementById('appointmentDate').value,
+        timeSlot: document.getElementById('timeSlot').value,
+        therapyType: document.getElementById('therapyType').value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
+        statusMessage.innerHTML = `
+          <div>Appointment booked successfully!</div>
+          <div class="urdu-text text-base mt-1">آپ کی اپائنٹمنٹ کامیابی سے بُک ہو گئی ہے!</div>
+        `;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        `;
+        form.reset();
+      })
+      .catch(error => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-red-50 text-red-800 border border-red-200 block shadow-sm';
+        statusMessage.innerHTML = `
+          <div>Something went wrong. Please try again.</div>
+          <div class="urdu-text text-base mt-1">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>
+        `;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        `;
+      });
+    });
+  </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAYYABA DAWAKHANA & HIJAMA CENTER</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Jameel Noori Nastaliq Font -->
+  <link href="https://fonts.cdnfonts.com/css/jameel-noori-nastaleeq" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emeraldDark: '#113f23',
+            emeraldMid: '#1b5e20',
+            emeraldAccent: '#2e7d32',
+            emeraldLight: '#f4f9f5',
+          },
+          fontFamily: {
+            urdu: ['Jameel Noori Nastaleeq', 'Urdu Typesetting', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    .urdu-text {
+      font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- TOP NAVIGATION BAR (BUTTON #1) -->
+  <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg border-b border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div>
+        <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
+        <p class="urdu-text text-sm sm:text-base text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      </div>
+      
+      <!-- BUTTON 1 -->
+      <button onclick="openBookingModal()" 
+        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105">
+        <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
+        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER (BUTTON #2) -->
+  <section class="bg-gradient-to-b from-emeraldDark via-emeraldMid to-emeraldDark text-white py-14 px-4 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Sunnah Health Care & Natural Medicine</span>
+      
+      <h2 class="text-3xl sm:text-5xl font-black mt-4 uppercase tracking-wider">TAYYABA DAWAKHANA & HIJAMA CENTER</h2>
+      <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-2">طیبہ دواخانہ اینڈ حجامہ سنٹر میں خوش آمدید</p>
+      
+      <p class="text-gray-200 mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Experience authentic Cupping (Hijama) therapy and pure Desi/Unani medicine under strict hygiene standards for holistic natural healing.
+      </p>
+      
+      <!-- BUTTON 2 -->
+      <div class="mt-8 flex justify-center">
+        <button onclick="openBookingModal()" 
+          class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-2xl shadow-2xl transition transform hover:-translate-y-1 flex items-center gap-3 border-2 border-emerald-300">
+          <span class="uppercase tracking-wider text-sm sm:text-base">Book Appointment Now</span>
+          <span class="urdu-text text-xl">اپائنٹمنٹ بُک کریں</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDE-BY-SIDE VISUAL SERVICES SECTION (Medicine & Hijama Equipment) -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Our Specialty & Facilities</h3>
+      <p class="urdu-text text-xl text-emeraldMid">ہمارے دواخانہ اور حجامہ سنٹر کی خصوصیات</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      
+      <!-- LEFT SIDE: DESI / UNANI MEDICINE -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Herbal Medicine" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">Pure Desi & Unani Medicines</h4>
+            <p class="urdu-text text-emerald-200 text-base">خالص دیسی جڑی بوٹیوں سے تیار کردہ ادویات</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Natural Herbal Formulations</span>
+              <span class="urdu-text font-bold text-emeraldDark">قدرتی جڑی بوٹیاں</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>No Chemical Side Effects</span>
+              <span class="urdu-text font-bold text-emeraldDark">بغیر کسی سائیڈ ایفیکٹ کے</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Personalized Medical Consultation</span>
+              <span class="urdu-text font-bold text-emeraldDark">تجربہ کار طبیب سے مشورہ</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: STERILE HIJAMA EQUIPMENT -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80" alt="Hijama Equipment" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">100% Disposable & Sterile Cupping Tools</h4>
+            <p class="urdu-text text-emerald-200 text-base">جدید اور جراثیم سے پاک حجامہ آلات</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Single-use Disposable Cups & Blades</span>
+              <span class="urdu-text font-bold text-emeraldDark">ایک بار استعمال ہونے والے کپ</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Hygienic Surgical Vacuum Pumps</span>
+              <span class="urdu-text font-bold text-emeraldDark">مکمل طور پر سیف اور ڈسپوزبل</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Pain-free Sunnah Cupping Technique</span>
+              <span class="urdu-text font-bold text-emeraldDark">سنت کے مطابق علاج</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPECIAL LADIES SECTION (باپردہ سہولت) -->
+  <section class="max-w-6xl mx-auto px-4 mb-12">
+    <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-emerald-400 relative overflow-hidden">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+        <div class="text-center md:text-left">
+          <span class="bg-emerald-200 text-emeraldDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Female Treatment Facility</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Separate & Private Facility for Ladies</h3>
+          <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-1">خواتین کے لیے علیحدہ اور باپرادہ حجامہ کی سہولت دستیاب ہے</p>
+          <p class="text-emerald-100 text-sm mt-2 max-w-xl">Experienced female cupping therapists are available for female patients in a completely private environment.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[220px]">
+          <span class="urdu-text text-2xl font-bold text-emerald-200 block">لیڈیز لیڈی معالج</span>
+          <span class="text-xs text-gray-200 uppercase tracking-widest font-semibold">100% Privacy Guaranteed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTENDED HIJAMA BENEFITS SECTION -->
+  <section class="max-w-6xl mx-auto px-4 py-8 mb-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Health Benefits of Hijama / حجامہ کے فوائد</h3>
+      <p class="urdu-text text-xl text-emeraldMid">حجامہ کروانے کے طبی و روحانی فوائد</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <!-- 6 Benefits Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      
+      <!-- Benefit 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">01</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Body Detox</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">زہریلے مادوں سے پاک</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Removes toxic, damaged, and stagnant blood cells from the skin surface.</p>
+      </div>
+
+      <!-- Benefit 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">02</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Joint & Back Pain</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">کمر اور جوڑوں کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Provides immediate relief in chronic backache, sciatica, joint stiffness, and muscle pain.</p>
+      </div>
+
+      <!-- Benefit 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">03</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Migraine & Headaches</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">شقیقہ اور آدھے سر کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reduces pressure in cranial blood vessels, treating severe migraines and chronic headaches.</p>
+      </div>
+
+      <!-- Benefit 4 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">04</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">High Blood Pressure</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">بلڈ پریشر اور شوگر</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Helps stabilize blood circulation, cholesterol levels, and overall vascular balance.</p>
+      </div>
+
+      <!-- Benefit 5 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">05</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Stress & Anxiety</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">ذہنی تناؤ اور بے خوابی</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Relaxes the nervous system, improving sleep quality and relieving mental exhaustion.</p>
+      </div>
+
+      <!-- Benefit 6 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">06</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Sunnah Healing</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ کا برکت والا علاج</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reviving a blessed Prophetic tradition for spiritual, mental, and physical wellness.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-emeraldDark text-gray-300 py-8 text-center text-xs border-t border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h4 class="font-extrabold text-sm text-white uppercase tracking-wider mb-1">TAYYABA DAWAKHANA & HIJAMA CENTER</h4>
+      <p class="urdu-text text-base text-emerald-200">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      <p class="mt-4 text-gray-400">© 2026 TAYYABA DAWAKHANA & HIJAMA CENTER. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT - TRIGGERED BY BUTTONS) -->
+  <div id="bookingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
+    
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
+        &times;
+      </button>
+
+      <!-- Top Green Decorative Header -->
+      <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md pr-12">
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">
+          TAYYABA DAWAKHANA & HIJAMA CENTER
+        </h2>
+        <p class="urdu-text text-lg sm:text-xl text-emerald-200 -mt-1">
+          طیبہ دواخانہ اینڈ حجامہ سنٹر
+        </p>
+        <div class="mt-1 inline-block bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase border border-white/20">
+          ONLINE APPOINTMENT PORTAL
+        </div>
+      </div>
+
+      <!-- Booking Form -->
+      <form id="appointmentForm" class="p-6 space-y-4">
+        
+        <!-- Full Name -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">مریض کا نام</span>
+          </div>
+          <input type="text" id="fullName" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="Enter patient name">
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">فون نمبر</span>
+          </div>
+          <input type="tel" id="phone" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="03001234567">
+        </div>
+
+        <!-- Date & Time Slot Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">تاریخ</span>
+            </div>
+            <input type="date" id="appointmentDate" required 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">وقت</span>
+            </div>
+            <select id="timeSlot" 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+              <option>10:00 AM - 12:00 PM</option>
+              <option>02:00 PM - 04:00 PM</option>
+              <option>05:00 PM - 07:00 PM</option>
+              <option>08:00 PM - 10:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Therapy Type -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">علاج کی قسم</span>
+          </div>
+          <select id="therapyType" 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+            <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
+            <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
+            <option>Full Body Detox — فل باڈی ڈیٹاکس</option>
+            <option>General Consultation — عام معائنہ</option>
+          </select>
+        </div>
+
+        <!-- Submit Button inside Modal -->
+        <button type="submit" id="submitBtn" 
+          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        </button>
+
+      </form>
+
+      <!-- Status Message -->
+      <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
+    const form = document.getElementById('appointmentForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      submitBtn.innerHTML = `
+        <span class="uppercase tracking-wider text-xs sm:text-sm">Booking...</span>
+        <span class="urdu-text text-base">بُکنگ ہو رہی ہے...</span>
+      `;
+
+      const data = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        appointmentDate: document.getElementById('appointmentDate').value,
+        timeSlot: document.getElementById('timeSlot').value,
+        therapyType: document.getElementById('therapyType').value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
+        statusMessage.innerHTML = `
+          <div>Appointment booked successfully!</div>
+          <div class="urdu-text text-base mt-1">آپ کی اپائنٹمنٹ کامیابی سے بُک ہو گئی ہے!</div>
+        `;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        `;
+        form.reset();
+      })
+      .catch(error => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-red-50 text-red-800 border border-red-200 block shadow-sm';
+        statusMessage.innerHTML = `
+          <div>Something went wrong. Please try again.</div>
+          <div class="urdu-text text-base mt-1">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>
+        `;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        `;
+      });
+    });
+  </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TAYYABA DAWAKHANA & HIJAMA CENTER</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Jameel Noori Nastaliq Font -->
+  <link href="https://fonts.cdnfonts.com/css/jameel-noori-nastaleeq" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emeraldDark: '#113f23',
+            emeraldMid: '#1b5e20',
+            emeraldAccent: '#2e7d32',
+            emeraldLight: '#f4f9f5',
+          },
+          fontFamily: {
+            urdu: ['Jameel Noori Nastaleeq', 'Urdu Typesetting', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    .urdu-text {
+      font-family: 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- TOP NAVIGATION BAR (BUTTON #1) -->
+  <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg border-b border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div>
+        <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
+        <p class="urdu-text text-sm sm:text-base text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      </div>
+      
+      <!-- BUTTON 1 -->
+      <button onclick="openBookingModal()" 
+        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105">
+        <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
+        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO BANNER (BUTTON #2) -->
+  <section class="bg-gradient-to-b from-emeraldDark via-emeraldMid to-emeraldDark text-white py-14 px-4 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Sunnah Health Care & Natural Medicine</span>
+      
+      <h2 class="text-3xl sm:text-5xl font-black mt-4 uppercase tracking-wider">TAYYABA DAWAKHANA & HIJAMA CENTER</h2>
+      <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-2">طیبہ دواخانہ اینڈ حجامہ سنٹر میں خوش آمدید</p>
+      
+      <p class="text-gray-200 mt-3 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+        Experience authentic Cupping (Hijama) therapy and pure Desi/Unani medicine under strict hygiene standards for holistic natural healing.
+      </p>
+      
+      <!-- BUTTON 2 -->
+      <div class="mt-8 flex justify-center">
+        <button onclick="openBookingModal()" 
+          class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-2xl shadow-2xl transition transform hover:-translate-y-1 flex items-center gap-3 border-2 border-emerald-300">
+          <span class="uppercase tracking-wider text-sm sm:text-base">Book Appointment Now</span>
+          <span class="urdu-text text-xl">اپائنٹمنٹ بُک کریں</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIDE-BY-SIDE VISUAL SERVICES SECTION (Medicine & Hijama Equipment) -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Our Specialty & Facilities</h3>
+      <p class="urdu-text text-xl text-emeraldMid">ہمارے دواخانہ اور حجامہ سنٹر کی خصوصیات</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      
+      <!-- LEFT SIDE: DESI / UNANI MEDICINE -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" alt="Herbal Medicine" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">Pure Desi & Unani Medicines</h4>
+            <p class="urdu-text text-emerald-200 text-base">خالص دیسی جڑی بوٹیوں سے تیار کردہ ادویات</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Natural Herbal Formulations</span>
+              <span class="urdu-text font-bold text-emeraldDark">قدرتی جڑی بوٹیاں</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>No Chemical Side Effects</span>
+              <span class="urdu-text font-bold text-emeraldDark">بغیر کسی سائیڈ ایفیکٹ کے</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Personalized Medical Consultation</span>
+              <span class="urdu-text font-bold text-emeraldDark">تجربہ کار طبیب سے مشورہ</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: STERILE HIJAMA EQUIPMENT -->
+      <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
+        <div class="h-64 overflow-hidden relative">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80" alt="Hijama Equipment" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
+            <h4 class="text-lg font-bold">100% Disposable & Sterile Cupping Tools</h4>
+            <p class="urdu-text text-emerald-200 text-base">جدید اور جراثیم سے پاک حجامہ آلات</p>
+          </div>
+        </div>
+        <div class="p-5">
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Single-use Disposable Cups & Blades</span>
+              <span class="urdu-text font-bold text-emeraldDark">ایک بار استعمال ہونے والے کپ</span>
+            </li>
+            <li class="flex items-center justify-between border-b pb-2">
+              <span>Hygienic Surgical Vacuum Pumps</span>
+              <span class="urdu-text font-bold text-emeraldDark">مکمل طور پر سیف اور ڈسپوزبل</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>Pain-free Sunnah Cupping Technique</span>
+              <span class="urdu-text font-bold text-emeraldDark">سنت کے مطابق علاج</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SPECIAL LADIES SECTION (باپردہ سہولت) -->
+  <section class="max-w-6xl mx-auto px-4 mb-12">
+    <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-emerald-400 relative overflow-hidden">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+        <div class="text-center md:text-left">
+          <span class="bg-emerald-200 text-emeraldDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Female Treatment Facility</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Separate & Private Facility for Ladies</h3>
+          <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-1">خواتین کے لیے علیحدہ اور باپرادہ حجامہ کی سہولت دستیاب ہے</p>
+          <p class="text-emerald-100 text-sm mt-2 max-w-xl">Experienced female cupping therapists are available for female patients in a completely private environment.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[220px]">
+          <span class="urdu-text text-2xl font-bold text-emerald-200 block">لیڈیز لیڈی معالج</span>
+          <span class="text-xs text-gray-200 uppercase tracking-widest font-semibold">100% Privacy Guaranteed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTENDED HIJAMA BENEFITS SECTION -->
+  <section class="max-w-6xl mx-auto px-4 py-8 mb-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Health Benefits of Hijama / حجامہ کے فوائد</h3>
+      <p class="urdu-text text-xl text-emeraldMid">حجامہ کروانے کے طبی و روحانی فوائد</p>
+      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <!-- 6 Benefits Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      
+      <!-- Benefit 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">01</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Body Detox</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">زہریلے مادوں سے پاک</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Removes toxic, damaged, and stagnant blood cells from the skin surface.</p>
+      </div>
+
+      <!-- Benefit 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">02</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Joint & Back Pain</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">کمر اور جوڑوں کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Provides immediate relief in chronic backache, sciatica, joint stiffness, and muscle pain.</p>
+      </div>
+
+      <!-- Benefit 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">03</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Migraine & Headaches</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">شقیقہ اور آدھے سر کا درد</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reduces pressure in cranial blood vessels, treating severe migraines and chronic headaches.</p>
+      </div>
+
+      <!-- Benefit 4 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">04</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">High Blood Pressure</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">بلڈ پریشر اور شوگر</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Helps stabilize blood circulation, cholesterol levels, and overall vascular balance.</p>
+      </div>
+
+      <!-- Benefit 5 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">05</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Stress & Anxiety</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">ذہنی تناؤ اور بے خوابی</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Relaxes the nervous system, improving sleep quality and relieving mental exhaustion.</p>
+      </div>
+
+      <!-- Benefit 6 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">06</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark">Sunnah Healing</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ کا برکت والا علاج</span>
+        </div>
+        <p class="text-gray-600 text-xs sm:text-sm">Reviving a blessed Prophetic tradition for spiritual, mental, and physical wellness.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-emeraldDark text-gray-300 py-8 text-center text-xs border-t border-emerald-800">
+    <div class="max-w-6xl mx-auto px-4">
+      <h4 class="font-extrabold text-sm text-white uppercase tracking-wider mb-1">TAYYABA DAWAKHANA & HIJAMA CENTER</h4>
+      <p class="urdu-text text-base text-emerald-200">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      <p class="mt-4 text-gray-400">© 2026 TAYYABA DAWAKHANA & HIJAMA CENTER. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT - TRIGGERED BY BUTTONS) -->
+  <div id="bookingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
+    
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
+        &times;
+      </button>
+
+      <!-- Top Green Decorative Header -->
+      <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md pr-12">
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">
+          TAYYABA DAWAKHANA & HIJAMA CENTER
+        </h2>
+        <p class="urdu-text text-lg sm:text-xl text-emerald-200 -mt-1">
+          طیبہ دواخانہ اینڈ حجامہ سنٹر
+        </p>
+        <div class="mt-1 inline-block bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase border border-white/20">
+          ONLINE APPOINTMENT PORTAL
+        </div>
+      </div>
+
+      <!-- Booking Form -->
+      <form id="appointmentForm" class="p-6 space-y-4">
+        
+        <!-- Full Name -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">مریض کا نام</span>
+          </div>
+          <input type="text" id="fullName" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="Enter patient name">
+        </div>
+
+        <!-- Phone Number -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">فون نمبر</span>
+          </div>
+          <input type="tel" id="phone" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="03001234567">
+        </div>
+
+        <!-- Date & Time Slot Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">تاریخ</span>
+            </div>
+            <input type="date" id="appointmentDate" required 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">وقت</span>
+            </div>
+            <select id="timeSlot" 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+              <option>10:00 AM - 12:00 PM</option>
+              <option>02:00 PM - 04:00 PM</option>
+              <option>05:00 PM - 07:00 PM</option>
+              <option>08:00 PM - 10:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Therapy Type -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">علاج کی قسم</span>
+          </div>
+          <select id="therapyType" 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+            <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
+            <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
+            <option>Full Body Detox — فل باڈی ڈیٹاکس</option>
+            <option>General Consultation — عام معائنہ</option>
+          </select>
+        </div>
+
+        <!-- Submit Button inside Modal -->
+        <button type="submit" id="submitBtn" 
+          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        </button>
+
+      </form>
+
+      <!-- Status Message -->
+      <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
+    const form = document.getElementById('appointmentForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      submitBtn.innerHTML = `
+        <span class="uppercase tracking-wider text-xs sm:text-sm">Booking...</span>
+        <span class="urdu-text text-base">بُکنگ ہو رہی ہے...</span>
+      `;
+
+      const data = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        appointmentDate: document.getElementById('appointmentDate').value,
+        timeSlot: document.getElementById('timeSlot').value,
+        therapyType: document.getElementById('therapyType').value
+      };
+
+      fetch(scriptURL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
+        statusMessage.innerHTML = `
+          <div>Appointment booked successfully!</div>
+          <div class="urdu-text text-base mt-1">آپ کی اپائنٹمنٹ کامیابی سے بُک ہو گئی ہے!</div>
+        `;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+        `;
+        form.reset();
+      })
+      .catch(error => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-red-50 text-red-800 border border-red-200 block shadow-sm';
+        statusMessage.innerHTML = `
+          <div>Something went wrong. Please try again.</div>
+          <div class="urdu-text text-base mt-1">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>
+        `;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerHTML = `
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
         `;
       });
     });
