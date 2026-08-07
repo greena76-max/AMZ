@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tayyaba Dawakhana & Hijama Center - Appointment Booking</title>
+  <title>TAYYABA DAWAKHANA & HIJAMA CENTER</title>
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -36,108 +36,217 @@
     }
   </style>
 </head>
-<body class="bg-emeraldLight min-h-screen flex items-center justify-center p-3 sm:p-6">
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-  <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden">
-    
-    <!-- Top Green Decorative Header -->
-    <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md">
-      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-wide uppercase">
-        TAYYABA DAWAKHANA & HIJAMA CENTER
-      </h1>
-      <p class="urdu-text text-lg sm:text-xl text-emerald-200 mt-1">
-        طیبہ دواخانہ اینڈ حجامہ سنٹر
-      </p>
-      <div class="mt-2 inline-block bg-white/10 backdrop-blur-md px-4 py-1 rounded-full text-xs tracking-wider uppercase border border-white/20">
-        Online Appointment Portal
+  <!-- Top Navigation Bar -->
+  <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <div>
+        <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
+        <p class="urdu-text text-sm sm:text-base text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+      </div>
+      <button onclick="openBookingModal()" 
+        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow transition flex items-center gap-2 border border-emerald-400">
+        <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
+        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Banner -->
+  <section class="bg-gradient-to-b from-emeraldDark to-emeraldMid text-white py-12 px-4 text-center relative overflow-hidden">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Natural Healing & Sunnah Therapy</span>
+      <h2 class="text-3xl sm:text-5xl font-black mt-4 uppercase tracking-wider">TAYYABA DAWAKHANA & HIJAMA CENTER</h2>
+      <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-2">طیبہ دواخانہ اینڈ حجامہ سنٹر میں خوش آمدید</p>
+      <p class="text-gray-200 mt-4 max-w-2xl mx-auto text-sm sm:text-base">Experience authentic Cupping (Hijama) therapy according to Sunnah standards in a clean, hygienic, and professional environment.</p>
+      
+      <div class="mt-8 flex justify-center gap-4">
+        <button onclick="openBookingModal()" 
+          class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-xl shadow-xl transition transform hover:-translate-y-0.5 flex items-center gap-3">
+          <span class="uppercase tracking-wider">Book Appointment Now</span>
+          <span class="urdu-text text-lg">اپائنٹمنٹ بُک کریں</span>
+        </button>
       </div>
     </div>
+  </section>
 
-    <!-- Booking Form -->
-    <form id="appointmentForm" class="p-6 sm:p-8 space-y-5">
+  <!-- Benefits & Information Section -->
+  <section class="max-w-6xl mx-auto px-4 py-12">
+    <div class="text-center mb-10">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Benefits of Hijama / حجامہ کے فوائد</h3>
+      <div class="w-16 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       
-      <!-- Full Name -->
-      <div>
-        <div class="flex justify-between items-center mb-1">
-          <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
-          <span class="urdu-text text-sm font-bold text-emeraldDark">مریض کا نام</span>
+      <!-- Card 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-12 h-12 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-xl mb-4">01</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark text-lg">Body Detoxification</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">جسم سے زہریلے مادوں کا اخراج</span>
         </div>
-        <input type="text" id="fullName" required 
-          class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent focus:border-transparent transition" 
-          placeholder="Enter patient name">
+        <p class="text-gray-600 text-sm">Hijama removes stagnant and impure blood from microcirculation, detoxifying your body naturally.</p>
       </div>
 
-      <!-- Phone Number -->
-      <div>
-        <div class="flex justify-between items-center mb-1">
-          <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
-          <span class="urdu-text text-sm font-bold text-emeraldDark">فون نمبر</span>
+      <!-- Card 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-12 h-12 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-xl mb-4">02</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark text-lg">Pain Relief</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">دردوں سے فوری ریلیف</span>
         </div>
-        <input type="tel" id="phone" required 
-          class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent focus:border-transparent transition" 
-          placeholder="03001234567">
+        <p class="text-gray-600 text-sm">Highly effective for back pain, joint stiffness, migraines, and muscle tightness.</p>
       </div>
 
-      <!-- Date & Time Slot Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
-            <span class="urdu-text text-sm font-bold text-emeraldDark">تاریخ</span>
-          </div>
-          <input type="date" id="appointmentDate" required 
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent focus:border-transparent transition">
+      <!-- Card 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
+        <div class="w-12 h-12 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-xl mb-4">03</div>
+        <div class="flex justify-between items-center mb-2">
+          <h4 class="font-bold text-emeraldDark text-lg">Sunnah Health Care</h4>
+          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ سے علاج</span>
         </div>
-
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
-            <span class="urdu-text text-sm font-bold text-emeraldDark">وقت</span>
-          </div>
-          <select id="timeSlot" 
-            class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent focus:border-transparent transition bg-white">
-            <option>10:00 AM - 12:00 PM</option>
-            <option>02:00 PM - 04:00 PM</option>
-            <option>05:00 PM - 07:00 PM</option>
-            <option>08:00 PM - 10:00 PM</option>
-          </select>
-        </div>
+        <p class="text-gray-600 text-sm">Performed under strict hygienic guidelines adhering to Sunnah cupping principles.</p>
       </div>
 
-      <!-- Therapy Type -->
-      <div>
-        <div class="flex justify-between items-center mb-1">
-          <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
-          <span class="urdu-text text-sm font-bold text-emeraldDark">علاج کی قسم</span>
-        </div>
-        <select id="therapyType" 
-          class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent focus:border-transparent transition bg-white">
-          <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
-          <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
-          <option>Full Body Detox — فل باڈی ڈیٹاکس</option>
-          <option>General Consultation — عام معائنہ</option>
-        </select>
-      </div>
+    </div>
+  </section>
 
-      <!-- Submit Button -->
-      <button type="submit" id="submitBtn" 
-        class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg hover:shadow-xl transition duration-300 flex justify-between items-center px-6">
-        <span class="uppercase tracking-wider text-sm">Book Appointment</span>
-        <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
+  <!-- CTA Banner -->
+  <section class="bg-emeraldLight border-y border-emerald-100 py-10 text-center px-4">
+    <h3 class="text-xl sm:text-2xl font-bold text-emeraldDark">Ready to feel healthier? Schedule your session today.</h3>
+    <p class="urdu-text text-xl text-emeraldMid mt-1">کیا آپ اپنا حجامہ کروانا چاہتے ہیں؟ ابھی اپنی باری طے کریں۔</p>
+    <button onclick="openBookingModal()" 
+      class="mt-5 bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3 px-8 rounded-xl shadow-lg transition">
+      Book Appointment / اپائنٹمنٹ بُک کریں
+    </button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-400 py-6 text-center text-xs">
+    <p>© 2026 TAYYABA DAWAKHANA & HIJAMA CENTER. All rights reserved.</p>
+  </footer>
+
+  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT) -->
+  <div id="bookingModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
+    
+    <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/20 hover:bg-black/40 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
+        &times;
       </button>
 
-    </form>
+      <!-- Top Green Decorative Header -->
+      <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md pr-12">
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">
+          TAYYABA DAWAKHANA & HIJAMA CENTER
+        </h2>
+        <p class="urdu-text text-lg sm:text-xl text-emerald-200 -mt-1">
+          طیبہ دواخانہ اینڈ حجامہ سنٹر
+        </p>
+        <div class="mt-1 inline-block bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase border border-white/20">
+          ONLINE APPOINTMENT PORTAL
+        </div>
+      </div>
 
-    <!-- Message Alert -->
-    <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
+      <!-- Booking Form -->
+      <form id="appointmentForm" class="p-6 space-y-4">
+        
+        <!-- Full Name -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">مریض کا نام</span>
+          </div>
+          <input type="text" id="fullName" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="Enter patient name">
+        </div>
 
+        <!-- Phone Number -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">فون نمبر</span>
+          </div>
+          <input type="tel" id="phone" required 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
+            placeholder="03001234567">
+        </div>
+
+        <!-- Date & Time Slot Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">تاریخ</span>
+            </div>
+            <input type="date" id="appointmentDate" required 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition">
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
+              <span class="urdu-text text-sm font-bold text-emeraldDark">وقت</span>
+            </div>
+            <select id="timeSlot" 
+              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+              <option>10:00 AM - 12:00 PM</option>
+              <option>02:00 PM - 04:00 PM</option>
+              <option>05:00 PM - 07:00 PM</option>
+              <option>08:00 PM - 10:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Therapy Type -->
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
+            <span class="urdu-text text-sm font-bold text-emeraldDark">علاج کی قسم</span>
+          </div>
+          <select id="therapyType" 
+            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+            <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
+            <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
+            <option>Full Body Detox — فل باڈی ڈیٹاکس</option>
+            <option>General Consultation — عام معائنہ</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submitBtn" 
+          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Book Appointment</span>
+          <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
+        </button>
+
+      </form>
+
+      <!-- Status Message -->
+      <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
+
+    </div>
   </div>
 
+  <!-- JavaScript Functions -->
   <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
     const form = document.getElementById('appointmentForm');
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
+
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+    }
 
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -145,7 +254,7 @@
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
       submitBtn.innerHTML = `
-        <span class="uppercase tracking-wider text-sm">Booking...</span>
+        <span class="uppercase tracking-wider text-xs sm:text-sm">Booking...</span>
         <span class="urdu-text text-base">بُکنگ ہو رہی ہے...</span>
       `;
 
@@ -174,7 +283,7 @@
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
         submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-sm">Book Appointment</span>
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Book Appointment</span>
           <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
         `;
         form.reset();
@@ -188,7 +297,7 @@
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
         submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-sm">Book Appointment</span>
+          <span class="uppercase tracking-wider text-xs sm:text-sm">Book Appointment</span>
           <span class="urdu-text text-base">اپائنٹمنٹ بُک کریں</span>
         `;
       });
