@@ -293,6 +293,7 @@
 
       fetch(scriptURL, {
         method: 'POST',
+        mode: 'cors',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(data)
       })
@@ -307,10 +308,10 @@
           `;
           document.getElementById('appointmentForm').reset();
         } else {
-          throw new Error();
+          throw new Error(response.message || 'Error occurred');
         }
       })
-      .catch(() => {
+      .catch((err) => {
         statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center bg-red-50 text-red-800 border border-red-200 block shadow-sm';
         statusMessage.innerHTML = `<div>Something went wrong. Please try again.</div><div class="urdu-text text-base mt-1">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>`;
       })
