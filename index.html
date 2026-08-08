@@ -38,24 +38,33 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-  <!-- TOP NAVIGATION BAR (BUTTON #1) -->
+  <!-- TOP NAVIGATION BAR -->
   <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg border-b border-emerald-800">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center gap-2">
       <div>
         <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
         <p class="urdu-text text-sm sm:text-base text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
       </div>
       
-      <!-- BUTTON 1 -->
-      <button onclick="openBookingModal()" 
-        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105">
-        <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
-        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
-      </button>
+      <div class="flex items-center gap-2">
+        <!-- TRACKING BUTTON -->
+        <button onclick="openTrackingModal()" 
+          class="bg-white/10 hover:bg-white/20 text-white font-bold py-2 px-3 sm:px-4 rounded-full border border-white/30 transition text-xs sm:text-sm flex items-center gap-1">
+          <span>Track Status</span>
+          <span class="urdu-text text-xs sm:text-sm hidden sm:inline">سٹیٹس چیک کریں</span>
+        </button>
+
+        <!-- BOOKING BUTTON -->
+        <button onclick="openBookingModal()" 
+          class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-3.5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105 text-xs sm:text-sm">
+          <span class="uppercase tracking-wider">Book</span>
+          <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ</span>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- HERO BANNER (BUTTON #2) -->
+  <!-- HERO BANNER -->
   <section class="bg-gradient-to-b from-emeraldDark via-emeraldMid to-emeraldDark text-white py-14 px-4 text-center relative overflow-hidden">
     <div class="max-w-4xl mx-auto relative z-10">
       <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Sunnah Health Care & Natural Medicine</span>
@@ -67,18 +76,23 @@
         Experience authentic Cupping (Hijama) therapy and pure Desi/Unani medicine under strict hygiene standards for holistic natural healing.
       </p>
       
-      <!-- BUTTON 2 -->
-      <div class="mt-8 flex justify-center">
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
         <button onclick="openBookingModal()" 
           class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-2xl shadow-2xl transition transform hover:-translate-y-1 flex items-center gap-3 border-2 border-emerald-300">
           <span class="uppercase tracking-wider text-sm sm:text-base">Book Appointment Now</span>
           <span class="urdu-text text-xl">اپائنٹمنٹ بُک کریں</span>
         </button>
+
+        <button onclick="openTrackingModal()" 
+          class="bg-emeraldDark/80 hover:bg-emeraldDark text-white font-bold py-3.5 px-6 rounded-2xl shadow-xl transition border border-emerald-400 flex items-center gap-2">
+          <span class="uppercase tracking-wider text-sm">Track Appointment</span>
+          <span class="urdu-text text-lg">سٹیٹس دیکھیں</span>
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- SIDE-BY-SIDE VISUAL SERVICES SECTION (Updated Left Image & Right Image) -->
+  <!-- SERVICES SECTION -->
   <section class="max-w-6xl mx-auto px-4 py-12">
     <div class="text-center mb-10">
       <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Our Specialty & Facilities</h3>
@@ -87,8 +101,6 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-      
-      <!-- LEFT SIDE: DESI / UNANI MEDICINE IMAGE (UPDATED IMAGE LINK) -->
       <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
         <div class="h-64 overflow-hidden relative bg-gray-100">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrdvROCzI20hJ1YFF4jS5-j-rGrorokkBxjSpqLjzwDEWxV-QkDA7mzSjy&s=10" alt="Herbal Medicine" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
@@ -115,7 +127,6 @@
         </div>
       </div>
 
-      <!-- RIGHT SIDE: STERILE HIJAMA EQUIPMENT IMAGE -->
       <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
         <div class="h-64 overflow-hidden relative bg-gray-100">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQC-BW8ocVs3btx1fqwEGzJiBQAd6CBcgomRuK1-CQTBQSXEz8uwHgy-w&s=10" alt="Hijama Equipment" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
@@ -141,99 +152,6 @@
           </ul>
         </div>
       </div>
-
-    </div>
-  </section>
-
-  <!-- SPECIAL LADIES SECTION (باپردہ سہولت) -->
-  <section class="max-w-6xl mx-auto px-4 mb-12">
-    <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark rounded-3xl p-6 sm:p-10 text-white shadow-xl border border-emerald-400 relative overflow-hidden">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-        <div class="text-center md:text-left">
-          <span class="bg-emerald-200 text-emeraldDark font-bold text-xs px-3 py-1 rounded-full uppercase tracking-wider">Female Treatment Facility</span>
-          <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">Separate & Private Facility for Ladies</h3>
-          <p class="urdu-text text-2xl sm:text-3xl text-emerald-100 mt-1">خواتین کے لیے علیحدہ اور باپرادہ حجامہ کی سہولت دستیاب ہے</p>
-          <p class="text-emerald-100 text-sm mt-2 max-w-xl">Experienced female cupping therapists are available for female patients in a completely private environment.</p>
-        </div>
-        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 text-center min-w-[220px]">
-          <span class="urdu-text text-2xl font-bold text-emerald-200 block">لیڈیز لیڈی معالج</span>
-          <span class="text-xs text-gray-200 uppercase tracking-widest font-semibold">100% Privacy Guaranteed</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXTENDED HIJAMA BENEFITS SECTION -->
-  <section class="max-w-6xl mx-auto px-4 py-8 mb-12">
-    <div class="text-center mb-10">
-      <h3 class="text-2xl sm:text-3xl font-extrabold text-emeraldDark uppercase">Health Benefits of Hijama / حجامہ کے فوائد</h3>
-      <p class="urdu-text text-xl text-emeraldMid">حجامہ کروانے کے طبی و روحانی فوائد</p>
-      <div class="w-20 h-1 bg-emeraldAccent mx-auto mt-2 rounded-full"></div>
-    </div>
-
-    <!-- 6 Benefits Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      
-      <!-- Benefit 1 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">01</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark">Body Detox</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">زہریلے مادوں سے پاک</span>
-        </div>
-        <p class="text-gray-600 text-xs sm:text-sm">Removes toxic, damaged, and stagnant blood cells from the skin surface.</p>
-      </div>
-
-      <!-- Benefit 2 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">02</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark">Joint & Back Pain</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">کمر اور جوڑوں کا درد</span>
-        </div>
-        <p class="text-gray-600 text-xs sm:text-sm">Provides immediate relief in chronic backache, sciatica, joint stiffness, and muscle pain.</p>
-      </div>
-
-      <!-- Benefit 3 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">03</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark">Migraine & Headaches</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">شقیقہ اور آدھے سر کا درد</span>
-        </div>
-        <p class="text-gray-600 text-xs sm:text-sm">Reduces pressure in cranial blood vessels, treating severe migraines and chronic headaches.</p>
-      </div>
-
-      <!-- Benefit 4 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">04</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark">High Blood Pressure</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">بلڈ پریشر اور شوگر</span>
-        </div>
-        <p class="text-gray-600 text-xs sm:text-sm">Helps stabilize blood circulation, cholesterol levels, and overall vascular balance.</p>
-      </div>
-
-      <!-- Benefit 5 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">05</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark">Stress & Anxiety</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">ذہنی تناؤ اور بے خوابی</span>
-        </div>
-        <p class="text-gray-600 text-xs sm:text-sm">Relaxes the nervous system, improving sleep quality and relieving mental exhaustion.</p>
-      </div>
-
-      <!-- Benefit 6 -->
-      <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:shadow-xl transition">
-        <div class="w-10 h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-lg mb-3">06</div>
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="font-bold text-emeraldDark">Sunnah Healing</h4>
-          <span class="urdu-text font-bold text-emeraldDark text-lg">سنتِ نبویؐ کا برکت والا علاج</span>
-        </div>
-        <p class="text-gray-600 text-xs sm:text-sm">Reviving a blessed Prophetic tradition for spiritual, mental, and physical wellness.</p>
-      </div>
-
     </div>
   </section>
 
@@ -246,63 +164,41 @@
     </div>
   </footer>
 
-  <!-- POPUP BOOKING MODAL (HIDDEN BY DEFAULT) -->
-  <div id="bookingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
-    
+  <!-- POPUP BOOKING MODAL -->
+  <div id="bookingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden">
     <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
-      
-      <!-- Close Button -->
-      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
-        &times;
-      </button>
+      <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">&times;</button>
 
-      <!-- Top Green Decorative Header -->
       <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md pr-12">
-        <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">
-          TAYYABA DAWAKHANA & HIJAMA CENTER
-        </h2>
-        <p class="urdu-text text-lg sm:text-xl text-emerald-200 -mt-1">
-          طیبہ دواخانہ اینڈ حجامہ سنٹر
-        </p>
-        <div class="mt-1 inline-block bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase border border-white/20">
-          ONLINE APPOINTMENT PORTAL
-        </div>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">TAYYABA DAWAKHANA & HIJAMA CENTER</h2>
+        <p class="urdu-text text-lg sm:text-xl text-emerald-200 -mt-1">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
+        <div class="mt-1 inline-block bg-white/10 backdrop-blur-md px-3 py-0.5 rounded-full text-[10px] tracking-wider uppercase border border-white/20">ONLINE APPOINTMENT PORTAL</div>
       </div>
 
-      <!-- Booking Form -->
       <form id="appointmentForm" class="p-6 space-y-4">
-        
-        <!-- Full Name -->
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
             <span class="urdu-text text-sm font-bold text-emeraldDark">مریض کا نام</span>
           </div>
-          <input type="text" id="fullName" required 
-            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
-            placeholder="Enter patient name">
+          <input type="text" id="fullName" required class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-2 focus:ring-emeraldAccent transition" placeholder="Enter patient name">
         </div>
 
-        <!-- Phone Number -->
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
             <span class="urdu-text text-sm font-bold text-emeraldDark">فون نمبر</span>
           </div>
-          <input type="tel" id="phone" required 
-            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
-            placeholder="03001234567">
+          <input type="tel" id="phone" required class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-2 focus:ring-emeraldAccent transition" placeholder="03001234567">
         </div>
 
-        <!-- Date & Time Slot Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <div class="flex justify-between items-center mb-1">
               <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
               <span class="urdu-text text-sm font-bold text-emeraldDark">تاریخ</span>
             </div>
-            <input type="date" id="appointmentDate" required 
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition">
+            <input type="date" id="appointmentDate" required class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emeraldAccent transition">
           </div>
 
           <div>
@@ -310,8 +206,7 @@
               <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
               <span class="urdu-text text-sm font-bold text-emeraldDark">وقت</span>
             </div>
-            <select id="timeSlot" 
-              class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+            <select id="timeSlot" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-emeraldAccent transition bg-white">
               <option>10:00 AM - 12:00 PM</option>
               <option>02:00 PM - 04:00 PM</option>
               <option>05:00 PM - 07:00 PM</option>
@@ -320,14 +215,12 @@
           </div>
         </div>
 
-        <!-- Therapy Type -->
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
             <span class="urdu-text text-sm font-bold text-emeraldDark">علاج کی قسم</span>
           </div>
-          <select id="therapyType" 
-            class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
+          <select id="therapyType" class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:ring-2 focus:ring-emeraldAccent transition bg-white">
             <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
             <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
             <option>Full Body Detox — فل باڈی ڈیٹاکس</option>
@@ -335,45 +228,60 @@
           </select>
         </div>
 
-        <!-- Submit Button inside Modal -->
-        <button type="submit" id="submitBtn" 
-          class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
+        <button type="submit" id="submitBtn" class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
           <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
           <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
         </button>
-
       </form>
 
-      <!-- Status Message -->
       <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
+    </div>
+  </div>
 
+  <!-- POPUP TRACKING MODAL -->
+  <div id="trackingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden">
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative">
+      <button onclick="closeTrackingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">&times;</button>
+
+      <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-5 px-6 text-center">
+        <h3 class="text-lg font-extrabold uppercase">Track Appointment Status</h3>
+        <p class="urdu-text text-base text-emerald-200 -mt-1">اپائنٹمنٹ کا سٹیٹس معلوم کریں</p>
+      </div>
+
+      <div class="p-6 space-y-4">
+        <div>
+          <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider block mb-1">Enter Tracking ID / ٹریکنگ آئی ڈی درج کریں</label>
+          <input type="text" id="trackInput" placeholder="e.g. TD-1234" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm uppercase font-bold text-center tracking-widest focus:ring-2 focus:ring-emeraldAccent transition">
+        </div>
+
+        <button onclick="checkStatus()" id="trackBtn" class="w-full bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-3 rounded-xl shadow-md transition flex justify-center items-center gap-2">
+          <span>Check Status</span>
+          <span class="urdu-text text-base">سٹیٹس چیک کریں</span>
+        </button>
+
+        <div id="trackingResult" class="hidden p-4 rounded-xl border text-sm space-y-2"></div>
+      </div>
     </div>
   </div>
 
   <!-- JavaScript Logic -->
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
-    const form = document.getElementById('appointmentForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const statusMessage = document.getElementById('statusMessage');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbZ1-BGz2PFtGHqMr-LQt7zgd8gBmhZqOzrspY8OE8RDY_RIt8oREXq2E9zBuzGAxoV/exec';
+    
+    function openBookingModal() { document.getElementById('bookingModal').classList.remove('hidden'); }
+    function closeBookingModal() { document.getElementById('bookingModal').classList.add('hidden'); }
+    function openTrackingModal() { document.getElementById('trackingModal').classList.remove('hidden'); }
+    function closeTrackingModal() { document.getElementById('trackingModal').classList.add('hidden'); }
 
-    function openBookingModal() {
-      document.getElementById('bookingModal').classList.remove('hidden');
-    }
-
-    function closeBookingModal() {
-      document.getElementById('bookingModal').classList.add('hidden');
-    }
-
-    form.addEventListener('submit', e => {
+    // SUBMIT APPOINTMENT FORM
+    document.getElementById('appointmentForm').addEventListener('submit', e => {
       e.preventDefault();
-      
+      const submitBtn = document.getElementById('submitBtn');
+      const statusMessage = document.getElementById('statusMessage');
+
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
-      submitBtn.innerHTML = `
-        <span class="uppercase tracking-wider text-xs sm:text-sm">Booking...</span>
-        <span class="urdu-text text-base">بُکنگ ہو رہی ہے...</span>
-      `;
+      submitBtn.innerHTML = `<span>Booking...</span><span class="urdu-text text-base">بُکنگ ہو رہی ہے...</span>`;
 
       const data = {
         fullName: document.getElementById('fullName').value,
@@ -385,40 +293,93 @@
 
       fetch(scriptURL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(data)
       })
-      .then(() => {
-        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
-        statusMessage.innerHTML = `
-          <div>Appointment booked successfully!</div>
-          <div class="urdu-text text-base mt-1">آپ کی اپائنٹمنٹ کامیابی سے بُک ہو گئی ہے!</div>
-        `;
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-        submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
-          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
-        `;
-        form.reset();
+      .then(res => res.json())
+      .then(response => {
+        if(response.result === 'success') {
+          statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
+          statusMessage.innerHTML = `
+            <div class="font-bold text-base">Booking Request Submitted!</div>
+            <div class="text-xs text-gray-600 mt-1">Your Tracking ID: <span class="font-extrabold text-emeraldDark text-sm">${response.trackingId}</span></div>
+            <div class="urdu-text text-base mt-1">آپ کی درخواست موصول ہو گئی ہے۔ ٹریکنگ آئی ڈی سنبھال کر رکھیں۔</div>
+          `;
+          document.getElementById('appointmentForm').reset();
+        } else {
+          throw new Error();
+        }
       })
-      .catch(error => {
-        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-red-50 text-red-800 border border-red-200 block shadow-sm';
-        statusMessage.innerHTML = `
-          <div>Something went wrong. Please try again.</div>
-          <div class="urdu-text text-base mt-1">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>
-        `;
+      .catch(() => {
+        statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center bg-red-50 text-red-800 border border-red-200 block shadow-sm';
+        statusMessage.innerHTML = `<div>Something went wrong. Please try again.</div><div class="urdu-text text-base mt-1">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>`;
+      })
+      .finally(() => {
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-        submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
-          <span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>
-        `;
+        submitBtn.innerHTML = `<span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span><span class="urdu-text text-base">اپائنٹمنٹ کی تصدیق کریں</span>`;
       });
     });
+
+    // CHECK STATUS
+    function checkStatus() {
+      const trackingId = document.getElementById('trackInput').value.trim();
+      const trackBtn = document.getElementById('trackBtn');
+      const resultDiv = document.getElementById('trackingResult');
+
+      if (!trackingId) {
+        alert("Please enter Tracking ID");
+        return;
+      }
+
+      trackBtn.disabled = true;
+      trackBtn.innerText = "Checking...";
+
+      fetch(`${scriptURL}?trackingId=${encodeURIComponent(trackingId)}`)
+      .then(res => res.json())
+      .then(data => {
+        resultDiv.classList.remove('hidden');
+        if (data.result === 'found') {
+          let badgeColor = "bg-yellow-100 text-yellow-800 border-yellow-300";
+          let statusTextUrdu = "زیر التواء (Pending)";
+
+          if (data.status === 'Approved') {
+            badgeColor = "bg-green-100 text-green-800 border-green-300";
+            statusTextUrdu = "منظور شدہ (Approved)";
+          } else if (data.status === 'Rejected') {
+            badgeColor = "bg-red-100 text-red-800 border-red-300";
+            statusTextUrdu = "مسترد (Rejected)";
+          }
+
+          resultDiv.className = "p-4 rounded-xl border bg-gray-50 text-xs space-y-2";
+          resultDiv.innerHTML = `
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="font-bold text-gray-600">Patient:</span>
+              <span class="font-extrabold text-emeraldDark text-sm">${data.fullName}</span>
+            </div>
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="font-bold text-gray-600">Date & Time:</span>
+              <span>${data.appointmentDate} (${data.timeSlot})</span>
+            </div>
+            <div class="flex justify-between items-center pt-1">
+              <span class="font-bold text-gray-600">Status:</span>
+              <span class="px-3 py-1 rounded-full text-xs font-extrabold border ${badgeColor}">${data.status}</span>
+            </div>
+            <div class="text-center urdu-text text-sm font-bold pt-1 text-emeraldDark">${statusTextUrdu}</div>
+          `;
+        } else {
+          resultDiv.className = "p-4 rounded-xl border bg-red-50 text-red-800 text-center text-xs";
+          resultDiv.innerHTML = `<div>Tracking ID not found! Check and try again.</div><div class="urdu-text text-sm mt-1">یہ ٹریکنگ آئی ڈی موجود نہیں ہے۔</div>`;
+        }
+      })
+      .catch(() => {
+        alert("Error fetching status.");
+      })
+      .finally(() => {
+        trackBtn.disabled = false;
+        trackBtn.innerHTML = `<span>Check Status</span><span class="urdu-text text-base">سٹیٹس چیک کریں</span>`;
+      });
+    }
   </script>
 
 </body>
