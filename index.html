@@ -244,14 +244,14 @@
       <button onclick="closeTrackingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">&times;</button>
 
       <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-5 px-6 text-center">
-        <h3 class="text-lg font-extrabold uppercase">Track Appointment Status</h3>
+        <h3 class="text-lg font-extrabold uppercase tracking-wide">Track Appointment Status</h3>
         <p class="urdu-text text-base text-emerald-200 -mt-1">اپائنٹمنٹ کا سٹیٹس معلوم کریں</p>
       </div>
 
       <div class="p-6 space-y-4">
         <div>
           <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider block mb-1">Enter Tracking ID / ٹریکنگ آئی ڈی درج کریں</label>
-          <input type="text" id="trackInput" placeholder="e.g. TD-1234" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm uppercase font-bold text-center tracking-widest focus:ring-2 focus:ring-emeraldAccent transition">
+          <input type="text" id="trackInput" placeholder="e.g. TD-1234" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-sm uppercase font-bold text-center tracking-widest focus:ring-2 focus:ring-emeraldAccent transition shadow-sm">
         </div>
 
         <button onclick="checkStatus()" id="trackBtn" class="w-full bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-3 rounded-xl shadow-md transition flex justify-center items-center gap-2">
@@ -259,7 +259,7 @@
           <span class="urdu-text text-base">سٹیٹس چیک کریں</span>
         </button>
 
-        <div id="trackingResult" class="hidden p-4 rounded-xl border text-sm space-y-2"></div>
+        <div id="trackingResult" class="hidden"></div>
       </div>
     </div>
   </div>
@@ -272,6 +272,16 @@
     function closeBookingModal() { document.getElementById('bookingModal').classList.add('hidden'); }
     function openTrackingModal() { document.getElementById('trackingModal').classList.remove('hidden'); }
     function closeTrackingModal() { document.getElementById('trackingModal').classList.add('hidden'); }
+
+    // Helper Function: Format Date Cleanly
+    function formatDateClean(dateStr) {
+      if (!dateStr) return '';
+      // Extract YYYY-MM-DD if ISO string exists
+      const cleanStr = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+      const d = new Date(cleanStr);
+      if (isNaN(d.getTime())) return cleanStr;
+      return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
 
     // SUBMIT APPOINTMENT FORM
     document.getElementById('appointmentForm').addEventListener('submit', e => {
@@ -341,36 +351,44 @@
       .then(data => {
         resultDiv.classList.remove('hidden');
         if (data.result === 'found') {
-          let badgeColor = "bg-yellow-100 text-yellow-800 border-yellow-300";
+          let badgeColor = "bg-amber-50 text-amber-700 border-amber-300";
           let statusTextUrdu = "زیر التواء (Pending)";
 
           if (data.status === 'Approved') {
-            badgeColor = "bg-green-100 text-green-800 border-green-300";
+            badgeColor = "bg-emerald-50 text-emerald-700 border-emerald-300";
             statusTextUrdu = "منظور شدہ (Approved)";
           } else if (data.status === 'Rejected') {
-            badgeColor = "bg-red-100 text-red-800 border-red-300";
+            badgeColor = "bg-red-50 text-red-700 border-red-300";
             statusTextUrdu = "مسترد (Rejected)";
           }
 
-          resultDiv.className = "p-4 rounded-xl border bg-gray-50 text-xs space-y-2";
+          const formattedDate = formatDateClean(data.appointmentDate);
+          const formattedName = data.fullName.charAt(0).toUpperCase() + data.fullName.slice(1);
+
           resultDiv.innerHTML = `
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="font-bold text-gray-600">Patient:</span>
-              <span class="font-extrabold text-emeraldDark text-sm">${data.fullName}</span>
+            <div class="p-4 rounded-xl border border-gray-200 bg-white shadow-sm text-xs space-y-3">
+              <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                <span class="font-bold text-gray-500 uppercase tracking-wider text-[11px]">Patient Name</span>
+                <span class="font-extrabold text-gray-900 text-sm capitalize">${formattedName}</span>
+              </div>
+              <div class="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                <span class="font-bold text-gray-500 uppercase tracking-wider text-[11px]">Date & Time</span>
+                <span class="font-semibold text-gray-800 text-xs">${formattedDate} <span class="text-gray-400">(${data.timeSlot})</span></span>
+              </div>
+              <div class="flex justify-between items-center pt-0.5">
+                <span class="font-bold text-gray-500 uppercase tracking-wider text-[11px]">Status</span>
+                <span class="px-3 py-1 rounded-full text-xs font-bold border ${badgeColor}">${data.status}</span>
+              </div>
+              <div class="text-center urdu-text text-base font-bold pt-1 border-t border-gray-100 text-emeraldDark">${statusTextUrdu}</div>
             </div>
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="font-bold text-gray-600">Date & Time:</span>
-              <span>${data.appointmentDate} (${data.timeSlot})</span>
-            </div>
-            <div class="flex justify-between items-center pt-1">
-              <span class="font-bold text-gray-600">Status:</span>
-              <span class="px-3 py-1 rounded-full text-xs font-extrabold border ${badgeColor}">${data.status}</span>
-            </div>
-            <div class="text-center urdu-text text-sm font-bold pt-1 text-emeraldDark">${statusTextUrdu}</div>
           `;
         } else {
-          resultDiv.className = "p-4 rounded-xl border bg-red-50 text-red-800 text-center text-xs";
-          resultDiv.innerHTML = `<div>Tracking ID not found! Check and try again.</div><div class="urdu-text text-sm mt-1">یہ ٹریکنگ آئی ڈی موجود نہیں ہے۔</div>`;
+          resultDiv.innerHTML = `
+            <div class="p-4 rounded-xl border border-red-200 bg-red-50 text-red-800 text-center text-xs shadow-sm">
+              <div class="font-bold">Tracking ID not found!</div>
+              <div class="urdu-text text-sm mt-1">یہ ٹریکنگ آئی ڈی موجود نہیں ہے۔</div>
+            </div>
+          `;
         }
       })
       .catch(() => {
