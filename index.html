@@ -236,9 +236,9 @@
     </div>
   </div>
 
-  <!-- STYLISH POPUP TRACKING MODAL -->
+  <!-- POPUP TRACKING MODAL -->
   <div id="trackingModal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-3 hidden">
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden relative transform transition-all">
+    <div class="max-w-lg w-full bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden relative transform transition-all">
       <button onclick="closeTrackingModal()" class="absolute top-4 right-4 text-white/80 hover:text-white bg-black/20 hover:bg-black/40 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20 transition">&times;</button>
 
       <!-- Gradient Header -->
@@ -250,7 +250,7 @@
         <p class="urdu-text text-lg text-emerald-200 -mt-1">اپائنٹمنٹ کا سٹیٹس معلوم کریں</p>
       </div>
 
-      <div class="p-6 space-y-5">
+      <div class="p-6 space-y-4">
         <div>
           <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-1.5 text-center">ENTER TRACKING ID / ٹریکنگ آئی ڈی درج کریں</label>
           <input type="text" id="trackInput" placeholder="e.g. TD-9735" class="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 text-base uppercase font-extrabold text-center tracking-widest text-emeraldDark focus:border-emeraldAccent focus:ring-0 transition shadow-inner">
@@ -324,7 +324,7 @@
       });
     });
 
-    // CHECK STATUS WITH STYLISH DESIGN
+    // CHECK STATUS WITH SPLIT SIDE GREEN BOX DESIGN
     function checkStatus() {
       const trackingId = document.getElementById('trackInput').value.trim();
       const trackBtn = document.getElementById('trackBtn');
@@ -345,14 +345,17 @@
       .then(data => {
         resultDiv.classList.remove('hidden');
         if (data.result === 'found') {
-          let badgeBg = "bg-amber-500/10 text-amber-700 border-amber-300";
+          let sideTheme = "from-emeraldDark to-emeraldMid";
+          let statusBadge = "bg-amber-100 text-amber-800 border-amber-300";
           let statusTextUrdu = "زیر التواء (Pending)";
 
           if (data.status === 'Approved') {
-            badgeBg = "bg-emerald-500/10 text-emerald-700 border-emerald-300";
+            sideTheme = "from-emeraldDark to-emeraldMid";
+            statusBadge = "bg-emerald-100 text-emerald-800 border-emerald-300";
             statusTextUrdu = "منظور شدہ (Approved)";
           } else if (data.status === 'Rejected') {
-            badgeBg = "bg-rose-500/10 text-rose-700 border-rose-300";
+            sideTheme = "from-rose-900 to-rose-950";
+            statusBadge = "bg-rose-100 text-rose-800 border-rose-300";
             statusTextUrdu = "مسترد (Rejected)";
           }
 
@@ -373,39 +376,53 @@
           const formattedName = data.fullName.charAt(0).toUpperCase() + data.fullName.slice(1);
 
           resultDiv.innerHTML = `
-            <div class="p-5 rounded-2xl border border-gray-200/80 bg-gradient-to-b from-gray-50/50 to-white shadow-md space-y-4">
+            <div class="mt-4 rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden flex flex-col sm:flex-row">
               
-              <!-- Patient Name -->
-              <div class="flex justify-between items-center border-b border-gray-100 pb-3">
-                <span class="text-[11px] font-black text-gray-400 uppercase tracking-widest">Patient Name</span>
-                <span class="text-base font-extrabold text-gray-900 capitalize tracking-wide">${formattedName}</span>
-              </div>
+              <!-- LEFT SIDE GREEN ACCENT BOX -->
+              <div class="bg-gradient-to-br ${sideTheme} text-white p-5 sm:w-2/5 flex flex-col justify-between items-start relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+                
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-emerald-200 block mb-1">Appointment Record</span>
+                  <h4 class="text-xl font-extrabold capitalize tracking-wide text-white leading-tight">${formattedName}</h4>
+                </div>
 
-              <!-- Date & Time -->
-              <div class="flex justify-between items-center border-b border-gray-100 pb-3">
-                <span class="text-[11px] font-black text-gray-400 uppercase tracking-widest">Date & Time</span>
-                <div class="text-right">
-                  <div class="text-xs font-extrabold text-gray-800">${cleanDate}</div>
-                  <div class="text-[11px] font-semibold text-emeraldAccent mt-0.5">${data.timeSlot}</div>
+                <div class="mt-4 pt-3 border-t border-white/20 w-full">
+                  <span class="text-[10px] text-emerald-200 uppercase tracking-widest block">Tracking ID</span>
+                  <span class="text-sm font-mono font-bold tracking-wider text-white">${trackingId.toUpperCase()}</span>
                 </div>
               </div>
 
-              <!-- Status -->
-              <div class="flex justify-between items-center pt-1">
-                <span class="text-[11px] font-black text-gray-400 uppercase tracking-widest">Status</span>
-                <span class="px-3.5 py-1 rounded-full text-xs font-extrabold border ${badgeBg} shadow-sm">${data.status}</span>
-              </div>
+              <!-- RIGHT SIDE DETAILS PANEL -->
+              <div class="p-5 sm:w-3/5 space-y-3.5 bg-gray-50/50 flex flex-col justify-center">
+                
+                <!-- Date & Time Row -->
+                <div class="flex justify-between items-center border-b border-gray-200/80 pb-2.5">
+                  <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Date & Time</span>
+                  <div class="text-right">
+                    <div class="text-xs font-extrabold text-gray-900">${cleanDate}</div>
+                    <div class="text-[11px] font-bold text-emeraldMid mt-0.5">${data.timeSlot}</div>
+                  </div>
+                </div>
 
-              <!-- Urdu Status Footer -->
-              <div class="text-center urdu-text text-lg font-bold pt-2 border-t border-gray-100 text-emeraldDark">
-                ${statusTextUrdu}
+                <!-- Status Row -->
+                <div class="flex justify-between items-center border-b border-gray-200/80 pb-2.5">
+                  <span class="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Status</span>
+                  <span class="px-3 py-1 rounded-full text-xs font-extrabold border ${statusBadge} shadow-sm">${data.status}</span>
+                </div>
+
+                <!-- Urdu Status Footer -->
+                <div class="text-center urdu-text text-base font-bold text-emeraldDark pt-1">
+                  ${statusTextUrdu}
+                </div>
+
               </div>
 
             </div>
           `;
         } else {
           resultDiv.innerHTML = `
-            <div class="p-4 rounded-2xl border border-rose-200 bg-rose-50 text-rose-800 text-center text-xs shadow-sm">
+            <div class="p-4 rounded-2xl border border-rose-200 bg-rose-50 text-rose-800 text-center text-xs shadow-sm mt-4">
               <div class="font-extrabold text-sm">Tracking ID Not Found!</div>
               <div class="urdu-text text-base mt-0.5">یہ ٹریکنگ آئی ڈی موجود نہیں ہے۔</div>
             </div>
