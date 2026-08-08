@@ -174,8 +174,6 @@
 
     <!-- 6 Benefits Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-      
-      <!-- Benefit Cards -->
       <div class="bg-white p-5 sm:p-6 rounded-2xl shadow-sm sm:shadow-md border border-gray-100 hover:shadow-xl transition">
         <div class="w-8 h-8 sm:w-10 sm:h-10 bg-emerald-100 text-emeraldDark rounded-xl flex items-center justify-center font-bold text-sm sm:text-lg mb-2 sm:mb-3">01</div>
         <div class="flex justify-between items-center mb-1 sm:mb-2">
@@ -229,7 +227,6 @@
         </div>
         <p class="text-gray-600 text-xs sm:text-sm">Reviving a blessed Prophetic tradition for spiritual, mental, and physical wellness.</p>
       </div>
-
     </div>
   </section>
 
@@ -266,7 +263,7 @@
       </div>
 
       <!-- Booking Form -->
-      <form id="appointmentForm" class="p-4 sm:p-6 space-y-3.5 overflow-y-auto">
+      <form id="appointmentForm" action="https://script.google.com/macros/s/AKfycbz3_tyaXnjsmDRYAifQ9McCIlE7mWV2flPvR33dNDFX_mmTVHtEQWih71x8FTxu9wuT/exec" method="POST" target="hidden_iframe" class="p-4 sm:p-6 space-y-3.5 overflow-y-auto">
         
         <!-- Full Name -->
         <div>
@@ -274,7 +271,7 @@
             <label class="text-[11px] sm:text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
             <span class="urdu-text text-xs sm:text-sm font-bold text-emeraldDark">مریض کا نام</span>
           </div>
-          <input type="text" id="fullName" required 
+          <input type="text" name="fullName" required 
             class="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
             placeholder="Enter patient name">
         </div>
@@ -285,7 +282,7 @@
             <label class="text-[11px] sm:text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
             <span class="urdu-text text-xs sm:text-sm font-bold text-emeraldDark">فون نمبر</span>
           </div>
-          <input type="tel" id="phone" required 
+          <input type="tel" name="phone" required 
             class="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition" 
             placeholder="03001234567">
         </div>
@@ -297,7 +294,7 @@
               <label class="text-[11px] sm:text-xs font-bold text-emeraldDark uppercase tracking-wider">Date</label>
               <span class="urdu-text text-xs sm:text-sm font-bold text-emeraldDark">تاریخ</span>
             </div>
-            <input type="date" id="appointmentDate" required 
+            <input type="date" name="appointmentDate" required 
               class="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition">
           </div>
 
@@ -306,7 +303,7 @@
               <label class="text-[11px] sm:text-xs font-bold text-emeraldDark uppercase tracking-wider">Time Slot</label>
               <span class="urdu-text text-xs sm:text-sm font-bold text-emeraldDark">وقت</span>
             </div>
-            <select id="timeSlot" 
+            <select name="timeSlot" 
               class="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
               <option>10:00 AM - 12:00 PM</option>
               <option>02:00 PM - 04:00 PM</option>
@@ -322,7 +319,7 @@
             <label class="text-[11px] sm:text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
             <span class="urdu-text text-xs sm:text-sm font-bold text-emeraldDark">علاج کی قسم</span>
           </div>
-          <select id="therapyType" 
+          <select name="therapyType" 
             class="w-full border border-gray-300 rounded-xl px-3 py-2 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent transition bg-white">
             <option>Sunnah Points Cupping — سنت پوائنٹس حجامہ</option>
             <option>Head Hijama (No Shaving) — سر کا حجامہ</option>
@@ -331,7 +328,7 @@
           </select>
         </div>
 
-        <!-- Submit Button inside Modal -->
+        <!-- Submit Button -->
         <button type="submit" id="submitBtn" 
           class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-5 mt-2 active:scale-95">
           <span class="uppercase tracking-wider text-xs">Confirm Booking</span>
@@ -346,11 +343,12 @@
     </div>
   </div>
 
+  <!-- Hidden iframe for submission without page reload -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) { showSuccessMessage(); }"></iframe>
+
   <!-- JavaScript Logic -->
   <script>
-    // Updated Apps Script Web App URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbz3_tyaXnjsmDRYAifQ9McCIlE7mWV2flPvR33dNDFX_mmTVHtEQWih71x8FTxu9wuT/exec';
-    
+    var submitted = false;
     const form = document.getElementById('appointmentForm');
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
@@ -363,60 +361,32 @@
       document.getElementById('bookingModal').classList.add('hidden');
     }
 
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      
+    form.addEventListener('submit', () => {
+      submitted = true;
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
       submitBtn.innerHTML = `
         <span class="uppercase tracking-wider text-xs">Booking...</span>
         <span class="urdu-text text-sm">بُکنگ ہو رہی ہے...</span>
       `;
-
-      const data = {
-        fullName: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
-        appointmentDate: document.getElementById('appointmentDate').value,
-        timeSlot: document.getElementById('timeSlot').value,
-        therapyType: document.getElementById('therapyType').value
-      };
-
-      fetch(scriptURL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-      .then(() => {
-        statusMessage.className = 'mx-4 mb-4 p-3 rounded-xl text-center text-xs sm:text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
-        statusMessage.innerHTML = `
-          <div>Appointment submitted! Status: <strong>Pending</strong></div>
-          <div class="urdu-text text-sm mt-0.5">آپ کی درخواست موصول ہو گئی ہے! (Status: Pending)</div>
-        `;
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-        submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-xs">Confirm Booking</span>
-          <span class="urdu-text text-sm sm:text-base">اپائنٹمنٹ کی تصدیق کریں</span>
-        `;
-        form.reset();
-      })
-      .catch(error => {
-        statusMessage.className = 'mx-4 mb-4 p-3 rounded-xl text-center text-xs sm:text-sm font-semibold bg-red-50 text-red-800 border border-red-200 block shadow-sm';
-        statusMessage.innerHTML = `
-          <div>Something went wrong. Please try again.</div>
-          <div class="urdu-text text-sm mt-0.5">خرابی پیش آئی، دوبارہ کوشش کریں۔</div>
-        `;
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
-        submitBtn.innerHTML = `
-          <span class="uppercase tracking-wider text-xs">Confirm Booking</span>
-          <span class="urdu-text text-sm sm:text-base">اپائنٹمنٹ کی تصدیق کریں</span>
-        `;
-      });
     });
+
+    function showSuccessMessage() {
+      statusMessage.className = 'mx-4 mb-4 p-3 rounded-xl text-center text-xs sm:text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
+      statusMessage.innerHTML = `
+        <div>Appointment submitted! Status: <strong>Pending</strong></div>
+        <div class="urdu-text text-sm mt-0.5">آپ کی درخواست موصول ہو گئی ہے! (Status: Pending)</div>
+      `;
+      
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+      submitBtn.innerHTML = `
+        <span class="uppercase tracking-wider text-xs">Confirm Booking</span>
+        <span class="urdu-text text-sm sm:text-base">اپائنٹمنٹ کی تصدیق کریں</span>
+      `;
+      form.reset();
+      submitted = false;
+    }
   </script>
 
 </body>
