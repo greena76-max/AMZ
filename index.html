@@ -22,7 +22,7 @@
             emeraldLight: '#f4f9f5',
           },
           fontFamily: {
-            urdu: ['JameelNooriNastaleeqRegular', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'serif'],
+            urdu: ['Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'serif'],
           }
         }
       }
@@ -31,24 +31,33 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-  <!-- TOP NAVIGATION BAR (BUTTON #1) -->
+  <!-- TOP NAVIGATION BAR -->
   <nav class="bg-emeraldDark text-white sticky top-0 z-40 shadow-lg border-b border-emerald-800">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center gap-2">
       <div>
         <h1 class="text-base sm:text-xl font-extrabold uppercase tracking-wide">TAYYABA DAWAKHANA</h1>
         <p class="urdu-text text-sm sm:text-base text-emerald-200">طیبہ دواخانہ اینڈ حجامہ سنٹر</p>
       </div>
       
-      <!-- BUTTON 1 -->
-      <button onclick="openBookingModal()" 
-        class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-5 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105">
-        <span class="text-xs sm:text-sm uppercase tracking-wider">Book Appointment</span>
-        <span class="urdu-text text-sm sm:text-base hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
-      </button>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- TRACKING BUTTON -->
+        <button onclick="openTrackingModal()" 
+          class="bg-white/10 hover:bg-white/20 text-emerald-100 hover:text-white font-bold py-2 px-3 sm:px-4 rounded-full border border-emerald-400/40 text-xs sm:text-sm transition flex items-center gap-1.5">
+          <span>Track Status</span>
+          <span class="urdu-text text-xs sm:text-sm hidden md:inline">ترقیاتی حیثیت</span>
+        </button>
+
+        <!-- BOOKING BUTTON -->
+        <button onclick="openBookingModal()" 
+          class="bg-emeraldAccent hover:bg-emeraldMid text-white font-bold py-2 px-4 sm:px-6 rounded-full shadow-md transition flex items-center gap-2 border border-emerald-400 transform hover:scale-105 text-xs sm:text-sm">
+          <span class="uppercase tracking-wider">Book Appointment</span>
+          <span class="urdu-text text-sm hidden sm:inline">اپائنٹمنٹ بُک کریں</span>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- HERO BANNER (BUTTON #2) -->
+  <!-- HERO BANNER -->
   <section class="bg-gradient-to-b from-emeraldDark via-emeraldMid to-emeraldDark text-white py-14 px-4 text-center relative overflow-hidden">
     <div class="max-w-4xl mx-auto relative z-10">
       <span class="bg-white/10 backdrop-blur-md text-emerald-200 text-xs px-4 py-1.5 rounded-full uppercase tracking-widest font-semibold border border-white/20">Sunnah Health Care & Natural Medicine</span>
@@ -60,8 +69,7 @@
         Experience authentic Cupping (Hijama) therapy and pure Desi/Unani medicine under strict hygiene standards for holistic natural healing.
       </p>
       
-      <!-- BUTTON 2 -->
-      <div class="mt-8 flex justify-center">
+      <div class="mt-8 flex justify-center gap-4 flex-wrap">
         <button onclick="openBookingModal()" 
           class="bg-white text-emeraldDark hover:bg-emerald-100 font-black py-3.5 px-8 rounded-2xl shadow-2xl transition transform hover:-translate-y-1 flex items-center gap-3 border-2 border-emerald-300">
           <span class="uppercase tracking-wider text-sm sm:text-base">Book Appointment Now</span>
@@ -81,7 +89,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
       
-      <!-- LEFT SIDE: DESI / UNANI MEDICINE IMAGE -->
+      <!-- DESI / UNANI MEDICINE -->
       <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
         <div class="h-64 overflow-hidden relative bg-gray-100">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrdvROCzI20hJ1YFF4jS5-j-rGrorokkBxjSpqLjzwDEWxV-QkDA7mzSjy&s=10" alt="Herbal Medicine" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
@@ -108,7 +116,7 @@
         </div>
       </div>
 
-      <!-- RIGHT SIDE: STERILE HIJAMA EQUIPMENT IMAGE -->
+      <!-- STERILE HIJAMA EQUIPMENT -->
       <div class="bg-white rounded-2xl shadow-lg border border-emerald-100 overflow-hidden hover:shadow-2xl transition">
         <div class="h-64 overflow-hidden relative bg-gray-100">
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQC-BW8ocVs3btx1fqwEGzJiBQAd6CBcgomRuK1-CQTBQSXEz8uwHgy-w&s=10" alt="Hijama Equipment" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
@@ -244,12 +252,10 @@
     
     <div class="max-w-xl w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative max-h-[90vh] overflow-y-auto">
       
-      <!-- Close Button -->
       <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-white hover:text-gray-200 bg-black/30 hover:bg-black/50 rounded-full w-8 h-8 flex items-center justify-center font-bold text-lg z-20">
         &times;
       </button>
 
-      <!-- Top Green Decorative Header -->
       <div class="bg-gradient-to-r from-emeraldDark via-emeraldMid to-emeraldDark text-white py-6 px-6 text-center shadow-md pr-12">
         <h2 class="text-xl sm:text-2xl font-extrabold tracking-wide uppercase">
           TAYYABA DAWAKHANA & HIJAMA CENTER
@@ -262,10 +268,8 @@
         </div>
       </div>
 
-      <!-- Booking Form -->
       <form id="appointmentForm" class="p-6 space-y-4">
         
-        <!-- Full Name -->
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Full Name</label>
@@ -276,7 +280,6 @@
             placeholder="Enter patient name">
         </div>
 
-        <!-- Phone Number -->
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Phone Number</label>
@@ -287,7 +290,6 @@
             placeholder="03001234567">
         </div>
 
-        <!-- Date & Time Slot Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <div class="flex justify-between items-center mb-1">
@@ -313,7 +315,6 @@
           </div>
         </div>
 
-        <!-- Therapy Type -->
         <div>
           <div class="flex justify-between items-center mb-1">
             <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider">Therapy Type</label>
@@ -328,7 +329,6 @@
           </select>
         </div>
 
-        <!-- Submit Button inside Modal -->
         <button type="submit" id="submitBtn" 
           class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-3.5 px-4 rounded-xl shadow-lg transition flex justify-between items-center px-6 mt-2">
           <span class="uppercase tracking-wider text-xs sm:text-sm">Confirm Booking</span>
@@ -337,9 +337,35 @@
 
       </form>
 
-      <!-- Status Message -->
       <div id="statusMessage" class="hidden mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold border"></div>
 
+    </div>
+  </div>
+
+  <!-- POPUP TRACKING MODAL -->
+  <div id="trackingModal" class="fixed inset-0 bg-black/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 hidden transition-opacity duration-300">
+    <div class="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-emerald-100 overflow-hidden relative p-6">
+      <button onclick="closeTrackingModal()" class="absolute top-3 right-3 text-gray-500 hover:text-black w-8 h-8 flex items-center justify-center font-bold text-xl">
+        &times;
+      </button>
+
+      <div class="text-center mb-4">
+        <h3 class="text-lg font-bold text-emeraldDark uppercase">Track Your Appointment</h3>
+        <p class="urdu-text text-base text-emeraldMid">اپنی اپائنٹمنٹ کی صورتحال معلوم کریں</p>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs font-bold text-emeraldDark uppercase tracking-wider block mb-1">Registered Phone Number</label>
+          <input type="tel" id="trackPhone" placeholder="03001234567" class="w-full border border-gray-300 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emeraldAccent">
+        </div>
+
+        <button onclick="trackAppointment()" class="w-full bg-emeraldDark hover:bg-emeraldMid text-white font-bold py-2.5 rounded-xl transition text-sm">
+          Check Status / چیک کریں
+        </button>
+      </div>
+
+      <div id="trackingResult" class="mt-4 p-3 rounded-lg text-xs hidden"></div>
     </div>
   </div>
 
@@ -356,6 +382,49 @@
 
     function closeBookingModal() {
       document.getElementById('bookingModal').classList.add('hidden');
+    }
+
+    function openTrackingModal() {
+      document.getElementById('trackingModal').classList.remove('hidden');
+    }
+
+    function closeTrackingModal() {
+      document.getElementById('trackingModal').classList.add('hidden');
+    }
+
+    function trackAppointment() {
+      const phone = document.getElementById('trackPhone').value;
+      const resDiv = document.getElementById('trackingResult');
+
+      if (!phone) {
+        alert('Please enter your phone number');
+        return;
+      }
+
+      resDiv.className = 'mt-4 p-3 rounded-lg text-xs bg-gray-100 text-gray-700 block text-center';
+      resDiv.innerHTML = 'Searching appointment records...';
+
+      fetch(`${scriptURL}?phone=${encodeURIComponent(phone)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.status === 'found') {
+            resDiv.className = 'mt-4 p-3 rounded-lg text-xs bg-emerald-50 text-emerald-900 border border-emerald-200 block';
+            resDiv.innerHTML = `
+              <div class="font-bold border-b pb-1 mb-1">Appointment Found!</div>
+              <div><strong>Name:</strong> ${data.fullName}</div>
+              <div><strong>Date:</strong> ${data.appointmentDate}</div>
+              <div><strong>Time:</strong> ${data.timeSlot}</div>
+              <div><strong>Status:</strong> ${data.appointmentStatus || 'Confirmed'}</div>
+            `;
+          } else {
+            resDiv.className = 'mt-4 p-3 rounded-lg text-xs bg-red-50 text-red-800 border border-red-200 block text-center';
+            resDiv.innerHTML = 'No record found for this number.';
+          }
+        })
+        .catch(() => {
+          resDiv.className = 'mt-4 p-3 rounded-lg text-xs bg-red-50 text-red-800 border border-red-200 block text-center';
+          resDiv.innerHTML = 'Error retrieving data. Try again.';
+        });
     }
 
     form.addEventListener('submit', e => {
