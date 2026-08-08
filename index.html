@@ -331,8 +331,8 @@
   </div>
 
   <script>
-    // UPDATED SCRIPT URL
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbxhy7Wli4ZxilakC3P4RwF4tmpvQsjSCpwMPeVfgnWocIMoiHQdbn4ESsklSsxtdMgc/exec';
+    // NEW SCRIPT URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby6v06fkzha3NrplrMOkuCWynHHg6Yxh9zZYcg4myJ2vmfBWrNI-fkrL4j0RNmgjK8P/exec';
     
     function openBookingModal() { document.getElementById('bookingModal').classList.remove('hidden'); }
     function closeBookingModal() { document.getElementById('bookingModal').classList.add('hidden'); }
@@ -385,7 +385,7 @@
       const statusMessage = document.getElementById('statusMessage');
 
       submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-75', 'cursor-not-allowed');
+      submitBtn.innerText = 'Processing...';
 
       const data = {
         fullName: document.getElementById('fullName').value,
@@ -397,22 +397,27 @@
 
       fetch(scriptURL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       })
-      .then(() => {
+      .then(res => res.json())
+      .then(response => {
         statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-emerald-50 text-emerald-900 border border-emerald-200 block shadow-sm';
-        statusMessage.innerHTML = '<div>Appointment booked successfully!</div><div class="urdu-text text-base mt-1">آپ کی اپائنٹمنٹ کامیابی سے بُک ہو گئی ہے!</div>';
+        statusMessage.innerHTML = `
+          <div class="text-base font-bold">Appointment Booked Successfully!</div>
+          <div class="my-2 bg-white p-2 rounded border text-emeraldDark font-mono text-base">
+            Tracking ID: <strong>${response.trackingId}</strong>
+          </div>
+          <div class="urdu-text text-sm">آپ کا ٹریکنگ آئی ڈی اوپر درج ہے، اسے سنبھال کر رکھیں۔</div>
+        `;
         submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerText = 'Confirm Booking';
         form.reset();
       })
       .catch(() => {
         statusMessage.className = 'mx-6 mb-6 p-4 rounded-xl text-center text-sm font-semibold bg-red-50 text-red-800 border border-red-200 block shadow-sm';
         statusMessage.innerHTML = '<div>Something went wrong. Please try again.</div>';
         submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+        submitBtn.innerText = 'Confirm Booking';
       });
     });
   </script>
