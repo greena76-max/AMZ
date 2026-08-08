@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
 
-/* Jameel Noori Nastaliq Font Face */
+/* Jameel Noori Nastaliq Font Face Setup */
 @font-face {
   font-family: 'Jameel Noori Nastaleeq';
   src: url('https://cdn.jsdelivr.net/gh/zaheerakbar/jameel-noori-nastaleeq@master/Jameel%20Noori%20Nastaleeq.ttf') format('truetype');
