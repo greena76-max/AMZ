@@ -48,7 +48,7 @@
             border-radius: 16px;
             border-bottom: 5px solid var(--gold-accent);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .main-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 5px; }
@@ -63,6 +63,39 @@
             padding: 5px 15px;
             border-radius: 20px;
             border: 1px solid rgba(197, 160, 89, 0.4);
+        }
+
+        /* Banner Slider Styling */
+        .banner-slider {
+            position: relative;
+            max-width: 100%;
+            margin: 15px 0 20px 0;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .slide { display: none; }
+        .slide.active { display: block; }
+
+        .banner-card {
+            padding: 20px;
+            color: var(--white);
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .bg-1 { background: linear-gradient(135deg, #0d5c3a, #063822); }
+        .bg-2 { background: linear-gradient(135deg, #c5a059, #8c6a2b); }
+        .bg-3 { background: linear-gradient(135deg, #1e4d3b, #112e23); }
+
+        .banner-card h3 { font-size: 1.3rem; margin-bottom: 5px; }
+        .banner-card p { font-size: 0.95rem; margin: 0; opacity: 0.95; }
+
+        .fade { animation: fadeAnim 0.8s ease-in-out; }
+        @keyframes fadeAnim {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
         }
 
         /* Toggle Buttons */
@@ -192,13 +225,36 @@
 
 <div class="site-wrapper">
 
+    <!-- Header Section -->
     <header class="main-header">
         <h1>طیبہ دوا خانہ اینڈ حجامہ سنٹر</h1>
         <p>طبی و روحانی علاج، خالص دیسی ادویات اور سنتِ نبوی ؐ حجامہ</p>
         <div class="header-address">📍 سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین</div>
     </header>
 
-    <!-- Navigation Buttons -->
+    <!-- 5 Second Auto Banner Slider -->
+    <div class="banner-slider">
+        <div class="slide fade active">
+            <div class="banner-card bg-1">
+                <h3>🏥 ہماری تمام طبی خدمات</h3>
+                <p>حجامہ سیشن (سنتِ نبوی)، دیسی ادویات اور مکمل طبی و روحانی مشورہ دستیاب ہے۔</p>
+            </div>
+        </div>
+        <div class="slide fade">
+            <div class="banner-card bg-2">
+                <h3>🩸 سنتِ نبوی ؐ حجامہ سیشن</h3>
+                <p>جدید، سٹریلائزڈ اور تکلیف دہ طریقہ علاج سے پاک حجامہ سپیشلسٹ کے ساتھ۔</p>
+            </div>
+        </div>
+        <div class="slide fade">
+            <div class="banner-card bg-3">
+                <h3>🌿 خالص دیسی و یونانی ادویات</h3>
+                <p>ہمارے دواخانہ کی قدرتی، بغیر سائیڈ افیکٹ والی مجرب ادویات گھر بیٹھے منگوائیں۔</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
     <div class="action-buttons-container">
         <button type="button" class="btn-toggle" onclick="togglePanel('bookingPanel')">📅 اپائنٹمنٹ / بکنگ کریں</button>
         <button type="button" class="btn-toggle gold-btn" onclick="togglePanel('trackingPanel')">🔍 اپنا ریکارڈ ٹریک کریں</button>
@@ -269,6 +325,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="site-footer">
         طیبہ دوا خانہ اینڈ حجامہ سنٹر | رابطہ: 0347-1420856 | منڈی بہاؤالدین
     </footer>
@@ -278,6 +335,23 @@
 <script>
     // اپنا Google Apps Script Web App URL یہاں پیسٹ کریں
     const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+
+    // Auto Banner Slider (Rotates every 5 Seconds)
+    let slideIndex = 0;
+    autoShowSlides();
+
+    function autoShowSlides() {
+        let slides = document.getElementsByClassName("slide");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1; }
+        if (slides[slideIndex - 1]) {
+            slides[slideIndex - 1].classList.add("active");
+        }
+        setTimeout(autoShowSlides, 5000); // 5000ms = 5 Seconds
+    }
 
     // Panels Display Switch
     function togglePanel(panelId) {
@@ -312,7 +386,7 @@
                 alert(`آپ کی اپائنٹمنٹ کامیابی سے بک ہو گئی ہے!\n\nآپ کا ٹریکنگ نمبر ہے: ${data.trackingNo}\n\nاس نمبر کو سنبھال کر رکھیں تاکہ آپ سٹیٹس چیک کر سکیں۔`);
                 document.getElementById('appointmentForm').reset();
                 
-                // Switch to tracking view directly
+                // Direct jump to tracking panel
                 togglePanel('trackingPanel');
                 document.getElementById('trackingInput').value = data.trackingNo;
                 searchStatus();
@@ -354,7 +428,6 @@
                 document.getElementById('resService').innerText = data.service;
                 document.getElementById('resDate').innerText = data.date;
 
-                // Status Badge Color Handling
                 let statusHtml = `<span class="badge badge-pending">Pending</span>`;
                 if (data.appStatus === 'Accepted') {
                     statusHtml = `<span class="badge badge-accepted">Accepted (منظور)</span>`;
