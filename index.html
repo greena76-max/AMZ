@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طیبہ دوا خانہ اینڈ حجامہ سنٹر - آن لائن مینیجمنٹ سسٹم</title>
+    <title>طیبہ دوا خانہ اینڈ حجامہ سنٹر</title>
     
-    <!-- Google Fonts: Cairo and Amiri -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom Font Fallback & Urdu Settings */
         @font-family {
             font-family: 'Jameel Noori Nastaleeq';
             src: local('Jameel Noori Nastaleeq'), local('Aslam'), url('https://fonts.gstatic.com/ea/jameelnoorinastaleeq/v1/JameelNooriNastaleeq.ttf') format('truetype');
@@ -22,316 +21,86 @@
             --dark-green: #063822;
             --gold-accent: #c5a059;
             --light-gold: #f7e7c4;
-            --bg-light: #f4f9f6;
             --card-border: #e1ece7;
             --text-dark: #1a2b25;
-            --text-muted: #556b62;
             --white: #ffffff;
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Cairo', 'Jameel Noori Nastaleeq', 'Amiri', Tahoma, sans-serif;
+            font-family: 'Cairo', 'Jameel Noori Nastaleeq', sans-serif;
             background-color: #f8faf9;
             color: var(--text-dark);
             direction: rtl;
             text-align: right;
             line-height: 1.8;
-            overflow-x: hidden;
-        }
-
-        /* Container & Scaffolding */
-        .site-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 12px;
-            width: 100%;
         }
 
-        /* Header Layout */
+        .site-wrapper { max-width: 1000px; margin: 0 auto; }
+
+        /* Header */
         .main-header {
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-green) 100%);
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
             color: var(--white);
             padding: 25px 15px;
             border-radius: 16px;
             border-bottom: 5px solid var(--gold-accent);
-            box-shadow: 0 10px 25px rgba(13, 92, 58, 0.2);
             text-align: center;
-            position: relative;
             margin-bottom: 20px;
-            word-wrap: break-word;
         }
 
-        .main-header h1 {
-            font-family: 'Cairo', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
-            line-height: 1.3;
-        }
-
-        .main-header p {
-            font-size: 1.1rem;
-            color: #e0f2e9;
-            font-weight: 400;
-            line-height: 1.5;
-        }
+        .main-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 5px; }
+        .main-header p { font-size: 1rem; color: #e0f2e9; }
 
         .header-address {
             margin-top: 10px;
-            font-size: 0.98rem;
-            color: #f7e7c4;
-            background: rgba(0, 0, 0, 0.15);
+            font-size: 0.9rem;
+            color: var(--light-gold);
+            background: rgba(0, 0, 0, 0.2);
             display: inline-block;
-            padding: 6px 16px;
+            padding: 5px 15px;
             border-radius: 20px;
             border: 1px solid rgba(197, 160, 89, 0.4);
         }
 
-        .header-badge {
-            display: inline-block;
-            background-color: rgba(197, 160, 89, 0.2);
-            border: 1px solid var(--gold-accent);
-            color: var(--light-gold);
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-size: 0.88rem;
-            margin-top: 10px;
-            font-weight: 600;
-        }
-
-        /* Navigation Bar */
-        .nav-bar {
-            background-color: var(--white);
-            border-radius: 12px;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1px solid var(--card-border);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            list-style: none;
-            flex-wrap: wrap;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--primary-green);
-            font-weight: 700;
-            font-size: 1rem;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--gold-accent);
-        }
-
-        .nav-contact {
-            font-size: 0.95rem;
-            color: var(--primary-green);
-        }
-
-        /* Notice / Intro Banner */
-        .intro-banner {
-            background-color: #eef7f3;
-            border-right: 5px solid var(--primary-green);
-            padding: 15px 18px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-size: 1rem;
-            color: var(--text-dark);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            line-height: 1.7;
-        }
-
-        /* Section Headings */
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin: 30px 0 15px 0;
-        }
-
-        .section-title {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-green);
-            border-right: 6px solid var(--gold-accent);
-            padding-right: 12px;
-            line-height: 1.3;
-        }
-
-        /* Hijama Benefits Grid */
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .benefit-card {
-            background-color: var(--white);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--gold-accent);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-        }
-
-        .card-badge {
-            width: 38px;
-            height: 38px;
-            background-color: var(--primary-green);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        .benefit-card h3 {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.2rem;
-            color: var(--primary-green);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .benefit-card p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Medicine Table Styling */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            background: var(--white);
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            margin-bottom: 25px;
-        }
-
-        .medicine-table {
-            width: 100%;
-            min-width: 500px;
-            border-collapse: collapse;
-            text-align: right;
-        }
-
-        .medicine-table th {
-            background-color: var(--primary-green);
-            color: var(--white);
-            padding: 12px 15px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .medicine-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eef4f1;
-            font-size: 0.95rem;
-        }
-
-        .medicine-table tr:hover {
-            background-color: #f9fdfb;
-        }
-
-        .tag-status {
-            background-color: #e8f4ee;
-            color: var(--primary-green);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        /* Action Buttons Section */
+        /* Toggle Buttons */
         .action-buttons-container {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin: 20px 0;
             flex-wrap: wrap;
         }
 
         .btn-toggle {
             background-color: var(--primary-green);
             color: var(--white);
-            border: 2px solid var(--primary-green);
+            border: none;
             padding: 14px 20px;
             border-radius: 10px;
             font-family: 'Cairo', sans-serif;
             font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
             flex: 1;
             min-width: 200px;
             text-align: center;
+            transition: 0.3s;
         }
 
-        .btn-toggle:hover {
-            background-color: var(--dark-green);
-            border-color: var(--dark-green);
-        }
+        .btn-toggle.gold-btn { background-color: var(--gold-accent); }
+        .btn-toggle:hover { opacity: 0.9; }
 
-        .btn-toggle.gold-btn {
-            background-color: var(--gold-accent);
-            border-color: var(--gold-accent);
-        }
-
-        .btn-toggle.gold-btn:hover {
-            background-color: #b08d48;
-            border-color: #b08d48;
-        }
-
-        /* Collapsible Form & Panel Wrappers (Hidden by Default) */
+        /* Collapsible Panels */
         .collapsible-panel {
             display: none;
-            background: linear-gradient(180deg, var(--white) 0%, #f4f9f6 100%);
+            background: var(--white);
             border: 2px dashed var(--primary-green);
             border-radius: 16px;
-            padding: 20px 15px;
-            margin-bottom: 30px;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .form-grid {
@@ -341,17 +110,8 @@
             margin-top: 15px;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-weight: 700;
-            color: var(--primary-green);
-            font-size: 1rem;
-        }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-weight: 700; color: var(--primary-green); }
 
         .form-control {
             width: 100%;
@@ -361,92 +121,70 @@
             font-family: 'Cairo', sans-serif;
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.2s ease;
         }
 
-        .form-control:focus {
-            border-color: var(--primary-green);
-            box-shadow: 0 0 0 3px rgba(13, 92, 58, 0.1);
-        }
-
-        .btn-submit-action {
+        .btn-submit {
             background-color: var(--primary-green);
             color: var(--white);
             border: none;
-            padding: 12px 20px;
+            padding: 12px;
             border-radius: 8px;
             font-family: 'Cairo', sans-serif;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
-            transition: background 0.3s ease;
+            margin-top: 18px;
         }
 
-        .btn-submit-action:hover {
-            background-color: var(--dark-green);
+        /* Search Box & Results */
+        .search-box-wrap {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
         }
 
-        /* Tracking Data Output Box */
+        .search-btn {
+            background-color: var(--gold-accent);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
         .data-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
             font-size: 0.95rem;
-            gap: 10px;
         }
 
-        .data-label {
+        .data-label { font-weight: 700; color: var(--primary-green); }
+
+        /* Badges */
+        .badge {
+            padding: 4px 12px;
+            border-radius: 6px;
             font-weight: 700;
-            color: var(--primary-green);
-            text-align: right;
+            font-size: 0.85rem;
         }
+        .badge-pending { background-color: #fff3cd; color: #856404; }
+        .badge-accepted { background-color: #d4edda; color: #155724; }
+        .badge-rejected { background-color: #f8d7da; color: #721c24; }
 
-        .data-value {
-            color: var(--text-dark);
-            text-align: left;
-            word-break: break-word;
-        }
-
-        /* Footer */
         .site-footer {
             background-color: var(--dark-green);
             color: var(--white);
-            padding: 20px 15px;
+            padding: 18px;
             border-radius: 12px;
             text-align: center;
-            font-size: 0.95rem;
-            margin-top: 30px;
-            line-height: 1.8;
-        }
-
-        .site-footer span {
-            color: var(--gold-accent);
-            font-weight: 700;
-            direction: ltr;
-            display: inline-block;
-        }
-
-        .footer-address {
-            color: #e0f2e9;
             font-size: 0.9rem;
-            margin-top: 6px;
-        }
-
-        /* Mobile Optimization Styles */
-        @media (max-width: 600px) {
-            .site-wrapper { padding: 8px; }
-            .main-header { padding: 20px 10px; }
-            .main-header h1 { font-size: 1.6rem; }
-            .main-header p { font-size: 0.95rem; }
-            .header-address { font-size: 0.85rem; }
-            .nav-bar { flex-direction: column; text-align: center; }
-            .nav-links { justify-content: center; width: 100%; }
-            .section-title { font-size: 1.3rem; }
-            .action-buttons-container { flex-direction: column; }
-            .btn-toggle { width: 100%; }
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -454,207 +192,185 @@
 
 <div class="site-wrapper">
 
-    <!-- Header Section -->
     <header class="main-header">
         <h1>طیبہ دوا خانہ اینڈ حجامہ سنٹر</h1>
-        <p>طبی و روحانی علاج، خالص دیسی ادویات اور سنتِ نبوی ؐ حجامہ آن لائن مینیجمنٹ سسٹم</p>
-        <div class="header-address">📍 سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین، پنجاب، پاکستان</div>
-        <br>
-        <div class="header-badge">پیشہ ورانہ، معیاری اور جدید طبی سہولیات</div>
+        <p>طبی و روحانی علاج، خالص دیسی ادویات اور سنتِ نبوی ؐ حجامہ</p>
+        <div class="header-address">📍 سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین</div>
     </header>
 
-    <!-- Navigation Bar -->
-    <nav class="nav-bar">
-        <ul class="nav-links">
-            <li><a href="#intro">ہوم</a></li>
-            <li><a href="#hijama">حجامہ فوائد</a></li>
-            <li><a href="#medicines">دیسی ادویات</a></li>
-            <li><a href="#booking">آن لائن خدمات</a></li>
-        </ul>
-        <div class="nav-contact"><strong>رابطہ: 0347-1420856</strong></div>
-    </nav>
-
-    <!-- Intro Banner -->
-    <div class="intro-banner" id="intro">
-        <strong>خوش آمدید!</strong> طیبہ دوا خانہ میں جدید اور روایتی طب کے امتزاج سے آپ کی صحت کا مکمل خیال رکھا جاتا ہے۔ ہمارے آن لائن پورٹل کے ذریعے گھر بیٹھے حجامہ سیشن بک کریں یا دواخانہ کی خالص دیسی ادویات منگوائیں۔
-    </div>
-
-    <!-- Section 1: Hijama Benefits -->
-    <div class="section-header" id="hijama">
-        <h2 class="section-title">سنتِ نبوی ؐ حجامہ کے اہم فوائد</h2>
-    </div>
-
-    <div class="grid-4">
-        <div class="benefit-card">
-            <div class="card-badge">1</div>
-            <h3>خون کی صفائی و فاسد مادے</h3>
-            <p>حجامہ جسم کے فاسد اور زہریلے خون کو باہر نکال کر دورانِ خون کو بہترین بناتا ہے اور نئی توانائی پیدا کرتا ہے۔</p>
-        </div>
-
-        <div class="benefit-card">
-            <div class="card-badge">2</div>
-            <h3>دائم دردوں سے نجات</h3>
-            <p>جوڑوں کے درد، کمر درد، عرق النساء (سیاٹیکا)، شانہ اور سر درد (مائگرین) میں فوری آرام فراہم کرتا ہے۔</p>
-        </div>
-
-        <div class="benefit-card">
-            <div class="card-badge">3</div>
-            <h3>قوتِ مدافعت میں اضافہ</h3>
-            <p>جسم کے امیون سسٹم کو ایکٹیویٹ کرتا ہے اور مختلف بیماریوں کے خلاف مدافعتی نظام کو مضبوط بناتا ہے۔</p>
-        </div>
-
-        <div class="benefit-card">
-            <div class="card-badge">4</div>
-            <h3>اعصابی سکون و ہیلتھ</h3>
-            <p>ذیابیطس، بلڈ پریشر، ڈپریشن اور اعصابی تناؤ کو کنٹرول کرنے میں مددگار اور ذہنی سکون فراہم کرتا ہے۔</p>
-        </div>
-    </div>
-
-    <!-- Section 2: Medicine Benefits -->
-    <div class="section-header" id="medicines">
-        <h2 class="section-title">خالص دیسی و یونانی ادویات کے فوائد</h2>
-    </div>
-
-    <div class="table-container">
-        <table class="medicine-table">
-            <thead>
-                <tr>
-                    <th>علاج / دوا کی قسم</th>
-                    <th>طبی فوائد و اثرات</th>
-                    <th>خاصیت</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>مقویِ معدہ و جگر</strong></td>
-                    <td>معدے کی تیزابیت، بدہضمی، اور جگر کی گرمش کو دور کر کے نظامِ ہضم کو درست کرتی ہے۔</td>
-                    <td><span class="tag-status">100% قدرتی نسخہ</span></td>
-                </tr>
-                <tr>
-                    <td><strong>مقویِ اعصاب و دماغ</strong></td>
-                    <td>دماغی کمزوری، نسیان (بُھولنے کی بیماری) اور اعصابی تھکاوٹ کو ختم کر کے حافظہ تیز کرتی ہے۔</td>
-                    <td><span class="tag-status">جدید خالص فارمولیشن</span></td>
-                </tr>
-                <tr>
-                    <td><strong>مصفیٰ خون مرکبات</strong></td>
-                    <td>جلد کی بیماریوں، کیل مہاسوں، خارش اور مصفیٰ خون کے لیے انتہائی مؤثر نباتاتی علاج۔</td>
-                    <td><span class="tag-status">مجرب طبی نسخہ جات</span></td>
-                </tr>
-                <tr>
-                    <td><strong>طاقت و توانائی مرکب</strong></td>
-                    <td>جسمانی کمزوری، سستی اور عمومی ناہمواریوں کا مکمل اور پائیدار شفایاب علاج۔</td>
-                    <td><span class="tag-status">طبی ماہرین کی زیرِ نگرانی</span></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Section 3: Action Buttons & Hidden Panels -->
-    <div class="section-header" id="booking">
-        <h2 class="section-title">آن لائن پورٹل و خدمات</h2>
-    </div>
-
-    <!-- Buttons to Toggle Panels -->
+    <!-- Navigation Buttons -->
     <div class="action-buttons-container">
         <button type="button" class="btn-toggle" onclick="togglePanel('bookingPanel')">📅 اپائنٹمنٹ / بکنگ کریں</button>
         <button type="button" class="btn-toggle gold-btn" onclick="togglePanel('trackingPanel')">🔍 اپنا ریکارڈ ٹریک کریں</button>
     </div>
 
-    <!-- Panel 1: Booking Form Panel (Hidden by default) -->
+    <!-- Booking Form Panel -->
     <div id="bookingPanel" class="collapsible-panel">
-        <h3 style="color: var(--primary-green); margin-bottom: 10px;">آن لائن اپائنٹمنٹ فارم</h3>
-        <form id="dawakhanaForm">
+        <h3 style="color: var(--primary-green);">آن لائن اپائنٹمنٹ فارم</h3>
+        <form id="appointmentForm">
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="patientName">مریض کا نام:</label>
+                    <label>مریض کا نام:</label>
                     <input type="text" id="patientName" class="form-control" placeholder="اپنا پورا نام درج کریں" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="patientPhone">رابطہ نمبر:</label>
+                    <label>رابطہ نمبر:</label>
                     <input type="tel" id="patientPhone" class="form-control" placeholder="0347-1420856" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="serviceType">مطلوبہ سروس:</label>
+                    <label>مطلوبہ سروس:</label>
                     <select id="serviceType" class="form-control">
                         <option value="حجامہ سیشن (سنتِ نبوی)">حجامہ سیشن (سنتِ نبوی)</option>
                         <option value="حکیم صاحب سے چیک اپ">حکیم صاحب سے چیک اپ</option>
                         <option value="دیسی ادویات آرڈر">دیسی ادویات آرڈر</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="bookingDate">تاریخ منتخب کریں:</label>
+                    <label>تاریخ منتخب کریں:</label>
                     <input type="date" id="bookingDate" class="form-control" required>
                 </div>
             </div>
-
-            <button type="submit" class="btn-submit-action">بکنگ کے لیے جمع کروائیں</button>
+            <button type="submit" class="btn-submit" id="submitBtn">بکنگ کے لیے جمع کروائیں</button>
         </form>
     </div>
 
-    <!-- Panel 2: Tracking Panel (Hidden by default) -->
+    <!-- Tracking Search Panel -->
     <div id="trackingPanel" class="collapsible-panel">
-        <h3 style="color: var(--primary-green); margin-bottom: 12px; font-size: 1.1rem;">ریکارڈ کی تفصیلات</h3>
-        <div class="data-row">
-            <span class="data-label">نام مریض:</span>
-            <span class="data-value" id="resName">-</span>
+        <h3 style="color: var(--primary-green);">اپنا سٹیٹس تلاش کریں</h3>
+        <p style="font-size: 0.9rem; color: #555;">اپائنٹمنٹ کے وقت ملا ہوا ٹریکنگ نمبر (مثال: TB-1024) نیچے درج کریں:</p>
+        
+        <div class="search-box-wrap">
+            <input type="text" id="trackingInput" class="form-control" placeholder="ٹریکنگ نمبر درج کریں..." style="text-transform: uppercase;">
+            <button type="button" class="search-btn" onclick="searchStatus()">تلاش کریں</button>
         </div>
-        <div class="data-row">
-            <span class="data-label">فون نمبر:</span>
-            <span class="data-value" id="resPhone">-</span>
-        </div>
-        <div class="data-row">
-            <span class="data-label">سروس:</span>
-            <span class="data-value" id="resService">-</span>
-        </div>
-        <div class="data-row">
-            <span class="data-label">تاریخ:</span>
-            <span class="data-value" id="resDate">-</span>
+
+        <!-- Result Details Display Box -->
+        <div id="trackingResult" style="display: none; margin-top: 20px; border-top: 2px solid #eee; padding-top: 10px;">
+            <div class="data-row">
+                <span class="data-label">ٹریکنگ آئی ڈی:</span>
+                <strong id="resTrackingNo" style="color: var(--primary-green);"></strong>
+            </div>
+            <div class="data-row">
+                <span class="data-label">نام مریض:</span>
+                <span id="resName"></span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">سروس:</span>
+                <span id="resService"></span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">تاریخ:</span>
+                <span id="resDate"></span>
+            </div>
+            <div class="data-row">
+                <span class="data-label">موجودہ سٹیٹس:</span>
+                <span id="resStatus"></span>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="site-footer">
-        <div><strong>طیبہ دوا خانہ اینڈ حجامہ سنٹر</strong> | رابطہ نمبر: <span>0347-1420856</span></div>
-        <div class="footer-address">پتہ: سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین، پنجاب، پاکستان</div>
-        <div style="margin-top: 5px; opacity: 0.8; font-size: 0.85rem;">تمام حقوق محفوظ ہیں</div>
+        طیبہ دوا خانہ اینڈ حجامہ سنٹر | رابطہ: 0347-1420856 | منڈی بہاؤالدین
     </footer>
 
 </div>
 
 <script>
-    // Toggle Panels Display
-    function togglePanel(panelId) {
-        const bookingPanel = document.getElementById('bookingPanel');
-        const trackingPanel = document.getElementById('trackingPanel');
+    // اپنا Google Apps Script Web App URL یہاں پیسٹ کریں
+    const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
-        if (panelId === 'bookingPanel') {
-            trackingPanel.style.display = 'none';
-            bookingPanel.style.display = (bookingPanel.style.display === 'block') ? 'none' : 'block';
-        } else if (panelId === 'trackingPanel') {
-            bookingPanel.style.display = 'none';
-            trackingPanel.style.display = (trackingPanel.style.display === 'block') ? 'none' : 'block';
-        }
+    // Panels Display Switch
+    function togglePanel(panelId) {
+        document.getElementById('bookingPanel').style.display = 'none';
+        document.getElementById('trackingPanel').style.display = 'none';
+        document.getElementById(panelId).style.display = 'block';
     }
 
-    // Form Submission Interactive Handler
-    document.getElementById('dawakhanaForm').addEventListener('submit', function(e) {
+    // Submit Form Event
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const name = document.getElementById('patientName').value;
-        const phone = document.getElementById('patientPhone').value;
-        const service = document.getElementById('serviceType').value;
-        const date = document.getElementById('bookingDate').value;
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'برائے مہربانی انتظار کریں...';
 
-        document.getElementById('resName').innerText = name;
-        document.getElementById('resPhone').innerText = phone;
-        document.getElementById('resService').innerText = service;
-        document.getElementById('resDate').innerText = date;
+        const payload = {
+            action: 'book',
+            name: document.getElementById('patientName').value,
+            phone: document.getElementById('patientPhone').value,
+            service: document.getElementById('serviceType').value,
+            bookingDate: document.getElementById('bookingDate').value
+        };
 
-        alert('آپ کی درخواست کامیابی سے موصول ہو گئی ہے!');
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(`آپ کی اپائنٹمنٹ کامیابی سے بک ہو گئی ہے!\n\nآپ کا ٹریکنگ نمبر ہے: ${data.trackingNo}\n\nاس نمبر کو سنبھال کر رکھیں تاکہ آپ سٹیٹس چیک کر سکیں۔`);
+                document.getElementById('appointmentForm').reset();
+                
+                // Switch to tracking view directly
+                togglePanel('trackingPanel');
+                document.getElementById('trackingInput').value = data.trackingNo;
+                searchStatus();
+            } else {
+                alert('کچھ مسئلہ پیش آیا ہے، دوبارہ کوشش کریں۔');
+            }
+        })
+        .catch(err => {
+            alert('ڈیٹا محفوظ کرنے میں دشواری ہوئی۔ اپنا انٹرنیٹ چیک کریں۔');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'بکنگ کے لیے جمع کروائیں';
+        });
     });
+
+    // Search Tracking Status Event
+    function searchStatus() {
+        const trackingNo = document.getElementById('trackingInput').value.trim();
+        const resultDiv = document.getElementById('trackingResult');
+
+        if (!trackingNo) {
+            alert('براہ کرم پہلے ٹریکنگ نمبر درج کریں!');
+            return;
+        }
+
+        resultDiv.style.display = 'none';
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({ action: 'track', trackingNo: trackingNo })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'found') {
+                resultDiv.style.display = 'block';
+                document.getElementById('resTrackingNo').innerText = data.trackingNo;
+                document.getElementById('resName').innerText = data.name;
+                document.getElementById('resService').innerText = data.service;
+                document.getElementById('resDate').innerText = data.date;
+
+                // Status Badge Color Handling
+                let statusHtml = `<span class="badge badge-pending">Pending</span>`;
+                if (data.appStatus === 'Accepted') {
+                    statusHtml = `<span class="badge badge-accepted">Accepted (منظور)</span>`;
+                } else if (data.appStatus === 'Rejected') {
+                    statusHtml = `<span class="badge badge-rejected">Rejected (منسوخ)</span>`;
+                }
+
+                document.getElementById('resStatus').innerHTML = statusHtml;
+            } else {
+                alert('کوئی ریکارڈ نہیں ملا! صحیح ٹریکنگ نمبر چیک کریں۔');
+            }
+        })
+        .catch(err => {
+            alert('ریکارڈ حاصل کرنے میں مسئلہ ہوا۔');
+        });
+    }
 </script>
 
 </body>
