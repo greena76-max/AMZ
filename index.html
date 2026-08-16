@@ -67,17 +67,24 @@
             border: 1px solid rgba(197, 160, 89, 0.4);
         }
 
-        /* Auto Banner Slider */
+        /* Banner Slider */
         .banner-slider {
             position: relative;
             max-width: 100%;
             margin: 15px 0 20px 0;
             overflow: hidden;
             border-radius: 14px;
+            min-height: 110px;
         }
 
-        .slide { display: none; }
-        .slide.active { display: block; }
+        .slide { 
+            display: none; 
+            width: 100%;
+        }
+
+        .slide.active { 
+            display: block; 
+        }
 
         .banner-card {
             padding: 22px 15px;
@@ -563,4 +570,131 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div><strong>طیبہ دوا خانہ اینڈ حجامہ سنٹر</strong> | رابطہ: 0347-1420856</div>
-        <d www
+        <div>پتہ: سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین</div>
+        <div style="opacity: 0.8; font-size: 0.85rem; margin-top: 5px;">تمام حقوق محفوظ ہیں © 2026</div>
+    </footer>
+
+</div>
+
+<script>
+    // اپنا Google Apps Script Web App URL یہاں درج کریں
+    const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+
+    // Auto Banner Slider
+    let currentSlide = 0;
+    const slides = document.getElementsByClassName("slide");
+
+    function showNextSlide() {
+        if (slides.length === 0) return;
+        
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("active");
+        }
+        
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add("active");
+    }
+
+    setInterval(showNextSlide, 5000);
+
+    // Panels Display Switcher
+    function togglePanel(panelId) {
+        const bookingPanel = document.getElementById('bookingPanel');
+        const trackingPanel = document.getElementById('trackingPanel');
+
+        if (panelId === 'bookingPanel') {
+            trackingPanel.style.display = 'none';
+            bookingPanel.style.display = (bookingPanel.style.display === 'block') ? 'none' : 'block';
+        } else if (panelId === 'trackingPanel') {
+            bookingPanel.style.display = 'none';
+            trackingPanel.style.display = (trackingPanel.style.display === 'block') ? 'none' : 'block';
+        }
+    }
+
+    // Submit Form Event
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'برائے مہربانی انتظار کریں...';
+
+        const payload = {
+            action: 'book',
+            name: document.getElementById('patientName').value,
+            phone: document.getElementById('patientPhone').value,
+            service: document.getElementById('serviceType').value,
+            bookingDate: document.getElementById('bookingDate').value
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert(`آپ کی اپائنٹمنٹ کامیابی سے بک ہو گئی ہے!\n\nآپ کا ٹریکنگ نمبر ہے: ${data.trackingNo}\n\nاس نمبر کو سنبھال کر رکھیں تاکہ آپ سٹیٹس چیک کر سکیں۔`);
+                document.getElementById('appointmentForm').reset();
+                
+                togglePanel('trackingPanel');
+                document.getElementById('trackingInput').value = data.trackingNo;
+                searchStatus();
+            } else {
+                alert('کچھ مسئلہ پیش آیا ہے، دوبارہ کوشش کریں۔');
+            }
+        })
+        .catch(err => {
+            alert('ڈیٹا محفوظ کرنے میں دشواری ہوئی۔ اپنا انٹرنیٹ چیک کریں۔');
+        })
+        .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'بکنگ کے لیے جمع کروائیں';
+        });
+    });
+
+    // Search Tracking Status Event
+    function searchStatus() {
+        const trackingNo = document.getElementById('trackingInput').value.trim();
+        const resultDiv = document.getElementById('trackingResult');
+
+        if (!trackingNo) {
+            alert('براہ کرم پہلے ٹریکنگ نمبر درج کریں!');
+            return;
+        }
+
+        resultDiv.style.display = 'none';
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            body: JSON.stringify({ action: 'track', trackingNo: trackingNo })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'found') {
+                resultDiv.style.display = 'block';
+                document.getElementById('resTrackingNo').innerText = data.trackingNo;
+                document.getElementById('resName').innerText = data.name;
+                document.getElementById('resService').innerText = data.service;
+                document.getElementById('resDate').innerText = data.date;
+
+                let statusHtml = `<span class="badge badge-pending">Pending</span>`;
+                if (data.appStatus === 'Accepted') {
+                    statusHtml = `<span class="badge badge-accepted">Accepted (منظور)</span>`;
+                } else if (data.appStatus === 'Rejected') {
+                    statusHtml = `<span class="badge badge-rejected">Rejected (منسوخ)</span>`;
+                }
+
+                document.getElementById('resStatus').innerHTML = statusHtml;
+            } else {
+                alert('کوئی ریکارڈ نہیں ملا! صحیح ٹریکنگ نمبر چیک کریں۔');
+            }
+        })
+        .catch(err => {
+            alert('ریکارڈ حاصل کرنے میں مسئلہ ہوا۔');
+        });
+    }
+</script>
+
+</body>
+</html>
