@@ -1,699 +1,625 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>طیبہ دوا خانہ اینڈ حجامہ سنٹر</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طیبہ دوا خانہ اینڈ حجامہ سنٹر</title>
 
-    <style>
-        @font-family {
-            font-family: 'Jameel Noori Nastaleeq';
-            src: local('Jameel Noori Nastaleeq'), local('Aslam'), url('https://fonts.gstatic.com/ea/jameelnoorinastaleeq/v1/JameelNooriNastaleeq.ttf') format('truetype');
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        :root {
-            --primary-green: #0d5c3a;
-            --dark-green: #063822;
-            --gold-accent: #c5a059;
-            --light-gold: #f7e7c4;
-            --card-border: #e1ece7;
-            --text-dark: #1a2b25;
-            --text-muted: #556b62;
-            --white: #ffffff;
-        }
+<style>
+  :root{
+    --primary:#0b5c40;
+    --primary-dark:#063823;
+    --primary-light:#e6f1ec;
+    --gold:#b8863b;
+    --gold-light:#f4e7cd;
+    --bg:#f7f5f0;
+    --surface:#ffffff;
+    --text:#1c2b24;
+    --text-muted:#5f6f67;
+    --border:#e6e9e5;
+    --radius:14px;
+    --shadow:0 6px 20px rgba(6,56,35,.07);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Cairo',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    direction:rtl;
+    text-align:right;
+    line-height:1.9;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  .container{max-width:1120px;margin:0 auto;padding:0 18px;}
 
-        body {
-            font-family: 'Cairo', 'Jameel Noori Nastaleeq', sans-serif;
-            background-color: #f8faf9;
-            color: var(--text-dark);
-            direction: rtl;
-            text-align: right;
-            line-height: 1.8;
-            padding: 12px;
-        }
+  /* ===== TOP BAR ===== */
+  .topbar{
+    background:var(--primary-dark);
+    color:var(--gold-light);
+    font-size:.86rem;
+  }
+  .topbar .container{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 18px;gap:12px;flex-wrap:wrap;
+  }
+  .topbar span{display:flex;align-items:center;gap:6px;}
+  .topbar .icon{opacity:.85;}
 
-        .site-wrapper { max-width: 1100px; margin: 0 auto; }
+  /* ===== HEADER ===== */
+  header.main-header{
+    background:var(--surface);
+    border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:50;
+    box-shadow:0 2px 10px rgba(6,56,35,.04);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 0;gap:16px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand .logo-mark{
+    width:52px;height:52px;border-radius:50%;
+    background:linear-gradient(145deg,var(--primary),var(--primary-dark));
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 12px rgba(11,92,64,.3);
+    flex-shrink:0;
+  }
+  .brand .logo-mark svg{width:26px;height:26px;}
+  .brand h1{
+    font-family:'Noto Nastaliq Urdu',serif;
+    font-size:1.55rem;
+    color:var(--primary-dark);
+    line-height:1.3;
+  }
+  .brand p{
+    font-family:'Noto Naskh Arabic',serif;
+    font-size:.82rem;
+    color:var(--text-muted);
+  }
+  nav.main-nav{
+    display:flex;gap:22px;flex-wrap:wrap;
+    font-size:.95rem;font-weight:600;
+  }
+  nav.main-nav a{
+    color:var(--text);
+    padding:6px 2px;border-bottom:2px solid transparent;
+    transition:.2s;
+  }
+  nav.main-nav a:hover{color:var(--primary);border-color:var(--gold);}
 
-        /* Header Layout */
-        .main-header {
-            background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
-            color: var(--white);
-            padding: 25px 15px;
-            border-radius: 16px;
-            border-bottom: 5px solid var(--gold-accent);
-            text-align: center;
-            margin-bottom: 15px;
-            box-shadow: 0 8px 20px rgba(13, 92, 58, 0.15);
-        }
+  /* ===== HERO SLIDER ===== */
+  .banner-slider{
+    position:relative;margin:22px 0 26px;
+    border-radius:18px;overflow:hidden;
+    box-shadow:var(--shadow);
+  }
+  .slide{display:none;}
+  .slide.active{display:block;animation:fadeIn .6s ease;}
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  .banner-card{
+    padding:40px 26px;text-align:center;color:#fff;position:relative;
+  }
+  .banner-card::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.08), transparent 60%);
+  }
+  .bg-1{background:linear-gradient(120deg,#0b5c40,#063823);}
+  .bg-2{background:linear-gradient(120deg,#b8863b,#8a6528);}
+  .bg-3{background:linear-gradient(120deg,#164b3a,#0c2e22);}
+  .banner-card .icon-badge{
+    width:54px;height:54px;border-radius:50%;
+    background:rgba(255,255,255,.15);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 14px;
+  }
+  .banner-card h3{font-size:1.4rem;font-weight:800;margin-bottom:8px;}
+  .banner-card p{font-size:1rem;opacity:.92;max-width:520px;margin:0 auto;}
+  .slider-dots{
+    display:flex;justify-content:center;gap:8px;
+    padding:14px 0;background:var(--surface);
+  }
+  .slider-dots .dot{
+    width:8px;height:8px;border-radius:50%;background:var(--border);
+    cursor:pointer;transition:.2s;
+  }
+  .slider-dots .dot.active{background:var(--gold);width:22px;border-radius:5px;}
 
-        .main-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 5px; }
-        .main-header p { font-size: 1.05rem; color: #e0f2e9; }
+  /* ===== NOTICE ===== */
+  .ladies-notice-box{
+    background:var(--surface);
+    border:1px solid var(--gold-light);
+    border-right:5px solid var(--gold);
+    padding:18px 20px;border-radius:var(--radius);
+    margin-bottom:26px;box-shadow:var(--shadow);
+    display:flex;gap:14px;align-items:flex-start;
+  }
+  .ladies-notice-box .icon{
+    width:38px;height:38px;flex-shrink:0;border-radius:50%;
+    background:var(--gold-light);display:flex;align-items:center;justify-content:center;
+  }
+  .ladies-notice-box strong{color:var(--primary-dark);font-family:'Noto Naskh Arabic',serif;}
+  .ladies-notice-box p{
+    font-family:'Noto Naskh Arabic',serif;color:#6b4e1b;font-size:.98rem;
+  }
 
-        .header-address {
-            margin-top: 10px;
-            font-size: 0.95rem;
-            color: var(--light-gold);
-            background: rgba(0, 0, 0, 0.25);
-            display: inline-block;
-            padding: 6px 18px;
-            border-radius: 20px;
-            border: 1px solid rgba(197, 160, 89, 0.4);
-        }
+  /* ===== ACTION BUTTONS ===== */
+  .action-buttons-container{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;}
+  .btn-toggle{
+    flex:1;min-width:220px;
+    background:var(--primary);color:#fff;border:none;
+    padding:16px 20px;border-radius:12px;
+    font-family:'Cairo',sans-serif;font-size:1.02rem;font-weight:700;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;
+    box-shadow:0 6px 16px rgba(11,92,64,.25);
+    transition:transform .2s, box-shadow .2s;
+  }
+  .btn-toggle:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(11,92,64,.3);}
+  .btn-toggle.gold-btn{background:var(--gold);box-shadow:0 6px 16px rgba(184,134,59,.3);}
+  .btn-toggle.gold-btn:hover{box-shadow:0 10px 22px rgba(184,134,59,.35);}
 
-        /* Banner Slider */
-        .banner-slider {
-            position: relative;
-            max-width: 100%;
-            margin: 15px 0 20px 0;
-            overflow: hidden;
-            border-radius: 14px;
-            min-height: 110px;
-        }
+  /* ===== PANELS ===== */
+  .collapsible-panel{
+    display:none;background:var(--surface);
+    border:1px solid var(--border);border-radius:18px;
+    padding:26px 24px;margin-bottom:28px;box-shadow:var(--shadow);
+  }
+  .collapsible-panel h3{
+    font-family:'Noto Nastaliq Urdu',serif;
+    color:var(--primary-dark);font-size:1.35rem;margin-bottom:14px;
+  }
+  .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:6px;}
+  .form-group{display:flex;flex-direction:column;gap:7px;}
+  .form-group label{font-weight:700;color:var(--primary);font-size:.92rem;}
+  .form-control{
+    width:100%;padding:12px 14px;border:1.5px solid var(--border);
+    border-radius:10px;font-family:'Cairo',sans-serif;font-size:.96rem;
+    outline:none;background:#fbfbfa;transition:.2s;
+  }
+  .form-control:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px var(--primary-light);}
+  .btn-submit{
+    background:var(--primary-dark);color:#fff;border:none;
+    padding:14px;border-radius:10px;font-family:'Cairo',sans-serif;
+    font-size:1rem;font-weight:700;cursor:pointer;width:100%;margin-top:20px;
+    transition:.2s;
+  }
+  .btn-submit:hover{background:var(--primary);}
+  .btn-submit:disabled{opacity:.6;cursor:not-allowed;}
 
-        .slide { 
-            display: none; 
-            width: 100%;
-        }
+  .search-box-wrap{display:flex;gap:10px;margin-top:14px;}
+  .search-btn{
+    background:var(--gold);color:#fff;border:none;padding:0 24px;
+    border-radius:10px;font-family:'Cairo',sans-serif;font-weight:700;
+    cursor:pointer;white-space:nowrap;transition:.2s;
+  }
+  .search-btn:hover{background:#a1782f;}
 
-        .slide.active { 
-            display: block; 
-        }
+  .data-row{
+    display:flex;justify-content:space-between;padding:12px 0;
+    border-bottom:1px solid var(--border);font-size:.96rem;
+  }
+  .data-label{font-weight:700;color:var(--primary);}
 
-        .banner-card {
-            padding: 22px 15px;
-            color: var(--white);
-            text-align: center;
-            border-radius: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
+  /* ===== SECTION HEADERS ===== */
+  .section-header{margin:40px 0 18px;}
+  .section-eyebrow{
+    font-size:.8rem;font-weight:700;color:var(--gold);
+    letter-spacing:.5px;margin-bottom:4px;
+  }
+  .section-title{
+    font-family:'Noto Nastaliq Urdu',serif;
+    font-size:1.75rem;color:var(--primary-dark);
+    border-right:5px solid var(--gold);padding-right:14px;
+  }
 
-        .bg-1 { background: linear-gradient(135deg, #0d5c3a, #063822); }
-        .bg-2 { background: linear-gradient(135deg, #c5a059, #8c6a2b); }
-        .bg-3 { background: linear-gradient(135deg, #1e4d3b, #112e23); }
+  /* ===== BENEFITS ===== */
+  .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-bottom:16px;}
+  .benefit-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);
+    transition:transform .25s,border-color .25s;
+  }
+  .benefit-card:hover{transform:translateY(-4px);border-color:var(--gold);}
+  .card-icon{
+    width:46px;height:46px;border-radius:12px;
+    background:var(--primary-light);color:var(--primary);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+  }
+  .benefit-card h3{font-size:1.1rem;color:var(--primary-dark);margin-bottom:8px;font-weight:700;}
+  .benefit-card p{
+    font-family:'Noto Naskh Arabic',serif;
+    font-size:.93rem;color:var(--text-muted);line-height:1.85;
+  }
 
-        .banner-card h3 { font-size: 1.35rem; margin-bottom: 6px; font-weight: 800; }
-        .banner-card p { font-size: 0.98rem; margin: 0; opacity: 0.95; }
+  /* ===== GALLERY (illustrated, no broken images) ===== */
+  .image-gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:16px;}
+  .img-card{
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+  }
+  .img-card .visual{
+    height:180px;display:flex;align-items:center;justify-content:center;
+    color:#fff;position:relative;
+  }
+  .img-card .visual.v1{background:linear-gradient(135deg,#0b5c40,#063823);}
+  .img-card .visual.v2{background:linear-gradient(135deg,#b8863b,#8a6528);}
+  .img-card .visual svg{width:64px;height:64px;opacity:.95;}
+  .img-card-caption{padding:14px 16px;font-weight:700;color:var(--primary-dark);font-size:.98rem;}
 
-        .fade { animation: fadeAnim 0.8s ease-in-out; }
-        @keyframes fadeAnim {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
-        }
+  /* ===== TABLE ===== */
+  .table-container{
+    width:100%;overflow-x:auto;background:var(--surface);
+    border-radius:var(--radius);border:1px solid var(--border);
+    box-shadow:var(--shadow);margin-bottom:16px;
+  }
+  .medicine-table{width:100%;min-width:560px;border-collapse:collapse;text-align:right;}
+  .medicine-table th{
+    background:var(--primary);color:#fff;padding:14px 16px;
+    font-size:.98rem;font-weight:700;
+  }
+  .medicine-table td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:.94rem;}
+  .medicine-table tbody tr:nth-child(even){background:#fafaf8;}
+  .medicine-table tbody tr:hover{background:var(--primary-light);}
+  .medicine-table td:first-child{color:var(--primary-dark);}
+  .tag-status{
+    background:var(--primary-light);color:var(--primary);
+    padding:5px 12px;border-radius:8px;font-weight:700;font-size:.82rem;
+    white-space:nowrap;
+  }
+  .badge{padding:5px 12px;border-radius:8px;font-weight:700;font-size:.82rem;}
+  .badge-pending{background:#fff3cd;color:#856404;}
+  .badge-accepted{background:#d4edda;color:#155724;}
+  .badge-rejected{background:#f8d7da;color:#721c24;}
 
-        /* Special Ladies Privacy Notice Box */
-        .ladies-notice-box {
-            background-color: #fdf6e7;
-            border-right: 5px solid var(--gold-accent);
-            padding: 15px 18px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            font-size: 1rem;
-            color: #6b4e1b;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            line-height: 1.7;
-        }
+  /* ===== FOOTER ===== */
+  .site-footer{
+    background:var(--primary-dark);color:#e6f1ec;
+    padding:32px 0 22px;margin-top:44px;border-top:4px solid var(--gold);
+  }
+  .footer-grid{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:18px;
+  }
+  .footer-grid h4{
+    font-family:'Noto Nastaliq Urdu',serif;font-size:1.25rem;color:#fff;margin-bottom:8px;
+  }
+  .footer-grid p{font-size:.92rem;color:#cfe3d9;line-height:1.85;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12);padding-top:14px;
+    text-align:center;font-size:.85rem;color:#a9c4b7;
+  }
 
-        /* Toggle Action Buttons */
-        .action-buttons-container {
-            display: flex;
-            gap: 12px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
+  /* ===== FLOATING CALL BUTTON ===== */
+  .float-call{
+    position:fixed;bottom:22px;left:22px;z-index:60;
+    background:var(--gold);color:#fff;width:56px;height:56px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 20px rgba(184,134,59,.4);
+  }
 
-        .btn-toggle {
-            background-color: var(--primary-green);
-            color: var(--white);
-            border: none;
-            padding: 14px 20px;
-            border-radius: 10px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .btn-toggle.gold-btn { background-color: var(--gold-accent); }
-        .btn-toggle:hover { opacity: 0.9; }
-
-        /* Collapsible Panels */
-        .collapsible-panel {
-            display: none;
-            background: var(--white);
-            border: 2px dashed var(--primary-green);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-weight: 700; color: var(--primary-green); }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #bcd3c7;
-            border-radius: 8px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .btn-submit {
-            background-color: var(--primary-green);
-            color: var(--white);
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 18px;
-        }
-
-        /* Search Box & Results */
-        .search-box-wrap { display: flex; gap: 10px; margin-top: 12px; }
-
-        .search-btn {
-            background-color: var(--gold-accent);
-            color: var(--white);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-family: 'Cairo', sans-serif;
-            font-weight: 700;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .data-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 0.95rem;
-        }
-
-        .data-label { font-weight: 700; color: var(--primary-green); }
-
-        /* Section Titles */
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin: 30px 0 15px 0;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary-green);
-            border-right: 6px solid var(--gold-accent);
-            padding-right: 12px;
-        }
-
-        /* Hijama Benefits Grid */
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .benefit-card {
-            background-color: var(--white);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-3px);
-            border-color: var(--gold-accent);
-        }
-
-        .card-badge {
-            width: 36px;
-            height: 36px;
-            background-color: var(--primary-green);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.15rem;
-            color: var(--primary-green);
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .benefit-card p {
-            font-size: 0.93rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Image Showcase Section */
-        .image-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .img-card {
-            background: var(--white);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            text-align: center;
-        }
-
-        .img-card img {
-            width: 100%;
-            height: 190px;
-            object-fit: cover;
-            display: block;
-            background-color: #eef4f1;
-        }
-
-        .img-card-caption {
-            padding: 10px;
-            font-weight: 700;
-            color: var(--primary-green);
-            font-size: 0.95rem;
-        }
-
-        /* Medicine Table Styling */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            background: var(--white);
-            border-radius: 12px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            margin-bottom: 30px;
-        }
-
-        .medicine-table {
-            width: 100%;
-            min-width: 500px;
-            border-collapse: collapse;
-            text-align: right;
-        }
-
-        .medicine-table th {
-            background-color: var(--primary-green);
-            color: var(--white);
-            padding: 12px 15px;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .medicine-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eef4f1;
-            font-size: 0.95rem;
-        }
-
-        .tag-status {
-            background-color: #e8f4ee;
-            color: var(--primary-green);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        /* Badges for status */
-        .badge { padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; }
-        .badge-pending { background-color: #fff3cd; color: #856404; }
-        .badge-accepted { background-color: #d4edda; color: #155724; }
-        .badge-rejected { background-color: #f8d7da; color: #721c24; }
-
-        .site-footer {
-            background-color: var(--dark-green);
-            color: var(--white);
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 0.92rem;
-            margin-top: 30px;
-            line-height: 1.8;
-        }
-    </style>
+  @media (max-width:640px){
+    .brand h1{font-size:1.25rem;}
+    nav.main-nav{display:none;}
+    .section-title{font-size:1.4rem;}
+    .banner-card{padding:28px 18px;}
+  }
+</style>
 </head>
 <body>
 
-<div class="site-wrapper">
+<div class="topbar">
+  <div class="container">
+    <span><span class="icon">📞</span> 0347-1420856</span>
+    <span><span class="icon">📍</span> سرگودھا روڈ، منڈی بہاؤالدین</span>
+  </div>
+</div>
 
-    <!-- Header Section -->
-    <header class="main-header">
+<header class="main-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2c-1.5 3-3 5-3 8a3 3 0 0 0 6 0c0-3-1.5-5-3-8Z"/><path d="M8 15c0 3.5 1.8 6 4 6s4-2.5 4-6"/></svg>
+      </div>
+      <div>
         <h1>طیبہ دوا خانہ اینڈ حجامہ سنٹر</h1>
-        <p>طبی و روحانی علاج، خالص دیسی ادویات اور سنتِ نبوی ؐ حجامہ آن لائن پورٹل</p>
-        <div class="header-address">📍 سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین</div>
-    </header>
-
-    <!-- 5 Second Auto Banner Slider -->
-    <div class="banner-slider">
-        <div class="slide fade active">
-            <div class="banner-card bg-1">
-                <h3>🏥 ہماری تمام طبی خدمات</h3>
-                <p>حجامہ سیشن (سنتِ نبوی)، دیسی ادویات اور مکمل طبی و روحانی مشورہ دستیاب ہے۔</p>
-            </div>
-        </div>
-        <div class="slide fade">
-            <div class="banner-card bg-2">
-                <h3>🩸 سنتِ نبوی ؐ حجامہ سیشن</h3>
-                <p>جدید، سٹریلائزڈ اور تکلیف دہ طریقہ علاج سے پاک حجامہ سپیشلسٹ کے ساتھ۔</p>
-            </div>
-        </div>
-        <div class="slide fade">
-            <div class="banner-card bg-3">
-                <h3>🌿 خالص دیسی و یونانی ادویات</h3>
-                <p>ہمارے دواخانہ کی قدرتی، بغیر سائیڈ افیکٹ والی مجرب ادویات گھر بیٹھے منگوائیں۔</p>
-            </div>
-        </div>
+        <p>طبی و روحانی علاج • خالص دیسی ادویات • سنتِ نبوی ؐ حجامہ</p>
+      </div>
     </div>
+    <nav class="main-nav">
+      <a href="#services">خدمات</a>
+      <a href="#benefits">فوائد</a>
+      <a href="#gallery">جھلکیاں</a>
+      <a href="#medicines">ادویات</a>
+      <a href="#contact">رابطہ</a>
+    </nav>
+  </div>
+</header>
 
-    <!-- Special Notice for Ladies Privacy -->
-    <div class="ladies-notice-box">
-        <strong>🌸 خواتین کے لیے خصوصی انتظام:</strong> خواتین مریضات کے لیے حجامہ اور چیک اپ کی تمام سہولیات مکمل شرعی پردے کے اہتمام اور لیڈی ہیلتھ سپیشلسٹ / حجامہ لیڈی ماہر کی دیکھ بھال میں الگ سیکشن میں کی جاتی ہیں۔
-    </div>
+<div class="container">
 
-    <!-- Action Navigation Buttons -->
-    <div class="action-buttons-container">
-        <button type="button" class="btn-toggle" onclick="togglePanel('bookingPanel')">📅 اپائنٹمنٹ / بکنگ کریں</button>
-        <button type="button" class="btn-toggle gold-btn" onclick="togglePanel('trackingPanel')">🔍 اپنا ریکارڈ ٹریک کریں</button>
-    </div>
-
-    <!-- Booking Form Panel (Hidden by Default) -->
-    <div id="bookingPanel" class="collapsible-panel">
-        <h3 style="color: var(--primary-green);">آن لائن اپائنٹمنٹ فارم</h3>
-        <form id="appointmentForm">
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>مریض کا نام:</label>
-                    <input type="text" id="patientName" class="form-control" placeholder="اپنا پورا نام درج کریں" required>
-                </div>
-                <div class="form-group">
-                    <label>رابطہ نمبر:</label>
-                    <input type="tel" id="patientPhone" class="form-control" placeholder="0347-1420856" required>
-                </div>
-                <div class="form-group">
-                    <label>مطلوبہ سروس:</label>
-                    <select id="serviceType" class="form-control">
-                        <option value="حجامہ سیشن (مردانہ)">حجامہ سیشن (مردانہ)</option>
-                        <option value="حجامہ سیشن (خواتین / لیڈی ماہر)">حجامہ سیشن (خواتین / لیڈی ماہر)</option>
-                        <option value="حکیم صاحب سے چیک اپ">حکیم صاحب سے چیک اپ</option>
-                        <option value="دیسی ادویات آرڈر">دیسی ادویات آرڈر</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>تاریخ منتخب کریں:</label>
-                    <input type="date" id="bookingDate" class="form-control" required>
-                </div>
-            </div>
-            <button type="submit" class="btn-submit" id="submitBtn">بکنگ کے لیے جمع کروائیں</button>
-        </form>
-    </div>
-
-    <!-- Tracking Search Panel (Hidden by Default) -->
-    <div id="trackingPanel" class="collapsible-panel">
-        <h3 style="color: var(--primary-green);">اپنا سٹیٹس تلاش کریں</h3>
-        <p style="font-size: 0.9rem; color: #555;">اپائنٹمنٹ کے وقت ملا ہوا ٹریکنگ نمبر (مثال: TB-1024) نیچے درج کریں:</p>
-        
-        <div class="search-box-wrap">
-            <input type="text" id="trackingInput" class="form-control" placeholder="ٹریکنگ نمبر درج کریں..." style="text-transform: uppercase;">
-            <button type="button" class="search-btn" onclick="searchStatus()">تلاش کریں</button>
+  <div class="banner-slider" id="bannerSlider">
+    <div class="slide active">
+      <div class="banner-card bg-1">
+        <div class="icon-badge">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 21s-8-5.5-8-12a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 6.5-8 12-8 12Z"/></svg>
         </div>
-
-        <!-- Result Details Display Box -->
-        <div id="trackingResult" style="display: none; margin-top: 20px; border-top: 2px solid #eee; padding-top: 10px;">
-            <div class="data-row">
-                <span class="data-label">ٹریکنگ آئی ڈی:</span>
-                <strong id="resTrackingNo" style="color: var(--primary-green);"></strong>
-            </div>
-            <div class="data-row">
-                <span class="data-label">نام مریض:</span>
-                <span id="resName"></span>
-            </div>
-            <div class="data-row">
-                <span class="data-label">سروس:</span>
-                <span id="resService"></span>
-            </div>
-            <div class="data-row">
-                <span class="data-label">تاریخ:</span>
-                <span id="resDate"></span>
-            </div>
-            <div class="data-row">
-                <span class="data-label">موجودہ سٹیٹس:</span>
-                <span id="resStatus"></span>
-            </div>
-        </div>
+        <h3>ہماری تمام طبی خدمات</h3>
+        <p>حجامہ سیشن (سنتِ نبوی)، دیسی ادویات اور مکمل طبی و روحانی مشورہ دستیاب ہے۔</p>
+      </div>
     </div>
-
-    <!-- Section 1: Hijama Benefits -->
-    <div class="section-header">
-        <h2 class="section-title">سنتِ نبوی ؐ حجامہ کے اہم فوائد</h2>
-    </div>
-
-    <div class="grid-4">
-        <div class="benefit-card">
-            <div class="card-badge">1</div>
-            <h3>خون کی صفائی و فاسد مادے</h3>
-            <p>حجامہ جسم کے فاسد اور زہریلے خون کو باہر نکال کر دورانِ خون کو بہترین بناتا ہے اور نئی توانائی پیدا کرتا ہے۔</p>
+    <div class="slide">
+      <div class="banner-card bg-2">
+        <div class="icon-badge">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M6 3v6M18 3v6M4 9h16l-1.5 11a2 2 0 0 1-2 2H7.5a2 2 0 0 1-2-2L4 9Z"/></svg>
         </div>
-
-        <div class="benefit-card">
-            <div class="card-badge">2</div>
-            <h3>دائم دردوں سے نجات</h3>
-            <p>جوڑوں کے درد، کمر درد، عرق النساء (سیاٹیکا)، شانہ اور سر درد (مائگرین) میں فوری آرام فراہم کرتا ہے۔</p>
-        </div>
-
-        <div class="benefit-card">
-            <div class="card-badge">3</div>
-            <h3>قوتِ مدافعت میں اضافہ</h3>
-            <p>جسم کے امیون سسٹم کو ایکٹیویٹ کرتا ہے اور مختلف بیماریوں کے خلاف مدافعتی نظام کو مضبوط بناتا ہے۔</p>
-        </div>
-
-        <div class="benefit-card">
-            <div class="card-badge">4</div>
-            <h3>اعصابی سکون و ہیلتھ</h3>
-            <p>ذیابیطس، بلڈ پریشر، ڈپریشن اور اعصابی تناؤ کو کنٹرول کرنے میں مددگار اور ذہنی سکون فراہم کرتا ہے۔</p>
-        </div>
+        <h3>سنتِ نبوی ؐ حجامہ سیشن</h3>
+        <p>جدید، سٹریلائزڈ اور تکلیف دہ طریقہ علاج سے پاک حجامہ سپیشلسٹ کے ساتھ۔</p>
+      </div>
     </div>
-
-    <!-- Image Showcase Gallery -->
-    <div class="section-header">
-        <h2 class="section-title">دواخانہ و حجامہ سنٹر کی جھلکیاں</h2>
-    </div>
-
-    <div class="image-gallery-grid">
-        <div class="img-card">
-            <img src="https://via.placeholder.com/600x400/0d5c3a/ffffff?text=Hijama+Therapy+Center" alt="حجامہ سنٹر">
-            <div class="img-card-caption">حجامہ تھراپی کا معیاری ماحول</div>
+    <div class="slide">
+      <div class="banner-card bg-3">
+        <div class="icon-badge">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 2C8 6 6 9 6 13a6 6 0 0 0 12 0c0-4-2-7-6-11Z"/></svg>
         </div>
-        <div class="img-card">
-            <img src="https://via.placeholder.com/600x400/c5a059/ffffff?text=Desi+Herbal+Medicines" alt="خالص دیسی ادویات">
-            <div class="img-card-caption">خالص نباتاتی و یونانی ادویات</div>
+        <h3>خالص دیسی و یونانی ادویات</h3>
+        <p>ہمارے دواخانہ کی قدرتی، بغیر سائیڈ افیکٹ والی مجرب ادویات گھر بیٹھے منگوائیں۔</p>
+      </div>
+    </div>
+  </div>
+  <div class="slider-dots" id="sliderDots"></div>
+
+  <div class="ladies-notice-box">
+    <div class="icon">🌸</div>
+    <p><strong>خواتین کے لیے خصوصی انتظام:</strong> خواتین مریضات کے لیے حجامہ اور چیک اپ کی تمام سہولیات مکمل شرعی پردے کے اہتمام اور لیڈی ہیلتھ سپیشلسٹ / حجامہ لیڈی ماہر کی دیکھ بھال میں الگ سیکشن میں کی جاتی ہیں۔</p>
+  </div>
+
+  <div class="action-buttons-container" id="services">
+    <button type="button" class="btn-toggle" onclick="togglePanel('bookingPanel')">📅 اپائنٹمنٹ / بکنگ کریں</button>
+    <button type="button" class="btn-toggle gold-btn" onclick="togglePanel('trackingPanel')">🔍 اپنا ریکارڈ ٹریک کریں</button>
+  </div>
+
+  <div id="bookingPanel" class="collapsible-panel">
+    <h3>آن لائن اپائنٹمنٹ فارم</h3>
+    <form id="appointmentForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>مریض کا نام:</label>
+          <input type="text" id="patientName" class="form-control" placeholder="اپنا پورا نام درج کریں" required>
         </div>
-    </div>
+        <div class="form-group">
+          <label>رابطہ نمبر:</label>
+          <input type="tel" id="patientPhone" class="form-control" placeholder="0347-1420856" required>
+        </div>
+        <div class="form-group">
+          <label>مطلوبہ سروس:</label>
+          <select id="serviceType" class="form-control">
+            <option value="حجامہ سیشن (مردانہ)">حجامہ سیشن (مردانہ)</option>
+            <option value="حجامہ سیشن (خواتین / لیڈی ماہر)">حجامہ سیشن (خواتین / لیڈی ماہر)</option>
+            <option value="حکیم صاحب سے چیک اپ">حکیم صاحب سے چیک اپ</option>
+            <option value="دیسی ادویات آرڈر">دیسی ادویات آرڈر</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>تاریخ منتخب کریں:</label>
+          <input type="date" id="bookingDate" class="form-control" required>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" id="submitBtn">بکنگ کے لیے جمع کروائیں</button>
+    </form>
+  </div>
 
-    <!-- Section 2: Medicine Benefits Table -->
-    <div class="section-header">
-        <h2 class="section-title">خالص دیسی و یونانی ادویات کے فوائد</h2>
+  <div id="trackingPanel" class="collapsible-panel">
+    <h3>اپنا سٹیٹس تلاش کریں</h3>
+    <p style="font-family:'Noto Naskh Arabic',serif;font-size:.92rem;color:var(--text-muted);">اپائنٹمنٹ کے وقت ملا ہوا ٹریکنگ نمبر (مثال: TB-1024) نیچے درج کریں:</p>
+    <div class="search-box-wrap">
+      <input type="text" id="trackingInput" class="form-control" placeholder="ٹریکنگ نمبر درج کریں...">
+      <button type="button" class="search-btn" onclick="searchStatus()">تلاش کریں</button>
     </div>
-
-    <div class="table-container">
-        <table class="medicine-table">
-            <thead>
-                <tr>
-                    <th>علاج / دوا کی قسم</th>
-                    <th>طبی فوائد و اثرات</th>
-                    <th>خاصیت</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>مقویِ معدہ و جگر</strong></td>
-                    <td>معدے کی تیزابیت، بدہضمی، اور جگر کی گرمش کو دور کر کے نظامِ ہضم کو درست کرتی ہے۔</td>
-                    <td><span class="tag-status">100% قدرتی نسخہ</span></td>
-                </tr>
-                <tr>
-                    <td><strong>مقویِ اعصاب و دماغ</strong></td>
-                    <td>دماغی کمزوری، نسیان (بُھولنے کی بیماری) اور اعصابی تھکاوٹ کو ختم کر کے حافظہ تیز کرتی ہے۔</td>
-                    <td><span class="tag-status">جدید خالص فارمولیشن</span></td>
-                </tr>
-                <tr>
-                    <td><strong>مصفیٰ خون مرکبات</strong></td>
-                    <td>جلد کی بیماریوں، کیل مہاسوں، خارش اور مصفیٰ خون کے لیے انتہائی مؤثر نباتاتی علاج۔</td>
-                    <td><span class="tag-status">مجرب طبی نسخہ جات</span></td>
-                </tr>
-                <tr>
-                    <td><strong>طاقت و توانائی مرکب</strong></td>
-                    <td>جسمانی کمزوری، سستی اور عمومی ناہمواریوں کا مکمل اور پائیدار شفایاب علاج۔</td>
-                    <td><span class="tag-status">طبی ماہرین کی زیرِ نگرانی</span></td>
-                </tr>
-            </tbody>
-        </table>
+    <div id="trackingResult" style="display:none;margin-top:20px;">
+      <div class="data-row"><span class="data-label">ٹریکنگ آئی ڈی:</span><strong id="resTrackingNo" style="color:var(--primary);"></strong></div>
+      <div class="data-row"><span class="data-label">نام مریض:</span><span id="resName"></span></div>
+      <div class="data-row"><span class="data-label">سروس:</span><span id="resService"></span></div>
+      <div class="data-row"><span class="data-label">تاریخ:</span><span id="resDate"></span></div>
+      <div class="data-row"><span class="data-label">موجودہ سٹیٹس:</span><span id="resStatus"></span></div>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div><strong>طیبہ دوا خانہ اینڈ حجامہ سنٹر</strong> | رابطہ: 0347-1420856</div>
-        <div>پتہ: سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس، بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین</div>
-        <div style="opacity: 0.8; font-size: 0.85rem; margin-top: 5px;">تمام حقوق محفوظ ہیں © 2026</div>
-    </footer>
+  <div class="section-header" id="benefits">
+    <div class="section-eyebrow">سنتِ نبوی ؐ علاج</div>
+    <h2 class="section-title">حجامہ کے اہم فوائد</h2>
+  </div>
+  <div class="grid-4">
+    <div class="benefit-card">
+      <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c-1.5 3-3 5-3 8a3 3 0 0 0 6 0c0-3-1.5-5-3-8Z"/></svg></div>
+      <h3>خون کی صفائی و فاسد مادے</h3>
+      <p>حجامہ جسم کے فاسد اور زہریلے خون کو باہر نکال کر دورانِ خون کو بہترین بناتا ہے اور نئی توانائی پیدا کرتا ہے۔</p>
+    </div>
+    <div class="benefit-card">
+      <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+      <h3>دائم دردوں سے نجات</h3>
+      <p>جوڑوں کے درد، کمر درد، عرق النساء (سیاٹیکا)، شانہ اور سر درد (مائگرین) میں فوری آرام فراہم کرتا ہے۔</p>
+    </div>
+    <div class="benefit-card">
+      <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3Z"/></svg></div>
+      <h3>قوتِ مدافعت میں اضافہ</h3>
+      <p>جسم کے امیون سسٹم کو ایکٹیویٹ کرتا ہے اور مختلف بیماریوں کے خلاف مدافعتی نظام کو مضبوط بناتا ہے۔</p>
+    </div>
+    <div class="benefit-card">
+      <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.5.4.8 1 .8 1.7v.6h6.4v-.6c0-.7.3-1.3.8-1.7A7 7 0 0 0 12 2Z"/></svg></div>
+      <h3>اعصابی سکون و ہیلتھ</h3>
+      <p>ذیابیطس، بلڈ پریشر، ڈپریشن اور اعصابی تناؤ کو کنٹرول کرنے میں مددگار اور ذہنی سکون فراہم کرتا ہے۔</p>
+    </div>
+  </div>
+
+  <div class="section-header" id="gallery">
+    <div class="section-eyebrow">ہمارا مرکز</div>
+    <h2 class="section-title">دواخانہ و حجامہ سنٹر کی جھلکیاں</h2>
+  </div>
+  <div class="image-gallery-grid">
+    <div class="img-card">
+      <div class="visual v1"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M6 3v6M18 3v6M4 9h16l-1.5 11a2 2 0 0 1-2 2H7.5a2 2 0 0 1-2-2L4 9Z"/></svg></div>
+      <div class="img-card-caption">حجامہ تھراپی کا معیاری ماحول</div>
+    </div>
+    <div class="img-card">
+      <div class="visual v2"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M12 2C8 6 6 9 6 13a6 6 0 0 0 12 0c0-4-2-7-6-11Z"/></svg></div>
+      <div class="img-card-caption">خالص نباتاتی و یونانی ادویات</div>
+    </div>
+  </div>
+
+  <div class="section-header" id="medicines">
+    <div class="section-eyebrow">مکمل نگرانی میں تیار شدہ</div>
+    <h2 class="section-title">خالص دیسی و یونانی ادویات کے فوائد</h2>
+  </div>
+  <div class="table-container">
+    <table class="medicine-table">
+      <thead>
+        <tr><th>علاج / دوا کی قسم</th><th>طبی فوائد و اثرات</th><th>خاصیت</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>مقویِ معدہ و جگر</td>
+          <td>معدے کی تیزابیت، بدہضمی، اور جگر کی گرمش کو دور کر کے نظامِ ہضم کو درست کرتی ہے۔</td>
+          <td><span class="tag-status">100% قدرتی نسخہ</span></td>
+        </tr>
+        <tr>
+          <td>مقویِ اعصاب و دماغ</td>
+          <td>دماغی کمزوری، نسیان (بُھولنے کی بیماری) اور اعصابی تھکاوٹ کو ختم کر کے حافظہ تیز کرتی ہے۔</td>
+          <td><span class="tag-status">جدید خالص فارمولیشن</span></td>
+        </tr>
+        <tr>
+          <td>مصفیٰ خون مرکبات</td>
+          <td>جلد کی بیماریوں، کیل مہاسوں، خارش اور مصفیٰ خون کے لیے انتہائی مؤثر نباتاتی علاج۔</td>
+          <td><span class="tag-status">مجرب طبی نسخہ جات</span></td>
+        </tr>
+        <tr>
+          <td>طاقت و توانائی مرکب</td>
+          <td>جسمانی کمزوری، سستی اور عمومی ناہمواریوں کا مکمل اور پائیدار شفایاب علاج۔</td>
+          <td><span class="tag-status">طبی ماہرین کی زیرِ نگرانی</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
 
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>طیبہ دوا خانہ اینڈ حجامہ سنٹر</h4>
+        <p>سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس،<br>بالمقابل جامع مسجد طیبہ اہلحدیث، منڈی بہاؤالدین</p>
+      </div>
+      <div>
+        <h4>رابطہ</h4>
+        <p>📞 0347-1420856<br>روزانہ صبح 9 تا رات 9 بجے</p>
+      </div>
+    </div>
+    <div class="footer-bottom">تمام حقوق محفوظ ہیں © 2026 — طیبہ دوا خانہ اینڈ حجامہ سنٹر</div>
+  </div>
+</footer>
+
+<a href="tel:03471420856" class="float-call" title="کال کریں">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.5 2.9.6a2 2 0 0 1 1.8 2Z"/></svg>
+</a>
+
 <script>
-    // اپنا Google Apps Script Web App URL یہاں درج کریں
-    const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+  const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
 
-    // Auto Banner Slider
-    let currentSlide = 0;
-    const slides = document.getElementsByClassName("slide");
+  // Slider with dots
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('#bannerSlider .slide');
+  const dotsWrap = document.getElementById('sliderDots');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsWrap.appendChild(dot);
+  });
+  function goToSlide(i){
+    slides[currentSlide].classList.remove('active');
+    dotsWrap.children[currentSlide].classList.remove('active');
+    currentSlide = i;
+    slides[currentSlide].classList.add('active');
+    dotsWrap.children[currentSlide].classList.add('active');
+  }
+  setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
 
-    function showNextSlide() {
-        if (slides.length === 0) return;
-        
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].classList.remove("active");
-        }
-        
-        currentSlide = (currentSlide + 1) % slides.length;
-        slides[currentSlide].classList.add("active");
+  function togglePanel(panelId) {
+    const bookingPanel = document.getElementById('bookingPanel');
+    const trackingPanel = document.getElementById('trackingPanel');
+    if (panelId === 'bookingPanel') {
+      trackingPanel.style.display = 'none';
+      bookingPanel.style.display = (bookingPanel.style.display === 'block') ? 'none' : 'block';
+    } else {
+      bookingPanel.style.display = 'none';
+      trackingPanel.style.display = (trackingPanel.style.display === 'block') ? 'none' : 'block';
     }
+  }
 
-    setInterval(showNextSlide, 5000);
+  document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'برائے مہربانی انتظار کریں...';
 
-    // Panels Display Switcher
-    function togglePanel(panelId) {
-        const bookingPanel = document.getElementById('bookingPanel');
-        const trackingPanel = document.getElementById('trackingPanel');
+    const payload = {
+      action: 'book',
+      name: document.getElementById('patientName').value,
+      phone: document.getElementById('patientPhone').value,
+      service: document.getElementById('serviceType').value,
+      bookingDate: document.getElementById('bookingDate').value
+    };
 
-        if (panelId === 'bookingPanel') {
-            trackingPanel.style.display = 'none';
-            bookingPanel.style.display = (bookingPanel.style.display === 'block') ? 'none' : 'block';
-        } else if (panelId === 'trackingPanel') {
-            bookingPanel.style.display = 'none';
-            trackingPanel.style.display = (trackingPanel.style.display === 'block') ? 'none' : 'block';
+    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          alert(`آپ کی اپائنٹمنٹ کامیابی سے بک ہو گئی ہے!\n\nآپ کا ٹریکنگ نمبر ہے: ${data.trackingNo}\n\nاس نمبر کو سنبھال کر رکھیں تاکہ آپ سٹیٹس چیک کر سکیں۔`);
+          document.getElementById('appointmentForm').reset();
+          togglePanel('trackingPanel');
+          document.getElementById('trackingInput').value = data.trackingNo;
+          searchStatus();
+        } else {
+          alert('کچھ مسئلہ پیش آیا ہے، دوبارہ کوشش کریں۔');
         }
-    }
+      })
+      .catch(() => alert('ڈیٹا محفوظ کرنے میں دشواری ہوئی۔ اپنا انٹرنیٹ چیک کریں۔'))
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'بکنگ کے لیے جمع کروائیں';
+      });
+  });
 
-    // Submit Form Event
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'برائے مہربانی انتظار کریں...';
+  function searchStatus() {
+    const trackingNo = document.getElementById('trackingInput').value.trim();
+    const resultDiv = document.getElementById('trackingResult');
+    if (!trackingNo) { alert('براہ کرم پہلے ٹریکنگ نمبر درج کریں!'); return; }
+    resultDiv.style.display = 'none';
 
-        const payload = {
-            action: 'book',
-            name: document.getElementById('patientName').value,
-            phone: document.getElementById('patientPhone').value,
-            service: document.getElementById('serviceType').value,
-            bookingDate: document.getElementById('bookingDate').value
-        };
-
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert(`آپ کی اپائنٹمنٹ کامیابی سے بک ہو گئی ہے!\n\nآپ کا ٹریکنگ نمبر ہے: ${data.trackingNo}\n\nاس نمبر کو سنبھال کر رکھیں تاکہ آپ سٹیٹس چیک کر سکیں۔`);
-                document.getElementById('appointmentForm').reset();
-                
-                togglePanel('trackingPanel');
-                document.getElementById('trackingInput').value = data.trackingNo;
-                searchStatus();
-            } else {
-                alert('کچھ مسئلہ پیش آیا ہے، دوبارہ کوشش کریں۔');
-            }
-        })
-        .catch(err => {
-            alert('ڈیٹا محفوظ کرنے میں دشواری ہوئی۔ اپنا انٹرنیٹ چیک کریں۔');
-        })
-        .finally(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerText = 'بکنگ کے لیے جمع کروائیں';
-        });
-    });
-
-    // Search Tracking Status Event
-    function searchStatus() {
-        const trackingNo = document.getElementById('trackingInput').value.trim();
-        const resultDiv = document.getElementById('trackingResult');
-
-        if (!trackingNo) {
-            alert('براہ کرم پہلے ٹریکنگ نمبر درج کریں!');
-            return;
+    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'track', trackingNo }) })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'found') {
+          resultDiv.style.display = 'block';
+          document.getElementById('resTrackingNo').innerText = data.trackingNo;
+          document.getElementById('resName').innerText = data.name;
+          document.getElementById('resService').innerText = data.service;
+          document.getElementById('resDate').innerText = data.date;
+          let statusHtml = `<span class="badge badge-pending">Pending</span>`;
+          if (data.appStatus === 'Accepted') statusHtml = `<span class="badge badge-accepted">Accepted (منظور)</span>`;
+          else if (data.appStatus === 'Rejected') statusHtml = `<span class="badge badge-rejected">Rejected (منسوخ)</span>`;
+          document.getElementById('resStatus').innerHTML = statusHtml;
+        } else {
+          alert('کوئی ریکارڈ نہیں ملا! صحیح ٹریکنگ نمبر چیک کریں۔');
         }
-
-        resultDiv.style.display = 'none';
-
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify({ action: 'track', trackingNo: trackingNo })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status === 'found') {
-                resultDiv.style.display = 'block';
-                document.getElementById('resTrackingNo').innerText = data.trackingNo;
-                document.getElementById('resName').innerText = data.name;
-                document.getElementById('resService').innerText = data.service;
-                document.getElementById('resDate').innerText = data.date;
-
-                let statusHtml = `<span class="badge badge-pending">Pending</span>`;
-                if (data.appStatus === 'Accepted') {
-                    statusHtml = `<span class="badge badge-accepted">Accepted (منظور)</span>`;
-                } else if (data.appStatus === 'Rejected') {
-                    statusHtml = `<span class="badge badge-rejected">Rejected (منسوخ)</span>`;
-                }
-
-                document.getElementById('resStatus').innerHTML = statusHtml;
-            } else {
-                alert('کوئی ریکارڈ نہیں ملا! صحیح ٹریکنگ نمبر چیک کریں۔');
-            }
-        })
-        .catch(err => {
-            alert('ریکارڈ حاصل کرنے میں مسئلہ ہوا۔');
-        });
-    }
+      })
+      .catch(() => alert('ریکارڈ حاصل کرنے میں مسئلہ ہوا۔'));
+  }
 </script>
 
 </body>
