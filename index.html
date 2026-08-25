@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alamgir Hijama Center | Natural Healing & Cupping Therapy</title>
+<title>Amazon Printing Private Limited</title>
 
-<!-- Google Font -->
+<!-- Premium Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Icons -->
 <link rel="stylesheet"
@@ -17,9 +17,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <style>
 
-/* ================================
-   RESET
-================================ */
+/* =====================================================
+   GLOBAL
+===================================================== */
 
 *{
     margin:0;
@@ -32,10 +32,10 @@ html{
 }
 
 body{
-    font-family:"Poppins",Arial,sans-serif;
-    background:#fff;
-    color:#111;
-    overflow-x:hidden;
+    font-family:"Manrope",sans-serif;
+    background:#ffffff;
+    color:#111827;
+    line-height:1.6;
 }
 
 img{
@@ -48,64 +48,51 @@ a{
     color:inherit;
 }
 
-button,
-input,
-textarea{
-    font-family:inherit;
-}
-
-
-/* ================================
-   COLORS
-================================ */
-
 :root{
-    --green:#087d3d;
-    --dark-green:#05662f;
-    --light-green:#eaf7ef;
-    --red:#ff5a55;
-    --text:#111;
-    --gray:#666;
-    --border:#eeeeee;
+    --green:#087f46;
+    --green-dark:#056638;
+    --green-light:#eefaf4;
+    --black:#111827;
+    --gray:#667085;
+    --light:#f7f9f8;
+    --border:#e8ece9;
 }
 
 
-/* ================================
+/* =====================================================
    TOP BAR
-================================ */
+===================================================== */
 
 .topbar{
-    height:30px;
     background:var(--green);
-    color:white;
-    font-size:9px;
+    color:#fff;
+    font-size:11px;
 }
 
 .topbar-inner{
-    max-width:1150px;
-    height:100%;
+    width:min(1180px,92%);
     margin:auto;
+    min-height:32px;
 
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
 }
 
-.top-left{
+.top-contact{
     display:flex;
-    align-items:center;
-    gap:18px;
+    gap:22px;
 }
 
-.top-left span{
+.top-contact span{
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:7px;
 }
 
 .top-social{
     display:flex;
-    gap:13px;
+    gap:15px;
 }
 
 .top-social a{
@@ -113,26 +100,27 @@ textarea{
 }
 
 .top-social a:hover{
-    opacity:.65;
+    opacity:.7;
 }
 
 
-/* ================================
+/* =====================================================
    NAVBAR
-================================ */
+===================================================== */
 
 .navbar{
-    height:76px;
-    background:white;
+    height:78px;
+    background:#fff;
+    border-bottom:1px solid #f0f2f1;
 
-    display:flex;
-    align-items:center;
-
-    border-bottom:1px solid #f2f2f2;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
 .nav-inner{
-    width:min(1150px,92%);
+    width:min(1180px,92%);
+    height:100%;
     margin:auto;
 
     display:flex;
@@ -144,50 +132,67 @@ textarea{
 /* LOGO */
 
 .logo{
-    width:65px;
-    height:65px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-mark{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+
+    background:var(--green);
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    overflow:hidden;
+    color:#fff;
+    font-size:20px;
+
+    box-shadow:0 5px 15px rgba(8,127,70,.18);
 }
 
-.logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
+.logo-text{
+    line-height:1.1;
+}
+
+.logo-text strong{
+    display:block;
+    font-size:15px;
+    font-weight:800;
+}
+
+.logo-text small{
+    font-size:8px;
+    color:#7b8490;
+    letter-spacing:1px;
 }
 
 
-/* NAV */
+/* NAV LINKS */
 
-.nav-menu{
+.nav-links{
     display:flex;
     align-items:center;
-    gap:29px;
+    gap:28px;
 
     font-size:11px;
-    font-weight:600;
+    font-weight:700;
 }
 
-.nav-menu a{
+.nav-links a{
     position:relative;
     padding:29px 0;
-    transition:.25s;
+    color:#20252b;
 }
 
-.nav-menu a:hover{
-    color:var(--green);
-}
-
-.nav-menu a::after{
+.nav-links a::after{
     content:"";
-
     position:absolute;
     left:0;
-    bottom:21px;
+    bottom:20px;
 
     width:0;
     height:2px;
@@ -197,663 +202,757 @@ textarea{
     transition:.25s;
 }
 
-.nav-menu a:hover::after{
+.nav-links a:hover{
+    color:var(--green);
+}
+
+.nav-links a:hover::after{
     width:100%;
 }
 
 
-/* DONATE BUTTON */
+/* NAV BUTTON */
 
-.donate{
+.nav-button{
     background:var(--green);
     color:white;
 
-    padding:11px 20px;
+    padding:11px 19px;
+    border-radius:3px;
 
     font-size:10px;
-    font-weight:700;
-
-    border-radius:2px;
+    font-weight:800;
 
     transition:.25s;
 }
 
-.donate:hover{
-    background:var(--dark-green);
+.nav-button:hover{
+    background:var(--green-dark);
     transform:translateY(-2px);
 }
 
 
-/* MOBILE MENU */
+/* MOBILE */
 
-.menu-btn{
+.menu-button{
     display:none;
-
     border:0;
     background:none;
-
     font-size:22px;
     cursor:pointer;
 }
 
 
-/* ================================
-   MAIN
-================================ */
+/* =====================================================
+   CONTAINER
+===================================================== */
 
 .container{
-    width:min(1150px,92%);
+    width:min(1180px,92%);
     margin:auto;
 }
 
 
-/* ================================
+/* =====================================================
    HERO
-================================ */
+===================================================== */
 
 .hero{
-    min-height:330px;
+    min-height:500px;
 
     display:grid;
     grid-template-columns:1fr 1fr;
 
-    gap:55px;
-
     align-items:center;
+    gap:65px;
 
-    padding:48px 0 38px;
+    padding:75px 0;
 }
 
-.hero-text h1{
-    font-size:25px;
-    line-height:1.3;
-
-    font-weight:700;
-
-    margin-bottom:8px;
-}
-
-.green-line{
-    width:100%;
-    height:2px;
-
-    background:var(--green);
-
-    margin-bottom:7px;
-}
-
-.hero-text h2{
-    font-size:16px;
-
-    line-height:1.4;
-
-    font-weight:700;
-
-    margin-bottom:10px;
-}
-
-.hero-text p{
-    font-size:9px;
-
-    line-height:1.75;
-
-    color:#333;
-
+.hero-content{
     max-width:560px;
 }
 
-.hero-image{
-    height:210px;
-
-    border-radius:9px;
-
-    overflow:hidden;
-
-    box-shadow:
-        0 4px 13px rgba(0,0,0,.18);
-}
-
-.hero-image img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
-}
-
-
-/* ================================
-   WHY SECTION
-================================ */
-
-.why{
-    min-height:270px;
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    gap:15px;
-
+.hero-tag{
+    display:inline-flex;
     align-items:center;
+    gap:8px;
 
-    padding:15px 0 60px;
+    color:var(--green);
+    background:var(--green-light);
+
+    padding:7px 12px;
+    border-radius:30px;
+
+    font-size:9px;
+    font-weight:800;
+
+    margin-bottom:17px;
 }
 
-.why-image{
-    height:210px;
+.hero h1{
+    font-size:43px;
+    line-height:1.12;
+    letter-spacing:-1.5px;
 
-    border-radius:9px;
+    font-weight:800;
 
-    overflow:hidden;
-
-    box-shadow:
-        0 4px 13px rgba(0,0,0,.15);
+    margin-bottom:16px;
 }
 
-.why-image img{
-    width:100%;
-    height:100%;
-
-    object-fit:cover;
+.hero h1 span{
+    color:var(--green);
 }
 
-.why-text{
-    padding-left:5px;
-}
-
-.section-title{
-    font-size:18px;
+.hero-subtitle{
+    font-size:17px;
     font-weight:700;
+    margin-bottom:13px;
+}
 
-    margin-bottom:23px;
+.hero p{
+    color:var(--gray);
+    font-size:11px;
+    line-height:1.9;
+
+    max-width:520px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    margin-top:26px;
+}
+
+.primary-btn{
+    background:var(--green);
+    color:#fff;
+
+    padding:13px 22px;
+    border-radius:4px;
+
+    font-size:10px;
+    font-weight:800;
+
+    transition:.25s;
+}
+
+.primary-btn:hover{
+    background:var(--green-dark);
+    transform:translateY(-2px);
+}
+
+.secondary-btn{
+    border:1px solid #dfe5e1;
+    padding:13px 22px;
+    border-radius:4px;
+
+    font-size:10px;
+    font-weight:800;
+
+    transition:.25s;
+}
+
+.secondary-btn:hover{
+    border-color:var(--green);
+    color:var(--green);
+}
+
+
+/* HERO VISUAL */
+
+.hero-visual{
+    position:relative;
+}
+
+.hero-card{
+    height:360px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eaf7f0,
+            #f8fbf9
+        );
 
     position:relative;
+    overflow:hidden;
 
-    display:inline-block;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-.section-title::after{
+.hero-card::before{
     content:"";
+    width:260px;
+    height:260px;
+
+    border-radius:50%;
+
+    background:rgba(8,127,70,.08);
 
     position:absolute;
+    right:-60px;
+    top:-50px;
+}
 
-    left:0;
-    bottom:-8px;
+.print-icon{
+    width:190px;
+    height:145px;
 
-    width:63px;
-    height:2px;
+    background:white;
+
+    border-radius:8px;
+
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+    position:relative;
+    z-index:2;
+
+    padding:25px;
+}
+
+.print-icon::before{
+    content:"";
+    position:absolute;
+
+    left:25px;
+    right:25px;
+    top:25px;
+
+    height:15px;
 
     background:var(--green);
+
+    border-radius:3px;
 }
 
-.why-text p{
+.print-icon::after{
+    content:"";
+    position:absolute;
+
+    left:25px;
+    right:65px;
+    top:55px;
+
+    height:8px;
+
+    background:#dce6e1;
+
+    box-shadow:
+        0 18px #dce6e1,
+        0 36px #dce6e1;
+
+    border-radius:3px;
+}
+
+.floating-card{
+    position:absolute;
+    z-index:5;
+
+    background:#fff;
+
+    padding:15px 18px;
+
+    border-radius:7px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
     font-size:9px;
-    line-height:1.8;
-
-    color:#333;
-
-    margin-bottom:8px;
+    font-weight:800;
 }
 
-.why-list{
-    padding-left:18px;
+.floating-card i{
+    color:var(--green);
+    margin-right:7px;
 }
 
-.why-list li{
-    font-size:8.5px;
-    line-height:1.7;
-
-    margin-bottom:3px;
-
-    color:#333;
+.float-one{
+    left:15px;
+    bottom:38px;
 }
 
-.why-list strong{
-    color:#111;
+.float-two{
+    right:15px;
+    top:35px;
 }
 
 
-/* ================================
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-heading{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.section-heading .small{
+    color:var(--green);
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.section-heading h2{
+    font-size:28px;
+    line-height:1.2;
+    margin-top:7px;
+    font-weight:800;
+}
+
+.section-heading p{
+    color:var(--gray);
+    font-size:10px;
+    max-width:570px;
+    margin:10px auto 0;
+}
+
+
+/* =====================================================
    SERVICES
-================================ */
+===================================================== */
 
 .services{
-    padding:15px 0 65px;
-
-    text-align:center;
-}
-
-.services .section-title{
-    margin-bottom:42px;
+    padding:75px 0;
+    background:#fafcfb;
 }
 
 .services-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:35px;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
 }
 
-.service{
-    padding:15px 25px;
+.service-card{
+    background:#fff;
+    border:1px solid var(--border);
+
+    padding:30px 25px;
+
+    border-radius:7px;
 
     transition:.3s;
 }
 
-.service:hover{
-    transform:translateY(-6px);
+.service-card:hover{
+    transform:translateY(-7px);
+    border-color:#c8e6d6;
+    box-shadow:0 15px 35px rgba(0,0,0,.07);
 }
 
 .service-icon{
-    width:72px;
-    height:72px;
+    width:53px;
+    height:53px;
 
-    margin:0 auto 18px;
+    border-radius:7px;
+
+    background:var(--green-light);
+    color:var(--green);
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    color:var(--red);
+    font-size:21px;
 
-    font-size:43px;
-
-    border:1px solid transparent;
+    margin-bottom:20px;
 }
 
-.service h3{
+.service-card h3{
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.service-card p{
+    color:var(--gray);
+    font-size:10px;
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   FEATURED PRODUCTS
+===================================================== */
+
+.products{
+    padding:80px 0;
+}
+
+.products-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.product-card{
+    min-height:175px;
+
+    border:1px solid var(--border);
+    border-radius:7px;
+
+    padding:24px 20px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    transition:.3s;
+
+    background:#fff;
+}
+
+.product-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 30px rgba(0,0,0,.07);
+}
+
+.product-number{
+    color:#b7c2bc;
+    font-size:11px;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.product-card i{
+    color:var(--green);
+    font-size:23px;
+    margin-bottom:13px;
+}
+
+.product-card h3{
     font-size:12px;
+    font-weight:800;
+}
 
-    font-weight:700;
 
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about{
+    background:#f7faf8;
+    padding:80px 0;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:70px;
+    align-items:center;
+}
+
+.about-label{
+    color:var(--green);
+    font-size:9px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+}
+
+.about h2{
+    font-size:31px;
+    line-height:1.25;
+    margin:9px 0 15px;
+}
+
+.about p{
+    color:var(--gray);
+    font-size:10px;
+    line-height:1.9;
+}
+
+.about-box{
+    background:#fff;
+    padding:35px;
+
+    border-radius:9px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.stat{
+    border-left:3px solid var(--green);
+    padding-left:15px;
+}
+
+.stat strong{
+    display:block;
+    color:var(--green);
+    font-size:23px;
+    font-weight:800;
+}
+
+.stat span{
+    font-size:9px;
+    color:var(--gray);
+}
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+.stats{
+    padding:65px 0;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.stat-box{
+    text-align:center;
+    padding:25px 15px;
+}
+
+.stat-box i{
+    color:var(--green);
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.stat-box strong{
+    display:block;
+    font-size:26px;
+    font-weight:800;
+}
+
+.stat-box span{
+    color:var(--gray);
+    font-size:9px;
+}
+
+
+/* =====================================================
+   REVIEWS
+===================================================== */
+
+.reviews{
+    padding:80px 0;
+    background:#fafcfb;
+}
+
+.reviews-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.review{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:7px;
+
+    padding:28px;
+}
+
+.stars{
+    color:#f5ad25;
+    font-size:10px;
+    margin-bottom:15px;
+}
+
+.review p{
+    color:var(--gray);
+    font-size:10px;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.review strong{
+    font-size:10px;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact{
+    padding:80px 0;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+}
+
+.contact-card{
+    border:1px solid var(--border);
+    padding:30px 20px;
+
+    text-align:center;
+    border-radius:7px;
+
+    transition:.3s;
+}
+
+.contact-card:hover{
+    border-color:#c8e6d6;
+    transform:translateY(-4px);
+}
+
+.contact-card i{
+    color:var(--green);
+    font-size:23px;
+    margin-bottom:14px;
+}
+
+.contact-card h3{
+    font-size:12px;
     margin-bottom:7px;
 }
 
-.service p{
-    font-size:8.5px;
-
-    color:#666;
-
-    line-height:1.7;
+.contact-card p{
+    color:var(--gray);
+    font-size:9px;
 }
 
 
-/* ================================
-   GREEN CTA
-================================ */
+/* =====================================================
+   CTA
+===================================================== */
 
 .cta{
+    width:min(1180px,92%);
+    margin:0 auto 80px;
+
     background:var(--green);
+    color:#fff;
 
-    color:white;
+    border-radius:9px;
 
-    padding:48px 30px;
+    padding:50px;
 
     text-align:center;
-
-    margin-bottom:65px;
 }
 
 .cta h2{
-    font-size:23px;
-
+    font-size:26px;
     margin-bottom:8px;
 }
 
 .cta p{
     font-size:10px;
-
     opacity:.9;
-
-    max-width:650px;
-
-    margin:auto auto 22px;
+    margin-bottom:22px;
 }
 
-.cta-btn{
+.cta a{
     display:inline-block;
 
-    background:white;
+    background:#fff;
     color:var(--green);
 
-    padding:11px 25px;
+    padding:12px 23px;
+
+    border-radius:3px;
 
     font-size:10px;
-    font-weight:700;
-
-    border-radius:2px;
-
-    transition:.25s;
-}
-
-.cta-btn:hover{
-    transform:translateY(-2px);
+    font-weight:800;
 }
 
 
-/* ================================
-   BENEFITS
-================================ */
-
-.benefits{
-    padding-bottom:70px;
-}
-
-.benefits-title{
-    text-align:center;
-    margin-bottom:35px;
-}
-
-.benefits-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:20px;
-}
-
-.benefit{
-    border:1px solid var(--border);
-
-    padding:24px;
-
-    text-align:center;
-
-    transition:.3s;
-}
-
-.benefit:hover{
-    border-color:#b8dfc7;
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.06);
-
-    transform:translateY(-4px);
-}
-
-.benefit i{
-    font-size:28px;
-
-    color:var(--green);
-
-    margin-bottom:12px;
-}
-
-.benefit h3{
-    font-size:12px;
-
-    margin-bottom:6px;
-}
-
-.benefit p{
-    color:#666;
-
-    font-size:8.5px;
-
-    line-height:1.7;
-}
-
-
-/* ================================
-   BOOKING
-================================ */
-
-.booking{
-    background:#f8fbf9;
-
-    padding:55px 0;
-
-    margin-bottom:0;
-}
-
-.booking-box{
-    max-width:700px;
-
-    margin:auto;
-
-    background:white;
-
-    padding:35px;
-
-    box-shadow:
-        0 8px 35px rgba(0,0,0,.06);
-}
-
-.booking-title{
-    text-align:center;
-
-    margin-bottom:25px;
-}
-
-.booking-title h2{
-    font-size:20px;
-}
-
-.booking-title p{
-    color:#777;
-
-    font-size:9px;
-}
-
-.form-grid{
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:15px;
-}
-
-.form-group{
-    display:flex;
-    flex-direction:column;
-}
-
-.form-group.full{
-    grid-column:1/-1;
-}
-
-.form-group label{
-    font-size:9px;
-
-    font-weight:600;
-
-    margin-bottom:5px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea{
-    width:100%;
-
-    border:1px solid #ddd;
-
-    padding:11px;
-
-    font-size:9px;
-
-    outline:none;
-
-    transition:.2s;
-}
-
-.form-group textarea{
-    height:90px;
-    resize:none;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus{
-    border-color:var(--green);
-}
-
-.submit-btn{
-    width:100%;
-
-    margin-top:18px;
-
-    border:0;
-
-    background:var(--green);
-
-    color:white;
-
-    padding:13px;
-
-    font-size:10px;
-
-    font-weight:700;
-
-    cursor:pointer;
-}
-
-.submit-btn:hover{
-    background:var(--dark-green);
-}
-
-
-/* ================================
-   CONTACT
-================================ */
-
-.contact{
-    padding:60px 0;
-}
-
-.contact-grid{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:20px;
-}
-
-.contact-card{
-    text-align:center;
-
-    border:1px solid var(--border);
-
-    padding:28px 15px;
-}
-
-.contact-card i{
-    font-size:23px;
-
-    color:var(--green);
-
-    margin-bottom:12px;
-}
-
-.contact-card h3{
-    font-size:11px;
-
-    margin-bottom:5px;
-}
-
-.contact-card p{
-    font-size:8.5px;
-
-    color:#666;
-
-    line-height:1.7;
-}
-
-
-/* ================================
+/* =====================================================
    FOOTER
-================================ */
+===================================================== */
 
 footer{
-    background:#087d3d;
-
-    color:white;
-
-    padding:30px 0 18px;
+    background:#10251b;
+    color:#fff;
+    padding:55px 0 20px;
 }
 
-.footer-inner{
-    width:min(1150px,92%);
-
+.footer-grid{
+    width:min(1180px,92%);
     margin:auto;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:50px;
 }
 
-.footer-brand{
-    font-size:13px;
-
-    font-weight:700;
+.footer-brand h3{
+    font-size:17px;
+    margin-bottom:10px;
 }
 
-.footer-text{
-    font-size:8px;
-
-    opacity:.9;
+.footer-brand p{
+    color:#aab8b0;
+    font-size:9px;
+    line-height:1.8;
+    max-width:330px;
 }
 
-.footer-social{
-    display:flex;
-    gap:15px;
-
-    font-size:12px;
+.footer-column h4{
+    font-size:11px;
+    margin-bottom:15px;
 }
 
-.copyright{
-    width:min(1150px,92%);
+.footer-column a{
+    display:block;
+    color:#aab8b0;
+    font-size:9px;
+    margin-bottom:8px;
+}
 
-    margin:22px auto 0;
+.footer-column a:hover{
+    color:#fff;
+}
 
-    padding-top:15px;
+.footer-bottom{
+    width:min(1180px,92%);
+    margin:35px auto 0;
 
-    border-top:
-        1px solid rgba(255,255,255,.2);
+    border-top:1px solid rgba(255,255,255,.1);
+
+    padding-top:18px;
 
     text-align:center;
 
-    font-size:7.5px;
-
-    opacity:.8;
+    color:#819087;
+    font-size:8px;
 }
 
 
-/* ================================
-   FLOATING WHATSAPP
-================================ */
+/* =====================================================
+   WHATSAPP
+===================================================== */
 
 .whatsapp{
     position:fixed;
+    right:22px;
+    bottom:22px;
 
-    right:20px;
-    bottom:20px;
+    width:53px;
+    height:53px;
 
-    width:52px;
-    height:52px;
+    background:#25d366;
+    color:#fff;
+
+    border-radius:50%;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:#25d366;
-
-    color:white;
-
-    border-radius:50%;
-
     font-size:24px;
 
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.2);
+    box-shadow:0 8px 25px rgba(0,0,0,.18);
 
-    z-index:999;
+    z-index:2000;
 
     transition:.25s;
 }
@@ -863,179 +962,178 @@ footer{
 }
 
 
-/* ================================
-   RESPONSIVE
-================================ */
+/* =====================================================
+   MOBILE
+===================================================== */
 
 @media(max-width:900px){
 
-    .nav-menu{
+    .nav-links{
         gap:15px;
     }
 
     .hero{
-        gap:30px;
+        gap:35px;
+    }
+
+    .products-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
 
 @media(max-width:700px){
 
-    .topbar{
-        height:35px;
+    .top-contact span:not(:first-child){
+        display:none;
     }
 
     .topbar-inner{
         justify-content:center;
     }
 
-    .top-left span:nth-child(2),
-    .top-left span:nth-child(3){
-        display:none;
-    }
-
     .top-social{
         display:none;
     }
 
-    .navbar{
-        height:70px;
-    }
-
-    .nav-menu{
+    .nav-links{
         display:none;
 
         position:absolute;
 
-        top:105px;
+        top:78px;
         left:0;
         right:0;
 
-        background:white;
+        background:#fff;
 
         flex-direction:column;
 
         gap:0;
 
-        padding:10px 0;
+        padding:8px 0;
 
-        box-shadow:
-            0 10px 20px rgba(0,0,0,.08);
-
-        z-index:100;
+        box-shadow:0 10px 25px rgba(0,0,0,.08);
     }
 
-    .nav-menu.show{
+    .nav-links.active{
         display:flex;
     }
 
-    .nav-menu a{
+    .nav-links a{
         width:100%;
-
+        padding:13px 20px;
         text-align:center;
-
-        padding:13px;
-
-        border-bottom:1px solid #f5f5f5;
+        border-bottom:1px solid #f1f1f1;
     }
 
-    .nav-menu a::after{
+    .nav-links a::after{
         display:none;
     }
 
-    .donate{
+    .nav-button{
         display:none;
     }
 
-    .menu-btn{
+    .menu-button{
         display:block;
     }
 
     .hero{
         grid-template-columns:1fr;
-
-        padding:35px 0;
-
-        gap:25px;
+        padding:55px 0;
     }
 
-    .hero-text{
-        text-align:left;
+    .hero h1{
+        font-size:34px;
     }
 
-    .hero-image{
-        height:230px;
-    }
-
-    .why{
-        grid-template-columns:1fr;
-
-        padding-bottom:40px;
-
-        gap:25px;
-    }
-
-    .why-image{
-        order:2;
-    }
-
-    .why-text{
-        order:1;
+    .hero-card{
+        height:300px;
     }
 
     .services-grid{
         grid-template-columns:1fr;
     }
 
-    .benefits-grid{
-        grid-template-columns:1fr;
+    .products-grid{
+        grid-template-columns:1fr 1fr;
     }
 
-    .form-grid{
+    .about-grid{
         grid-template-columns:1fr;
+        gap:35px;
     }
 
-    .form-group.full{
-        grid-column:auto;
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .reviews-grid{
+        grid-template-columns:1fr;
     }
 
     .contact-grid{
         grid-template-columns:1fr;
     }
 
-    .footer-inner{
-        flex-direction:column;
-        text-align:center;
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:30px;
     }
 
 }
 
 @media(max-width:450px){
 
-    .container{
-        width:90%;
+    .products-grid{
+        grid-template-columns:1fr;
     }
 
-    .hero-text h1{
-        font-size:23px;
+    .hero h1{
+        font-size:30px;
     }
 
-    .hero-text h2{
-        font-size:15px;
+    .hero-buttons{
+        flex-direction:column;
     }
 
-    .hero-text p{
-        font-size:9px;
+    .hero-buttons a{
+        text-align:center;
     }
 
-    .hero-image{
-        height:210px;
+    .about-box{
+        grid-template-columns:1fr;
     }
 
-    .booking-box{
-        padding:25px 18px;
+    .cta{
+        padding:35px 20px;
     }
 
+}
+
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.hero-content,
+.hero-visual{
+    animation:fadeUp .8s ease both;
 }
 
 </style>
@@ -1045,28 +1143,28 @@ footer{
 <body>
 
 
-<!-- =========================================
-     TOP CONTACT BAR
-========================================= -->
+<!-- =====================================================
+     TOP BAR
+===================================================== -->
 
 <div class="topbar">
 
     <div class="topbar-inner">
 
-        <div class="top-left">
-
-            <span>
-                Have any questions?
-            </span>
+        <div class="top-contact">
 
             <span>
                 <i class="fa-solid fa-phone"></i>
-                +92 (21) 111-153-153
+                0347 1420856
             </span>
 
             <span>
                 <i class="fa-solid fa-envelope"></i>
-                info@alamgirwelfaretrust.com.pk
+                info@amazonprinting.pk
+            </span>
+
+            <span>
+                Mandi Bahauddin, Punjab, Pakistan
             </span>
 
         </div>
@@ -1092,217 +1190,124 @@ footer{
 </div>
 
 
-<!-- =========================================
+<!-- =====================================================
      NAVBAR
-========================================= -->
+===================================================== -->
 
-<nav class="navbar">
+<header class="navbar">
 
     <div class="nav-inner">
 
-        <!-- LOGO -->
-        <a href="#" class="logo">
+        <a href="#home" class="logo">
 
-            <!--
-            YAHAN APNA LOGO URL LAGAO
-            -->
-            <img
-            src="https://alamgirwelfaretrust.com.pk/wp-content/uploads/2024/12/logo.png"
-            alt="Alamgir Welfare Trust">
+            <div class="logo-mark">
+                <i class="fa-solid fa-print"></i>
+            </div>
+
+            <div class="logo-text">
+                <strong>Amazon Printing</strong>
+                <small>PRIVATE LIMITED</small>
+            </div>
 
         </a>
 
 
-        <div class="nav-menu" id="navMenu">
+        <nav class="nav-links" id="navLinks">
 
-            <a href="#home">
-                Home
-            </a>
+            <a href="#home">Home</a>
 
-            <a href="#about">
-                About us
-            </a>
+            <a href="#services">Services</a>
 
-            <a href="#services">
-                Services
-            </a>
+            <a href="#products">Products</a>
 
-            <a href="#benefits">
-                Activities
-            </a>
+            <a href="#about">About</a>
 
-            <a href="#booking">
-                Registration
-            </a>
+            <a href="#reviews">Reviews</a>
 
-            <a href="#contact">
-                Contact Us
-            </a>
+            <a href="#contact">Contact</a>
 
-        </div>
+        </nav>
 
 
-        <a href="#booking" class="donate">
-            DONATE NOW
+        <a href="#contact" class="nav-button">
+            CONTACT US
         </a>
 
 
-        <button
-        class="menu-btn"
-        onclick="toggleMenu()">
-
+        <button class="menu-button" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
-
         </button>
 
     </div>
 
-</nav>
+</header>
 
 
 
-<!-- =========================================
-     MAIN
-========================================= -->
-
-<main>
-
-
-<div class="container" id="home">
-
-
-<!-- =========================================
+<!-- =====================================================
      HERO
-========================================= -->
+===================================================== -->
 
-<section class="hero">
+<section class="hero" id="home">
 
+    <div class="container" style="display:contents;">
 
-    <div class="hero-text">
+        <div class="hero-content">
 
-        <h1>
-            Alamgir Hijama Center
-        </h1>
+            <div class="hero-tag">
+                <i class="fa-solid fa-circle-check"></i>
+                Professional Printing Solutions
+            </div>
 
-        <div class="green-line"></div>
+            <h1>
+                Professional Printing
+                <span>Solutions</span>
+            </h1>
 
-        <h2>
-            Your Path to Wellness and Natural Healing
-        </h2>
+            <div class="hero-subtitle">
+                Quality Printing. Creative Design. Reliable Service.
+            </div>
 
-        <p>
+            <p>
+                Amazon Printing Private Limited provides
+                professional printing and designing solutions
+                with quality, creativity and reliable service.
+            </p>
 
-            Welcome to <strong>Alamgir Hijama</strong>,
-            where we provide expert cupping therapy
-            services rooted in tradition and enhanced
-            by modern techniques.
+            <div class="hero-buttons">
 
-            Our mission is to help you achieve optimal
-            health and wellness through the time-tested
-            practice of Hijama.
+                <a href="#products" class="primary-btn">
+                    VIEW PRODUCTS
+                </a>
 
-            Whether you're seeking relief from chronic
-            pain, stress, or looking to detoxify your
-            body naturally, we are here to guide you
-            on your healing journey.
+                <a href="#contact" class="secondary-btn">
+                    GET IN TOUCH
+                </a>
 
-        </p>
+            </div>
 
-    </div>
-
-
-    <div class="hero-image">
-
-        <img
-        src="https://alamgirwelfaretrust.com.pk/wp-content/uploads/2024/12/cupping-therapy-traditional-chinese-medicine_1387-922.jpg"
-        alt="Cupping Therapy">
-
-    </div>
+        </div>
 
 
-</section>
+        <div class="hero-visual">
 
+            <div class="hero-card">
 
+                <div class="print-icon"></div>
 
-<!-- =========================================
-     WHY CHOOSE
-========================================= -->
+                <div class="floating-card float-one">
+                    <i class="fa-solid fa-check"></i>
+                    Quality Printing
+                </div>
 
-<section class="why" id="about">
+                <div class="floating-card float-two">
+                    <i class="fa-solid fa-star"></i>
+                    Professional Service
+                </div>
 
+            </div>
 
-    <div class="why-image">
-
-        <img
-        src="https://alamgirwelfaretrust.com.pk/wp-content/uploads/2024/12/cupping-therapy-traditional-chinese-medicine_1387-922.jpg"
-        alt="Hijama Therapy">
-
-    </div>
-
-
-    <div class="why-text">
-
-        <h2 class="section-title">
-            Why Choose Alamgir Hijama?
-        </h2>
-
-        <p>
-
-            At Alamgir Hijama, we believe in the
-            power of natural healing. Here's why
-            we stand out:
-
-        </p>
-
-
-        <ul class="why-list">
-
-            <li>
-                <strong>
-                    Certified Practitioners:
-                </strong>
-
-                Our team comprises certified and
-                experienced Hijama specialists who
-                prioritize your safety and comfort.
-            </li>
-
-
-            <li>
-                <strong>
-                    Sterile & Safe Environment:
-                </strong>
-
-                We adhere to the highest standards
-                of hygiene, using disposable cups
-                and sterilized equipment for every
-                session.
-            </li>
-
-
-            <li>
-                <strong>
-                    Customized Treatments:
-                </strong>
-
-                Every individual is unique, and so
-                are their health needs. We tailor
-                our Hijama therapy sessions to
-                address your specific concerns.
-            </li>
-
-
-            <li>
-                <strong>
-                    Holistic Approach:
-                </strong>
-
-                Beyond physical healing, our
-                therapies aim to restore balance
-                to your body, mind, and spirit.
-            </li>
-
-        </ul>
+        </div>
 
     </div>
 
@@ -1310,96 +1315,90 @@ footer{
 
 
 
-<!-- =========================================
+<!-- =====================================================
      SERVICES
-========================================= -->
+===================================================== -->
 
 <section class="services" id="services">
 
-    <h2 class="section-title">
-        Our Services
-    </h2>
+    <div class="container">
 
+        <div class="section-heading">
 
-    <div class="services-grid">
-
-
-        <!-- SERVICE 1 -->
-
-        <div class="service">
-
-            <div class="service-icon">
-
-                <i class="fa-solid fa-hand-holding-medical"></i>
-
+            <div class="small">
+                What We Do
             </div>
 
-            <h3>
-                Dry Cupping Therapy
-            </h3>
+            <h2>
+                Our Services
+            </h2>
 
             <p>
-
-                Ideal for relieving muscle tension,
-                improving blood circulation and
-                promoting relaxation.
-
+                Professional printing and creative services
+                designed to meet your business and personal needs.
             </p>
 
         </div>
 
 
-
-        <!-- SERVICE 2 -->
-
-        <div class="service">
-
-            <div class="service-icon">
-
-                <i class="fa-solid fa-vial-circle-check"></i>
-
-            </div>
-
-            <h3>
-                Wet Cupping Therapy
-            </h3>
-
-            <p>
-
-                A traditional Hijama method involving
-                controlled procedures performed with
-                appropriate hygiene and care.
-
-            </p>
-
-        </div>
+        <div class="services-grid">
 
 
+            <div class="service-card">
 
-        <!-- SERVICE 3 -->
+                <div class="service-icon">
+                    <i class="fa-solid fa-print"></i>
+                </div>
 
-        <div class="service">
+                <h3>
+                    Digital Printing
+                </h3>
 
-            <div class="service-icon">
-
-                <i class="fa-solid fa-person-circle-exclamation"></i>
+                <p>
+                    High-quality digital printing solutions
+                    for professional and personal requirements.
+                </p>
 
             </div>
 
-            <h3>
-                Back Pain & Sciatica Treatment
-            </h3>
 
-            <p>
+            <div class="service-card">
 
-                Targeted Hijama therapy for people
-                seeking support for back pain and
-                nerve discomfort.
+                <div class="service-icon">
+                    <i class="fa-solid fa-pen-ruler"></i>
+                </div>
 
-            </p>
+                <h3>
+                    Graphic Designing
+                </h3>
+
+                <p>
+                    Creative and professional graphic designing
+                    for your branding and promotional needs.
+                </p>
+
+            </div>
+
+
+            <div class="service-card">
+
+                <div class="service-icon">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+
+                <h3>
+                    PVC Cards
+                </h3>
+
+                <p>
+                    Professional PVC card printing with
+                    clean and durable finishing.
+                </p>
+
+            </div>
+
 
         </div>
-
 
     </div>
 
@@ -1407,483 +1406,629 @@ footer{
 
 
 
-<!-- =========================================
-     CTA
-========================================= -->
+<!-- =====================================================
+     FEATURED PRODUCTS
+===================================================== -->
 
-<section class="cta">
+<section class="products" id="products">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="small">
+                Our Products
+            </div>
+
+            <h2>
+                Featured Products
+            </h2>
+
+            <p>
+                Explore our popular printing products
+                made with professional quality and care.
+            </p>
+
+        </div>
+
+
+        <div class="products-grid">
+
+
+            <div class="product-card">
+
+                <div class="product-number">01</div>
+
+                <i class="fa-regular fa-address-card"></i>
+
+                <h3>
+                    Business Cards
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">02</div>
+
+                <i class="fa-solid fa-panorama"></i>
+
+                <h3>
+                    Flex Banners
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">03</div>
+
+                <i class="fa-solid fa-shirt"></i>
+
+                <h3>
+                    Custom T-Shirts
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">04</div>
+
+                <i class="fa-solid fa-box"></i>
+
+                <h3>
+                    Packaging Boxes
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">05</div>
+
+                <i class="fa-solid fa-note-sticky"></i>
+
+                <h3>
+                    Stickers
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">06</div>
+
+                <i class="fa-solid fa-mug-hot"></i>
+
+                <h3>
+                    Mugs Printing
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">07</div>
+
+                <i class="fa-solid fa-bottle-water"></i>
+
+                <h3>
+                    Water Bottles
+                </h3>
+
+            </div>
+
+
+            <div class="product-card">
+
+                <div class="product-number">08</div>
+
+                <i class="fa-solid fa-id-card"></i>
+
+                <h3>
+                    PVC ID Cards
+                </h3>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section class="about" id="about">
+
+    <div class="container">
+
+        <div class="about-grid">
+
+
+            <div>
+
+                <div class="about-label">
+                    About Us
+                </div>
+
+                <h2>
+                    About Amazon Printing
+                </h2>
+
+                <p>
+                    Amazon Printing Private Limited is
+                    committed to providing professional
+                    printing and designing services with
+                    quality, creativity and customer
+                    satisfaction.
+                </p>
+
+            </div>
+
+
+            <div class="about-box">
+
+                <div class="stat">
+
+                    <strong>
+                        5000+
+                    </strong>
+
+                    <span>
+                        Happy Clients
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        15000+
+                    </strong>
+
+                    <span>
+                        Completed Orders
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        10+
+                    </strong>
+
+                    <span>
+                        Years Experience
+                    </span>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <strong>
+                        24/7
+                    </strong>
+
+                    <span>
+                        Customer Support
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="stats">
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-users"></i>
+
+                <strong>
+                    5000+
+                </strong>
+
+                <span>
+                    Happy Clients
+                </span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <strong>
+                    15000+
+                </strong>
+
+                <span>
+                    Completed Orders
+                </span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-award"></i>
+
+                <strong>
+                    10+
+                </strong>
+
+                <span>
+                    Years Experience
+                </span>
+
+            </div>
+
+
+            <div class="stat-box">
+
+                <i class="fa-solid fa-headset"></i>
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    Customer Support
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     REVIEWS
+===================================================== -->
+
+<section class="reviews" id="reviews">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <div class="small">
+                Customer Feedback
+            </div>
+
+            <h2>
+                What Our Customers Say
+            </h2>
+
+        </div>
+
+
+        <div class="reviews-grid">
+
+
+            <div class="review">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    Great quality and professional
+                    printing service.
+                </p>
+
+                <strong>
+                    Ali Khan
+                </strong>
+
+            </div>
+
+
+            <div class="review">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    Excellent printing quality and
+                    very good customer service.
+                </p>
+
+                <strong>
+                    Ahmed Raza
+                </strong>
+
+            </div>
+
+
+            <div class="review">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    Professional work and reliable
+                    service. Highly recommended.
+                </p>
+
+                <strong>
+                    Usman
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<div class="cta">
 
     <h2>
-        Book Your Hijama Session Today
+        Need Professional Printing?
     </h2>
 
     <p>
-
-        Take the first step towards a healthier
-        and rejuvenated you with Alamgir Hijama.
-        Our dedicated team is ready to help you
-        feel your best.
-
+        Contact Amazon Printing Private Limited
+        for your printing and designing requirements.
     </p>
 
-    <a
-    href="#booking"
-    class="cta-btn">
-
-        BOOK YOUR SESSION
-
+    <a href="tel:03471420856">
+        CALL 0347 1420856
     </a>
 
-</section>
-
-
-
-<!-- =========================================
-     BENEFITS
-========================================= -->
-
-<section class="benefits" id="benefits">
-
-    <div class="benefits-title">
-
-        <h2 class="section-title">
-            Why Choose Hijama?
-        </h2>
-
-    </div>
-
-
-    <div class="benefits-grid">
-
-
-        <div class="benefit">
-
-            <i class="fa-solid fa-droplet"></i>
-
-            <h3>
-                Natural Wellness
-            </h3>
-
-            <p>
-                Traditional cupping therapy
-                as part of a holistic wellness
-                approach.
-            </p>
-
-        </div>
-
-
-        <div class="benefit">
-
-            <i class="fa-solid fa-heart-pulse"></i>
-
-            <h3>
-                Professional Care
-            </h3>
-
-            <p>
-                Focus on hygiene, comfort and
-                a professional treatment environment.
-            </p>
-
-        </div>
-
-
-        <div class="benefit">
-
-            <i class="fa-solid fa-shield-heart"></i>
-
-            <h3>
-                Safe Environment
-            </h3>
-
-            <p>
-                Appropriate sterilization and
-                disposable equipment practices.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
 </div>
 
 
 
-<!-- =========================================
-     BOOKING
-========================================= -->
-
-<section class="booking" id="booking">
-
-<div class="container">
-
-<div class="booking-box">
-
-    <div class="booking-title">
-
-        <h2>
-            Book Your Session
-        </h2>
-
-        <p>
-            Fill in your details and our team will contact you.
-        </p>
-
-    </div>
-
-
-    <form id="bookingForm">
-
-        <div class="form-grid">
-
-
-            <div class="form-group">
-
-                <label>
-                    Full Name
-                </label>
-
-                <input
-                type="text"
-                id="name"
-                placeholder="Enter your name"
-                required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Phone Number
-                </label>
-
-                <input
-                type="tel"
-                id="phone"
-                placeholder="03XX-XXXXXXX"
-                required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Service
-                </label>
-
-                <select id="service">
-
-                    <option>
-                        Dry Cupping Therapy
-                    </option>
-
-                    <option>
-                        Wet Cupping Therapy
-                    </option>
-
-                    <option>
-                        Back Pain & Sciatica Treatment
-                    </option>
-
-                    <option>
-                        General Hijama Consultation
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Preferred Date
-                </label>
-
-                <input
-                type="date"
-                id="date"
-                required>
-
-            </div>
-
-
-            <div class="form-group full">
-
-                <label>
-                    Message
-                </label>
-
-                <textarea
-                id="message"
-                placeholder="Write any additional information..."></textarea>
-
-            </div>
-
-
-        </div>
-
-
-        <button
-        type="submit"
-        class="submit-btn">
-
-            SUBMIT BOOKING
-
-        </button>
-
-    </form>
-
-</div>
-
-</div>
-
-</section>
-
-
-
-<!-- =========================================
+<!-- =====================================================
      CONTACT
-========================================= -->
+===================================================== -->
 
 <section class="contact" id="contact">
 
-<div class="container">
+    <div class="container">
 
-    <div style="text-align:center;margin-bottom:35px;">
+        <div class="section-heading">
 
-        <h2 class="section-title">
-            Contact Us
-        </h2>
+            <div class="small">
+                Get In Touch
+            </div>
+
+            <h2>
+                Contact Us
+            </h2>
+
+            <p>
+                We are ready to help you with your
+                printing and designing needs.
+            </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+
+            <div class="contact-card">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <h3>
+                    Location
+                </h3>
+
+                <p>
+                    Mandi Bahauddin,
+                    Punjab, Pakistan
+                </p>
+
+            </div>
+
+
+            <div class="contact-card">
+
+                <i class="fa-solid fa-phone"></i>
+
+                <h3>
+                    Phone
+                </h3>
+
+                <p>
+                    0347 1420856
+                </p>
+
+            </div>
+
+
+            <div class="contact-card">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <h3>
+                    Email
+                </h3>
+
+                <p>
+                    info@amazonprinting.pk
+                </p>
+
+            </div>
+
+
+        </div>
 
     </div>
-
-
-    <div class="contact-grid">
-
-
-        <div class="contact-card">
-
-            <i class="fa-solid fa-location-dot"></i>
-
-            <h3>
-                Location
-            </h3>
-
-            <p>
-                Alamgir Masjid,
-                Alamgir Road,
-                Bahadurabad, Karachi
-            </p>
-
-        </div>
-
-
-        <div class="contact-card">
-
-            <i class="fa-solid fa-phone"></i>
-
-            <h3>
-                Contact
-            </h3>
-
-            <p>
-                +92 (21) 111-153-153
-                <br>
-                +92 (21) 34852055-60
-            </p>
-
-        </div>
-
-
-        <div class="contact-card">
-
-            <i class="fa-solid fa-envelope"></i>
-
-            <h3>
-                Email
-            </h3>
-
-            <p>
-                info@alamgirwelfaretrust.com.pk
-            </p>
-
-        </div>
-
-
-    </div>
-
-</div>
 
 </section>
 
 
 
-<!-- =========================================
+<!-- =====================================================
      FOOTER
-========================================= -->
+===================================================== -->
 
 <footer>
 
-    <div class="footer-inner">
+    <div class="footer-grid">
+
 
         <div class="footer-brand">
-            Alamgir Hijama Center
+
+            <h3>
+                Amazon Printing
+            </h3>
+
+            <p>
+                Amazon Printing Private Limited.
+                Professional printing and designing
+                solutions with quality, creativity
+                and reliable service.
+            </p>
+
         </div>
 
-        <div class="footer-text">
-            Your Path to Wellness and Natural Healing
+
+        <div class="footer-column">
+
+            <h4>
+                Quick Links
+            </h4>
+
+            <a href="#home">Home</a>
+            <a href="#services">Services</a>
+            <a href="#products">Products</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+
         </div>
 
-        <div class="footer-social">
 
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
+        <div class="footer-column">
+
+            <h4>
+                Contact
+            </h4>
+
+            <a href="tel:03471420856">
+                0347 1420856
+            </a>
+
+            <a href="mailto:info@amazonprinting.pk">
+                info@amazonprinting.pk
             </a>
 
             <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-youtube"></i>
+                Mandi Bahauddin, Punjab, Pakistan
             </a>
 
         </div>
+
 
     </div>
 
 
-    <div class="copyright">
+    <div class="footer-bottom">
 
-        © 2026 Alamgir Hijama Center. All Rights Reserved.
+        © 2026 Amazon Printing Private Limited.
+        All Rights Reserved.
 
     </div>
 
 </footer>
 
 
-<!-- WHATSAPP -->
+
+<!-- =====================================================
+     WHATSAPP
+===================================================== -->
 
 <a
+href="https://wa.me/923471420856"
 class="whatsapp"
-href="https://wa.me/9221111153153"
-target="_blank">
+target="_blank"
+aria-label="WhatsApp">
 
     <i class="fa-brands fa-whatsapp"></i>
 
 </a>
 
 
-<script>
 
-/* ================================
-   MOBILE MENU
-================================ */
+<script>
 
 function toggleMenu(){
 
     document
-    .getElementById("navMenu")
-    .classList.toggle("show");
+    .getElementById("navLinks")
+    .classList.toggle("active");
 
 }
 
 
-/* ================================
-   BOOKING FORM
-================================ */
-
 document
-.getElementById("bookingForm")
-.addEventListener("submit",function(e){
-
-    e.preventDefault();
-
-    const name =
-    document.getElementById("name").value;
-
-    const phone =
-    document.getElementById("phone").value;
-
-    const service =
-    document.getElementById("service").value;
-
-    const date =
-    document.getElementById("date").value;
-
-    const message =
-    document.getElementById("message").value;
-
-
-    const whatsappNumber =
-    "9221111153153";
-
-
-    const text =
-    `*Alamgir Hijama Center - Booking*%0A%0A` +
-
-    `Name: ${name}%0A` +
-
-    `Phone: ${phone}%0A` +
-
-    `Service: ${service}%0A` +
-
-    `Date: ${date}%0A` +
-
-    `Message: ${message}`;
-
-
-    window.open(
-        `https://wa.me/${whatsappNumber}?text=${text}`,
-        "_blank"
-    );
-
-});
-
-
-/* ================================
-   CLOSE MOBILE MENU
-================================ */
-
-document
-.querySelectorAll(".nav-menu a")
+.querySelectorAll(".nav-links a")
 .forEach(function(link){
 
     link.addEventListener("click",function(){
 
         document
-        .getElementById("navMenu")
-        .classList.remove("show");
+        .getElementById("navLinks")
+        .classList.remove("active");
 
     });
 
 });
-
-
-/* ================================
-   DATE
-================================ */
-
-const dateInput =
-document.getElementById("date");
-
-if(dateInput){
-
-    const today =
-    new Date()
-    .toISOString()
-    .split("T")[0];
-
-    dateInput.min = today;
-
-}
 
 </script>
 
