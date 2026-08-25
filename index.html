@@ -1,53 +1,25 @@
-```html
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>طیبہ دوا خانہ اینڈ حجامہ سنٹر</title>
+<title>Alamgir Hijama Center | Natural Healing & Cupping Therapy</title>
 
-<!-- ================================
-     PREMIUM FONTS
-================================ -->
+<!-- Google Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700&family=Gulzar&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<!-- Icons -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 
-/* =====================================================
-   COLOR SYSTEM
-===================================================== */
-
-:root{
-    --forest:#063c2d;
-    --emerald:#087357;
-    --emerald2:#0c8b68;
-
-    --gold:#c9a34e;
-    --gold2:#e9d18a;
-    --gold3:#f8edc9;
-
-    --cream:#fffdf7;
-    --paper:#f7f8f3;
-    --white:#ffffff;
-
-    --text:#19372f;
-    --muted:#718079;
-
-    --border:#e4ebe7;
-
-    --shadow:
-        0 20px 55px rgba(4,48,36,.10);
-}
-
-
-/* =====================================================
+/* ================================
    RESET
-===================================================== */
+================================ */
 
 *{
     margin:0;
@@ -60,1470 +32,1008 @@ html{
 }
 
 body{
-
-    background:
-        radial-gradient(
-            circle at 10% 10%,
-            rgba(201,163,78,.08),
-            transparent 28%
-        ),
-
-        radial-gradient(
-            circle at 90% 80%,
-            rgba(8,115,87,.07),
-            transparent 30%
-        ),
-
-        var(--paper);
-
-    color:var(--text);
-
-    font-family:
-        "Cairo",
-        sans-serif;
-
-    line-height:1.8;
-
+    font-family:"Poppins",Arial,sans-serif;
+    background:#fff;
+    color:#111;
     overflow-x:hidden;
 }
 
+img{
+    max-width:100%;
+    display:block;
+}
 
-/* =====================================================
-   URDU TYPOGRAPHY
-===================================================== */
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-.urdu-title{
+button,
+input,
+textarea{
+    font-family:inherit;
+}
 
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
 
+/* ================================
+   COLORS
+================================ */
+
+:root{
+    --green:#087d3d;
+    --dark-green:#05662f;
+    --light-green:#eaf7ef;
+    --red:#ff5a55;
+    --text:#111;
+    --gray:#666;
+    --border:#eeeeee;
+}
+
+
+/* ================================
+   TOP BAR
+================================ */
+
+.topbar{
+    height:30px;
+    background:var(--green);
+    color:white;
+    font-size:9px;
+}
+
+.topbar-inner{
+    max-width:1150px;
+    height:100%;
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.top-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.top-left span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.top-social{
+    display:flex;
+    gap:13px;
+}
+
+.top-social a{
+    transition:.2s;
+}
+
+.top-social a:hover{
+    opacity:.65;
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar{
+    height:76px;
+    background:white;
+
+    display:flex;
+    align-items:center;
+
+    border-bottom:1px solid #f2f2f2;
+}
+
+.nav-inner{
+    width:min(1150px,92%);
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+/* LOGO */
+
+.logo{
+    width:65px;
+    height:65px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+
+/* NAV */
+
+.nav-menu{
+    display:flex;
+    align-items:center;
+    gap:29px;
+
+    font-size:11px;
     font-weight:600;
-
-    line-height:2.05;
 }
 
-.urdu-display{
-
-    font-family:
-        "Gulzar",
-        "Noto Nastaliq Urdu",
-        serif;
-
-    line-height:2;
+.nav-menu a{
+    position:relative;
+    padding:29px 0;
+    transition:.25s;
 }
 
-.arabic{
+.nav-menu a:hover{
+    color:var(--green);
+}
 
-    font-family:
-        "Amiri",
-        serif;
+.nav-menu a::after{
+    content:"";
 
+    position:absolute;
+    left:0;
+    bottom:21px;
+
+    width:0;
+    height:2px;
+
+    background:var(--green);
+
+    transition:.25s;
+}
+
+.nav-menu a:hover::after{
+    width:100%;
 }
 
 
-/* =====================================================
-   CONTAINER
-===================================================== */
+/* DONATE BUTTON */
+
+.donate{
+    background:var(--green);
+    color:white;
+
+    padding:11px 20px;
+
+    font-size:10px;
+    font-weight:700;
+
+    border-radius:2px;
+
+    transition:.25s;
+}
+
+.donate:hover{
+    background:var(--dark-green);
+    transform:translateY(-2px);
+}
+
+
+/* MOBILE MENU */
+
+.menu-btn{
+    display:none;
+
+    border:0;
+    background:none;
+
+    font-size:22px;
+    cursor:pointer;
+}
+
+
+/* ================================
+   MAIN
+================================ */
 
 .container{
-
-    width:min(1200px,94%);
-
+    width:min(1150px,92%);
     margin:auto;
 }
 
 
-/* =====================================================
-   TOP BAR
-===================================================== */
-
-.topbar{
-
-    margin-top:12px;
-
-    padding:8px 16px;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:15px;
-
-    color:#e9f3ef;
-
-    background:var(--forest);
-
-    border-radius:12px;
-
-    font-size:.72rem;
-}
-
-.topbar span{
-    opacity:.9;
-}
-
-
-/* =====================================================
+/* ================================
    HERO
-===================================================== */
+================================ */
 
 .hero{
+    min-height:330px;
 
-    position:relative;
+    display:grid;
+    grid-template-columns:1fr 1fr;
 
-    margin-top:10px;
-
-    min-height:470px;
-
-    display:flex;
+    gap:55px;
 
     align-items:center;
 
-    justify-content:center;
+    padding:48px 0 38px;
+}
 
-    text-align:center;
+.hero-text h1{
+    font-size:25px;
+    line-height:1.3;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+}
+
+.green-line{
+    width:100%;
+    height:2px;
+
+    background:var(--green);
+
+    margin-bottom:7px;
+}
+
+.hero-text h2{
+    font-size:16px;
+
+    line-height:1.4;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.hero-text p{
+    font-size:9px;
+
+    line-height:1.75;
+
+    color:#333;
+
+    max-width:560px;
+}
+
+.hero-image{
+    height:210px;
+
+    border-radius:9px;
 
     overflow:hidden;
 
-    border-radius:30px;
+    box-shadow:
+        0 4px 13px rgba(0,0,0,.18);
+}
 
-    color:white;
+.hero-image img{
+    width:100%;
+    height:100%;
 
-    background:
-
-        linear-gradient(
-            rgba(2,45,34,.88),
-            rgba(2,45,34,.94)
-        ),
-
-        url("https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1800&q=85")
-        center/cover;
-
-    box-shadow:var(--shadow);
+    object-fit:cover;
 }
 
 
-/* decorative circles */
+/* ================================
+   WHY SECTION
+================================ */
 
-.hero::before{
+.why{
+    min-height:270px;
 
-    content:"";
+    display:grid;
+    grid-template-columns:1fr 1fr;
 
-    position:absolute;
-
-    width:520px;
-    height:520px;
-
-    border:1px solid rgba(233,209,138,.18);
-
-    border-radius:50%;
-
-    top:-270px;
-    left:-170px;
-}
-
-.hero::after{
-
-    content:"";
-
-    position:absolute;
-
-    width:420px;
-    height:420px;
-
-    border:1px solid rgba(233,209,138,.14);
-
-    border-radius:50%;
-
-    bottom:-260px;
-    right:-150px;
-}
-
-
-.hero-content{
-
-    position:relative;
-
-    z-index:2;
-
-    width:min(850px,95%);
-
-    padding:45px 15px;
-}
-
-
-/* =====================================================
-   LOGO
-===================================================== */
-
-.logo{
-
-    width:92px;
-    height:92px;
-
-    margin:0 auto 18px;
-
-    display:flex;
+    gap:15px;
 
     align-items:center;
-    justify-content:center;
 
-    border-radius:50%;
+    padding:15px 0 60px;
+}
 
-    border:2px solid var(--gold2);
+.why-image{
+    height:210px;
 
-    background:
+    border-radius:9px;
 
-        radial-gradient(
-            circle,
-            rgba(233,209,138,.15),
-            rgba(255,255,255,.02)
-        );
+    overflow:hidden;
 
     box-shadow:
-
-        0 0 0 9px rgba(201,163,78,.08),
-
-        0 0 45px rgba(201,163,78,.16);
-
-    font-size:42px;
+        0 4px 13px rgba(0,0,0,.15);
 }
 
+.why-image img{
+    width:100%;
+    height:100%;
 
-/* =====================================================
-   MAIN TITLE
-===================================================== */
-
-.hero h1{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    font-size:
-        clamp(2.5rem,7vw,5rem);
-
-    font-weight:600;
-
-    line-height:1.8;
-
-    color:#fff;
-
-    text-shadow:
-        0 5px 25px rgba(0,0,0,.3);
-
-    margin-bottom:5px;
+    object-fit:cover;
 }
 
-
-.hero-subtitle{
-
-    font-family:
-        "Gulzar",
-        "Noto Nastaliq Urdu",
-        serif;
-
-    font-size:
-        clamp(1rem,2.4vw,1.45rem);
-
-    line-height:2.2;
-
-    color:#e6f0ec;
+.why-text{
+    padding-left:5px;
 }
 
+.section-title{
+    font-size:18px;
+    font-weight:700;
 
-/* =====================================================
-   GOLD DIVIDER
-===================================================== */
-
-.divider{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:12px;
-
-    margin:18px auto;
-
-    width:230px;
-}
-
-.divider span{
-
-    height:1px;
-
-    flex:1;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            var(--gold)
-        );
-}
-
-.divider span:last-child{
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--gold),
-            transparent
-        );
-}
-
-.divider b{
-
-    color:var(--gold2);
-
-    font-size:16px;
-}
-
-
-/* =====================================================
-   LOCATION
-===================================================== */
-
-.location{
-
-    display:inline-block;
-
-    margin-top:10px;
-
-    padding:8px 18px;
-
-    border:
-
-        1px solid
-        rgba(233,209,138,.35);
-
-    border-radius:50px;
-
-    color:var(--gold3);
-
-    background:
-        rgba(0,0,0,.18);
-
-    font-size:.76rem;
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-.stats{
+    margin-bottom:23px;
 
     position:relative;
 
-    z-index:5;
+    display:inline-block;
+}
 
+.section-title::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    bottom:-8px;
+
+    width:63px;
+    height:2px;
+
+    background:var(--green);
+}
+
+.why-text p{
+    font-size:9px;
+    line-height:1.8;
+
+    color:#333;
+
+    margin-bottom:8px;
+}
+
+.why-list{
+    padding-left:18px;
+}
+
+.why-list li{
+    font-size:8.5px;
+    line-height:1.7;
+
+    margin-bottom:3px;
+
+    color:#333;
+}
+
+.why-list strong{
+    color:#111;
+}
+
+
+/* ================================
+   SERVICES
+================================ */
+
+.services{
+    padding:15px 0 65px;
+
+    text-align:center;
+}
+
+.services .section-title{
+    margin-bottom:42px;
+}
+
+.services-grid{
     display:grid;
 
     grid-template-columns:
         repeat(3,1fr);
 
-    gap:15px;
-
-    margin:-35px auto 0;
-
-    width:min(850px,92%);
-}
-
-
-.stat{
-
-    padding:20px 10px;
-
-    text-align:center;
-
-    background:
-        rgba(255,255,255,.96);
-
-    border:
-
-        1px solid
-        var(--border);
-
-    border-radius:18px;
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.08);
-
-    backdrop-filter:blur(10px);
-}
-
-.stat-icon{
-
-    font-size:27px;
-
-    margin-bottom:3px;
-}
-
-.stat strong{
-
-    display:block;
-
-    color:var(--forest);
-
-    font-size:.86rem;
-}
-
-.stat small{
-
-    color:var(--muted);
-
-    font-size:.68rem;
-}
-
-
-/* =====================================================
-   SLIDER
-===================================================== */
-
-.slider{
-
-    margin-top:25px;
-
-    overflow:hidden;
-
-    border-radius:22px;
-
-    box-shadow:var(--shadow);
-}
-
-.slide{
-
-    display:none;
-
-    padding:28px 20px;
-
-    color:white;
-
-    text-align:center;
-}
-
-.slide.active{
-
-    display:block;
-
-    animation:fadeSlide .8s ease;
-}
-
-.slide:nth-child(1){
-
-    background:
-        linear-gradient(
-            135deg,
-            #075c45,
-            #032d22
-        );
-}
-
-.slide:nth-child(2){
-
-    background:
-        linear-gradient(
-            135deg,
-            #b88c3b,
-            #dfbd65
-        );
-}
-
-.slide:nth-child(3){
-
-    background:
-        linear-gradient(
-            135deg,
-            #145a48,
-            #063126
-        );
-}
-
-.slide h2{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    font-size:1.7rem;
-
-    line-height:2;
-
-    color:white;
-}
-
-.slide p{
-
-    font-size:.8rem;
-
-    opacity:.95;
-}
-
-@keyframes fadeSlide{
-
-    from{
-        opacity:0;
-        transform:translateY(8px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-
-/* =====================================================
-   NOTICE
-===================================================== */
-
-.notice{
-
-    margin-top:22px;
-
-    padding:20px 23px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fffdf5,
-            #fff7df
-        );
-
-    border-right:
-        5px solid var(--gold);
-
-    border-radius:18px;
-
-    box-shadow:
-        0 10px 30px rgba(100,75,20,.06);
-}
-
-.notice-title{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    color:#75551a;
-
-    font-size:1.25rem;
-
-    line-height:2;
-}
-
-.notice p{
-
-    font-size:.78rem;
-
-    color:#705f3d;
-}
-
-
-/* =====================================================
-   ACTIONS
-===================================================== */
-
-.actions{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:15px;
-
-    margin:24px 0;
-}
-
-.action{
-
-    position:relative;
-
-    overflow:hidden;
-
-    border:0;
-
-    padding:18px;
-
-    border-radius:18px;
-
-    cursor:pointer;
-
-    color:white;
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Cairo",
-        sans-serif;
-
-    font-size:1rem;
-
-    line-height:2;
-
-    font-weight:600;
-
-    transition:.35s;
-}
-
-.action:hover{
-
-    transform:translateY(-4px);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.14);
-}
-
-.action.green{
-
-    background:
-        linear-gradient(
-            135deg,
-            #087357,
-            #033d2d
-        );
-}
-
-.action.gold{
-
-    background:
-        linear-gradient(
-            135deg,
-            #d5af59,
-            #997127
-        );
-}
-
-
-/* =====================================================
-   PANELS
-===================================================== */
-
-.panel{
-
-    display:none;
-
-    padding:30px;
-
-    background:white;
-
-    border:
-
-        1px solid
-        var(--border);
-
-    border-radius:24px;
-
-    box-shadow:var(--shadow);
-
-    animation:panel .4s ease;
-
-    margin-bottom:25px;
-}
-
-@keyframes panel{
-
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.panel-title{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    color:var(--forest);
-
-    font-size:1.8rem;
-
-    line-height:2.2;
-}
-
-.panel-desc{
-
-    color:var(--muted);
-
-    font-size:.76rem;
-}
-
-
-/* =====================================================
-   FORM
-===================================================== */
-
-.form-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:17px;
-
-    margin-top:22px;
-}
-
-.field label{
-
-    display:block;
-
-    margin-bottom:7px;
-
-    color:var(--forest);
-
-    font-size:.8rem;
-
-    font-weight:700;
-}
-
-.input{
-
-    width:100%;
-
-    padding:13px 15px;
-
-    background:#fbfdfb;
-
-    border:
-
-        1px solid
-        #dce8e2;
-
-    border-radius:13px;
-
-    outline:none;
-
-    font-family:"Cairo",sans-serif;
-
-    font-size:.82rem;
-
-    transition:.25s;
-}
-
-.input:focus{
-
-    border-color:var(--gold);
-
-    box-shadow:
-        0 0 0 4px
-        rgba(201,163,78,.12);
-}
-
-.submit{
-
-    width:100%;
-
-    margin-top:20px;
-
-    padding:14px;
-
-    border:0;
-
-    border-radius:14px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            #075c45,
-            #023529
-        );
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Cairo",
-        sans-serif;
-
-    font-size:1rem;
-
-    cursor:pointer;
-}
-
-
-/* =====================================================
-   TRACKING
-===================================================== */
-
-.track{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-top:20px;
-}
-
-.track .input{
-    flex:1;
-}
-
-.track-btn{
-
-    padding:0 25px;
-
-    border:0;
-
-    border-radius:13px;
-
-    color:white;
-
-    background:var(--gold);
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Cairo",
-        sans-serif;
-
-    font-size:.9rem;
-
-    cursor:pointer;
-}
-
-.result{
-
-    display:none;
-
-    margin-top:22px;
-
-    padding:20px;
-
-    border-radius:18px;
-
-    background:#f7faf8;
-
-    border:1px solid var(--border);
-}
-
-.result-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:15px;
-
-    padding:11px 0;
-
-    border-bottom:
-        1px dashed #dce6e1;
-
-    font-size:.8rem;
-}
-
-.result-row:last-child{
-    border-bottom:0;
-}
-
-.result-label{
-
-    color:var(--forest);
-
-    font-weight:800;
-}
-
-
-/* =====================================================
-   SECTION HEADINGS
-===================================================== */
-
-.section{
-
-    margin-top:42px;
-}
-
-.section-head{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:12px;
-
-    margin-bottom:20px;
-}
-
-.section-head::before{
-
-    content:"";
-
-    width:5px;
-
-    height:46px;
-
-    border-radius:10px;
-
-    background:
-        linear-gradient(
-            var(--gold),
-            var(--emerald)
-        );
-}
-
-.section-head h2{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    color:var(--forest);
-
-    font-size:1.8rem;
-
-    line-height:2.1;
-}
-
-
-/* =====================================================
-   BENEFITS
-===================================================== */
-
-.benefits{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:15px;
-}
-
-.benefit{
-
-    position:relative;
-
-    padding:23px 20px;
-
-    background:white;
-
-    border:
-
-        1px solid
-        var(--border);
-
-    border-radius:20px;
-
-    box-shadow:
-        0 8px 28px rgba(0,0,0,.045);
-
-    transition:.35s;
-}
-
-.benefit:hover{
-
-    transform:
-        translateY(-7px);
-
-    border-color:
-        rgba(201,163,78,.6);
-
-    box-shadow:
-        0 18px 40px rgba(4,65,48,.10);
-}
-
-.number{
-
-    width:43px;
-    height:43px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    margin-bottom:14px;
-
-    border-radius:13px;
-
-    color:white;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--emerald),
-            var(--forest)
-        );
-
-    font-size:.75rem;
-
-    font-weight:800;
-}
-
-.benefit h3{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    color:var(--forest);
-
-    font-size:1.15rem;
-
-    line-height:2;
-
-    margin-bottom:3px;
-}
-
-.benefit p{
-
-    color:var(--muted);
-
-    font-size:.73rem;
-
-    line-height:2;
-}
-
-
-/* =====================================================
-   GALLERY
-===================================================== */
-
-.gallery{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:18px;
-}
-
-.gallery-card{
-
-    overflow:hidden;
-
-    background:white;
-
-    border-radius:22px;
-
-    border:
-        1px solid
-        var(--border);
-
-    box-shadow:var(--shadow);
-}
-
-.gallery-card img{
-
-    display:block;
-
-    width:100%;
-
-    height:280px;
-
-    object-fit:cover;
-
-    transition:.5s;
-}
-
-.gallery-card:hover img{
-
-    transform:scale(1.05);
-}
-
-.caption{
-
-    padding:15px;
-
-    text-align:center;
-
-    color:var(--forest);
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    font-size:1rem;
-}
-
-
-/* =====================================================
-   TABLE
-===================================================== */
-
-.table-wrap{
-
-    overflow:auto;
-
-    background:white;
-
-    border-radius:20px;
-
-    border:
-        1px solid
-        var(--border);
-
-    box-shadow:var(--shadow);
-}
-
-table{
-
-    width:100%;
-
-    min-width:700px;
-
-    border-collapse:collapse;
-}
-
-thead{
-
-    background:
-        linear-gradient(
-            135deg,
-            #075c45,
-            #02372a
-        );
-
-    color:white;
-}
-
-th{
-
-    padding:15px;
-
-    text-align:right;
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Cairo",
-        sans-serif;
-
-    font-size:.85rem;
-}
-
-td{
-
-    padding:15px;
-
-    border-bottom:
-        1px solid #edf1ef;
-
-    font-size:.76rem;
-}
-
-tbody tr:hover{
-
-    background:#f8fbf9;
+    gap:35px;
 }
-
-.tag{
-
-    display:inline-block;
-
-    padding:4px 10px;
-
-    border-radius:30px;
-
-    color:var(--forest);
-
-    background:#e7f4ee;
-
-    font-size:.68rem;
-
-    font-weight:800;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-
-    position:relative;
-
-    overflow:hidden;
-
-    margin-top:50px;
-
-    padding:38px 20px;
-
-    text-align:center;
-
-    color:white;
-
-    border-radius:26px 26px 0 0;
-
-    background:
-        radial-gradient(
-            circle at 50% 0,
-            rgba(201,163,78,.16),
-            transparent 40%
-        ),
-
-        linear-gradient(
-            135deg,
-            #063c2d,
-            #011f18
-        );
-}
-
-.footer-title{
-
-    font-family:
-        "Noto Nastaliq Urdu",
-        "Gulzar",
-        serif;
-
-    font-size:1.8rem;
-
-    line-height:2.2;
-
-    color:var(--gold2);
-}
-
-footer p{
-
-    margin:4px;
-
-    color:#d1dfda;
-
-    font-size:.72rem;
-}
-
-
-/* =====================================================
-   FLOATING BUTTONS
-===================================================== */
-
-.float-buttons{
-
-    position:fixed;
-
-    left:16px;
-
-    bottom:18px;
-
-    z-index:999;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:10px;
-}
-
-.float{
-
-    width:50px;
-    height:50px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    border-radius:50%;
-
-    text-decoration:none;
-
-    color:white;
-
-    font-size:22px;
 
-    box-shadow:
-        0 8px 25px rgba(0,0,0,.2);
+.service{
+    padding:15px 25px;
 
     transition:.3s;
 }
 
-.float:hover{
-    transform:scale(1.1);
+.service:hover{
+    transform:translateY(-6px);
 }
+
+.service-icon{
+    width:72px;
+    height:72px;
+
+    margin:0 auto 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:var(--red);
+
+    font-size:43px;
+
+    border:1px solid transparent;
+}
+
+.service h3{
+    font-size:12px;
+
+    font-weight:700;
+
+    margin-bottom:7px;
+}
+
+.service p{
+    font-size:8.5px;
+
+    color:#666;
+
+    line-height:1.7;
+}
+
+
+/* ================================
+   GREEN CTA
+================================ */
+
+.cta{
+    background:var(--green);
+
+    color:white;
+
+    padding:48px 30px;
+
+    text-align:center;
+
+    margin-bottom:65px;
+}
+
+.cta h2{
+    font-size:23px;
+
+    margin-bottom:8px;
+}
+
+.cta p{
+    font-size:10px;
+
+    opacity:.9;
+
+    max-width:650px;
+
+    margin:auto auto 22px;
+}
+
+.cta-btn{
+    display:inline-block;
+
+    background:white;
+    color:var(--green);
+
+    padding:11px 25px;
+
+    font-size:10px;
+    font-weight:700;
+
+    border-radius:2px;
+
+    transition:.25s;
+}
+
+.cta-btn:hover{
+    transform:translateY(-2px);
+}
+
+
+/* ================================
+   BENEFITS
+================================ */
+
+.benefits{
+    padding-bottom:70px;
+}
+
+.benefits-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.benefits-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.benefit{
+    border:1px solid var(--border);
+
+    padding:24px;
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+.benefit:hover{
+    border-color:#b8dfc7;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+
+    transform:translateY(-4px);
+}
+
+.benefit i{
+    font-size:28px;
+
+    color:var(--green);
+
+    margin-bottom:12px;
+}
+
+.benefit h3{
+    font-size:12px;
+
+    margin-bottom:6px;
+}
+
+.benefit p{
+    color:#666;
+
+    font-size:8.5px;
+
+    line-height:1.7;
+}
+
+
+/* ================================
+   BOOKING
+================================ */
+
+.booking{
+    background:#f8fbf9;
+
+    padding:55px 0;
+
+    margin-bottom:0;
+}
+
+.booking-box{
+    max-width:700px;
+
+    margin:auto;
+
+    background:white;
+
+    padding:35px;
+
+    box-shadow:
+        0 8px 35px rgba(0,0,0,.06);
+}
+
+.booking-title{
+    text-align:center;
+
+    margin-bottom:25px;
+}
+
+.booking-title h2{
+    font-size:20px;
+}
+
+.booking-title p{
+    color:#777;
+
+    font-size:9px;
+}
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1/-1;
+}
+
+.form-group label{
+    font-size:9px;
+
+    font-weight:600;
+
+    margin-bottom:5px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+
+    border:1px solid #ddd;
+
+    padding:11px;
+
+    font-size:9px;
+
+    outline:none;
+
+    transition:.2s;
+}
+
+.form-group textarea{
+    height:90px;
+    resize:none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--green);
+}
+
+.submit-btn{
+    width:100%;
+
+    margin-top:18px;
+
+    border:0;
+
+    background:var(--green);
+
+    color:white;
+
+    padding:13px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.submit-btn:hover{
+    background:var(--dark-green);
+}
+
+
+/* ================================
+   CONTACT
+================================ */
+
+.contact{
+    padding:60px 0;
+}
+
+.contact-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:20px;
+}
+
+.contact-card{
+    text-align:center;
+
+    border:1px solid var(--border);
+
+    padding:28px 15px;
+}
+
+.contact-card i{
+    font-size:23px;
+
+    color:var(--green);
+
+    margin-bottom:12px;
+}
+
+.contact-card h3{
+    font-size:11px;
+
+    margin-bottom:5px;
+}
+
+.contact-card p{
+    font-size:8.5px;
+
+    color:#666;
+
+    line-height:1.7;
+}
+
+
+/* ================================
+   FOOTER
+================================ */
+
+footer{
+    background:#087d3d;
+
+    color:white;
+
+    padding:30px 0 18px;
+}
+
+.footer-inner{
+    width:min(1150px,92%);
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.footer-brand{
+    font-size:13px;
+
+    font-weight:700;
+}
+
+.footer-text{
+    font-size:8px;
+
+    opacity:.9;
+}
+
+.footer-social{
+    display:flex;
+    gap:15px;
+
+    font-size:12px;
+}
+
+.copyright{
+    width:min(1150px,92%);
+
+    margin:22px auto 0;
+
+    padding-top:15px;
+
+    border-top:
+        1px solid rgba(255,255,255,.2);
+
+    text-align:center;
+
+    font-size:7.5px;
+
+    opacity:.8;
+}
+
+
+/* ================================
+   FLOATING WHATSAPP
+================================ */
 
 .whatsapp{
-    background:#25D366;
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    width:52px;
+    height:52px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#25d366;
+
+    color:white;
+
+    border-radius:50%;
+
+    font-size:24px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.2);
+
+    z-index:999;
+
+    transition:.25s;
 }
 
-.call{
-    background:var(--forest);
+.whatsapp:hover{
+    transform:scale(1.08);
 }
 
 
-/* =====================================================
+/* ================================
    RESPONSIVE
-===================================================== */
+================================ */
 
-@media(max-width:950px){
+@media(max-width:900px){
 
-    .benefits{
-
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:650px){
-
-    .topbar{
-
-        justify-content:center;
-
-        font-size:.62rem;
-    }
-
-    .topbar span:last-child{
-        display:none;
+    .nav-menu{
+        gap:15px;
     }
 
     .hero{
-
-        min-height:430px;
-
-        border-radius:22px;
+        gap:30px;
     }
 
-    .hero h1{
+}
 
-        font-size:2.35rem;
+@media(max-width:700px){
 
-        line-height:2;
+    .topbar{
+        height:35px;
     }
 
-    .hero-subtitle{
-
-        font-size:.95rem;
-
-        line-height:2.4;
+    .topbar-inner{
+        justify-content:center;
     }
 
-    .location{
-
-        font-size:.62rem;
-
-        line-height:1.9;
-    }
-
-    .stats{
-
-        width:94%;
-
-        gap:7px;
-    }
-
-    .stat{
-
-        padding:13px 4px;
-    }
-
-    .stat-icon{
-
-        font-size:20px;
-    }
-
-    .stat strong{
-
-        font-size:.65rem;
-    }
-
-    .stat small{
-
+    .top-left span:nth-child(2),
+    .top-left span:nth-child(3){
         display:none;
     }
 
-    .actions{
+    .top-social{
+        display:none;
+    }
 
+    .navbar{
+        height:70px;
+    }
+
+    .nav-menu{
+        display:none;
+
+        position:absolute;
+
+        top:105px;
+        left:0;
+        right:0;
+
+        background:white;
+
+        flex-direction:column;
+
+        gap:0;
+
+        padding:10px 0;
+
+        box-shadow:
+            0 10px 20px rgba(0,0,0,.08);
+
+        z-index:100;
+    }
+
+    .nav-menu.show{
+        display:flex;
+    }
+
+    .nav-menu a{
+        width:100%;
+
+        text-align:center;
+
+        padding:13px;
+
+        border-bottom:1px solid #f5f5f5;
+    }
+
+    .nav-menu a::after{
+        display:none;
+    }
+
+    .donate{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+
+        padding:35px 0;
+
+        gap:25px;
+    }
+
+    .hero-text{
+        text-align:left;
+    }
+
+    .hero-image{
+        height:230px;
+    }
+
+    .why{
+        grid-template-columns:1fr;
+
+        padding-bottom:40px;
+
+        gap:25px;
+    }
+
+    .why-image{
+        order:2;
+    }
+
+    .why-text{
+        order:1;
+    }
+
+    .services-grid{
+        grid-template-columns:1fr;
+    }
+
+    .benefits-grid{
         grid-template-columns:1fr;
     }
 
     .form-grid{
-
         grid-template-columns:1fr;
     }
 
-    .panel{
-
-        padding:22px 15px;
+    .form-group.full{
+        grid-column:auto;
     }
 
-    .track{
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
 
+    .footer-inner{
         flex-direction:column;
-    }
-
-    .track-btn{
-
-        height:50px;
-    }
-
-    .benefits{
-
-        grid-template-columns:1fr;
-    }
-
-    .gallery{
-
-        grid-template-columns:1fr;
-    }
-
-    .gallery-card img{
-
-        height:220px;
-    }
-
-    .section-head h2{
-
-        font-size:1.45rem;
-    }
-
-    .result-row{
-
-        flex-direction:column;
-
-        gap:2px;
-    }
-
-    .float-buttons{
-
-        left:12px;
-
-        bottom:12px;
+        text-align:center;
     }
 
 }
 
+@media(max-width:450px){
 
-/* =====================================================
-   SMALL PHONES
-===================================================== */
-
-@media(max-width:380px){
-
-    .hero h1{
-
-        font-size:2rem;
+    .container{
+        width:90%;
     }
 
-    .logo{
+    .hero-text h1{
+        font-size:23px;
+    }
 
-        width:78px;
-        height:78px;
+    .hero-text h2{
+        font-size:15px;
+    }
 
-        font-size:34px;
+    .hero-text p{
+        font-size:9px;
+    }
+
+    .hero-image{
+        height:210px;
+    }
+
+    .booking-box{
+        padding:25px 18px;
     }
 
 }
@@ -1535,318 +1045,554 @@ footer p{
 <body>
 
 
-<div class="container">
-
-
-<!-- ==================================================
-     TOP BAR
-================================================== -->
+<!-- =========================================
+     TOP CONTACT BAR
+========================================= -->
 
 <div class="topbar">
 
-    <span>
-        🌿 معیاری طبی خدمات
-    </span>
+    <div class="topbar-inner">
 
-    <span>
-        📞 0347-1420856
-    </span>
+        <div class="top-left">
 
-    <span>
-        منڈی بہاؤالدین
-    </span>
+            <span>
+                Have any questions?
+            </span>
+
+            <span>
+                <i class="fa-solid fa-phone"></i>
+                +92 (21) 111-153-153
+            </span>
+
+            <span>
+                <i class="fa-solid fa-envelope"></i>
+                info@alamgirwelfaretrust.com.pk
+            </span>
+
+        </div>
+
+        <div class="top-social">
+
+            <a href="#">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+
+        </div>
+
+    </div>
 
 </div>
 
 
-<!-- ==================================================
-     HERO
-================================================== -->
+<!-- =========================================
+     NAVBAR
+========================================= -->
 
-<header class="hero">
+<nav class="navbar">
 
-    <div class="hero-content">
+    <div class="nav-inner">
 
-        <div class="logo">
-            🌿
+        <!-- LOGO -->
+        <a href="#" class="logo">
+
+            <!--
+            YAHAN APNA LOGO URL LAGAO
+            -->
+            <img
+            src="https://alamgirwelfaretrust.com.pk/wp-content/uploads/2024/12/logo.png"
+            alt="Alamgir Welfare Trust">
+
+        </a>
+
+
+        <div class="nav-menu" id="navMenu">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#about">
+                About us
+            </a>
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#benefits">
+                Activities
+            </a>
+
+            <a href="#booking">
+                Registration
+            </a>
+
+            <a href="#contact">
+                Contact Us
+            </a>
+
         </div>
 
+
+        <a href="#booking" class="donate">
+            DONATE NOW
+        </a>
+
+
+        <button
+        class="menu-btn"
+        onclick="toggleMenu()">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main>
+
+
+<div class="container" id="home">
+
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+
+    <div class="hero-text">
 
         <h1>
-            طیبہ دوا خانہ اینڈ حجامہ سنٹر
+            Alamgir Hijama Center
         </h1>
 
-
-        <div class="divider">
-            <span></span>
-            <b>✦</b>
-            <span></span>
-        </div>
-
-
-        <p class="hero-subtitle">
-
-            طبی و روحانی علاج،
-            خالص دیسی و یونانی ادویات
-            اور سنتِ نبوی ﷺ حجامہ
-
-        </p>
-
-
-        <div class="location">
-
-            📍
-            سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس،
-            بالمقابل جامع مسجد طیبہ اہلحدیث،
-            منڈی بہاؤالدین
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- ==================================================
-     STATS
-================================================== -->
-
-<div class="stats">
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🩸
-        </div>
-
-        <strong>
-            حجامہ سروس
-        </strong>
-
-        <small>
-            معیاری ماحول
-        </small>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            🌿
-        </div>
-
-        <strong>
-            دیسی ادویات
-        </strong>
-
-        <small>
-            نباتاتی و یونانی
-        </small>
-
-    </div>
-
-
-    <div class="stat">
-
-        <div class="stat-icon">
-            📅
-        </div>
-
-        <strong>
-            آن لائن بکنگ
-        </strong>
-
-        <small>
-            آسان اپائنٹمنٹ
-        </small>
-
-    </div>
-
-</div>
-
-
-<!-- ==================================================
-     SLIDER
-================================================== -->
-
-<div class="slider">
-
-    <div class="slide active">
+        <div class="green-line"></div>
 
         <h2>
-            🏥 ہماری طبی خدمات
+            Your Path to Wellness and Natural Healing
         </h2>
 
         <p>
-            حجامہ، طبی مشورہ اور دیسی و یونانی ادویات
-            ایک ہی جگہ دستیاب ہیں۔
+
+            Welcome to <strong>Alamgir Hijama</strong>,
+            where we provide expert cupping therapy
+            services rooted in tradition and enhanced
+            by modern techniques.
+
+            Our mission is to help you achieve optimal
+            health and wellness through the time-tested
+            practice of Hijama.
+
+            Whether you're seeking relief from chronic
+            pain, stress, or looking to detoxify your
+            body naturally, we are here to guide you
+            on your healing journey.
+
         </p>
 
     </div>
 
 
-    <div class="slide">
+    <div class="hero-image">
 
-        <h2>
-            🩸 سنتِ نبوی ﷺ حجامہ
+        <img
+        src="https://alamgirwelfaretrust.com.pk/wp-content/uploads/2024/12/cupping-therapy-traditional-chinese-medicine_1387-922.jpg"
+        alt="Cupping Therapy">
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================
+     WHY CHOOSE
+========================================= -->
+
+<section class="why" id="about">
+
+
+    <div class="why-image">
+
+        <img
+        src="https://alamgirwelfaretrust.com.pk/wp-content/uploads/2024/12/cupping-therapy-traditional-chinese-medicine_1387-922.jpg"
+        alt="Hijama Therapy">
+
+    </div>
+
+
+    <div class="why-text">
+
+        <h2 class="section-title">
+            Why Choose Alamgir Hijama?
         </h2>
 
         <p>
-            صفائی، احتیاط اور مناسب ماحول کے ساتھ
-            حجامہ سیشن کی سہولت۔
+
+            At Alamgir Hijama, we believe in the
+            power of natural healing. Here's why
+            we stand out:
+
         </p>
 
+
+        <ul class="why-list">
+
+            <li>
+                <strong>
+                    Certified Practitioners:
+                </strong>
+
+                Our team comprises certified and
+                experienced Hijama specialists who
+                prioritize your safety and comfort.
+            </li>
+
+
+            <li>
+                <strong>
+                    Sterile & Safe Environment:
+                </strong>
+
+                We adhere to the highest standards
+                of hygiene, using disposable cups
+                and sterilized equipment for every
+                session.
+            </li>
+
+
+            <li>
+                <strong>
+                    Customized Treatments:
+                </strong>
+
+                Every individual is unique, and so
+                are their health needs. We tailor
+                our Hijama therapy sessions to
+                address your specific concerns.
+            </li>
+
+
+            <li>
+                <strong>
+                    Holistic Approach:
+                </strong>
+
+                Beyond physical healing, our
+                therapies aim to restore balance
+                to your body, mind, and spirit.
+            </li>
+
+        </ul>
+
     </div>
 
+</section>
 
-    <div class="slide">
 
-        <h2>
-            🌿 خالص دیسی و یونانی ادویات
-        </h2>
 
-        <p>
-            مختلف طبی ضروریات کے لیے
-            روایتی دیسی و یونانی ادویات۔
-        </p>
+<!-- =========================================
+     SERVICES
+========================================= -->
+
+<section class="services" id="services">
+
+    <h2 class="section-title">
+        Our Services
+    </h2>
+
+
+    <div class="services-grid">
+
+
+        <!-- SERVICE 1 -->
+
+        <div class="service">
+
+            <div class="service-icon">
+
+                <i class="fa-solid fa-hand-holding-medical"></i>
+
+            </div>
+
+            <h3>
+                Dry Cupping Therapy
+            </h3>
+
+            <p>
+
+                Ideal for relieving muscle tension,
+                improving blood circulation and
+                promoting relaxation.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- SERVICE 2 -->
+
+        <div class="service">
+
+            <div class="service-icon">
+
+                <i class="fa-solid fa-vial-circle-check"></i>
+
+            </div>
+
+            <h3>
+                Wet Cupping Therapy
+            </h3>
+
+            <p>
+
+                A traditional Hijama method involving
+                controlled procedures performed with
+                appropriate hygiene and care.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- SERVICE 3 -->
+
+        <div class="service">
+
+            <div class="service-icon">
+
+                <i class="fa-solid fa-person-circle-exclamation"></i>
+
+            </div>
+
+            <h3>
+                Back Pain & Sciatica Treatment
+            </h3>
+
+            <p>
+
+                Targeted Hijama therapy for people
+                seeking support for back pain and
+                nerve discomfort.
+
+            </p>
+
+        </div>
+
 
     </div>
 
-</div>
+</section>
 
 
-<!-- ==================================================
-     LADIES NOTICE
-================================================== -->
 
-<div class="notice">
+<!-- =========================================
+     CTA
+========================================= -->
 
-    <div class="notice-title">
+<section class="cta">
 
-        🌸 خواتین کے لیے خصوصی انتظام
-
-    </div>
+    <h2>
+        Book Your Hijama Session Today
+    </h2>
 
     <p>
 
-        خواتین مریضات کے لیے حجامہ اور چیک اپ کی سہولت
-        مکمل پردے اور پرائیویسی کے اہتمام کے ساتھ
-        الگ سیکشن میں فراہم کی جاتی ہے۔
+        Take the first step towards a healthier
+        and rejuvenated you with Alamgir Hijama.
+        Our dedicated team is ready to help you
+        feel your best.
 
     </p>
 
+    <a
+    href="#booking"
+    class="cta-btn">
+
+        BOOK YOUR SESSION
+
+    </a>
+
+</section>
+
+
+
+<!-- =========================================
+     BENEFITS
+========================================= -->
+
+<section class="benefits" id="benefits">
+
+    <div class="benefits-title">
+
+        <h2 class="section-title">
+            Why Choose Hijama?
+        </h2>
+
+    </div>
+
+
+    <div class="benefits-grid">
+
+
+        <div class="benefit">
+
+            <i class="fa-solid fa-droplet"></i>
+
+            <h3>
+                Natural Wellness
+            </h3>
+
+            <p>
+                Traditional cupping therapy
+                as part of a holistic wellness
+                approach.
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <i class="fa-solid fa-heart-pulse"></i>
+
+            <h3>
+                Professional Care
+            </h3>
+
+            <p>
+                Focus on hygiene, comfort and
+                a professional treatment environment.
+            </p>
+
+        </div>
+
+
+        <div class="benefit">
+
+            <i class="fa-solid fa-shield-heart"></i>
+
+            <h3>
+                Safe Environment
+            </h3>
+
+            <p>
+                Appropriate sterilization and
+                disposable equipment practices.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
 </div>
 
 
-<!-- ==================================================
-     ACTION BUTTONS
-================================================== -->
 
-<div class="actions">
-
-    <button
-        class="action green"
-        onclick="togglePanel('bookingPanel')">
-
-        📅
-        اپائنٹمنٹ / بکنگ کریں
-
-    </button>
-
-
-    <button
-        class="action gold"
-        onclick="togglePanel('trackingPanel')">
-
-        🔎
-        اپنا ریکارڈ ٹریک کریں
-
-    </button>
-
-</div>
-
-
-<!-- ==================================================
+<!-- =========================================
      BOOKING
-================================================== -->
+========================================= -->
 
-<div id="bookingPanel" class="panel">
+<section class="booking" id="booking">
 
-    <h2 class="panel-title">
+<div class="container">
 
-        آن لائن اپائنٹمنٹ
+<div class="booking-box">
 
-    </h2>
+    <div class="booking-title">
 
-    <p class="panel-desc">
+        <h2>
+            Book Your Session
+        </h2>
 
-        اپنی معلومات درج کریں، آپ کی درخواست محفوظ کی جائے گی۔
+        <p>
+            Fill in your details and our team will contact you.
+        </p>
 
-    </p>
+    </div>
 
 
-    <form id="appointmentForm">
+    <form id="bookingForm">
 
         <div class="form-grid">
 
 
-            <div class="field">
+            <div class="form-group">
 
                 <label>
-                    مریض کا نام
+                    Full Name
                 </label>
 
                 <input
-                    type="text"
-                    id="patientName"
-                    class="input"
-                    placeholder="اپنا پورا نام درج کریں"
-                    required>
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                required>
 
             </div>
 
 
-            <div class="field">
+            <div class="form-group">
 
                 <label>
-                    رابطہ نمبر
+                    Phone Number
                 </label>
 
                 <input
-                    type="tel"
-                    id="patientPhone"
-                    class="input"
-                    placeholder="0347-1420856"
-                    required>
+                type="tel"
+                id="phone"
+                placeholder="03XX-XXXXXXX"
+                required>
 
             </div>
 
 
-            <div class="field">
+            <div class="form-group">
 
                 <label>
-                    مطلوبہ سروس
+                    Service
                 </label>
 
-                <select
-                    id="serviceType"
-                    class="input">
+                <select id="service">
 
-                    <option value="حجامہ سیشن (مردانہ)">
-                        حجامہ سیشن (مردانہ)
+                    <option>
+                        Dry Cupping Therapy
                     </option>
 
-                    <option value="حجامہ سیشن (خواتین / لیڈی ماہر)">
-                        حجامہ سیشن (خواتین / لیڈی ماہر)
+                    <option>
+                        Wet Cupping Therapy
                     </option>
 
-                    <option value="حکیم صاحب سے چیک اپ">
-                        حکیم صاحب سے چیک اپ
+                    <option>
+                        Back Pain & Sciatica Treatment
                     </option>
 
-                    <option value="دیسی ادویات آرڈر">
-                        دیسی ادویات آرڈر
+                    <option>
+                        General Hijama Consultation
                     </option>
 
                 </select>
@@ -1854,17 +1600,29 @@ footer p{
             </div>
 
 
-            <div class="field">
+            <div class="form-group">
 
                 <label>
-                    تاریخ منتخب کریں
+                    Preferred Date
                 </label>
 
                 <input
-                    type="date"
-                    id="bookingDate"
-                    class="input"
-                    required>
+                type="date"
+                id="date"
+                required>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>
+                    Message
+                </label>
+
+                <textarea
+                id="message"
+                placeholder="Write any additional information..."></textarea>
 
             </div>
 
@@ -1873,12 +1631,10 @@ footer p{
 
 
         <button
-            type="submit"
-            class="submit"
-            id="submitBtn">
+        type="submit"
+        class="submit-btn">
 
-            ✓
-            بکنگ کے لیے جمع کروائیں
+            SUBMIT BOOKING
 
         </button>
 
@@ -1886,100 +1642,77 @@ footer p{
 
 </div>
 
+</div>
 
-<!-- ==================================================
-     TRACKING
-================================================== -->
-
-<div id="trackingPanel" class="panel">
-
-    <h2 class="panel-title">
-
-        اپنا ریکارڈ ٹریک کریں
-
-    </h2>
-
-    <p class="panel-desc">
-
-        اپنی اپائنٹمنٹ کے وقت دیا گیا ٹریکنگ نمبر درج کریں۔
-
-    </p>
+</section>
 
 
-    <div class="track">
 
-        <input
-            type="text"
-            id="trackingInput"
-            class="input"
-            placeholder="مثال: TB-1024">
+<!-- =========================================
+     CONTACT
+========================================= -->
 
-        <button
-            type="button"
-            class="track-btn"
-            onclick="searchStatus()">
+<section class="contact" id="contact">
 
-            تلاش کریں
+<div class="container">
 
-        </button>
+    <div style="text-align:center;margin-bottom:35px;">
+
+        <h2 class="section-title">
+            Contact Us
+        </h2>
 
     </div>
 
 
-    <div id="trackingResult" class="result">
+    <div class="contact-grid">
 
 
-        <div class="result-row">
+        <div class="contact-card">
 
-            <span class="result-label">
-                ٹریکنگ آئی ڈی
-            </span>
+            <i class="fa-solid fa-location-dot"></i>
 
-            <strong id="resTrackingNo"></strong>
+            <h3>
+                Location
+            </h3>
 
-        </div>
-
-
-        <div class="result-row">
-
-            <span class="result-label">
-                مریض کا نام
-            </span>
-
-            <span id="resName"></span>
+            <p>
+                Alamgir Masjid,
+                Alamgir Road,
+                Bahadurabad, Karachi
+            </p>
 
         </div>
 
 
-        <div class="result-row">
+        <div class="contact-card">
 
-            <span class="result-label">
-                سروس
-            </span>
+            <i class="fa-solid fa-phone"></i>
 
-            <span id="resService"></span>
+            <h3>
+                Contact
+            </h3>
 
-        </div>
-
-
-        <div class="result-row">
-
-            <span class="result-label">
-                تاریخ
-            </span>
-
-            <span id="resDate"></span>
+            <p>
+                +92 (21) 111-153-153
+                <br>
+                +92 (21) 34852055-60
+            </p>
 
         </div>
 
 
-        <div class="result-row">
+        <div class="contact-card">
 
-            <span class="result-label">
-                موجودہ سٹیٹس
-            </span>
+            <i class="fa-solid fa-envelope"></i>
 
-            <span id="resStatus"></span>
+            <h3>
+                Email
+            </h3>
+
+            <p>
+                info@alamgirwelfaretrust.com.pk
+            </p>
 
         </div>
 
@@ -1988,870 +1721,171 @@ footer p{
 
 </div>
 
-
-<!-- ==================================================
-     BENEFITS
-================================================== -->
-
-<section class="section">
-
-    <div class="section-head">
-
-        <h2>
-            سنتِ نبوی ﷺ حجامہ کے اہم فوائد
-        </h2>
-
-    </div>
-
-
-    <div class="benefits">
-
-
-        <div class="benefit">
-
-            <div class="number">
-                01
-            </div>
-
-            <h3>
-                خون کی گردش
-            </h3>
-
-            <p>
-                حجامہ روایتی طور پر جسمانی صحت
-                اور خون کی گردش سے متعلق مختلف
-                مقاصد کے لیے استعمال کیا جاتا ہے۔
-            </p>
-
-        </div>
-
-
-        <div class="benefit">
-
-            <div class="number">
-                02
-            </div>
-
-            <h3>
-                جسمانی درد
-            </h3>
-
-            <p>
-                بعض افراد حجامہ کو پٹھوں اور
-                جسمانی درد کے لیے بطور معاون
-                طریقہ استعمال کرتے ہیں۔
-            </p>
-
-        </div>
-
-
-        <div class="benefit">
-
-            <div class="number">
-                03
-            </div>
-
-            <h3>
-                عمومی تازگی
-            </h3>
-
-            <p>
-                بعض افراد حجامہ کے بعد
-                جسمانی ہلکا پن اور عمومی
-                تازگی محسوس کرتے ہیں۔
-            </p>
-
-        </div>
-
-
-        <div class="benefit">
-
-            <div class="number">
-                04
-            </div>
-
-            <h3>
-                ذہنی سکون
-            </h3>
-
-            <p>
-                پرسکون ماحول اور مناسب دیکھ بھال
-                عمومی ذہنی سکون میں معاون ہو سکتی ہے۔
-            </p>
-
-        </div>
-
-
-    </div>
-
 </section>
 
 
-<!-- ==================================================
-     GALLERY
-================================================== -->
 
-<section class="section">
-
-    <div class="section-head">
-
-        <h2>
-            دواخانہ و حجامہ سنٹر کی جھلکیاں
-        </h2>
-
-    </div>
-
-
-    <div class="gallery">
-
-
-        <div class="gallery-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85"
-                alt="حجامہ سنٹر">
-
-            <div class="caption">
-                حجامہ تھراپی کا معیاری ماحول
-            </div>
-
-        </div>
-
-
-        <div class="gallery-card">
-
-            <img
-                src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=1000&q=85"
-                alt="قدرتی جڑی بوٹیاں">
-
-            <div class="caption">
-                قدرتی نباتاتی و دیسی ادویات
-            </div>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-<!-- ==================================================
-     MEDICINES
-================================================== -->
-
-<section class="section">
-
-    <div class="section-head">
-
-        <h2>
-            دیسی و یونانی ادویات
-        </h2>
-
-    </div>
-
-
-    <div class="table-wrap">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        علاج / دوا
-                    </th>
-
-                    <th>
-                        تفصیل
-                    </th>
-
-                    <th>
-                        خاصیت
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-
-                <tr>
-
-                    <td>
-                        <strong>
-                            مقویِ معدہ و جگر
-                        </strong>
-                    </td>
-
-                    <td>
-                        معدے اور نظامِ ہضم سے متعلق
-                        روایتی استعمال۔
-                    </td>
-
-                    <td>
-
-                        <span class="tag">
-                            قدرتی نسخہ
-                        </span>
-
-                    </td>
-
-                </tr>
-
-
-                <tr>
-
-                    <td>
-                        <strong>
-                            مقویِ اعصاب و دماغ
-                        </strong>
-                    </td>
-
-                    <td>
-                        عمومی اعصابی تھکاوٹ اور
-                        کمزوری کے لیے روایتی استعمال۔
-                    </td>
-
-                    <td>
-
-                        <span class="tag">
-                            یونانی فارمولیشن
-                        </span>
-
-                    </td>
-
-                </tr>
-
-
-                <tr>
-
-                    <td>
-                        <strong>
-                            مصفیٰ خون مرکبات
-                        </strong>
-                    </td>
-
-                    <td>
-                        جلد اور عمومی صحت کے لیے
-                        روایتی نباتاتی مرکبات۔
-                    </td>
-
-                    <td>
-
-                        <span class="tag">
-                            نباتاتی مرکب
-                        </span>
-
-                    </td>
-
-                </tr>
-
-
-                <tr>
-
-                    <td>
-                        <strong>
-                            طاقت و توانائی مرکب
-                        </strong>
-                    </td>
-
-                    <td>
-                        عمومی جسمانی کمزوری اور
-                        توانائی کے لیے روایتی استعمال۔
-                    </td>
-
-                    <td>
-
-                        <span class="tag">
-                            قدرتی اجزاء
-                        </span>
-
-                    </td>
-
-                </tr>
-
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- ==================================================
+<!-- =========================================
      FOOTER
-================================================== -->
+========================================= -->
 
 <footer>
 
-    <div class="footer-title">
+    <div class="footer-inner">
 
-        طیبہ دوا خانہ اینڈ حجامہ سنٹر
+        <div class="footer-brand">
+            Alamgir Hijama Center
+        </div>
+
+        <div class="footer-text">
+            Your Path to Wellness and Natural Healing
+        </div>
+
+        <div class="footer-social">
+
+            <a href="#">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa-brands fa-youtube"></i>
+            </a>
+
+        </div>
 
     </div>
 
 
-    <p>
-        📞 رابطہ:
-        0347-1420856
-    </p>
+    <div class="copyright">
 
+        © 2026 Alamgir Hijama Center. All Rights Reserved.
 
-    <p>
-        📍 سرگودھا روڈ، نزد پولیس ریسٹ ہاؤس،
-        بالمقابل جامع مسجد طیبہ اہلحدیث،
-        منڈی بہاؤالدین
-    </p>
-
-
-    <p>
-        حجامہ • طبی مشورہ • دیسی و یونانی ادویات
-    </p>
-
-
-    <p style="opacity:.55;margin-top:15px">
-
-        © 2026 طیبہ دوا خانہ اینڈ حجامہ سنٹر
-
-    </p>
+    </div>
 
 </footer>
 
 
-</div>
+<!-- WHATSAPP -->
 
+<a
+class="whatsapp"
+href="https://wa.me/9221111153153"
+target="_blank">
 
-<!-- ==================================================
-     FLOATING BUTTONS
-================================================== -->
+    <i class="fa-brands fa-whatsapp"></i>
 
-<div class="float-buttons">
-
-    <a
-        class="float whatsapp"
-        href="https://wa.me/923471420856"
-        target="_blank"
-        title="WhatsApp">
-
-        ☎
-
-    </a>
-
-
-    <a
-        class="float call"
-        href="tel:03471420856"
-        title="Call">
-
-        📞
-
-    </a>
-
-</div>
+</a>
 
 
 <script>
 
+/* ================================
+   MOBILE MENU
+================================ */
 
-/* =====================================================
-   GOOGLE APPS SCRIPT
-===================================================== */
+function toggleMenu(){
 
-const SCRIPT_URL =
-"YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
-
-
-/* =====================================================
-   SLIDER
-===================================================== */
-
-let currentSlide = 0;
-
-const slides =
-document.querySelectorAll(".slide");
-
-
-function showNextSlide(){
-
-    if(!slides.length) return;
-
-    slides[currentSlide]
-        .classList.remove("active");
-
-    currentSlide =
-        (currentSlide + 1)
-        % slides.length;
-
-    slides[currentSlide]
-        .classList.add("active");
-}
-
-setInterval(
-    showNextSlide,
-    5000
-);
-
-
-/* =====================================================
-   PANEL TOGGLE
-===================================================== */
-
-function togglePanel(id){
-
-    const booking =
-        document.getElementById(
-            "bookingPanel"
-        );
-
-    const tracking =
-        document.getElementById(
-            "trackingPanel"
-        );
-
-
-    if(id === "bookingPanel"){
-
-        tracking.style.display = "none";
-
-        booking.style.display =
-            booking.style.display === "block"
-            ? "none"
-            : "block";
-
-        if(
-            booking.style.display === "block"
-        ){
-
-            booking.scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
-
-        }
-
-    }
-
-
-    if(id === "trackingPanel"){
-
-        booking.style.display = "none";
-
-        tracking.style.display =
-            tracking.style.display === "block"
-            ? "none"
-            : "block";
-
-        if(
-            tracking.style.display === "block"
-        ){
-
-            tracking.scrollIntoView({
-                behavior:"smooth",
-                block:"center"
-            });
-
-        }
-
-    }
+    document
+    .getElementById("navMenu")
+    .classList.toggle("show");
 
 }
 
 
-/* =====================================================
-   BOOKING
-===================================================== */
+/* ================================
+   BOOKING FORM
+================================ */
 
 document
-.getElementById("appointmentForm")
-.addEventListener(
-    "submit",
-    function(e){
+.getElementById("bookingForm")
+.addEventListener("submit",function(e){
 
-        e.preventDefault();
+    e.preventDefault();
 
+    const name =
+    document.getElementById("name").value;
 
-        const btn =
-            document.getElementById(
-                "submitBtn"
-            );
+    const phone =
+    document.getElementById("phone").value;
 
+    const service =
+    document.getElementById("service").value;
 
-        btn.disabled = true;
+    const date =
+    document.getElementById("date").value;
 
-        btn.innerText =
-            "⏳ براہِ کرم انتظار کریں...";
+    const message =
+    document.getElementById("message").value;
 
 
-        const payload = {
+    const whatsappNumber =
+    "9221111153153";
 
-            action:"book",
 
-            name:
-                document.getElementById(
-                    "patientName"
-                ).value,
+    const text =
+    `*Alamgir Hijama Center - Booking*%0A%0A` +
 
-            phone:
-                document.getElementById(
-                    "patientPhone"
-                ).value,
+    `Name: ${name}%0A` +
 
-            service:
-                document.getElementById(
-                    "serviceType"
-                ).value,
+    `Phone: ${phone}%0A` +
 
-            bookingDate:
-                document.getElementById(
-                    "bookingDate"
-                ).value
-        };
+    `Service: ${service}%0A` +
 
+    `Date: ${date}%0A` +
 
-        fetch(
-            SCRIPT_URL,
-            {
-                method:"POST",
-                body:JSON.stringify(payload)
-            }
-        )
+    `Message: ${message}`;
 
-        .then(
-            response =>
-                response.json()
-        )
 
-        .then(
-            data => {
-
-                if(
-                    data.status ===
-                    "success"
-                ){
-
-                    alert(
-                        "آپ کی اپائنٹمنٹ کامیابی سے بک ہو گئی!\n\n" +
-                        "آپ کا ٹریکنگ نمبر:\n" +
-                        data.trackingNo +
-                        "\n\nاس نمبر کو محفوظ کر لیں۔"
-                    );
-
-
-                    document
-                    .getElementById(
-                        "appointmentForm"
-                    )
-                    .reset();
-
-
-                    document
-                    .getElementById(
-                        "bookingPanel"
-                    )
-                    .style.display =
-                        "none";
-
-
-                    document
-                    .getElementById(
-                        "trackingPanel"
-                    )
-                    .style.display =
-                        "block";
-
-
-                    document
-                    .getElementById(
-                        "trackingInput"
-                    )
-                    .value =
-                        data.trackingNo;
-
-
-                    searchStatus();
-
-                }
-
-                else{
-
-                    alert(
-                        "کچھ مسئلہ پیش آیا ہے۔ دوبارہ کوشش کریں۔"
-                    );
-
-                }
-
-            }
-        )
-
-        .catch(
-            error => {
-
-                console.error(error);
-
-                alert(
-                    "ڈیٹا محفوظ کرنے میں مسئلہ ہوا۔\n" +
-                    "Internet یا Apps Script URL چیک کریں۔"
-                );
-
-            }
-        )
-
-        .finally(
-            () => {
-
-                btn.disabled = false;
-
-                btn.innerText =
-                    "✓ بکنگ کے لیے جمع کروائیں";
-
-            }
-        );
-
-    }
-);
-
-
-/* =====================================================
-   TRACKING
-===================================================== */
-
-function searchStatus(){
-
-    const input =
-        document.getElementById(
-            "trackingInput"
-        );
-
-    const trackingNo =
-        input.value
-        .trim()
-        .toUpperCase();
-
-
-    const result =
-        document.getElementById(
-            "trackingResult"
-        );
-
-
-    if(!trackingNo){
-
-        alert(
-            "براہ کرم ٹریکنگ نمبر درج کریں!"
-        );
-
-        return;
-    }
-
-
-    result.style.display =
-        "none";
-
-
-    fetch(
-        SCRIPT_URL,
-        {
-            method:"POST",
-
-            body:
-                JSON.stringify({
-
-                    action:"track",
-
-                    trackingNo:
-                        trackingNo
-
-                })
-        }
-    )
-
-    .then(
-        response =>
-            response.json()
-    )
-
-    .then(
-        data => {
-
-            if(
-                data.status === "found"
-            ){
-
-                result.style.display =
-                    "block";
-
-
-                document
-                .getElementById(
-                    "resTrackingNo"
-                )
-                .innerText =
-                    data.trackingNo;
-
-
-                document
-                .getElementById(
-                    "resName"
-                )
-                .innerText =
-                    data.name;
-
-
-                document
-                .getElementById(
-                    "resService"
-                )
-                .innerText =
-                    data.service;
-
-
-                document
-                .getElementById(
-                    "resDate"
-                )
-                .innerText =
-                    data.date;
-
-
-                let statusHTML =
-                    `<span style="
-                        background:#fff3cd;
-                        color:#856404;
-                        padding:5px 12px;
-                        border-radius:20px;
-                        font-weight:700;
-                    ">
-                        Pending
-                    </span>`;
-
-
-                if(
-                    data.appStatus ===
-                    "Accepted"
-                ){
-
-                    statusHTML =
-                        `<span style="
-                            background:#d9f4df;
-                            color:#17652b;
-                            padding:5px 12px;
-                            border-radius:20px;
-                            font-weight:700;
-                        ">
-                            ✓ Accepted — منظور
-                        </span>`;
-
-                }
-
-
-                if(
-                    data.appStatus ===
-                    "Rejected"
-                ){
-
-                    statusHTML =
-                        `<span style="
-                            background:#f8d7da;
-                            color:#842029;
-                            padding:5px 12px;
-                            border-radius:20px;
-                            font-weight:700;
-                        ">
-                            ✕ Rejected — منسوخ
-                        </span>`;
-
-                }
-
-
-                document
-                .getElementById(
-                    "resStatus"
-                )
-                .innerHTML =
-                    statusHTML;
-
-
-                result.scrollIntoView({
-                    behavior:"smooth",
-                    block:"center"
-                });
-
-            }
-
-            else{
-
-                alert(
-                    "کوئی ریکارڈ نہیں ملا!\n\n" +
-                    "صحیح ٹریکنگ نمبر درج کریں۔"
-                );
-
-            }
-
-        }
-    )
-
-    .catch(
-        error => {
-
-            console.error(error);
-
-            alert(
-                "ریکارڈ حاصل کرنے میں مسئلہ ہوا۔"
-            );
-
-        }
+    window.open(
+        `https://wa.me/${whatsappNumber}?text=${text}`,
+        "_blank"
     );
 
-}
+});
 
 
-/* =====================================================
-   ENTER KEY
-===================================================== */
+/* ================================
+   CLOSE MOBILE MENU
+================================ */
 
 document
-.getElementById(
-    "trackingInput"
-)
-.addEventListener(
-    "keydown",
-    function(e){
+.querySelectorAll(".nav-menu a")
+.forEach(function(link){
 
-        if(e.key === "Enter"){
+    link.addEventListener("click",function(){
 
-            e.preventDefault();
+        document
+        .getElementById("navMenu")
+        .classList.remove("show");
 
-            searchStatus();
+    });
 
-        }
-
-    }
-);
+});
 
 
-/* =====================================================
-   PREVENT OLD BOOKING DATES
-===================================================== */
+/* ================================
+   DATE
+================================ */
 
 const dateInput =
-    document.getElementById(
-        "bookingDate"
-    );
+document.getElementById("date");
 
-dateInput.min =
+if(dateInput){
+
+    const today =
     new Date()
     .toISOString()
     .split("T")[0];
 
-</script>
+    dateInput.min = today;
 
+}
+
+</script>
 
 </body>
 </html>
-```
