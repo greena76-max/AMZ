@@ -1,754 +1,860 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Amazon Printings | Graphic Design & Printing</title>
+<title>Muhammad Ibrahim | Portfolio</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, sans-serif;
-      scroll-behavior:smooth;
-    }
+<meta name="description" content="Muhammad Ibrahim - Graphic Designer Portfolio">
 
-    body{
-      background:#f5f7fb;
-      color:#172033;
-    }
+<style>
 
-    /* NAVBAR */
-    nav{
-      width:100%;
-      background:#ffffff;
-      padding:16px 7%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      position:sticky;
-      top:0;
-      z-index:1000;
-      box-shadow:0 3px 15px rgba(0,0,0,.08);
-    }
+/* =========================
+   BASIC RESET
+========================= */
 
-    .logo{
-      font-size:22px;
-      font-weight:800;
-      color:#1455d9;
-    }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-    .logo span{
-      color:#111827;
-    }
+html{
+    scroll-behavior:smooth;
+}
 
-    nav ul{
-      display:flex;
-      gap:25px;
-      list-style:none;
-    }
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f6f8fc;
+    color:#111827;
+    line-height:1.6;
+}
 
-    nav ul li a{
-      text-decoration:none;
-      color:#333;
-      font-weight:600;
-    }
+a{
+    text-decoration:none;
+    color:inherit;
+}
 
-    nav ul li a:hover{
-      color:#1455d9;
-    }
+img{
+    max-width:100%;
+    display:block;
+}
 
-    /* HERO */
-    .hero{
-      min-height:90vh;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:40px;
-      padding:70px 7%;
-      background:
-      radial-gradient(circle at top right,#dce8ff,transparent 35%),
-      linear-gradient(135deg,#ffffff,#eef4ff);
-    }
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
 
-    .hero-text{
-      max-width:600px;
-    }
 
-    .tag{
-      display:inline-block;
-      background:#e6efff;
-      color:#1455d9;
-      padding:9px 16px;
-      border-radius:30px;
-      font-weight:700;
-      margin-bottom:20px;
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid #e5e7eb;
+}
+
+.nav-content{
+    min-height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:-1px;
+}
+
+.logo .blue{
+    color:#2563eb;
+}
+
+.menu{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
+
+.menu a{
+    font-size:15px;
+    font-weight:600;
+    color:#374151;
+    transition:.3s;
+}
+
+.menu a:hover{
+    color:#2563eb;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:calc(100vh - 75px);
+    display:flex;
+    align-items:center;
+    padding:80px 0;
+    background:
+    radial-gradient(circle at 85% 15%,#dbeafe 0,transparent 30%),
+    linear-gradient(135deg,#ffffff,#eff6ff);
+}
+
+.hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    align-items:center;
+    gap:70px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 15px;
+    border-radius:30px;
+    background:#e8f1ff;
+    color:#2563eb;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:22px;
+}
+
+.hero h1{
+    font-size:64px;
+    line-height:1.05;
+    letter-spacing:-3px;
+    margin-bottom:18px;
+}
+
+.hero h1 span{
+    color:#2563eb;
+}
+
+.hero h2{
+    font-size:25px;
+    color:#4b5563;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:620px;
+    color:#6b7280;
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:32px;
+}
+
+.buttons{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    padding:14px 24px;
+    border-radius:10px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.btn-primary{
+    background:#2563eb;
+    color:white;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+    transform:translateY(-3px);
+}
+
+.btn-outline{
+    border:2px solid #2563eb;
+    color:#2563eb;
+    background:white;
+}
+
+.btn-outline:hover{
+    background:#2563eb;
+    color:white;
+}
+
+
+/* =========================
+   PROFILE IMAGE
+========================= */
+
+.profile-area{
+    display:flex;
+    justify-content:center;
+}
+
+.profile-frame{
+    width:390px;
+    height:390px;
+    padding:10px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 25px 70px rgba(15,23,42,.18);
+    position:relative;
+}
+
+.profile-frame::before{
+    content:"";
+    position:absolute;
+    inset:-14px;
+    border:2px solid #bfdbfe;
+    border-radius:50%;
+    z-index:-1;
+}
+
+.profile-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:100px 0;
+}
+
+.section-heading{
+    text-align:center;
+    max-width:650px;
+    margin:0 auto 55px;
+}
+
+.section-heading .label{
+    color:#2563eb;
+    font-size:14px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:10px;
+}
+
+.section-heading h2{
+    font-size:42px;
+    line-height:1.15;
+    margin-bottom:12px;
+}
+
+.section-heading p{
+    color:#6b7280;
+}
+
+
+/* =========================
+   SERVICES
+========================= */
+
+.services-section{
+    background:white;
+}
+
+.services-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.service-card{
+    padding:32px 24px;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+    transition:.35s;
+}
+
+.service-card:hover{
+    transform:translateY(-8px);
+    background:white;
+    box-shadow:0 20px 40px rgba(15,23,42,.09);
+    border-color:#bfdbfe;
+}
+
+.service-icon{
+    width:58px;
+    height:58px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:15px;
+    background:#e8f1ff;
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.service-card h3{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.service-card p{
+    color:#6b7280;
+    font-size:15px;
+}
+
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio-section{
+    background:#f6f8fc;
+}
+
+.portfolio-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.portfolio-card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #e5e7eb;
+    box-shadow:0 8px 25px rgba(15,23,42,.06);
+    transition:.35s;
+}
+
+.portfolio-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 45px rgba(15,23,42,.12);
+}
+
+.portfolio-image{
+    width:100%;
+    height:330px;
+    overflow:hidden;
+    background:#e5e7eb;
+}
+
+.portfolio-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.portfolio-card:hover .portfolio-image img{
+    transform:scale(1.06);
+}
+
+.portfolio-info{
+    padding:20px;
+}
+
+.portfolio-info h3{
+    font-size:19px;
+    margin-bottom:5px;
+}
+
+.portfolio-info p{
+    color:#6b7280;
+    font-size:14px;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-section{
+    background:white;
+}
+
+.about-grid{
+    display:grid;
+    grid-template-columns:.9fr 1.1fr;
+    align-items:center;
+    gap:70px;
+}
+
+.about-image{
+    border-radius:25px;
+    overflow:hidden;
+    box-shadow:0 20px 50px rgba(15,23,42,.12);
+}
+
+.about-image img{
+    width:100%;
+    height:500px;
+    object-fit:cover;
+}
+
+.about-content .label{
+    color:#2563eb;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:14px;
+}
+
+.about-content h2{
+    font-size:43px;
+    line-height:1.15;
+    margin:12px 0 20px;
+}
+
+.about-content p{
+    color:#6b7280;
+    margin-bottom:16px;
+}
+
+.skills{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+.skill{
+    padding:9px 15px;
+    border-radius:25px;
+    background:#e8f1ff;
+    color:#2563eb;
+    font-size:13px;
+    font-weight:700;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.stat{
+    padding:20px;
+    background:#f8fafc;
+    border-radius:15px;
+    text-align:center;
+}
+
+.stat h3{
+    font-size:28px;
+    color:#2563eb;
+}
+
+.stat p{
+    margin:0;
+    font-size:13px;
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-section{
+    background:#111827;
+    color:white;
+}
+
+.contact-box{
+    text-align:center;
+    max-width:850px;
+    margin:auto;
+}
+
+.contact-box .label{
+    color:#60a5fa;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:14px;
+}
+
+.contact-box h2{
+    font-size:46px;
+    line-height:1.15;
+    margin:12px 0 15px;
+}
+
+.contact-box p{
+    color:#cbd5e1;
+    max-width:600px;
+    margin:0 auto 30px;
+}
+
+.contact-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.contact-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    padding:14px 23px;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-weight:700;
+    transition:.3s;
+}
+
+.contact-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-3px);
+}
+
+.contact-btn.call{
+    background:white;
+    color:#111827;
+}
+
+.contact-btn.call:hover{
+    background:#e5e7eb;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#080d17;
+    color:#9ca3af;
+    text-align:center;
+    padding:25px 0;
+    font-size:14px;
+}
+
+footer strong{
+    color:white;
+}
+
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+.mobile-menu{
+    display:none;
+    font-size:25px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+
+    .hero-grid{
+        gap:40px;
     }
 
     .hero h1{
-      font-size:55px;
-      line-height:1.1;
-      margin-bottom:20px;
+        font-size:50px;
     }
 
-    .hero h1 span{
-      color:#1455d9;
+    .profile-frame{
+        width:320px;
+        height:320px;
+    }
+
+    .services-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .portfolio-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:750px){
+
+    .nav-content{
+        min-height:65px;
+    }
+
+    .menu{
+        display:none;
+        position:absolute;
+        top:65px;
+        left:0;
+        width:100%;
+        background:white;
+        flex-direction:column;
+        gap:0;
+        box-shadow:0 10px 25px rgba(0,0,0,.08);
+    }
+
+    .menu.active{
+        display:flex;
+    }
+
+    .menu li{
+        border-bottom:1px solid #eee;
+    }
+
+    .menu a{
+        display:block;
+        padding:15px 5%;
+    }
+
+    .mobile-menu{
+        display:block;
+    }
+
+    .hero{
+        padding:65px 0;
+    }
+
+    .hero-grid{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+    .hero-text{
+        order:2;
+    }
+
+    .profile-area{
+        order:1;
     }
 
     .hero p{
-      font-size:18px;
-      line-height:1.7;
-      color:#5b6474;
-      margin-bottom:30px;
+        margin-left:auto;
+        margin-right:auto;
     }
 
     .buttons{
-      display:flex;
-      gap:15px;
-      flex-wrap:wrap;
+        justify-content:center;
     }
 
-    .btn{
-      display:inline-block;
-      padding:14px 25px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:700;
-      transition:.3s;
+    .about-grid{
+        grid-template-columns:1fr;
+        gap:40px;
     }
 
-    .btn-primary{
-      background:#1455d9;
-      color:white;
+}
+
+
+@media(max-width:550px){
+
+    .container{
+        width:92%;
     }
 
-    .btn-primary:hover{
-      background:#0d3fa8;
-      transform:translateY(-2px);
+    .hero h1{
+        font-size:38px;
+        letter-spacing:-1.5px;
     }
 
-    .btn-light{
-      background:white;
-      color:#1455d9;
-      border:2px solid #1455d9;
+    .hero h2{
+        font-size:21px;
     }
 
-    /* HERO CARD */
-    .hero-card{
-      width:390px;
-      background:white;
-      padding:18px;
-      border-radius:25px;
-      box-shadow:0 20px 50px rgba(30,70,150,.18);
-      transform:rotate(2deg);
+    .hero p{
+        font-size:16px;
     }
 
-    .hero-card img{
-      width:100%;
-      height:420px;
-      object-fit:cover;
-      border-radius:17px;
+    .profile-frame{
+        width:250px;
+        height:250px;
     }
 
-    /* SECTIONS */
-    section{
-      padding:80px 7%;
+    .section{
+        padding:70px 0;
     }
 
-    .section-title{
-      text-align:center;
-      margin-bottom:45px;
+    .section-heading h2{
+        font-size:32px;
     }
 
-    .section-title h2{
-      font-size:38px;
-      margin-bottom:10px;
+    .services-grid{
+        grid-template-columns:1fr;
     }
 
-    .section-title p{
-      color:#6b7280;
+    .portfolio-grid{
+        grid-template-columns:1fr;
     }
 
-    /* SERVICES */
-    .services{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:20px;
+    .portfolio-image{
+        height:380px;
     }
 
-    .service{
-      background:white;
-      padding:30px 20px;
-      border-radius:18px;
-      text-align:center;
-      box-shadow:0 8px 25px rgba(0,0,0,.06);
-      transition:.3s;
+    .about-content h2{
+        font-size:32px;
     }
 
-    .service:hover{
-      transform:translateY(-8px);
-      box-shadow:0 15px 35px rgba(0,0,0,.1);
+    .about-image img{
+        height:350px;
     }
 
-    .icon{
-      font-size:42px;
-      margin-bottom:15px;
-    }
-
-    .service h3{
-      margin-bottom:10px;
-    }
-
-    .service p{
-      color:#6b7280;
-      line-height:1.5;
-    }
-
-    /* PORTFOLIO */
-    .portfolio{
-      background:#ffffff;
-    }
-
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:22px;
-    }
-
-    .work{
-      background:#f5f7fb;
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 8px 25px rgba(0,0,0,.08);
-      transition:.3s;
-    }
-
-    .work:hover{
-      transform:translateY(-7px);
-    }
-
-    .work img{
-      width:100%;
-      height:330px;
-      object-fit:cover;
-      display:block;
-    }
-
-    .work-info{
-      padding:18px;
-    }
-
-    .work-info h3{
-      margin-bottom:6px;
-    }
-
-    .work-info p{
-      color:#6b7280;
-    }
-
-    /* ABOUT */
-    .about{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:50px;
-      align-items:center;
-    }
-
-    .about-img img{
-      width:100%;
-      max-height:500px;
-      object-fit:cover;
-      border-radius:25px;
-    }
-
-    .about-text h2{
-      font-size:40px;
-      margin-bottom:20px;
-    }
-
-    .about-text p{
-      color:#626b7a;
-      line-height:1.8;
-      margin-bottom:15px;
-    }
-
-    .skills{
-      margin-top:25px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .skill{
-      background:#eaf1ff;
-      color:#1455d9;
-      padding:9px 15px;
-      border-radius:20px;
-      font-weight:700;
-    }
-
-    /* CONTACT */
-    .contact-box{
-      max-width:900px;
-      margin:auto;
-      background:#111827;
-      color:white;
-      padding:50px;
-      border-radius:25px;
-      text-align:center;
+    .stats{
+        grid-template-columns:1fr;
     }
 
     .contact-box h2{
-      font-size:38px;
-      margin-bottom:15px;
-    }
-
-    .contact-box p{
-      color:#cbd5e1;
-      margin-bottom:25px;
-      line-height:1.6;
-    }
-
-    .contact-info{
-      display:flex;
-      justify-content:center;
-      gap:15px;
-      flex-wrap:wrap;
-    }
-
-    .contact-info a{
-      text-decoration:none;
-      color:white;
-      background:#1455d9;
-      padding:13px 20px;
-      border-radius:10px;
-      font-weight:bold;
-    }
-
-    /* FOOTER */
-    footer{
-      background:#0b1120;
-      color:#9ca3af;
-      text-align:center;
-      padding:25px;
-    }
-
-    footer strong{
-      color:white;
-    }
-
-    /* MOBILE */
-    @media(max-width:900px){
-
-      nav{
-        padding:15px 5%;
-      }
-
-      nav ul{
-        display:none;
-      }
-
-      .hero{
-        flex-direction:column;
-        text-align:center;
-        padding:55px 5%;
-      }
-
-      .hero h1{
-        font-size:40px;
-      }
-
-      .hero-card{
-        width:100%;
-        max-width:360px;
-      }
-
-      .services{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .gallery{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .about{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:550px){
-
-      section{
-        padding:60px 5%;
-      }
-
-      .hero{
-        min-height:auto;
-      }
-
-      .hero h1{
         font-size:34px;
-      }
-
-      .hero p{
-        font-size:16px;
-      }
-
-      .hero-card img{
-        height:360px;
-      }
-
-      .services{
-        grid-template-columns:1fr;
-      }
-
-      .gallery{
-        grid-template-columns:1fr;
-      }
-
-      .work img{
-        height:390px;
-      }
-
-      .about-text h2{
-        font-size:32px;
-      }
-
-      .contact-box{
-        padding:35px 20px;
-      }
-
-      .contact-box h2{
-        font-size:30px;
-      }
     }
-  </style>
+
+}
+
+
+/* =========================
+   SIMPLE ANIMATION
+========================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.hero-text,
+.profile-area{
+    animation:fadeUp .8s ease;
+}
+
+</style>
 </head>
+
 
 <body>
 
-<!-- NAVBAR -->
-<nav>
-  <div class="logo">
-    Amazon <span>Printings</span>
-  </div>
 
-  <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#portfolio">Portfolio</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<header class="navbar">
+
+<div class="container nav-content">
+
+    <a href="#home" class="logo">
+        Muhammad <span class="blue">Ibrahim</span>
+    </a>
+
+    <ul class="menu" id="menu">
+
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="#services">Services</a>
+        </li>
+
+        <li>
+            <a href="#portfolio">Portfolio</a>
+        </li>
+
+        <li>
+            <a href="#about">About</a>
+        </li>
+
+        <li>
+            <a href="#contact">Contact</a>
+        </li>
+
+    </ul>
+
+    <div class="mobile-menu" onclick="toggleMenu()">
+        ☰
+    </div>
+
+</div>
+
+</header>
 
 
-<!-- HERO -->
+
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero" id="home">
 
-  <div class="hero-text">
+<div class="container hero-grid">
 
-    <div class="tag">🎨 Graphic Design & Printing</div>
+    <div class="hero-text">
 
-    <h1>
-      We Turn Your
-      <span>Ideas</span>
-      Into Design
-    </h1>
+        <div class="badge">
+            ✨ Welcome To My Portfolio
+        </div>
 
-    <p>
-      Professional graphic design and printing services.
-      Posters, banners, visiting cards, social media designs
-      and much more — all in one place.
-    </p>
+        <h1>
+            Hi, I'm
+            <span>Muhammad Ibrahim</span>
+        </h1>
 
-    <div class="buttons">
+        <h2>
+            Graphic Designer & Creative Artist
+        </h2>
 
-      <a href="#portfolio" class="btn btn-primary">
-        View My Work
-      </a>
+        <p>
+            I create modern, creative and professional
+            designs for businesses, brands and social media.
+            My goal is to turn your ideas into beautiful
+            visual designs.
+        </p>
 
-      <a href="#contact" class="btn btn-light">
-        Contact Me
-      </a>
+        <div class="buttons">
 
-    </div>
+            <a href="#portfolio" class="btn btn-primary">
+                🎨 View My Work
+            </a>
 
-  </div>
+            <a href="#contact" class="btn btn-outline">
+                💬 Contact Me
+            </a>
 
-
-  <div class="hero-card">
-
-    <img
-      src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=90"
-      alt="Graphic Design"
-    >
-
-  </div>
-
-</section>
-
-
-<!-- SERVICES -->
-<section id="services">
-
-  <div class="section-title">
-
-    <h2>My Services</h2>
-
-    <p>
-      Professional design and printing solutions
-    </p>
-
-  </div>
-
-
-  <div class="services">
-
-    <div class="service">
-      <div class="icon">🎨</div>
-      <h3>Graphic Design</h3>
-      <p>
-        Creative and professional graphic designs
-        for your business.
-      </p>
-    </div>
-
-
-    <div class="service">
-      <div class="icon">🖼️</div>
-      <h3>Poster Design</h3>
-      <p>
-        Attractive posters for events,
-        promotions and businesses.
-      </p>
-    </div>
-
-
-    <div class="service">
-      <div class="icon">🪪</div>
-      <h3>Visiting Cards</h3>
-      <p>
-        Modern and premium business card designs.
-      </p>
-    </div>
-
-
-    <div class="service">
-      <div class="icon">🖨️</div>
-      <h3>Printing</h3>
-      <p>
-        Quality printing for your personal
-        and business needs.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- PORTFOLIO -->
-<section class="portfolio" id="portfolio">
-
-  <div class="section-title">
-
-    <h2>My Portfolio</h2>
-
-    <p>
-      Some of my latest design work
-    </p>
-
-  </div>
-
-
-  <div class="gallery">
-
-    <div class="work">
-
-      <img
-        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=900&q=90"
-        alt="Business Design"
-      >
-
-      <div class="work-info">
-        <h3>Business Design</h3>
-        <p>Professional promotional design</p>
-      </div>
+        </div>
 
     </div>
 
 
-    <div class="work">
+    <!-- EXAMPLE PROFILE IMAGE -->
 
-      <img
-        src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=90"
-        alt="Creative Design"
-      >
+    <div class="profile-area">
 
-      <div class="work-info">
-        <h3>Creative Poster</h3>
-        <p>Modern creative poster design</p>
-      </div>
+        <div class="profile-frame">
 
-    </div>
-
-
-    <div class="work">
-
-      <img
-        src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=900&q=90"
-        alt="Brand Design"
-      >
-
-      <div class="work-info">
-        <h3>Brand Design</h3>
-        <p>Premium branding concept</p>
-      </div>
-
-    </div>
-
-
-    <div class="work">
-
-      <img
-        src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=90"
-        alt="Graphic Work"
-      >
-
-      <div class="work-info">
-        <h3>Graphic Design</h3>
-        <p>Creative digital artwork</p>
-      </div>
-
-    </div>
-
-
-    <div class="work">
-
-      <img
-        src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=900&q=90"
-        alt="Design Work"
-      >
-
-      <div class="work-info">
-        <h3>Social Media Design</h3>
-        <p>Social media promotional artwork</p>
-      </div>
-
-    </div>
-
-
-    <div class="work">
-
-      <img
-        src="https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=900&q=90"
-        alt="Print Design"
-      >
-
-      <div class="work-info">
-        <h3>Print Design</h3>
-        <p>Professional print-ready artwork</p>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- ABOUT -->
-<section id="about">
-
-  <div class="about">
-
-    <div class="about-img">
-
-      <img
-        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=90"
-        alt="Designer"
-      >
-
-    </div>
-
-
-    <div class="about-text">
-
-      <h2>About My Work</h2>
-
-      <p>
-        I create professional, modern and attractive
-        designs for businesses, brands and individuals.
-      </p>
-
-      <p>
-        My goal is simple: turn your idea into a design
-        that looks professional and gets attention.
-      </p>
-
-
-      <div class="skills">
-
-        <span class="skill">Graphic Design</span>
-
-        <span class="skill">Photoshop</span>
-
-        <span class="skill">Illustrator</span>
-
-        <span class="skill">Printing</span>
-
-        <span class="skill">Branding</span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- CONTACT -->
-<section id="contact">
-
-  <div class="contact-box">
-
-    <h2>Let's Work Together</h2>
-
-    <p>
-      Have a project in mind?
-      Contact me and let's create something amazing.
-    </p>
-
-
-    <div class="contact-info">
-
-      <a href="https://wa.me/923471420856" target="_blank">
-        📱 WhatsApp
-      </a>
-
-      <a href="tel:+923471420856">
-        📞 Call Me
-      </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- FOOTER -->
-<footer>
-
-  © 2026
-  <strong>Amazon Printings</strong>.
-  All Rights Reserved.
-
-</footer>
-
-</body>
-</html>
+            <img
+            src="https://
