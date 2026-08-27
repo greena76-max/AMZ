@@ -1,2036 +1,754 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Amazon Printing Private Limited</title>
-
-<!-- Premium Font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<!-- Icons -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<style>
-
-/* =====================================================
-   GLOBAL
-===================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:"Manrope",sans-serif;
-    background:#ffffff;
-    color:#111827;
-    line-height:1.6;
-}
-
-img{
-    max-width:100%;
-    display:block;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-:root{
-    --green:#087f46;
-    --green-dark:#056638;
-    --green-light:#eefaf4;
-    --black:#111827;
-    --gray:#667085;
-    --light:#f7f9f8;
-    --border:#e8ece9;
-}
-
-
-/* =====================================================
-   TOP BAR
-===================================================== */
-
-.topbar{
-    background:var(--green);
-    color:#fff;
-    font-size:11px;
-}
-
-.topbar-inner{
-    width:min(1180px,92%);
-    margin:auto;
-    min-height:32px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.top-contact{
-    display:flex;
-    gap:22px;
-}
-
-.top-contact span{
-    display:flex;
-    align-items:center;
-    gap:7px;
-}
-
-.top-social{
-    display:flex;
-    gap:15px;
-}
-
-.top-social a{
-    transition:.2s;
-}
-
-.top-social a:hover{
-    opacity:.7;
-}
-
-
-/* =====================================================
-   NAVBAR
-===================================================== */
-
-.navbar{
-    height:78px;
-    background:#fff;
-    border-bottom:1px solid #f0f2f1;
-
-    position:sticky;
-    top:0;
-    z-index:1000;
-}
-
-.nav-inner{
-    width:min(1180px,92%);
-    height:100%;
-    margin:auto;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-
-/* LOGO */
-
-.logo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.logo-mark{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-
-    background:var(--green);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#fff;
-    font-size:20px;
-
-    box-shadow:0 5px 15px rgba(8,127,70,.18);
-}
-
-.logo-text{
-    line-height:1.1;
-}
-
-.logo-text strong{
-    display:block;
-    font-size:15px;
-    font-weight:800;
-}
-
-.logo-text small{
-    font-size:8px;
-    color:#7b8490;
-    letter-spacing:1px;
-}
-
-
-/* NAV LINKS */
-
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:28px;
-
-    font-size:11px;
-    font-weight:700;
-}
-
-.nav-links a{
-    position:relative;
-    padding:29px 0;
-    color:#20252b;
-}
-
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:20px;
-
-    width:0;
-    height:2px;
-
-    background:var(--green);
-
-    transition:.25s;
-}
-
-.nav-links a:hover{
-    color:var(--green);
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-
-/* NAV BUTTON */
-
-.nav-button{
-    background:var(--green);
-    color:white;
-
-    padding:11px 19px;
-    border-radius:3px;
-
-    font-size:10px;
-    font-weight:800;
-
-    transition:.25s;
-}
-
-.nav-button:hover{
-    background:var(--green-dark);
-    transform:translateY(-2px);
-}
-
-
-/* MOBILE */
-
-.menu-button{
-    display:none;
-    border:0;
-    background:none;
-    font-size:22px;
-    cursor:pointer;
-}
-
-
-/* =====================================================
-   CONTAINER
-===================================================== */
-
-.container{
-    width:min(1180px,92%);
-    margin:auto;
-}
-
-
-/* =====================================================
-   HERO
-===================================================== */
-
-.hero{
-    min-height:500px;
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    align-items:center;
-    gap:65px;
-
-    padding:75px 0;
-}
-
-.hero-content{
-    max-width:560px;
-}
-
-.hero-tag{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-
-    color:var(--green);
-    background:var(--green-light);
-
-    padding:7px 12px;
-    border-radius:30px;
-
-    font-size:9px;
-    font-weight:800;
-
-    margin-bottom:17px;
-}
-
-.hero h1{
-    font-size:43px;
-    line-height:1.12;
-    letter-spacing:-1.5px;
-
-    font-weight:800;
-
-    margin-bottom:16px;
-}
-
-.hero h1 span{
-    color:var(--green);
-}
-
-.hero-subtitle{
-    font-size:17px;
-    font-weight:700;
-    margin-bottom:13px;
-}
-
-.hero p{
-    color:var(--gray);
-    font-size:11px;
-    line-height:1.9;
-
-    max-width:520px;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:12px;
-    margin-top:26px;
-}
-
-.primary-btn{
-    background:var(--green);
-    color:#fff;
-
-    padding:13px 22px;
-    border-radius:4px;
-
-    font-size:10px;
-    font-weight:800;
-
-    transition:.25s;
-}
-
-.primary-btn:hover{
-    background:var(--green-dark);
-    transform:translateY(-2px);
-}
-
-.secondary-btn{
-    border:1px solid #dfe5e1;
-    padding:13px 22px;
-    border-radius:4px;
-
-    font-size:10px;
-    font-weight:800;
-
-    transition:.25s;
-}
-
-.secondary-btn:hover{
-    border-color:var(--green);
-    color:var(--green);
-}
-
-
-/* HERO VISUAL */
-
-.hero-visual{
-    position:relative;
-}
-
-.hero-card{
-    height:360px;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #eaf7f0,
-            #f8fbf9
-        );
-
-    position:relative;
-    overflow:hidden;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.hero-card::before{
-    content:"";
-    width:260px;
-    height:260px;
-
-    border-radius:50%;
-
-    background:rgba(8,127,70,.08);
-
-    position:absolute;
-    right:-60px;
-    top:-50px;
-}
-
-.print-icon{
-    width:190px;
-    height:145px;
-
-    background:white;
-
-    border-radius:8px;
-
-    box-shadow:0 18px 40px rgba(0,0,0,.12);
-
-    position:relative;
-    z-index:2;
-
-    padding:25px;
-}
-
-.print-icon::before{
-    content:"";
-    position:absolute;
-
-    left:25px;
-    right:25px;
-    top:25px;
-
-    height:15px;
-
-    background:var(--green);
-
-    border-radius:3px;
-}
-
-.print-icon::after{
-    content:"";
-    position:absolute;
-
-    left:25px;
-    right:65px;
-    top:55px;
-
-    height:8px;
-
-    background:#dce6e1;
-
-    box-shadow:
-        0 18px #dce6e1,
-        0 36px #dce6e1;
-
-    border-radius:3px;
-}
-
-.floating-card{
-    position:absolute;
-    z-index:5;
-
-    background:#fff;
-
-    padding:15px 18px;
-
-    border-radius:7px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.12);
-
-    font-size:9px;
-    font-weight:800;
-}
-
-.floating-card i{
-    color:var(--green);
-    margin-right:7px;
-}
-
-.float-one{
-    left:15px;
-    bottom:38px;
-}
-
-.float-two{
-    right:15px;
-    top:35px;
-}
-
-
-/* =====================================================
-   SECTION TITLE
-===================================================== */
-
-.section-heading{
-    text-align:center;
-    margin-bottom:45px;
-}
-
-.section-heading .small{
-    color:var(--green);
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
-
-.section-heading h2{
-    font-size:28px;
-    line-height:1.2;
-    margin-top:7px;
-    font-weight:800;
-}
-
-.section-heading p{
-    color:var(--gray);
-    font-size:10px;
-    max-width:570px;
-    margin:10px auto 0;
-}
-
-
-/* =====================================================
-   SERVICES
-===================================================== */
-
-.services{
-    padding:75px 0;
-    background:#fafcfb;
-}
-
-.services-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.service-card{
-    background:#fff;
-    border:1px solid var(--border);
-
-    padding:30px 25px;
-
-    border-radius:7px;
-
-    transition:.3s;
-}
-
-.service-card:hover{
-    transform:translateY(-7px);
-    border-color:#c8e6d6;
-    box-shadow:0 15px 35px rgba(0,0,0,.07);
-}
-
-.service-icon{
-    width:53px;
-    height:53px;
-
-    border-radius:7px;
-
-    background:var(--green-light);
-    color:var(--green);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:21px;
-
-    margin-bottom:20px;
-}
-
-.service-card h3{
-    font-size:14px;
-    margin-bottom:8px;
-}
-
-.service-card p{
-    color:var(--gray);
-    font-size:10px;
-    line-height:1.8;
-}
-
-
-/* =====================================================
-   FEATURED PRODUCTS
-===================================================== */
-
-.products{
-    padding:80px 0;
-}
-
-.products-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:18px;
-}
-
-.product-card{
-    min-height:175px;
-
-    border:1px solid var(--border);
-    border-radius:7px;
-
-    padding:24px 20px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-
-    transition:.3s;
-
-    background:#fff;
-}
-
-.product-card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 12px 30px rgba(0,0,0,.07);
-}
-
-.product-number{
-    color:#b7c2bc;
-    font-size:11px;
-    font-weight:800;
-    margin-bottom:15px;
-}
-
-.product-card i{
-    color:var(--green);
-    font-size:23px;
-    margin-bottom:13px;
-}
-
-.product-card h3{
-    font-size:12px;
-    font-weight:800;
-}
-
-
-/* =====================================================
-   ABOUT
-===================================================== */
-
-.about{
-    background:#f7faf8;
-    padding:80px 0;
-}
-
-.about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:70px;
-    align-items:center;
-}
-
-.about-label{
-    color:var(--green);
-    font-size:9px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
-}
-
-.about h2{
-    font-size:31px;
-    line-height:1.25;
-    margin:9px 0 15px;
-}
-
-.about p{
-    color:var(--gray);
-    font-size:10px;
-    line-height:1.9;
-}
-
-.about-box{
-    background:#fff;
-    padding:35px;
-
-    border-radius:9px;
-
-    box-shadow:0 12px 35px rgba(0,0,0,.06);
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:25px;
-}
-
-.stat{
-    border-left:3px solid var(--green);
-    padding-left:15px;
-}
-
-.stat strong{
-    display:block;
-    color:var(--green);
-    font-size:23px;
-    font-weight:800;
-}
-
-.stat span{
-    font-size:9px;
-    color:var(--gray);
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-.stats{
-    padding:65px 0;
-}
-
-.stats-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:20px;
-}
-
-.stat-box{
-    text-align:center;
-    padding:25px 15px;
-}
-
-.stat-box i{
-    color:var(--green);
-    font-size:24px;
-    margin-bottom:10px;
-}
-
-.stat-box strong{
-    display:block;
-    font-size:26px;
-    font-weight:800;
-}
-
-.stat-box span{
-    color:var(--gray);
-    font-size:9px;
-}
-
-
-/* =====================================================
-   REVIEWS
-===================================================== */
-
-.reviews{
-    padding:80px 0;
-    background:#fafcfb;
-}
-
-.reviews-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.review{
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:7px;
-
-    padding:28px;
-}
-
-.stars{
-    color:#f5ad25;
-    font-size:10px;
-    margin-bottom:15px;
-}
-
-.review p{
-    color:var(--gray);
-    font-size:10px;
-    line-height:1.8;
-    margin-bottom:20px;
-}
-
-.review strong{
-    font-size:10px;
-}
-
-
-/* =====================================================
-   CONTACT
-===================================================== */
-
-.contact{
-    padding:80px 0;
-}
-
-.contact-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.contact-card{
-    border:1px solid var(--border);
-    padding:30px 20px;
-
-    text-align:center;
-    border-radius:7px;
-
-    transition:.3s;
-}
-
-.contact-card:hover{
-    border-color:#c8e6d6;
-    transform:translateY(-4px);
-}
-
-.contact-card i{
-    color:var(--green);
-    font-size:23px;
-    margin-bottom:14px;
-}
-
-.contact-card h3{
-    font-size:12px;
-    margin-bottom:7px;
-}
-
-.contact-card p{
-    color:var(--gray);
-    font-size:9px;
-}
-
-
-/* =====================================================
-   CTA
-===================================================== */
-
-.cta{
-    width:min(1180px,92%);
-    margin:0 auto 80px;
-
-    background:var(--green);
-    color:#fff;
-
-    border-radius:9px;
-
-    padding:50px;
-
-    text-align:center;
-}
-
-.cta h2{
-    font-size:26px;
-    margin-bottom:8px;
-}
-
-.cta p{
-    font-size:10px;
-    opacity:.9;
-    margin-bottom:22px;
-}
-
-.cta a{
-    display:inline-block;
-
-    background:#fff;
-    color:var(--green);
-
-    padding:12px 23px;
-
-    border-radius:3px;
-
-    font-size:10px;
-    font-weight:800;
-}
-
-
-/* =====================================================
-   FOOTER
-===================================================== */
-
-footer{
-    background:#10251b;
-    color:#fff;
-    padding:55px 0 20px;
-}
-
-.footer-grid{
-    width:min(1180px,92%);
-    margin:auto;
-
-    display:grid;
-    grid-template-columns:1.5fr 1fr 1fr;
-    gap:50px;
-}
-
-.footer-brand h3{
-    font-size:17px;
-    margin-bottom:10px;
-}
-
-.footer-brand p{
-    color:#aab8b0;
-    font-size:9px;
-    line-height:1.8;
-    max-width:330px;
-}
-
-.footer-column h4{
-    font-size:11px;
-    margin-bottom:15px;
-}
-
-.footer-column a{
-    display:block;
-    color:#aab8b0;
-    font-size:9px;
-    margin-bottom:8px;
-}
-
-.footer-column a:hover{
-    color:#fff;
-}
-
-.footer-bottom{
-    width:min(1180px,92%);
-    margin:35px auto 0;
-
-    border-top:1px solid rgba(255,255,255,.1);
-
-    padding-top:18px;
-
-    text-align:center;
-
-    color:#819087;
-    font-size:8px;
-}
-
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
-
-.whatsapp{
-    position:fixed;
-    right:22px;
-    bottom:22px;
-
-    width:53px;
-    height:53px;
-
-    background:#25d366;
-    color:#fff;
-
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:24px;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.18);
-
-    z-index:2000;
-
-    transition:.25s;
-}
-
-.whatsapp:hover{
-    transform:scale(1.08);
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media(max-width:900px){
-
-    .nav-links{
-        gap:15px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Amazon Printings | Graphic Design & Printing</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+      scroll-behavior:smooth;
     }
 
+    body{
+      background:#f5f7fb;
+      color:#172033;
+    }
+
+    /* NAVBAR */
+    nav{
+      width:100%;
+      background:#ffffff;
+      padding:16px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 3px 15px rgba(0,0,0,.08);
+    }
+
+    .logo{
+      font-size:22px;
+      font-weight:800;
+      color:#1455d9;
+    }
+
+    .logo span{
+      color:#111827;
+    }
+
+    nav ul{
+      display:flex;
+      gap:25px;
+      list-style:none;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:#333;
+      font-weight:600;
+    }
+
+    nav ul li a:hover{
+      color:#1455d9;
+    }
+
+    /* HERO */
     .hero{
-        gap:35px;
+      min-height:90vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:40px;
+      padding:70px 7%;
+      background:
+      radial-gradient(circle at top right,#dce8ff,transparent 35%),
+      linear-gradient(135deg,#ffffff,#eef4ff);
     }
 
-    .products-grid{
-        grid-template-columns:repeat(2,1fr);
+    .hero-text{
+      max-width:600px;
     }
 
-}
-
-@media(max-width:700px){
-
-    .top-contact span:not(:first-child){
-        display:none;
-    }
-
-    .topbar-inner{
-        justify-content:center;
-    }
-
-    .top-social{
-        display:none;
-    }
-
-    .nav-links{
-        display:none;
-
-        position:absolute;
-
-        top:78px;
-        left:0;
-        right:0;
-
-        background:#fff;
-
-        flex-direction:column;
-
-        gap:0;
-
-        padding:8px 0;
-
-        box-shadow:0 10px 25px rgba(0,0,0,.08);
-    }
-
-    .nav-links.active{
-        display:flex;
-    }
-
-    .nav-links a{
-        width:100%;
-        padding:13px 20px;
-        text-align:center;
-        border-bottom:1px solid #f1f1f1;
-    }
-
-    .nav-links a::after{
-        display:none;
-    }
-
-    .nav-button{
-        display:none;
-    }
-
-    .menu-button{
-        display:block;
-    }
-
-    .hero{
-        grid-template-columns:1fr;
-        padding:55px 0;
+    .tag{
+      display:inline-block;
+      background:#e6efff;
+      color:#1455d9;
+      padding:9px 16px;
+      border-radius:30px;
+      font-weight:700;
+      margin-bottom:20px;
     }
 
     .hero h1{
-        font-size:34px;
+      font-size:55px;
+      line-height:1.1;
+      margin-bottom:20px;
     }
 
+    .hero h1 span{
+      color:#1455d9;
+    }
+
+    .hero p{
+      font-size:18px;
+      line-height:1.7;
+      color:#5b6474;
+      margin-bottom:30px;
+    }
+
+    .buttons{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 25px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      transition:.3s;
+    }
+
+    .btn-primary{
+      background:#1455d9;
+      color:white;
+    }
+
+    .btn-primary:hover{
+      background:#0d3fa8;
+      transform:translateY(-2px);
+    }
+
+    .btn-light{
+      background:white;
+      color:#1455d9;
+      border:2px solid #1455d9;
+    }
+
+    /* HERO CARD */
     .hero-card{
-        height:300px;
+      width:390px;
+      background:white;
+      padding:18px;
+      border-radius:25px;
+      box-shadow:0 20px 50px rgba(30,70,150,.18);
+      transform:rotate(2deg);
     }
 
-    .services-grid{
-        grid-template-columns:1fr;
+    .hero-card img{
+      width:100%;
+      height:420px;
+      object-fit:cover;
+      border-radius:17px;
     }
 
-    .products-grid{
-        grid-template-columns:1fr 1fr;
+    /* SECTIONS */
+    section{
+      padding:80px 7%;
     }
 
-    .about-grid{
-        grid-template-columns:1fr;
-        gap:35px;
+    .section-title{
+      text-align:center;
+      margin-bottom:45px;
     }
 
-    .stats-grid{
-        grid-template-columns:1fr 1fr;
+    .section-title h2{
+      font-size:38px;
+      margin-bottom:10px;
     }
 
-    .reviews-grid{
-        grid-template-columns:1fr;
+    .section-title p{
+      color:#6b7280;
     }
 
-    .contact-grid{
-        grid-template-columns:1fr;
+    /* SERVICES */
+    .services{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
     }
 
-    .footer-grid{
-        grid-template-columns:1fr;
-        gap:30px;
+    .service{
+      background:white;
+      padding:30px 20px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 8px 25px rgba(0,0,0,.06);
+      transition:.3s;
     }
 
-}
-
-@media(max-width:450px){
-
-    .products-grid{
-        grid-template-columns:1fr;
+    .service:hover{
+      transform:translateY(-8px);
+      box-shadow:0 15px 35px rgba(0,0,0,.1);
     }
 
-    .hero h1{
-        font-size:30px;
+    .icon{
+      font-size:42px;
+      margin-bottom:15px;
     }
 
-    .hero-buttons{
+    .service h3{
+      margin-bottom:10px;
+    }
+
+    .service p{
+      color:#6b7280;
+      line-height:1.5;
+    }
+
+    /* PORTFOLIO */
+    .portfolio{
+      background:#ffffff;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .work{
+      background:#f5f7fb;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 8px 25px rgba(0,0,0,.08);
+      transition:.3s;
+    }
+
+    .work:hover{
+      transform:translateY(-7px);
+    }
+
+    .work img{
+      width:100%;
+      height:330px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .work-info{
+      padding:18px;
+    }
+
+    .work-info h3{
+      margin-bottom:6px;
+    }
+
+    .work-info p{
+      color:#6b7280;
+    }
+
+    /* ABOUT */
+    .about{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .about-img img{
+      width:100%;
+      max-height:500px;
+      object-fit:cover;
+      border-radius:25px;
+    }
+
+    .about-text h2{
+      font-size:40px;
+      margin-bottom:20px;
+    }
+
+    .about-text p{
+      color:#626b7a;
+      line-height:1.8;
+      margin-bottom:15px;
+    }
+
+    .skills{
+      margin-top:25px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .skill{
+      background:#eaf1ff;
+      color:#1455d9;
+      padding:9px 15px;
+      border-radius:20px;
+      font-weight:700;
+    }
+
+    /* CONTACT */
+    .contact-box{
+      max-width:900px;
+      margin:auto;
+      background:#111827;
+      color:white;
+      padding:50px;
+      border-radius:25px;
+      text-align:center;
+    }
+
+    .contact-box h2{
+      font-size:38px;
+      margin-bottom:15px;
+    }
+
+    .contact-box p{
+      color:#cbd5e1;
+      margin-bottom:25px;
+      line-height:1.6;
+    }
+
+    .contact-info{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .contact-info a{
+      text-decoration:none;
+      color:white;
+      background:#1455d9;
+      padding:13px 20px;
+      border-radius:10px;
+      font-weight:bold;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#0b1120;
+      color:#9ca3af;
+      text-align:center;
+      padding:25px;
+    }
+
+    footer strong{
+      color:white;
+    }
+
+    /* MOBILE */
+    @media(max-width:900px){
+
+      nav{
+        padding:15px 5%;
+      }
+
+      nav ul{
+        display:none;
+      }
+
+      .hero{
         flex-direction:column;
-    }
-
-    .hero-buttons a{
         text-align:center;
-    }
+        padding:55px 5%;
+      }
 
-    .about-box{
+      .hero h1{
+        font-size:40px;
+      }
+
+      .hero-card{
+        width:100%;
+        max-width:360px;
+      }
+
+      .services{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .gallery{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .about{
         grid-template-columns:1fr;
+      }
     }
 
-    .cta{
+    @media(max-width:550px){
+
+      section{
+        padding:60px 5%;
+      }
+
+      .hero{
+        min-height:auto;
+      }
+
+      .hero h1{
+        font-size:34px;
+      }
+
+      .hero p{
+        font-size:16px;
+      }
+
+      .hero-card img{
+        height:360px;
+      }
+
+      .services{
+        grid-template-columns:1fr;
+      }
+
+      .gallery{
+        grid-template-columns:1fr;
+      }
+
+      .work img{
+        height:390px;
+      }
+
+      .about-text h2{
+        font-size:32px;
+      }
+
+      .contact-box{
         padding:35px 20px;
+      }
+
+      .contact-box h2{
+        font-size:30px;
+      }
     }
-
-}
-
-
-/* =====================================================
-   ANIMATION
-===================================================== */
-
-@keyframes fadeUp{
-
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-.hero-content,
-.hero-visual{
-    animation:fadeUp .8s ease both;
-}
-
-</style>
+  </style>
 </head>
-
 
 <body>
 
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">
+    Amazon <span>Printings</span>
+  </div>
 
-<!-- =====================================================
-     TOP BAR
-===================================================== -->
-
-<div class="topbar">
-
-    <div class="topbar-inner">
-
-        <div class="top-contact">
-
-            <span>
-                <i class="fa-solid fa-phone"></i>
-                0347 1420856
-            </span>
-
-            <span>
-                <i class="fa-solid fa-envelope"></i>
-                info@amazonprinting.pk
-            </span>
-
-            <span>
-                Mandi Bahauddin, Punjab, Pakistan
-            </span>
-
-        </div>
-
-        <div class="top-social">
-
-            <a href="#">
-                <i class="fa-brands fa-facebook-f"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-            <a href="#">
-                <i class="fa-brands fa-youtube"></i>
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
-
-<header class="navbar">
-
-    <div class="nav-inner">
-
-        <a href="#home" class="logo">
-
-            <div class="logo-mark">
-                <i class="fa-solid fa-print"></i>
-            </div>
-
-            <div class="logo-text">
-                <strong>Amazon Printing</strong>
-                <small>PRIVATE LIMITED</small>
-            </div>
-
-        </a>
-
-
-        <nav class="nav-links" id="navLinks">
-
-            <a href="#home">Home</a>
-
-            <a href="#services">Services</a>
-
-            <a href="#products">Products</a>
-
-            <a href="#about">About</a>
-
-            <a href="#reviews">Reviews</a>
-
-            <a href="#contact">Contact</a>
-
-        </nav>
-
-
-        <a href="#contact" class="nav-button">
-            CONTACT US
-        </a>
-
-
-        <button class="menu-button" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-    </div>
-
-</header>
-
-
-
-<!-- =====================================================
-     HERO
-===================================================== -->
-
+<!-- HERO -->
 <section class="hero" id="home">
 
-    <div class="container" style="display:contents;">
-
-        <div class="hero-content">
-
-            <div class="hero-tag">
-                <i class="fa-solid fa-circle-check"></i>
-                Professional Printing Solutions
-            </div>
-
-            <h1>
-                Professional Printing
-                <span>Solutions</span>
-            </h1>
-
-            <div class="hero-subtitle">
-                Quality Printing. Creative Design. Reliable Service.
-            </div>
-
-            <p>
-                Amazon Printing Private Limited provides
-                professional printing and designing solutions
-                with quality, creativity and reliable service.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#products" class="primary-btn">
-                    VIEW PRODUCTS
-                </a>
-
-                <a href="#contact" class="secondary-btn">
-                    GET IN TOUCH
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <div class="hero-visual">
-
-            <div class="hero-card">
-
-                <div class="print-icon"></div>
-
-                <div class="floating-card float-one">
-                    <i class="fa-solid fa-check"></i>
-                    Quality Printing
-                </div>
-
-                <div class="floating-card float-two">
-                    <i class="fa-solid fa-star"></i>
-                    Professional Service
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     SERVICES
-===================================================== -->
-
-<section class="services" id="services">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="small">
-                What We Do
-            </div>
-
-            <h2>
-                Our Services
-            </h2>
-
-            <p>
-                Professional printing and creative services
-                designed to meet your business and personal needs.
-            </p>
-
-        </div>
-
-
-        <div class="services-grid">
-
-
-            <div class="service-card">
-
-                <div class="service-icon">
-                    <i class="fa-solid fa-print"></i>
-                </div>
-
-                <h3>
-                    Digital Printing
-                </h3>
-
-                <p>
-                    High-quality digital printing solutions
-                    for professional and personal requirements.
-                </p>
-
-            </div>
-
-
-            <div class="service-card">
-
-                <div class="service-icon">
-                    <i class="fa-solid fa-pen-ruler"></i>
-                </div>
-
-                <h3>
-                    Graphic Designing
-                </h3>
-
-                <p>
-                    Creative and professional graphic designing
-                    for your branding and promotional needs.
-                </p>
-
-            </div>
-
-
-            <div class="service-card">
-
-                <div class="service-icon">
-                    <i class="fa-solid fa-id-card"></i>
-                </div>
-
-                <h3>
-                    PVC Cards
-                </h3>
-
-                <p>
-                    Professional PVC card printing with
-                    clean and durable finishing.
-                </p>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FEATURED PRODUCTS
-===================================================== -->
-
-<section class="products" id="products">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="small">
-                Our Products
-            </div>
-
-            <h2>
-                Featured Products
-            </h2>
-
-            <p>
-                Explore our popular printing products
-                made with professional quality and care.
-            </p>
-
-        </div>
-
-
-        <div class="products-grid">
-
-
-            <div class="product-card">
-
-                <div class="product-number">01</div>
-
-                <i class="fa-regular fa-address-card"></i>
-
-                <h3>
-                    Business Cards
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">02</div>
-
-                <i class="fa-solid fa-panorama"></i>
-
-                <h3>
-                    Flex Banners
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">03</div>
-
-                <i class="fa-solid fa-shirt"></i>
-
-                <h3>
-                    Custom T-Shirts
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">04</div>
-
-                <i class="fa-solid fa-box"></i>
-
-                <h3>
-                    Packaging Boxes
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">05</div>
-
-                <i class="fa-solid fa-note-sticky"></i>
-
-                <h3>
-                    Stickers
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">06</div>
-
-                <i class="fa-solid fa-mug-hot"></i>
-
-                <h3>
-                    Mugs Printing
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">07</div>
-
-                <i class="fa-solid fa-bottle-water"></i>
-
-                <h3>
-                    Water Bottles
-                </h3>
-
-            </div>
-
-
-            <div class="product-card">
-
-                <div class="product-number">08</div>
-
-                <i class="fa-solid fa-id-card"></i>
-
-                <h3>
-                    PVC ID Cards
-                </h3>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     ABOUT
-===================================================== -->
-
-<section class="about" id="about">
-
-    <div class="container">
-
-        <div class="about-grid">
-
-
-            <div>
-
-                <div class="about-label">
-                    About Us
-                </div>
-
-                <h2>
-                    About Amazon Printing
-                </h2>
-
-                <p>
-                    Amazon Printing Private Limited is
-                    committed to providing professional
-                    printing and designing services with
-                    quality, creativity and customer
-                    satisfaction.
-                </p>
-
-            </div>
-
-
-            <div class="about-box">
-
-                <div class="stat">
-
-                    <strong>
-                        5000+
-                    </strong>
-
-                    <span>
-                        Happy Clients
-                    </span>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <strong>
-                        15000+
-                    </strong>
-
-                    <span>
-                        Completed Orders
-                    </span>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <strong>
-                        10+
-                    </strong>
-
-                    <span>
-                        Years Experience
-                    </span>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <strong>
-                        24/7
-                    </strong>
-
-                    <span>
-                        Customer Support
-                    </span>
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     STATS
-===================================================== -->
-
-<section class="stats">
-
-    <div class="container">
-
-        <div class="stats-grid">
-
-
-            <div class="stat-box">
-
-                <i class="fa-solid fa-users"></i>
-
-                <strong>
-                    5000+
-                </strong>
-
-                <span>
-                    Happy Clients
-                </span>
-
-            </div>
-
-
-            <div class="stat-box">
-
-                <i class="fa-solid fa-box-open"></i>
-
-                <strong>
-                    15000+
-                </strong>
-
-                <span>
-                    Completed Orders
-                </span>
-
-            </div>
-
-
-            <div class="stat-box">
-
-                <i class="fa-solid fa-award"></i>
-
-                <strong>
-                    10+
-                </strong>
-
-                <span>
-                    Years Experience
-                </span>
-
-            </div>
-
-
-            <div class="stat-box">
-
-                <i class="fa-solid fa-headset"></i>
-
-                <strong>
-                    24/7
-                </strong>
-
-                <span>
-                    Customer Support
-                </span>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     REVIEWS
-===================================================== -->
-
-<section class="reviews" id="reviews">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="small">
-                Customer Feedback
-            </div>
-
-            <h2>
-                What Our Customers Say
-            </h2>
-
-        </div>
-
-
-        <div class="reviews-grid">
-
-
-            <div class="review">
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-                <p>
-                    Great quality and professional
-                    printing service.
-                </p>
-
-                <strong>
-                    Ali Khan
-                </strong>
-
-            </div>
-
-
-            <div class="review">
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-                <p>
-                    Excellent printing quality and
-                    very good customer service.
-                </p>
-
-                <strong>
-                    Ahmed Raza
-                </strong>
-
-            </div>
-
-
-            <div class="review">
-
-                <div class="stars">
-                    ★★★★★
-                </div>
-
-                <p>
-                    Professional work and reliable
-                    service. Highly recommended.
-                </p>
-
-                <strong>
-                    Usman
-                </strong>
-
-            </div>
-
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     CTA
-===================================================== -->
-
-<div class="cta">
-
-    <h2>
-        Need Professional Printing?
-    </h2>
+  <div class="hero-text">
+
+    <div class="tag">🎨 Graphic Design & Printing</div>
+
+    <h1>
+      We Turn Your
+      <span>Ideas</span>
+      Into Design
+    </h1>
 
     <p>
-        Contact Amazon Printing Private Limited
-        for your printing and designing requirements.
+      Professional graphic design and printing services.
+      Posters, banners, visiting cards, social media designs
+      and much more — all in one place.
     </p>
 
-    <a href="tel:03471420856">
-        CALL 0347 1420856
-    </a>
+    <div class="buttons">
 
-</div>
+      <a href="#portfolio" class="btn btn-primary">
+        View My Work
+      </a>
 
-
-
-<!-- =====================================================
-     CONTACT
-===================================================== -->
-
-<section class="contact" id="contact">
-
-    <div class="container">
-
-        <div class="section-heading">
-
-            <div class="small">
-                Get In Touch
-            </div>
-
-            <h2>
-                Contact Us
-            </h2>
-
-            <p>
-                We are ready to help you with your
-                printing and designing needs.
-            </p>
-
-        </div>
-
-
-        <div class="contact-grid">
-
-
-            <div class="contact-card">
-
-                <i class="fa-solid fa-location-dot"></i>
-
-                <h3>
-                    Location
-                </h3>
-
-                <p>
-                    Mandi Bahauddin,
-                    Punjab, Pakistan
-                </p>
-
-            </div>
-
-
-            <div class="contact-card">
-
-                <i class="fa-solid fa-phone"></i>
-
-                <h3>
-                    Phone
-                </h3>
-
-                <p>
-                    0347 1420856
-                </p>
-
-            </div>
-
-
-            <div class="contact-card">
-
-                <i class="fa-solid fa-envelope"></i>
-
-                <h3>
-                    Email
-                </h3>
-
-                <p>
-                    info@amazonprinting.pk
-                </p>
-
-            </div>
-
-
-        </div>
+      <a href="#contact" class="btn btn-light">
+        Contact Me
+      </a>
 
     </div>
+
+  </div>
+
+
+  <div class="hero-card">
+
+    <img
+      src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=90"
+      alt="Graphic Design"
+    >
+
+  </div>
 
 </section>
 
 
+<!-- SERVICES -->
+<section id="services">
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
+  <div class="section-title">
 
+    <h2>My Services</h2>
+
+    <p>
+      Professional design and printing solutions
+    </p>
+
+  </div>
+
+
+  <div class="services">
+
+    <div class="service">
+      <div class="icon">🎨</div>
+      <h3>Graphic Design</h3>
+      <p>
+        Creative and professional graphic designs
+        for your business.
+      </p>
+    </div>
+
+
+    <div class="service">
+      <div class="icon">🖼️</div>
+      <h3>Poster Design</h3>
+      <p>
+        Attractive posters for events,
+        promotions and businesses.
+      </p>
+    </div>
+
+
+    <div class="service">
+      <div class="icon">🪪</div>
+      <h3>Visiting Cards</h3>
+      <p>
+        Modern and premium business card designs.
+      </p>
+    </div>
+
+
+    <div class="service">
+      <div class="icon">🖨️</div>
+      <h3>Printing</h3>
+      <p>
+        Quality printing for your personal
+        and business needs.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+
+  <div class="section-title">
+
+    <h2>My Portfolio</h2>
+
+    <p>
+      Some of my latest design work
+    </p>
+
+  </div>
+
+
+  <div class="gallery">
+
+    <div class="work">
+
+      <img
+        src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=900&q=90"
+        alt="Business Design"
+      >
+
+      <div class="work-info">
+        <h3>Business Design</h3>
+        <p>Professional promotional design</p>
+      </div>
+
+    </div>
+
+
+    <div class="work">
+
+      <img
+        src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&w=900&q=90"
+        alt="Creative Design"
+      >
+
+      <div class="work-info">
+        <h3>Creative Poster</h3>
+        <p>Modern creative poster design</p>
+      </div>
+
+    </div>
+
+
+    <div class="work">
+
+      <img
+        src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=900&q=90"
+        alt="Brand Design"
+      >
+
+      <div class="work-info">
+        <h3>Brand Design</h3>
+        <p>Premium branding concept</p>
+      </div>
+
+    </div>
+
+
+    <div class="work">
+
+      <img
+        src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=90"
+        alt="Graphic Work"
+      >
+
+      <div class="work-info">
+        <h3>Graphic Design</h3>
+        <p>Creative digital artwork</p>
+      </div>
+
+    </div>
+
+
+    <div class="work">
+
+      <img
+        src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=900&q=90"
+        alt="Design Work"
+      >
+
+      <div class="work-info">
+        <h3>Social Media Design</h3>
+        <p>Social media promotional artwork</p>
+      </div>
+
+    </div>
+
+
+    <div class="work">
+
+      <img
+        src="https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=900&q=90"
+        alt="Print Design"
+      >
+
+      <div class="work-info">
+        <h3>Print Design</h3>
+        <p>Professional print-ready artwork</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+
+  <div class="about">
+
+    <div class="about-img">
+
+      <img
+        src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1000&q=90"
+        alt="Designer"
+      >
+
+    </div>
+
+
+    <div class="about-text">
+
+      <h2>About My Work</h2>
+
+      <p>
+        I create professional, modern and attractive
+        designs for businesses, brands and individuals.
+      </p>
+
+      <p>
+        My goal is simple: turn your idea into a design
+        that looks professional and gets attention.
+      </p>
+
+
+      <div class="skills">
+
+        <span class="skill">Graphic Design</span>
+
+        <span class="skill">Photoshop</span>
+
+        <span class="skill">Illustrator</span>
+
+        <span class="skill">Printing</span>
+
+        <span class="skill">Branding</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact">
+
+  <div class="contact-box">
+
+    <h2>Let's Work Together</h2>
+
+    <p>
+      Have a project in mind?
+      Contact me and let's create something amazing.
+    </p>
+
+
+    <div class="contact-info">
+
+      <a href="https://wa.me/923471420856" target="_blank">
+        📱 WhatsApp
+      </a>
+
+      <a href="tel:+923471420856">
+        📞 Call Me
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
 <footer>
 
-    <div class="footer-grid">
-
-
-        <div class="footer-brand">
-
-            <h3>
-                Amazon Printing
-            </h3>
-
-            <p>
-                Amazon Printing Private Limited.
-                Professional printing and designing
-                solutions with quality, creativity
-                and reliable service.
-            </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h4>
-                Quick Links
-            </h4>
-
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#products">Products</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h4>
-                Contact
-            </h4>
-
-            <a href="tel:03471420856">
-                0347 1420856
-            </a>
-
-            <a href="mailto:info@amazonprinting.pk">
-                info@amazonprinting.pk
-            </a>
-
-            <a href="#">
-                Mandi Bahauddin, Punjab, Pakistan
-            </a>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        © 2026 Amazon Printing Private Limited.
-        All Rights Reserved.
-
-    </div>
+  © 2026
+  <strong>Amazon Printings</strong>.
+  All Rights Reserved.
 
 </footer>
-
-
-
-<!-- =====================================================
-     WHATSAPP
-===================================================== -->
-
-<a
-href="https://wa.me/923471420856"
-class="whatsapp"
-target="_blank"
-aria-label="WhatsApp">
-
-    <i class="fa-brands fa-whatsapp"></i>
-
-</a>
-
-
-
-<script>
-
-function toggleMenu(){
-
-    document
-    .getElementById("navLinks")
-    .classList.toggle("active");
-
-}
-
-
-document
-.querySelectorAll(".nav-links a")
-.forEach(function(link){
-
-    link.addEventListener("click",function(){
-
-        document
-        .getElementById("navLinks")
-        .classList.remove("active");
-
-    });
-
-});
-
-</script>
 
 </body>
 </html>
