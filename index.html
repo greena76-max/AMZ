@@ -4,15 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Muhammad Ibrahim | Portfolio</title>
+<title>Muhammad Ibrahim | Graphic Designer</title>
 
-<meta name="description" content="Muhammad Ibrahim - Graphic Designer Portfolio">
+<meta name="description"
+content="Muhammad Ibrahim - Graphic Designer Portfolio">
 
 <style>
 
-/* =========================
-   BASIC RESET
-========================= */
+/* ==============================
+   RESET
+================================= */
 
 *{
     margin:0;
@@ -26,19 +27,17 @@ html{
 
 body{
     font-family:Arial, Helvetica, sans-serif;
-    background:#f6f8fc;
+    background:#f5f7fb;
     color:#111827;
-    line-height:1.6;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
 }
 
 img{
     max-width:100%;
     display:block;
+}
+
+a{
+    text-decoration:none;
 }
 
 .container{
@@ -48,92 +47,105 @@ img{
 }
 
 
-/* =========================
+/* ==============================
    NAVBAR
-========================= */
+================================= */
 
 .navbar{
     position:sticky;
     top:0;
-    z-index:1000;
-    background:rgba(255,255,255,.95);
-    backdrop-filter:blur(12px);
+    z-index:9999;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(15px);
     border-bottom:1px solid #e5e7eb;
 }
 
-.nav-content{
-    min-height:75px;
+.nav-inner{
+    min-height:72px;
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
 }
 
 .logo{
-    font-size:24px;
+    font-size:23px;
     font-weight:800;
-    letter-spacing:-1px;
+    color:#111827;
 }
 
-.logo .blue{
+.logo span{
     color:#2563eb;
 }
 
-.menu{
+.nav-links{
     display:flex;
-    gap:30px;
+    align-items:center;
+    gap:28px;
     list-style:none;
 }
 
-.menu a{
+.nav-links a{
+    color:#374151;
     font-size:15px;
     font-weight:600;
-    color:#374151;
     transition:.3s;
 }
 
-.menu a:hover{
+.nav-links a:hover{
     color:#2563eb;
 }
 
+.menu-btn{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+}
 
-/* =========================
+
+/* ==============================
    HERO
-========================= */
+================================= */
 
 .hero{
-    min-height:calc(100vh - 75px);
+    min-height:calc(100vh - 72px);
     display:flex;
     align-items:center;
     padding:80px 0;
     background:
-    radial-gradient(circle at 85% 15%,#dbeafe 0,transparent 30%),
-    linear-gradient(135deg,#ffffff,#eff6ff);
+        radial-gradient(
+            circle at 90% 10%,
+            #dbeafe,
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #eef5ff
+        );
 }
 
 .hero-grid{
     display:grid;
     grid-template-columns:1.15fr .85fr;
     align-items:center;
-    gap:70px;
+    gap:60px;
 }
 
 .badge{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 15px;
+    display:inline-block;
+    padding:9px 17px;
     border-radius:30px;
-    background:#e8f1ff;
+    background:#e6efff;
     color:#2563eb;
     font-size:14px;
     font-weight:700;
-    margin-bottom:22px;
+    margin-bottom:20px;
 }
 
 .hero h1{
-    font-size:64px;
+    font-size:62px;
     line-height:1.05;
-    letter-spacing:-3px;
+    letter-spacing:-2.5px;
     margin-bottom:18px;
 }
 
@@ -148,14 +160,14 @@ img{
 }
 
 .hero p{
-    max-width:620px;
+    max-width:650px;
     color:#6b7280;
     font-size:18px;
     line-height:1.8;
-    margin-bottom:32px;
+    margin-bottom:30px;
 }
 
-.buttons{
+.hero-buttons{
     display:flex;
     gap:14px;
     flex-wrap:wrap;
@@ -163,8 +175,8 @@ img{
 
 .btn{
     display:inline-flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     gap:8px;
     padding:14px 24px;
     border-radius:10px;
@@ -184,9 +196,9 @@ img{
 }
 
 .btn-outline{
-    border:2px solid #2563eb;
-    color:#2563eb;
     background:white;
+    color:#2563eb;
+    border:2px solid #2563eb;
 }
 
 .btn-outline:hover{
@@ -195,35 +207,26 @@ img{
 }
 
 
-/* =========================
-   PROFILE IMAGE
-========================= */
+/* ==============================
+   PROFILE
+================================= */
 
 .profile-area{
     display:flex;
     justify-content:center;
 }
 
-.profile-frame{
-    width:390px;
-    height:390px;
+.profile{
+    width:370px;
+    height:370px;
     padding:10px;
+    border-radius:50%;
     background:white;
-    border-radius:50%;
-    box-shadow:0 25px 70px rgba(15,23,42,.18);
-    position:relative;
+    box-shadow:
+        0 25px 70px rgba(15,23,42,.18);
 }
 
-.profile-frame::before{
-    content:"";
-    position:absolute;
-    inset:-14px;
-    border:2px solid #bfdbfe;
-    border-radius:50%;
-    z-index:-1;
-}
-
-.profile-frame img{
+.profile img{
     width:100%;
     height:100%;
     object-fit:cover;
@@ -231,158 +234,163 @@ img{
 }
 
 
-/* =========================
-   SECTION
-========================= */
+/* ==============================
+   COMMON SECTION
+================================= */
 
 .section{
-    padding:100px 0;
+    padding:95px 0;
 }
 
-.section-heading{
+.section-title{
+    max-width:680px;
+    margin:0 auto 50px;
     text-align:center;
-    max-width:650px;
-    margin:0 auto 55px;
 }
 
-.section-heading .label{
+.section-title .label{
     color:#2563eb;
-    font-size:14px;
+    font-size:13px;
     font-weight:800;
-    text-transform:uppercase;
     letter-spacing:2px;
+    text-transform:uppercase;
     margin-bottom:10px;
 }
 
-.section-heading h2{
+.section-title h2{
     font-size:42px;
     line-height:1.15;
     margin-bottom:12px;
 }
 
-.section-heading p{
+.section-title p{
     color:#6b7280;
 }
 
 
-/* =========================
+/* ==============================
    SERVICES
-========================= */
+================================= */
 
-.services-section{
+.services{
     background:white;
 }
 
-.services-grid{
+.service-grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:22px;
+    grid-template-columns:
+        repeat(4,1fr);
+    gap:20px;
 }
 
 .service-card{
-    padding:32px 24px;
     background:#f8fafc;
     border:1px solid #e5e7eb;
     border-radius:20px;
+    padding:30px 23px;
     transition:.35s;
 }
 
 .service-card:hover{
     transform:translateY(-8px);
     background:white;
-    box-shadow:0 20px 40px rgba(15,23,42,.09);
-    border-color:#bfdbfe;
+    box-shadow:
+        0 20px 45px rgba(15,23,42,.10);
 }
 
 .service-icon{
     width:58px;
     height:58px;
     display:flex;
-    justify-content:center;
     align-items:center;
-    border-radius:15px;
+    justify-content:center;
     background:#e8f1ff;
+    border-radius:15px;
     font-size:28px;
-    margin-bottom:20px;
+    margin-bottom:18px;
 }
 
 .service-card h3{
-    font-size:20px;
-    margin-bottom:10px;
+    font-size:19px;
+    margin-bottom:9px;
 }
 
 .service-card p{
     color:#6b7280;
-    font-size:15px;
+    font-size:14px;
+    line-height:1.6;
 }
 
 
-/* =========================
+/* ==============================
    PORTFOLIO
-========================= */
+================================= */
 
-.portfolio-section{
-    background:#f6f8fc;
+.portfolio{
+    background:#f5f7fb;
 }
 
 .portfolio-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
     gap:25px;
 }
 
-.portfolio-card{
+.project{
     background:white;
     border-radius:18px;
     overflow:hidden;
     border:1px solid #e5e7eb;
-    box-shadow:0 8px 25px rgba(15,23,42,.06);
+    box-shadow:
+        0 8px 25px rgba(15,23,42,.06);
     transition:.35s;
 }
 
-.portfolio-card:hover{
+.project:hover{
     transform:translateY(-8px);
-    box-shadow:0 20px 45px rgba(15,23,42,.12);
+    box-shadow:
+        0 20px 45px rgba(15,23,42,.12);
 }
 
-.portfolio-image{
+.project-image{
     width:100%;
-    height:330px;
+    height:340px;
     overflow:hidden;
     background:#e5e7eb;
 }
 
-.portfolio-image img{
+.project-image img{
     width:100%;
     height:100%;
     object-fit:cover;
     transition:.5s;
 }
 
-.portfolio-card:hover .portfolio-image img{
+.project:hover img{
     transform:scale(1.06);
 }
 
-.portfolio-info{
+.project-info{
     padding:20px;
 }
 
-.portfolio-info h3{
+.project-info h3{
     font-size:19px;
     margin-bottom:5px;
 }
 
-.portfolio-info p{
+.project-info p{
     color:#6b7280;
     font-size:14px;
 }
 
 
-/* =========================
+/* ==============================
    ABOUT
-========================= */
+================================= */
 
-.about-section{
+.about{
     background:white;
 }
 
@@ -390,16 +398,17 @@ img{
     display:grid;
     grid-template-columns:.9fr 1.1fr;
     align-items:center;
-    gap:70px;
+    gap:65px;
 }
 
-.about-image{
-    border-radius:25px;
+.about-photo{
     overflow:hidden;
-    box-shadow:0 20px 50px rgba(15,23,42,.12);
+    border-radius:25px;
+    box-shadow:
+        0 20px 50px rgba(15,23,42,.12);
 }
 
-.about-image img{
+.about-photo img{
     width:100%;
     height:500px;
     object-fit:cover;
@@ -407,10 +416,10 @@ img{
 
 .about-content .label{
     color:#2563eb;
+    font-size:13px;
     font-weight:800;
-    text-transform:uppercase;
     letter-spacing:2px;
-    font-size:14px;
+    text-transform:uppercase;
 }
 
 .about-content h2{
@@ -421,46 +430,48 @@ img{
 
 .about-content p{
     color:#6b7280;
-    margin-bottom:16px;
+    line-height:1.8;
+    margin-bottom:15px;
 }
 
 .skills{
     display:flex;
-    gap:10px;
+    gap:9px;
     flex-wrap:wrap;
     margin-top:25px;
 }
 
 .skill{
-    padding:9px 15px;
-    border-radius:25px;
     background:#e8f1ff;
     color:#2563eb;
+    padding:9px 15px;
+    border-radius:25px;
     font-size:13px;
     font-weight:700;
 }
 
 
-/* =========================
+/* ==============================
    STATS
-========================= */
+================================= */
 
 .stats{
-    margin-top:40px;
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
     gap:15px;
+    margin-top:30px;
 }
 
 .stat{
-    padding:20px;
+    text-align:center;
     background:#f8fafc;
     border-radius:15px;
-    text-align:center;
+    padding:18px;
 }
 
 .stat h3{
-    font-size:28px;
+    font-size:27px;
     color:#2563eb;
 }
 
@@ -470,52 +481,52 @@ img{
 }
 
 
-/* =========================
+/* ==============================
    CONTACT
-========================= */
+================================= */
 
-.contact-section{
+.contact{
     background:#111827;
     color:white;
 }
 
 .contact-box{
-    text-align:center;
     max-width:850px;
     margin:auto;
+    text-align:center;
 }
 
 .contact-box .label{
     color:#60a5fa;
+    font-size:13px;
     font-weight:800;
-    text-transform:uppercase;
     letter-spacing:2px;
-    font-size:14px;
+    text-transform:uppercase;
 }
 
 .contact-box h2{
-    font-size:46px;
+    font-size:45px;
     line-height:1.15;
     margin:12px 0 15px;
 }
 
 .contact-box p{
     color:#cbd5e1;
-    max-width:600px;
+    max-width:620px;
     margin:0 auto 30px;
 }
 
 .contact-buttons{
     display:flex;
     justify-content:center;
-    gap:15px;
+    gap:14px;
     flex-wrap:wrap;
 }
 
 .contact-btn{
     display:inline-flex;
     align-items:center;
-    gap:9px;
+    gap:8px;
     padding:14px 23px;
     border-radius:10px;
     background:#2563eb;
@@ -539,9 +550,9 @@ img{
 }
 
 
-/* =========================
+/* ==============================
    FOOTER
-========================= */
+================================= */
 
 footer{
     background:#080d17;
@@ -556,42 +567,33 @@ footer strong{
 }
 
 
-/* =========================
-   MOBILE MENU
-========================= */
+/* ==============================
+   MOBILE
+================================= */
 
-.mobile-menu{
-    display:none;
-    font-size:25px;
-    cursor:pointer;
-}
-
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1000px){
+@media(max-width:950px){
 
     .hero-grid{
-        gap:40px;
+        gap:35px;
     }
 
     .hero h1{
-        font-size:50px;
+        font-size:48px;
     }
 
-    .profile-frame{
-        width:320px;
-        height:320px;
+    .profile{
+        width:310px;
+        height:310px;
     }
 
-    .services-grid{
-        grid-template-columns:repeat(2,1fr);
+    .service-grid{
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .portfolio-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
 }
@@ -599,41 +601,35 @@ footer strong{
 
 @media(max-width:750px){
 
-    .nav-content{
-        min-height:65px;
-    }
-
-    .menu{
+    .nav-links{
         display:none;
         position:absolute;
-        top:65px;
+        top:72px;
         left:0;
         width:100%;
         background:white;
         flex-direction:column;
         gap:0;
-        box-shadow:0 10px 25px rgba(0,0,0,.08);
+        box-shadow:
+            0 10px 25px rgba(0,0,0,.08);
     }
 
-    .menu.active{
+    .nav-links.active{
         display:flex;
     }
 
-    .menu li{
+    .nav-links li{
+        width:100%;
         border-bottom:1px solid #eee;
     }
 
-    .menu a{
+    .nav-links a{
         display:block;
         padding:15px 5%;
     }
 
-    .mobile-menu{
+    .menu-btn{
         display:block;
-    }
-
-    .hero{
-        padding:65px 0;
     }
 
     .hero-grid{
@@ -641,12 +637,12 @@ footer strong{
         text-align:center;
     }
 
-    .hero-text{
-        order:2;
-    }
-
     .profile-area{
         order:1;
+    }
+
+    .hero-content{
+        order:2;
     }
 
     .hero p{
@@ -654,13 +650,12 @@ footer strong{
         margin-right:auto;
     }
 
-    .buttons{
+    .hero-buttons{
         justify-content:center;
     }
 
     .about-grid{
         grid-template-columns:1fr;
-        gap:40px;
     }
 
 }
@@ -672,33 +667,37 @@ footer strong{
         width:92%;
     }
 
+    .hero{
+        padding:60px 0;
+    }
+
     .hero h1{
         font-size:38px;
-        letter-spacing:-1.5px;
+        letter-spacing:-1px;
     }
 
     .hero h2{
-        font-size:21px;
+        font-size:20px;
     }
 
     .hero p{
         font-size:16px;
     }
 
-    .profile-frame{
-        width:250px;
-        height:250px;
+    .profile{
+        width:245px;
+        height:245px;
     }
 
     .section{
         padding:70px 0;
     }
 
-    .section-heading h2{
+    .section-title h2{
         font-size:32px;
     }
 
-    .services-grid{
+    .service-grid{
         grid-template-columns:1fr;
     }
 
@@ -706,15 +705,15 @@ footer strong{
         grid-template-columns:1fr;
     }
 
-    .portfolio-image{
-        height:380px;
+    .project-image{
+        height:390px;
     }
 
     .about-content h2{
         font-size:32px;
     }
 
-    .about-image img{
+    .about-photo img{
         height:350px;
     }
 
@@ -728,30 +727,6 @@ footer strong{
 
 }
 
-
-/* =========================
-   SIMPLE ANIMATION
-========================= */
-
-@keyframes fadeUp{
-
-    from{
-        opacity:0;
-        transform:translateY(25px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-
-}
-
-.hero-text,
-.profile-area{
-    animation:fadeUp .8s ease;
-}
-
 </style>
 </head>
 
@@ -759,19 +734,19 @@ footer strong{
 <body>
 
 
-<!-- =========================
-     NAVBAR
-========================= -->
+<!-- =================================
+     NAVIGATION
+================================== -->
 
-<header class="navbar">
+<nav class="navbar">
 
-<div class="container nav-content">
+<div class="container nav-inner">
 
     <a href="#home" class="logo">
-        Muhammad <span class="blue">Ibrahim</span>
+        Muhammad <span>Ibrahim</span>
     </a>
 
-    <ul class="menu" id="menu">
+    <ul class="nav-links" id="navLinks">
 
         <li>
             <a href="#home">Home</a>
@@ -795,54 +770,70 @@ footer strong{
 
     </ul>
 
-    <div class="mobile-menu" onclick="toggleMenu()">
+    <div
+        class="menu-btn"
+        onclick="toggleMenu()">
         ☰
     </div>
 
 </div>
 
-</header>
+</nav>
 
 
 
-<!-- =========================
+<!-- =================================
      HERO
-========================= -->
+================================== -->
 
 <section class="hero" id="home">
 
 <div class="container hero-grid">
 
-    <div class="hero-text">
+
+    <div class="hero-content">
 
         <div class="badge">
-            ✨ Welcome To My Portfolio
+            👋 Welcome To My Portfolio
         </div>
+
 
         <h1>
             Hi, I'm
             <span>Muhammad Ibrahim</span>
         </h1>
 
+
         <h2>
             Graphic Designer & Creative Artist
         </h2>
 
+
         <p>
             I create modern, creative and professional
-            designs for businesses, brands and social media.
-            My goal is to turn your ideas into beautiful
-            visual designs.
+            designs for businesses, brands, social media
+            and personal projects. I turn simple ideas
+            into attractive visual designs.
         </p>
 
-        <div class="buttons">
 
-            <a href="#portfolio" class="btn btn-primary">
+        <div class="hero-buttons">
+
+            <a
+                href="#portfolio"
+                class="btn btn-primary">
+
                 🎨 View My Work
+
             </a>
 
-            <a href="#contact" class="btn btn-outline">
+
+            <a
+                href="#contact"
+                class="btn btn-outline">
+
                 💬 Contact Me
+
             </a>
 
         </div>
@@ -850,11 +841,446 @@ footer strong{
     </div>
 
 
-    <!-- EXAMPLE PROFILE IMAGE -->
+
+    <!-- EXAMPLE PROFILE PHOTO -->
 
     <div class="profile-area">
 
-        <div class="profile-frame">
+        <div class="profile">
 
             <img
-            src="https://
+            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=90"
+            alt="Muhammad Ibrahim">
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =================================
+     SERVICES
+================================== -->
+
+<section
+    class="section services"
+    id="services">
+
+<div class="container">
+
+
+    <div class="section-title">
+
+        <div class="label">
+            What I Do
+        </div>
+
+        <h2>
+            My Services
+        </h2>
+
+        <p>
+            Professional creative services
+            for your personal and business needs.
+        </p>
+
+    </div>
+
+
+
+    <div class="service-grid">
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🎨
+            </div>
+
+            <h3>
+                Graphic Design
+            </h3>
+
+            <p>
+                Creative and professional designs
+                for different types of projects.
+            </p>
+
+        </div>
+
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🖼️
+            </div>
+
+            <h3>
+                Poster Design
+            </h3>
+
+            <p>
+                Attractive posters for events,
+                businesses and advertisements.
+            </p>
+
+        </div>
+
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                💼
+            </div>
+
+            <h3>
+                Branding
+            </h3>
+
+            <p>
+                Professional visual identity,
+                logos and branding materials.
+            </p>
+
+        </div>
+
+
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                📱
+            </div>
+
+            <h3>
+                Social Media
+            </h3>
+
+            <p>
+                Modern social media posts,
+                advertisements and content.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =================================
+     PORTFOLIO
+================================== -->
+
+<section
+    class="section portfolio"
+    id="portfolio">
+
+<div class="container">
+
+
+    <div class="section-title">
+
+        <div class="label">
+            My Work
+        </div>
+
+        <h2>
+            Featured Portfolio
+        </h2>
+
+        <p>
+            These are example projects.
+            Your real designs can be added later.
+        </p>
+
+    </div>
+
+
+
+    <div class="portfolio-grid">
+
+
+        <!-- DESIGN 1 -->
+
+        <div class="project">
+
+            <div class="project-image">
+
+                <img
+                src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=90"
+                alt="Graphic Design">
+
+            </div>
+
+            <div class="project-info">
+
+                <h3>
+                    Creative Graphic Design
+                </h3>
+
+                <p>
+                    Graphic Design Project
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DESIGN 2 -->
+
+        <div class="project">
+
+            <div class="project-image">
+
+                <img
+                src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=900&q=90"
+                alt="Branding">
+
+            </div>
+
+            <div class="project-info">
+
+                <h3>
+                    Brand Identity
+                </h3>
+
+                <p>
+                    Branding Project
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DESIGN 3 -->
+
+        <div class="project">
+
+            <div class="project-image">
+
+                <img
+                src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=900&q=90"
+                alt="Social Media">
+
+            </div>
+
+            <div class="project-info">
+
+                <h3>
+                    Social Media Design
+                </h3>
+
+                <p>
+                    Social Media Artwork
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DESIGN 4 -->
+
+        <div class="project">
+
+            <div class="project-image">
+
+                <img
+                src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=900&q=90"
+                alt="Business Design">
+
+            </div>
+
+            <div class="project-info">
+
+                <h3>
+                    Business Advertisement
+                </h3>
+
+                <p>
+                    Promotional Design
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DESIGN 5 -->
+
+        <div class="project">
+
+            <div class="project-image">
+
+                <img
+                src="https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&w=900&q=90"
+                alt="Creative Artwork">
+
+            </div>
+
+            <div class="project-info">
+
+                <h3>
+                    Creative Artwork
+                </h3>
+
+                <p>
+                    Digital Artwork
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- DESIGN 6 -->
+
+        <div class="project">
+
+            <div class="project-image">
+
+                <img
+                src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?auto=format&fit=crop&w=900&q=90"
+                alt="Modern Design">
+
+            </div>
+
+            <div class="project-info">
+
+                <h3>
+                    Modern Creative Design
+                </h3>
+
+                <p>
+                    Creative Project
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =================================
+     ABOUT
+================================== -->
+
+<section
+    class="section about"
+    id="about">
+
+<div class="container about-grid">
+
+
+    <div class="about-photo">
+
+        <img
+        src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=90"
+        alt="Creative Work">
+
+    </div>
+
+
+
+    <div class="about-content">
+
+        <div class="label">
+            About Me
+        </div>
+
+
+        <h2>
+            Creativity Is My Passion
+        </h2>
+
+
+        <p>
+            My name is
+            <strong>Muhammad Ibrahim</strong>.
+            I am passionate about graphic design
+            and creative digital artwork.
+        </p>
+
+
+        <p>
+            I create clean, modern and attractive
+            designs for businesses, brands,
+            social media and personal projects.
+        </p>
+
+
+        <p>
+            My goal is to turn ideas into designs
+            that look professional and make an impact.
+        </p>
+
+
+
+        <div class="skills">
+
+            <span class="skill">
+                Graphic Design
+            </span>
+
+            <span class="skill">
+                Poster Design
+            </span>
+
+            <span class="skill">
+                Branding
+            </span>
+
+            <span class="skill">
+                Social Media
+            </span>
+
+            <span class="skill">
+                Printing
+            </span>
+
+        </div>
+
+
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <h3>
+                    50+
+                </h3>
+
+                <p>
+                    Designs
+                </p>
+
+            </div>
+
+
+            <div class="stat
