@@ -4,16 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Muhammad Ibrahim | Graphic Designer</title>
+<title>Muhammad Ibrahim | Portfolio</title>
 
-<meta name="description"
-content="Muhammad Ibrahim - Graphic Designer Portfolio">
+<meta name="description" content="Muhammad Ibrahim - Graphic Designer Portfolio">
 
 <style>
 
-/* ==============================
+/* =========================
    RESET
-================================= */
+========================= */
 
 *{
     margin:0;
@@ -29,6 +28,7 @@ body{
     font-family:Arial, Helvetica, sans-serif;
     background:#f5f7fb;
     color:#111827;
+    overflow-x:hidden;
 }
 
 img{
@@ -47,14 +47,54 @@ a{
 }
 
 
-/* ==============================
+/* =========================
+   CONFETTI
+========================= */
+
+#confetti-container{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:99999;
+}
+
+.confetti{
+    position:absolute;
+    top:-60px;
+    font-size:25px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+
+    0%{
+        transform:
+        translateY(-80px)
+        rotate(0deg);
+        opacity:1;
+    }
+
+    100%{
+        transform:
+        translateY(110vh)
+        rotate(720deg);
+        opacity:0;
+    }
+
+}
+
+
+/* =========================
    NAVBAR
-================================= */
+========================= */
 
 .navbar{
     position:sticky;
     top:0;
-    z-index:9999;
+    z-index:1000;
     background:rgba(255,255,255,.96);
     backdrop-filter:blur(15px);
     border-bottom:1px solid #e5e7eb;
@@ -102,9 +142,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    HERO
-================================= */
+========================= */
 
 .hero{
     min-height:calc(100vh - 72px);
@@ -207,9 +247,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    PROFILE
-================================= */
+========================= */
 
 .profile-area{
     display:flex;
@@ -234,9 +274,9 @@ a{
 }
 
 
-/* ==============================
-   COMMON SECTION
-================================= */
+/* =========================
+   SECTIONS
+========================= */
 
 .section{
     padding:95px 0;
@@ -268,9 +308,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    SERVICES
-================================= */
+========================= */
 
 .services{
     background:white;
@@ -278,8 +318,7 @@ a{
 
 .service-grid{
     display:grid;
-    grid-template-columns:
-        repeat(4,1fr);
+    grid-template-columns:repeat(4,1fr);
     gap:20px;
 }
 
@@ -322,9 +361,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    PORTFOLIO
-================================= */
+========================= */
 
 .portfolio{
     background:#f5f7fb;
@@ -332,8 +371,7 @@ a{
 
 .portfolio-grid{
     display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:25px;
 }
 
@@ -386,9 +424,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    ABOUT
-================================= */
+========================= */
 
 .about{
     background:white;
@@ -451,14 +489,13 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    STATS
-================================= */
+========================= */
 
 .stats{
     display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:15px;
     margin-top:30px;
 }
@@ -481,9 +518,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    CONTACT
-================================= */
+========================= */
 
 .contact{
     background:#111827;
@@ -550,9 +587,9 @@ a{
 }
 
 
-/* ==============================
+/* =========================
    FOOTER
-================================= */
+========================= */
 
 footer{
     background:#080d17;
@@ -567,9 +604,9 @@ footer strong{
 }
 
 
-/* ==============================
-   MOBILE
-================================= */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:950px){
 
@@ -587,13 +624,11 @@ footer strong{
     }
 
     .service-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
     .portfolio-grid{
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns:repeat(2,1fr);
     }
 
 }
@@ -734,8 +769,16 @@ footer strong{
 <body>
 
 
-<!-- =================================
-     NAVIGATION
+<!-- ==================================
+     CONFETTI CONTAINER
+================================== -->
+
+<div id="confetti-container"></div>
+
+
+
+<!-- ==================================
+     NAVBAR
 ================================== -->
 
 <nav class="navbar">
@@ -745,6 +788,7 @@ footer strong{
     <a href="#home" class="logo">
         Muhammad <span>Ibrahim</span>
     </a>
+
 
     <ul class="nav-links" id="navLinks">
 
@@ -770,10 +814,13 @@ footer strong{
 
     </ul>
 
+
     <div
         class="menu-btn"
         onclick="toggleMenu()">
+
         ☰
+
     </div>
 
 </div>
@@ -782,7 +829,7 @@ footer strong{
 
 
 
-<!-- =================================
+<!-- ==================================
      HERO
 ================================== -->
 
@@ -812,12 +859,12 @@ footer strong{
         <p>
             I create modern, creative and professional
             designs for businesses, brands, social media
-            and personal projects. I turn simple ideas
-            into attractive visual designs.
+            and personal projects.
         </p>
 
 
         <div class="hero-buttons">
+
 
             <a
                 href="#portfolio"
@@ -836,13 +883,14 @@ footer strong{
 
             </a>
 
+
         </div>
 
     </div>
 
 
 
-    <!-- EXAMPLE PROFILE PHOTO -->
+    <!-- EXAMPLE PROFILE -->
 
     <div class="profile-area">
 
@@ -862,7 +910,7 @@ footer strong{
 
 
 
-<!-- =================================
+<!-- ==================================
      SERVICES
 ================================== -->
 
@@ -885,7 +933,7 @@ footer strong{
 
         <p>
             Professional creative services
-            for your personal and business needs.
+            for personal and business needs.
         </p>
 
     </div>
@@ -906,8 +954,8 @@ footer strong{
             </h3>
 
             <p>
-                Creative and professional designs
-                for different types of projects.
+                Creative and professional graphic
+                designs for different projects.
             </p>
 
         </div>
@@ -944,8 +992,8 @@ footer strong{
             </h3>
 
             <p>
-                Professional visual identity,
-                logos and branding materials.
+                Modern logos, branding and
+                visual identity designs.
             </p>
 
         </div>
@@ -963,8 +1011,8 @@ footer strong{
             </h3>
 
             <p>
-                Modern social media posts,
-                advertisements and content.
+                Professional social media posts,
+                ads and promotional designs.
             </p>
 
         </div>
@@ -978,7 +1026,7 @@ footer strong{
 
 
 
-<!-- =================================
+<!-- ==================================
      PORTFOLIO
 ================================== -->
 
@@ -1000,7 +1048,7 @@ footer strong{
         </h2>
 
         <p>
-            These are example projects.
+            Example projects are displayed here.
             Your real designs can be added later.
         </p>
 
@@ -1011,7 +1059,7 @@ footer strong{
     <div class="portfolio-grid">
 
 
-        <!-- DESIGN 1 -->
+        <!-- PROJECT 1 -->
 
         <div class="project">
 
@@ -1039,7 +1087,7 @@ footer strong{
 
 
 
-        <!-- DESIGN 2 -->
+        <!-- PROJECT 2 -->
 
         <div class="project">
 
@@ -1047,7 +1095,7 @@ footer strong{
 
                 <img
                 src="https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=900&q=90"
-                alt="Branding">
+                alt="Brand Identity">
 
             </div>
 
@@ -1067,7 +1115,7 @@ footer strong{
 
 
 
-        <!-- DESIGN 3 -->
+        <!-- PROJECT 3 -->
 
         <div class="project">
 
@@ -1095,7 +1143,7 @@ footer strong{
 
 
 
-        <!-- DESIGN 4 -->
+        <!-- PROJECT 4 -->
 
         <div class="project">
 
@@ -1103,7 +1151,7 @@ footer strong{
 
                 <img
                 src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=900&q=90"
-                alt="Business Design">
+                alt="Business Advertisement">
 
             </div>
 
@@ -1123,7 +1171,7 @@ footer strong{
 
 
 
-        <!-- DESIGN 5 -->
+        <!-- PROJECT 5 -->
 
         <div class="project">
 
@@ -1151,7 +1199,7 @@ footer strong{
 
 
 
-        <!-- DESIGN 6 -->
+        <!-- PROJECT 6 -->
 
         <div class="project">
 
@@ -1186,7 +1234,7 @@ footer strong{
 
 
 
-<!-- =================================
+<!-- ==================================
      ABOUT
 ================================== -->
 
@@ -1283,4 +1331,263 @@ footer strong{
             </div>
 
 
-            <div class="stat
+            <div class="stat">
+
+                <h3>
+                    20+
+                </h3>
+
+                <p>
+                    Projects
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h3>
+                    100%
+                </h3>
+
+                <p>
+                    Creativity
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================
+     CONTACT
+================================== -->
+
+<section
+    class="section contact"
+    id="contact">
+
+<div class="container">
+
+
+    <div class="contact-box">
+
+        <div class="label">
+            Get In Touch
+        </div>
+
+
+        <h2>
+            Let's Work Together
+        </h2>
+
+
+        <p>
+            Have a poster, logo, branding or
+            design project? Contact me directly
+            and let's create something amazing.
+        </p>
+
+
+        <div class="contact-buttons">
+
+
+            <!-- CALL -->
+
+            <a
+                href="tel:03478306672"
+                class="contact-btn call">
+
+                📞
+                03478306672
+
+            </a>
+
+
+            <!-- WHATSAPP -->
+
+            <a
+                href="https://wa.me/923478306672"
+                target="_blank"
+                class="contact-btn">
+
+                💬
+                WhatsApp Me
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==================================
+     FOOTER
+================================== -->
+
+<footer>
+
+<div class="container">
+
+    © 2026
+    <strong>Muhammad Ibrahim</strong>.
+    All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+
+<!-- ==================================
+     JAVASCRIPT
+================================== -->
+
+<script>
+
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu(){
+
+    const menu =
+        document.getElementById("navLinks");
+
+    menu.classList.toggle("active");
+
+}
+
+
+/* =========================
+   CONFETTI EFFECT
+========================= */
+
+function createConfetti(){
+
+    const container =
+        document.getElementById(
+            "confetti-container"
+        );
+
+    const emojis = [
+        "🎉",
+        "🎊",
+        "✨",
+        "🥳",
+        "⭐",
+        "💫"
+    ];
+
+
+    /* Create 55 falling emojis */
+
+    for(let i = 0; i < 55; i++){
+
+        const confetti =
+            document.createElement("div");
+
+        confetti.className = "confetti";
+
+
+        /* Random emoji */
+
+        confetti.innerHTML =
+            emojis[
+                Math.floor(
+                    Math.random() * emojis.length
+                )
+            ];
+
+
+        /* Random horizontal position */
+
+        confetti.style.left =
+            Math.random() * 100 + "%";
+
+
+        /* Random size */
+
+        confetti.style.fontSize =
+            (18 + Math.random() * 20) + "px";
+
+
+        /* Random fall duration */
+
+        confetti.style.animationDuration =
+            (3 + Math.random() * 3) + "s";
+
+
+        /* Random delay */
+
+        confetti.style.animationDelay =
+            (Math.random() * 1.5) + "s";
+
+
+        container.appendChild(confetti);
+
+    }
+
+
+    /* Remove confetti after 6 seconds */
+
+    setTimeout(function(){
+
+        container.innerHTML = "";
+
+    },6500);
+
+}
+
+
+/* Run confetti when website opens */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        createConfetti();
+
+    }
+);
+
+
+/* Close mobile menu */
+
+document
+.querySelectorAll(".nav-links a")
+.forEach(function(link){
+
+    link.addEventListener(
+        "click",
+        function(){
+
+            document
+            .getElementById("navLinks")
+            .classList
+            .remove("active");
+
+        }
+    );
+
+});
+
+</script>
+
+
+</body>
+</html>
