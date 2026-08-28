@@ -1,1794 +1,325 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUHAMMAD IBRAHIM | Creative Graphic Designer & Visual Artist</title>
-
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<style>
-/* =====================================================
-   1. CORE VARIABLES & THEME SETUP
-===================================================== */
-:root {
-    --bg-main: #07090e;
-    --bg-secondary: #0d111a;
-    --bg-card: rgba(18, 22, 33, 0.75);
-    --bg-card-hover: rgba(26, 31, 46, 0.85);
-    --border-card: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(99, 102, 241, 0.3);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Ibrahim - Graphic Designer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    --accent-primary: #6366f1;
-    --accent-secondary: #ff467e;
-    --accent-cyan: #00f2fe;
-    --accent-purple: #a855f7;
-    
-    --text-primary: #ffffff;
-    --text-muted: #94a3b8;
-    --text-sub: #64748b;
-    
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ff467e 100%);
-    --gradient-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(255, 70, 126, 0.4));
-    --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-    
-    --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 10px 30px rgba(99, 102, 241, 0.3);
-}
-
-/* Reset & Basic Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-}
-
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-}
-
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.container {
-    width: 90%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* Background Grids & Ambient Lighting */
-.bg-grid {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: -2;
-    pointer-events: none;
-}
-
-.glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.glow-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--accent-primary);
-    top: -100px;
-    left: -150px;
-}
-
-.glow-2 {
-    width: 500px;
-    height: 500px;
-    background: var(--accent-secondary);
-    top: 600px;
-    right: -100px;
-}
-
-.glow-3 {
-    width: 550px;
-    height: 550px;
-    background: var(--accent-purple);
-    top: 1600px;
-    left: -100px;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-main);
-}
-::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-primary);
-}
-
-/* =====================================================
-   2. HEADER & NAVIGATION BAR
-===================================================== */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 85px;
-    z-index: 999;
-    background: rgba(7, 9, 14, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-card);
-    transition: all 0.4s ease;
-}
-
-header.scrolled {
-    height: 70px;
-    background: rgba(7, 9, 14, 0.95);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-
-.nav {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.logo span {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
-.nav-links a {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-muted);
-    position: relative;
-    padding: 5px 0;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: #fff;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: var(--gradient-primary);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
-}
-
-.nav-cta {
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-accent);
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.nav-cta:hover {
-    background: var(--accent-primary);
-    box-shadow: var(--shadow-glow);
-    transform: translateY(-2px);
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #fff;
-}
-
-/* =====================================================
-   3. HERO SECTION STYLES
-===================================================== */
-.hero {
-    min-height: 100vh;
-    padding-top: 140px;
-    padding-bottom: 100px;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    gap: 60px;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 20px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent-cyan);
-    margin-bottom: 25px;
-}
-
-.badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--accent-cyan);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent-cyan);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 242, 254, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
-}
-
-.hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(48px, 5.5vw, 76px);
-    line-height: 1.08;
-    font-weight: 800;
-    margin-bottom: 25px;
-    letter-spacing: -1.5px;
-}
-
-.hero-title span {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-description {
-    font-size: 18px;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin-bottom: 40px;
-    font-weight: 400;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.btn-primary {
-    padding: 16px 38px;
-    background: var(--gradient-primary);
-    color: #fff;
-    font-weight: 700;
-    border-radius: 50px;
-    box-shadow: var(--shadow-glow);
-    transition: all 0.4s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-primary:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 40px rgba(255, 70, 126, 0.5);
-}
-
-.btn-secondary {
-    padding: 16px 38px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    font-weight: 700;
-    border-radius: 50px;
-    border: 1px solid var(--border-card);
-    backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-4px);
-}
-
-/* HERO VISUAL FRAME & FLOATING CARDS */
-.hero-visual-frame {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-glow-border {
-    position: relative;
-    width: 400px;
-    height: 500px;
-    border-radius: 30px;
-    padding: 3px;
-    background: var(--gradient-primary);
-    box-shadow: 0 25px 60px rgba(99, 102, 241, 0.35);
-}
-
-.image-inner {
-    width: 100%;
-    height: 100%;
-    background: var(--bg-main);
-    border-radius: 27px;
-    overflow: hidden;
-}
-
-.image-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.image-glow-border:hover .image-inner img {
-    transform: scale(1.06);
-}
-
-.glass-tag {
-    position: absolute;
-    padding: 16px 24px;
-    background: rgba(18, 22, 33, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-card);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 10;
-}
-
-.glass-tag-1 {
-    top: 50px;
-    left: -40px;
-    animation: floatAnim 4s ease-in-out infinite;
-}
-
-.glass-tag-2 {
-    bottom: 50px;
-    right: -30px;
-    animation: floatAnim 5s ease-in-out infinite 2s;
-}
-
-.tag-icon {
-    width: 45px;
-    height: 45px;
-    background: rgba(99, 102, 241, 0.2);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent-cyan);
-    font-size: 20px;
-}
-
-.tag-text h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.tag-text p {
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-@keyframes floatAnim {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-/* =====================================================
-   4. COMMON SECTION STYLES
-===================================================== */
-.section {
-    padding: 120px 0;
-    position: relative;
-}
-
-.section-header {
-    text-align: center;
-    max-width: 680px;
-    margin: 0 auto 70px;
-}
-
-.section-subtitle {
-    color: var(--accent-cyan);
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    display: block;
-}
-
-.section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(34px, 4.5vw, 52px);
-    font-weight: 800;
-    line-height: 1.15;
-}
-
-/* =====================================================
-   5. ABOUT SECTION STYLES
-===================================================== */
-.about-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    border-radius: 32px;
-    padding: 60px;
-    backdrop-filter: blur(15px);
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 50px;
-    align-items: center;
-}
-
-.about-text h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #fff;
-}
-
-.about-text p {
-    color: var(--text-muted);
-    font-size: 16px;
-    margin-bottom: 20px;
-    line-height: 1.8;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.stat-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-card);
-    border-radius: 20px;
-    padding: 30px 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--border-accent);
-    transform: translateY(-5px);
-}
-
-.stat-item h3 {
-    font-size: 42px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 5px;
-}
-
-.stat-item p {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-/* =====================================================
-   6. SERVICES SECTION STYLES
-===================================================== */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.service-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    padding: 40px 30px;
-    border-radius: 28px;
-    backdrop-filter: blur(15px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient-primary);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.service-icon-box {
-    width: 65px;
-    height: 65px;
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: var(--accent-cyan);
-    margin-bottom: 25px;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-}
-
-.service-card h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-.service-card p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-/* =====================================================
-   7. PORTFOLIO SECTION STYLES
-===================================================== */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 30px;
-}
-
-.portfolio-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    border-radius: 28px;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.portfolio-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(255, 70, 126, 0.4);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-}
-
-.portfolio-img {
-    height: 300px;
-    overflow: hidden;
-    position: relative;
-}
-
-.portfolio-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.portfolio-card:hover .portfolio-img img {
-    transform: scale(1.08);
-}
-
-.portfolio-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(7, 9, 14, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.portfolio-card:hover .portfolio-overlay {
-    opacity: 1;
-}
-
-.portfolio-link-btn {
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    color: var(--bg-main);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    transform: scale(0.5);
-    transition: transform 0.4s ease;
-}
-
-.portfolio-card:hover .portfolio-link-btn {
-    transform: scale(1);
-}
-
-.portfolio-info {
-    padding: 30px;
-}
-
-.portfolio-info span {
-    font-size: 13px;
-    color: var(--accent-cyan);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.portfolio-info h3 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-}
-
-/* =====================================================
-   8. CONTACT & FOOTER STYLES
-===================================================== */
-.contact-box {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(255, 70, 126, 0.12));
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 36px;
-    padding: 80px 40px;
-    text-align: center;
-    backdrop-filter: blur(20px);
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-box h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(34px, 4.5vw, 54px);
-    font-weight: 800;
-    margin-bottom: 20px;
-}
-
-.contact-box p {
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 40px;
-    font-size: 17px;
-}
-
-footer {
-    padding: 40px 0;
-    text-align: center;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border-card);
-    font-size: 14px;
-    background: var(--bg-main);
-}
-
-/* Responsive Media Queries */
-@media (max-width: 992px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .hero-description { margin: 0 auto 40px; }
-    .hero-actions { justify-content: center; }
-    .glass-tag-1 { left: 10px; }
-    .glass-tag-2 { right: 10px; }
-    .about-box { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 85px;
-        left: 0;
-        width: 100%;
-        background: rgba(7, 9, 14, 0.98);
-        flex-direction: column;
-        padding: 30px 0;
-        border-bottom: 1px solid var(--border-card);
-        gap: 25px;
-    }
-    .nav-links.active { display: flex; }
-    .menu-toggle { display: block; }
-    .image-glow-border { width: 320px; height: 420px; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-}
-</style>
-</head><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUHAMMAD IBRAHIM | Creative Graphic Designer & Visual Artist</title>
-
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
-
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<style>
-/* =====================================================
-   1. CORE VARIABLES & THEME SETUP
-===================================================== */
-:root {
-    --bg-main: #07090e;
-    --bg-secondary: #0d111a;
-    --bg-card: rgba(18, 22, 33, 0.75);
-    --bg-card-hover: rgba(26, 31, 46, 0.85);
-    --border-card: rgba(255, 255, 255, 0.08);
-    --border-accent: rgba(99, 102, 241, 0.3);
-    
-    --accent-primary: #6366f1;
-    --accent-secondary: #ff467e;
-    --accent-cyan: #00f2fe;
-    --accent-purple: #a855f7;
-    
-    --text-primary: #ffffff;
-    --text-muted: #94a3b8;
-    --text-sub: #64748b;
-    
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ff467e 100%);
-    --gradient-glow: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(255, 70, 126, 0.4));
-    --gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-    
-    --shadow-main: 0 20px 40px rgba(0, 0, 0, 0.5);
-    --shadow-glow: 0 10px 30px rgba(99, 102, 241, 0.3);
-}
-
-/* Reset & Basic Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 16px;
-}
-
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    overflow-x: hidden;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-}
-
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-.container {
-    width: 90%;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* Background Grids & Ambient Lighting */
-.bg-grid {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    z-index: -2;
-    pointer-events: none;
-}
-
-.glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.5;
-}
-
-.glow-1 {
-    width: 600px;
-    height: 600px;
-    background: var(--accent-primary);
-    top: -100px;
-    left: -150px;
-}
-
-.glow-2 {
-    width: 500px;
-    height: 500px;
-    background: var(--accent-secondary);
-    top: 600px;
-    right: -100px;
-}
-
-.glow-3 {
-    width: 550px;
-    height: 550px;
-    background: var(--accent-purple);
-    top: 1600px;
-    left: -100px;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bg-main);
-}
-::-webkit-scrollbar-thumb {
-    background: #1e293b;
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-primary);
-}
-
-/* =====================================================
-   2. HEADER & NAVIGATION BAR
-===================================================== */
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 85px;
-    z-index: 999;
-    background: rgba(7, 9, 14, 0.75);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-card);
-    transition: all 0.4s ease;
-}
-
-header.scrolled {
-    height: 70px;
-    background: rgba(7, 9, 14, 0.95);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-
-.nav {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo {
-    font-family: 'Syne', sans-serif;
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.logo span {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-
-.nav-links a {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-muted);
-    position: relative;
-    padding: 5px 0;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-    color: #fff;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: var(--gradient-primary);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
-}
-
-.nav-cta {
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-accent);
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.nav-cta:hover {
-    background: var(--accent-primary);
-    box-shadow: var(--shadow-glow);
-    transform: translateY(-2px);
-}
-
-.menu-toggle {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #fff;
-}
-
-/* =====================================================
-   3. HERO SECTION STYLES
-===================================================== */
-.hero {
-    min-height: 100vh;
-    padding-top: 140px;
-    padding-bottom: 100px;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    gap: 60px;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 20px;
-    background: rgba(99, 102, 241, 0.1);
-    border: 1px solid rgba(99, 102, 241, 0.3);
-    border-radius: 50px;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent-cyan);
-    margin-bottom: 25px;
-}
-
-.badge-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--accent-cyan);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent-cyan);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 242, 254, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
-}
-
-.hero-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(48px, 5.5vw, 76px);
-    line-height: 1.08;
-    font-weight: 800;
-    margin-bottom: 25px;
-    letter-spacing: -1.5px;
-}
-
-.hero-title span {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-description {
-    font-size: 18px;
-    color: var(--text-muted);
-    max-width: 560px;
-    margin-bottom: 40px;
-    font-weight: 400;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.btn-primary {
-    padding: 16px 38px;
-    background: var(--gradient-primary);
-    color: #fff;
-    font-weight: 700;
-    border-radius: 50px;
-    box-shadow: var(--shadow-glow);
-    transition: all 0.4s ease;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-primary:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 15px 40px rgba(255, 70, 126, 0.5);
-}
-
-.btn-secondary {
-    padding: 16px 38px;
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    font-weight: 700;
-    border-radius: 50px;
-    border: 1px solid var(--border-card);
-    backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-4px);
-}
-
-/* HERO VISUAL FRAME & FLOATING CARDS */
-.hero-visual-frame {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.image-glow-border {
-    position: relative;
-    width: 400px;
-    height: 500px;
-    border-radius: 30px;
-    padding: 3px;
-    background: var(--gradient-primary);
-    box-shadow: 0 25px 60px rgba(99, 102, 241, 0.35);
-}
-
-.image-inner {
-    width: 100%;
-    height: 100%;
-    background: var(--bg-main);
-    border-radius: 27px;
-    overflow: hidden;
-}
-
-.image-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.image-glow-border:hover .image-inner img {
-    transform: scale(1.06);
-}
-
-.glass-tag {
-    position: absolute;
-    padding: 16px 24px;
-    background: rgba(18, 22, 33, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-card);
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 10;
-}
-
-.glass-tag-1 {
-    top: 50px;
-    left: -40px;
-    animation: floatAnim 4s ease-in-out infinite;
-}
-
-.glass-tag-2 {
-    bottom: 50px;
-    right: -30px;
-    animation: floatAnim 5s ease-in-out infinite 2s;
-}
-
-.tag-icon {
-    width: 45px;
-    height: 45px;
-    background: rgba(99, 102, 241, 0.2);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--accent-cyan);
-    font-size: 20px;
-}
-
-.tag-text h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.tag-text p {
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-@keyframes floatAnim {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-/* =====================================================
-   4. COMMON SECTION STYLES
-===================================================== */
-.section {
-    padding: 120px 0;
-    position: relative;
-}
-
-.section-header {
-    text-align: center;
-    max-width: 680px;
-    margin: 0 auto 70px;
-}
-
-.section-subtitle {
-    color: var(--accent-cyan);
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    display: block;
-}
-
-.section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(34px, 4.5vw, 52px);
-    font-weight: 800;
-    line-height: 1.15;
-}
-
-/* =====================================================
-   5. ABOUT SECTION STYLES
-===================================================== */
-.about-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    border-radius: 32px;
-    padding: 60px;
-    backdrop-filter: blur(15px);
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 50px;
-    align-items: center;
-}
-
-.about-text h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    color: #fff;
-}
-
-.about-text p {
-    color: var(--text-muted);
-    font-size: 16px;
-    margin-bottom: 20px;
-    line-height: 1.8;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.stat-item {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-card);
-    border-radius: 20px;
-    padding: 30px 20px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.stat-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: var(--border-accent);
-    transform: translateY(-5px);
-}
-
-.stat-item h3 {
-    font-size: 42px;
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 5px;
-}
-
-.stat-item p {
-    font-size: 14px;
-    color: var(--text-muted);
-    font-weight: 600;
-}
-
-/* =====================================================
-   6. SERVICES SECTION STYLES
-===================================================== */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.service-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    padding: 40px 30px;
-    border-radius: 28px;
-    backdrop-filter: blur(15px);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(99, 102, 241, 0.4);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: var(--gradient-primary);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.service-card:hover::before {
-    opacity: 1;
-}
-
-.service-icon-box {
-    width: 65px;
-    height: 65px;
-    background: rgba(99, 102, 241, 0.1);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    color: var(--accent-cyan);
-    margin-bottom: 25px;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-}
-
-.service-card h3 {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-.service-card p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.7;
-}
-
-/* =====================================================
-   7. PORTFOLIO SECTION STYLES
-===================================================== */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    gap: 30px;
-}
-
-.portfolio-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    border-radius: 28px;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.portfolio-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(255, 70, 126, 0.4);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-}
-
-.portfolio-img {
-    height: 300px;
-    overflow: hidden;
-    position: relative;
-}
-
-.portfolio-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.portfolio-card:hover .portfolio-img img {
-    transform: scale(1.08);
-}
-
-.portfolio-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(7, 9, 14, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-}
-
-.portfolio-card:hover .portfolio-overlay {
-    opacity: 1;
-}
-
-.portfolio-link-btn {
-    width: 50px;
-    height: 50px;
-    background: #fff;
-    color: var(--bg-main);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    transform: scale(0.5);
-    transition: transform 0.4s ease;
-}
-
-.portfolio-card:hover .portfolio-link-btn {
-    transform: scale(1);
-}
-
-.portfolio-info {
-    padding: 30px;
-}
-
-.portfolio-info span {
-    font-size: 13px;
-    color: var(--accent-cyan);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.portfolio-info h3 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-}
-
-/* =====================================================
-   8. CONTACT & FOOTER STYLES
-===================================================== */
-.contact-box {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(255, 70, 126, 0.12));
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 36px;
-    padding: 80px 40px;
-    text-align: center;
-    backdrop-filter: blur(20px);
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-box h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(34px, 4.5vw, 54px);
-    font-weight: 800;
-    margin-bottom: 20px;
-}
-
-.contact-box p {
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 40px;
-    font-size: 17px;
-}
-
-footer {
-    padding: 40px 0;
-    text-align: center;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border-card);
-    font-size: 14px;
-    background: var(--bg-main);
-}
-
-/* Responsive Media Queries */
-@media (max-width: 992px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .hero-description { margin: 0 auto 40px; }
-    .hero-actions { justify-content: center; }
-    .glass-tag-1 { left: 10px; }
-    .glass-tag-2 { right: 10px; }
-    .about-box { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-        position: absolute;
-        top: 85px;
-        left: 0;
-        width: 100%;
-        background: rgba(7, 9, 14, 0.98);
-        flex-direction: column;
-        padding: 30px 0;
-        border-bottom: 1px solid var(--border-card);
-        gap: 25px;
-    }
-    .nav-links.active { display: flex; }
-    .menu-toggle { display: block; }
-    .image-glow-border { width: 320px; height: 420px; }
-    .portfolio-grid { grid-template-columns: 1fr; }
-}
-</style>
-</head><!-- SERVICES SECTION -->
-<section class="section" id="services">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-subtitle">Core Expertise</span>
-            <h2 class="section-title">Services I Offer</h2>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-palette"></i>
-                </div>
-                <h3>Graphic Design</h3>
-                <p>High-end visual artwork, banners, and tailored creative direction for digital & print platforms.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-pen-nib"></i>
-                </div>
-                <h3>Logo & Branding</h3>
-                <p>Memorable vector logos, full brand identity packages, color palettes, and brand guidelines.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-share-nodes"></i>
-                </div>
-                <h3>Social Media Ads</h3>
-                <p>Conversion-focused Instagram, Facebook, and promotional social media graphics & campaign ads.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-file-image"></i>
-                </div>
-                <h3>Posters & Banners</h3>
-                <p>Eye-catching promotional event posters, roll-up banners, and web advertisement headers.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-address-card"></i>
-                </div>
-                <h3>Business Cards</h3>
-                <p>Sleek, modern commercial business cards, letterheads, and complete stationery layouts.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-box-open"></i>
-                </div>
-                <h3>Packaging Design</h3>
-                <p>Custom product packaging, product labels, and 3D visual mockups for retail products.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-shirt"></i>
-                </div>
-                <h3>T-Shirt & Mugs</h3>
-                <p>Custom merchandise artwork, typography prints, t-shirt vectors, and mug designs.</p>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon-box">
-                    <i class="fa-solid fa-print"></i>
-                </div>
-                <h3>Print Media Pads</h3>
-                <p>Commercial rental receipt pads, double-border A4 print forms, vouchers, and invoice templates.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PORTFOLIO GALLERY SECTION -->
-<section class="section" id="portfolio">
-    <div class="container">
-        <div class="section-header">
-            <span class="section-subtitle">Selected Work</span>
-            <h2 class="section-title">Featured Projects</h2>
-        </div>
-
-        <div class="portfolio-grid">
-            <div class="portfolio-card">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&w=1000&q=90" alt="Brand Identity Design">
-                    <div class="portfolio-overlay">
-                        <a href="https://wa.me/923478306672" target="_blank" class="portfolio-link-btn">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span>Branding & Logo</span>
-                    <h3>Modern Visual Brand Identity</h3>
-                </div>
-            </div>
-
-            <div class="portfolio-card">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1000&q=90" alt="Creative Event Poster">
-                    <div class="portfolio-overlay">
-                        <a href="https://wa.me/923478306672" target="_blank" class="portfolio-link-btn">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span>Posters & Graphics</span>
-                    <h3>Creative Event Poster Design</h3>
-                </div>
-            </div>
-
-            <div class="portfolio-card">
-                <div class="portfolio-img">
-                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=1000&q=90" alt="Social Media Ads">
-                    <div class="portfolio-overlay">
-                        <a href="https://wa.me/923478306672" target="_blank" class="portfolio-link-btn">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="portfolio-info">
-                    <span>Social Media</span>
-                    <h3>Product Campaign Banners</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CONTACT SECTION -->
-<section class="section" id="contact">
-    <div class="container">
-        <div class="contact-box">
-            <h2>Let's Create Something Amazing Together</h2>
-            <p>Have a project in mind or need custom graphic design work? Get in touch directly on WhatsApp for fast response and instant quote.</p>
-            <div class="hero-actions" style="justify-content: center;">
-                <a href="https://wa.me/923478306672?text=Hello%20Muhammad%20Ibrahim,%20I%20want%20to%20discuss%20a%20design%20project." target="_blank" class="btn-primary">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp: +92 347 8306672
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-    <div class="container">
-        <p>© 2026 <strong>MUHAMMAD IBRAHIM</strong>. All Rights Reserved.</p>
-    </div>
-</footer>
-
-<!-- JAVASCRIPT -->
-<script>
-// Header Scroll Effect
-const header = document.getElementById('header');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
-
-// Mobile Navigation Toggle
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
-
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    const icon = menuToggle.querySelector('i');
-    if (navLinks.classList.contains('active')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-xmark');
-    } else {
-        icon.classList.remove('fa-xmark');
-        icon.classList.add('fa-bars');
-    }
-});
-
-// Close Mobile Menu on Link Click
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        const icon = menuToggle.querySelector('i');
-        if (icon) {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+    <style>
+        /* Base Variables - Light Theme Default */
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-blue: #0066ff;
+            --accent-cyan: #00d2ff;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
         }
-    });
-});
-</script>
 
+        /* Dark Theme Variables */
+        [data-theme="dark"] {
+            --bg-primary: #090d16;
+            --bg-card: #111827;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --border-color: #1f2937;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-primary);
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-blue);
+        }
+
+        /* Theme Toggle Switch */
+        .theme-toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-text h3 {
+            color: var(--accent-blue);
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 54px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .hero-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h4 {
+            color: var(--accent-blue);
+            letter-spacing: 2px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .section-title h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 40px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .service-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 102, 255, 0.1);
+            color: var(--accent-blue);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-pen-nib"></i> Graphic<span>.</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li>
+                        <button class="theme-toggle-btn" id="themeToggle">
+                            <i class="fa-solid fa-moon"></i> <span id="themeText">Dark Mode</span>
+                        </button>
+                    </li>
+                    <li><a href="#contact" class="btn-primary">Let's Talk</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="container hero">
+        <div class="hero-text">
+            <h3>HI, I'M MUHAMMAD IBRAHIM</h3>
+            <h1>Graphic <span>Designer</span></h1>
+            <p>Turning Ideas Into Visual Masterpieces. Creative, modern and professional designs that help your brand stand out.</p>
+            <a href="#portfolio" class="btn-primary">View My Work <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="hero-image">
+            <img src="file_0000000089dc81faa04deac938631c1e.png" alt="Graphic Design Display" id="heroImg">
+        </div>
+    </section>
+
+    <section class="services-section" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h4>CORE EXPERTISE</h4>
+                <h2>Services I Offer</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-palette"></i></div>
+                    <h3>Graphic Design</h3>
+                    <p>High-end visual artwork, banners, and tailored creative direction for digital & print platforms.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-pen-tool"></i></div>
+                    <h3>Logo & Branding</h3>
+                    <p>Memorable vector logos, full brand identity packages, color palettes, and brand guidelines.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                    <h3>Social Media Ads</h3>
+                    <p>Conversion-focused Instagram, Facebook, and promotional social media graphics & campaign ads.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fa-solid fa-image"></i></div>
+                    <h3>Posters & Banners</h3>
+                    <p>Eye-catching promotional event posters, roll-up banners, and web advertisement headers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeText = document.getElementById('themeText');
+        const themeIcon = themeToggleBtn.querySelector('i');
+        const heroImg = document.getElementById('heroImg');
+
+        // Dark Image / Light Image Sources
+        const lightImageSrc = 'file_0000000089dc81faa04deac938631c1e.png';
+        const darkImageSrc = 'file_0000000027e881faa9f2403dd3dad34c.png';
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                document.body.removeAttribute('data-theme');
+                themeText.textContent = 'Dark Mode';
+                themeIcon.className = 'fa-solid fa-moon';
+                heroImg.src = lightImageSrc;
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeText.textContent = 'Light Mode';
+                themeIcon.className = 'fa-solid fa-sun';
+                heroImg.src = darkImageSrc;
+            }
+        });
+    </script>
 </body>
 </html>
