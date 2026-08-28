@@ -1,15 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Muhammad Ibrahim | Creative Portfolio</title>
+<title>Muhammad Ibrahim | Graphic Designer</title>
 
 <style>
 
 /* =====================================================
-   GLOBAL
+   RESET
 ===================================================== */
 
 *{
@@ -24,8 +25,8 @@ html{
 
 body{
     font-family:Arial, Helvetica, sans-serif;
-    background:#050505;
-    color:#fff;
+    background:#fff;
+    color:#171717;
     overflow-x:hidden;
 }
 
@@ -34,98 +35,30 @@ a{
     color:inherit;
 }
 
+img{
+    max-width:100%;
+    display:block;
+}
+
 .container{
     width:90%;
-    max-width:1250px;
+    max-width:1200px;
     margin:auto;
 }
 
 
 /* =====================================================
-   PREMIUM BACKGROUND
+   COLOR VARIABLES
 ===================================================== */
 
-body{
-    background:
-    radial-gradient(
-        circle at 15% 15%,
-        rgba(30,64,175,.18),
-        transparent 30%
-    ),
-    radial-gradient(
-        circle at 85% 35%,
-        rgba(180,130,40,.08),
-        transparent 28%
-    ),
-    #050505;
-}
-
-.bg-orb{
-    position:fixed;
-    border-radius:50%;
-    pointer-events:none;
-    filter:blur(100px);
-    opacity:.12;
-    z-index:-5;
-}
-
-.orb1{
-    width:420px;
-    height:420px;
-    background:#1d4ed8;
-    left:-180px;
-    top:100px;
-}
-
-.orb2{
-    width:380px;
-    height:380px;
-    background:#d4a72c;
-    right:-180px;
-    bottom:100px;
-}
-
-
-/* =====================================================
-   PARTICLES
-===================================================== */
-
-#particles{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-3;
-}
-
-.particle{
-    position:absolute;
-    width:3px;
-    height:3px;
-    border-radius:50%;
-    background:#d4a72c;
-    opacity:.25;
-    animation:particleFloat linear infinite;
-}
-
-@keyframes particleFloat{
-
-    0%{
-        transform:translateY(105vh);
-        opacity:0;
-    }
-
-    20%{
-        opacity:.3;
-    }
-
-    80%{
-        opacity:.3;
-    }
-
-    100%{
-        transform:translateY(-10vh);
-        opacity:0;
-    }
+:root{
+    --blue:#3155ff;
+    --orange:#ff713b;
+    --yellow:#ffc928;
+    --green:#35b878;
+    --pink:#ff4f91;
+    --dark:#171717;
+    --gray:#707070;
 }
 
 
@@ -133,47 +66,46 @@ body{
    NAVBAR
 ===================================================== */
 
-.navbar{
+header{
     position:fixed;
     top:0;
     left:0;
     width:100%;
-    height:76px;
-    z-index:5000;
+    height:78px;
+    z-index:9999;
 
-    background:rgba(5,5,5,.72);
-    backdrop-filter:blur(20px);
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(15px);
 
-    border-bottom:
-    1px solid rgba(212,167,44,.15);
+    border-bottom:1px solid rgba(0,0,0,.05);
 }
 
-.nav-inner{
+.nav{
     height:100%;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
 }
 
 .logo{
-    font-size:22px;
+    font-size:24px;
     font-weight:900;
-    letter-spacing:-.5px;
+    letter-spacing:-1px;
 }
 
 .logo span{
-    color:#d4a72c;
+    color:var(--blue);
 }
 
 .nav-links{
     display:flex;
     align-items:center;
-    gap:34px;
+    gap:32px;
     list-style:none;
 }
 
 .nav-links a{
-    color:#d1d5db;
     font-size:14px;
     font-weight:700;
     transition:.3s;
@@ -181,18 +113,26 @@ body{
 }
 
 .nav-links a:hover{
-    color:#d4a72c;
+    color:var(--blue);
 }
 
 .nav-links a::after{
     content:"";
+
     position:absolute;
+
     width:0;
-    height:2px;
-    background:#d4a72c;
+    height:3px;
+
+    background:var(--orange);
+
     left:50%;
     bottom:-8px;
+
     transform:translateX(-50%);
+
+    border-radius:10px;
+
     transition:.3s;
 }
 
@@ -202,7 +142,7 @@ body{
 
 .menu{
     display:none;
-    font-size:27px;
+    font-size:28px;
     cursor:pointer;
 }
 
@@ -213,19 +153,139 @@ body{
 
 .hero{
     min-height:100vh;
-    padding:120px 0 70px;
+
+    padding-top:120px;
+    padding-bottom:70px;
 
     display:flex;
     align-items:center;
 
     position:relative;
+
+    overflow:hidden;
 }
 
 .hero-grid{
     display:grid;
-    grid-template-columns:1.05fr .95fr;
+
+    grid-template-columns:
+    1fr 1fr;
+
     align-items:center;
-    gap:80px;
+
+    gap:50px;
+}
+
+
+/* =====================================================
+   COLORFUL BACKGROUND PAINT SHAPES
+===================================================== */
+
+.paint{
+    position:absolute;
+
+    border-radius:
+    50% 45% 55% 40%;
+
+    filter:
+    blur(.2px);
+
+    opacity:.8;
+
+    z-index:-1;
+
+    animation:
+    paintFloat
+    8s
+    ease-in-out
+    infinite;
+}
+
+.paint.blue{
+    width:420px;
+    height:300px;
+
+    background:
+    #dce3ff;
+
+    left:-120px;
+    top:130px;
+
+    transform:
+    rotate(-25deg);
+}
+
+.paint.orange{
+    width:330px;
+    height:230px;
+
+    background:
+    #ffe1d5;
+
+    left:240px;
+    top:180px;
+
+    transform:
+    rotate(25deg);
+
+    animation-delay:1s;
+}
+
+.paint.yellow{
+    width:300px;
+    height:190px;
+
+    background:
+    #fff0b7;
+
+    right:-80px;
+    bottom:40px;
+
+    transform:
+    rotate(-20deg);
+
+    animation-delay:2s;
+}
+
+.paint.green{
+    width:240px;
+    height:180px;
+
+    background:
+    #d8f5e6;
+
+    right:100px;
+    top:130px;
+
+    animation-delay:3s;
+}
+
+.paint.pink{
+    width:190px;
+    height:140px;
+
+    background:
+    #ffd8e7;
+
+    left:40%;
+    bottom:-70px;
+
+    animation-delay:4s;
+}
+
+@keyframes paintFloat{
+
+    0%,100%{
+        transform:
+        translateY(0)
+        rotate(-10deg);
+    }
+
+    50%{
+        transform:
+        translateY(-20px)
+        rotate(5deg);
+    }
 }
 
 
@@ -233,160 +293,126 @@ body{
    HERO TEXT
 ===================================================== */
 
-.welcome{
-    display:inline-block;
+.hero-content{
+    position:relative;
+    z-index:5;
+}
 
-    padding:10px 20px;
+.small-title{
+    font-size:20px;
+    font-weight:700;
 
-    border-radius:50px;
-
-    color:#d4a72c;
-
-    background:
-    rgba(212,167,44,.07);
-
-    border:
-    1px solid rgba(212,167,44,.3);
-
-    font-size:13px;
-    font-weight:900;
-    letter-spacing:1px;
-
-    margin-bottom:24px;
+    margin-bottom:12px;
 
     opacity:0;
 
     animation:
-    welcomeIn
-    1s
+    slideLeft
+    .8s
     .3s
     forwards;
 }
 
-@keyframes welcomeIn{
-
-    0%{
-        opacity:0;
-        transform:
-        translateY(-40px)
-        scale(.8);
-    }
-
-    70%{
-        transform:
-        translateY(6px)
-        scale(1.04);
-    }
-
-    100%{
-        opacity:1;
-        transform:
-        translateY(0)
-        scale(1);
-    }
-}
-
-
-.hero h1{
+.hero-title{
     font-size:
-    clamp(48px,6vw,80px);
+    clamp(52px,6vw,82px);
 
-    line-height:1;
+    line-height:.98;
 
-    letter-spacing:-4px;
+    letter-spacing:-5px;
 
     margin-bottom:20px;
-}
-
-.hero h1 .first{
-    display:block;
 
     opacity:0;
 
     animation:
-    textReveal
-    .9s
-    .8s
-    forwards;
-}
-
-.hero h1 .last{
-    display:block;
-
-    color:#d4a72c;
-
-    opacity:0;
-
-    animation:
-    textReveal
-    .9s
-    1.05s
-    forwards;
-}
-
-@keyframes textReveal{
-
-    from{
-        opacity:0;
-        transform:
-        translateY(60px);
-    }
-
-    to{
-        opacity:1;
-        transform:
-        translateY(0);
-    }
-}
-
-
-.hero h2{
-    color:#e5e7eb;
-    font-size:24px;
-    margin-bottom:18px;
-
-    opacity:0;
-
-    animation:
-    fadeUp
+    slideLeft
     1s
-    1.35s
+    .5s
     forwards;
 }
 
+.hero-title span{
+    color:var(--blue);
+}
+
+.hero-subtitle{
+    display:inline-block;
+
+    background:#171717;
+
+    color:#fff;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:800;
+
+    margin-bottom:22px;
+
+    transform:rotate(-2deg);
+
+    opacity:0;
+
+    animation:
+    popIn
+    .8s
+    1s
+    forwards;
+}
 
 .hero-description{
-    max-width:650px;
+    max-width:540px;
 
-    color:#9ca3af;
+    color:var(--gray);
 
     font-size:16px;
 
     line-height:1.9;
 
-    margin-bottom:30px;
+    margin-bottom:28px;
 
     opacity:0;
 
     animation:
-    fadeUp
+    slideLeft
     1s
-    1.55s
+    1.2s
     forwards;
 }
 
-@keyframes fadeUp{
+@keyframes slideLeft{
 
     from{
         opacity:0;
         transform:
-        translateY(30px);
+        translateX(-70px);
     }
 
     to{
         opacity:1;
         transform:
-        translateY(0);
+        translateX(0);
+    }
+}
+
+@keyframes popIn{
+
+    from{
+        opacity:0;
+        transform:
+        scale(.5)
+        rotate(-8deg);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        scale(1)
+        rotate(-2deg);
     }
 }
 
@@ -395,7 +421,7 @@ body{
    BUTTONS
 ===================================================== */
 
-.buttons{
+.hero-buttons{
     display:flex;
     gap:14px;
     flex-wrap:wrap;
@@ -403,305 +429,314 @@ body{
     opacity:0;
 
     animation:
-    fadeUp
+    slideLeft
     1s
-    1.8s
+    1.4s
     forwards;
 }
 
 .btn{
     padding:15px 25px;
 
-    border-radius:12px;
+    border-radius:30px;
 
-    font-weight:900;
-
-    position:relative;
-
-    overflow:hidden;
+    font-weight:800;
 
     transition:.4s;
 }
 
 .btn-primary{
-    background:#d4a72c;
-    color:#080808;
+    background:var(--orange);
+    color:#fff;
 
     box-shadow:
-    0 12px 35px
-    rgba(212,167,44,.2);
+    0 12px 25px
+    rgba(255,113,59,.22);
 }
 
 .btn-primary:hover{
     transform:
-    translateY(-7px)
-    scale(1.03);
+    translateY(-6px)
+    scale(1.04);
 
     box-shadow:
-    0 20px 50px
-    rgba(212,167,44,.35);
+    0 20px 35px
+    rgba(255,113,59,.3);
 }
 
-.btn-secondary{
-    border:
-    1px solid
-    rgba(212,167,44,.5);
-
-    color:#d4a72c;
+.btn-outline{
+    border:2px solid #171717;
 }
 
-.btn-secondary:hover{
-    background:#d4a72c;
-    color:#080808;
+.btn-outline:hover{
+    background:#171717;
+    color:#fff;
 
     transform:
-    translateY(-7px);
+    translateY(-6px);
 }
 
 
 /* =====================================================
-   PROFILE
+   HERO PROFILE AREA
 ===================================================== */
 
-.profile-area{
-    width:480px;
-    height:480px;
+.hero-visual{
+    min-height:570px;
 
     position:relative;
 
-    margin:auto;
-
-    opacity:0;
-
-    animation:
-    profileIn
-    1.3s
-    .8s
-    forwards;
-}
-
-@keyframes profileIn{
-
-    from{
-        opacity:0;
-        transform:
-        scale(.55)
-        rotate(-8deg);
-    }
-
-    to{
-        opacity:1;
-        transform:
-        scale(1)
-        rotate(0);
-    }
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 
-/* Outer rings */
+/* big colored circle */
 
-.profile-ring{
-    position:absolute;
-
-    inset:0;
-
-    border-radius:50%;
-
-    border:
-    1px solid
-    rgba(212,167,44,.35);
-
-    animation:
-    rotateRing
-    18s
-    linear
-    infinite;
-}
-
-.profile-ring.two{
-    inset:28px;
-
-    border-color:
-    rgba(59,130,246,.3);
-
-    animation-duration:25s;
-
-    animation-direction:reverse;
-}
-
-.profile-ring.three{
-    inset:55px;
-
-    border:
-    1px dashed
-    rgba(212,167,44,.2);
-
-    animation-duration:30s;
-}
-
-@keyframes rotateRing{
-
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-
-/* Ring lights */
-
-.profile-ring::before{
-    content:"";
+.profile-bg{
+    width:460px;
+    height:460px;
 
     position:absolute;
 
-    width:12px;
-    height:12px;
-
-    border-radius:50%;
-
-    background:#d4a72c;
-
-    box-shadow:
-    0 0 25px
-    #d4a72c;
-
-    top:5%;
-    left:25%;
-}
-
-.profile-ring.two::before{
-    background:#3b82f6;
-
-    box-shadow:
-    0 0 25px
-    #3b82f6;
-
-    top:85%;
-    left:10%;
-}
-
-
-/* =====================================================
-   PHOTO
-===================================================== */
-
-.photo-frame{
-    position:absolute;
-
-    inset:75px;
-
-    padding:7px;
-
-    border-radius:50%;
+    border-radius:
+    49% 51% 45% 55%;
 
     background:
     linear-gradient(
-        135deg,
-        #d4a72c,
-        #fff0a6,
-        #2563eb,
-        #d4a72c
+        145deg,
+        #e9edff,
+        #fff4ec
     );
 
-    box-shadow:
-    0 0 60px
-    rgba(212,167,44,.16);
-
     animation:
-    photoFloat
-    4s
+    morph
+    7s
     ease-in-out
     infinite;
 }
 
-.photo-frame img{
+@keyframes morph{
+
+    0%,100%{
+        border-radius:
+        49% 51% 45% 55%;
+    }
+
+    50%{
+        border-radius:
+        55% 45% 52% 48%;
+    }
+}
+
+
+/* colored blobs behind image */
+
+.blob{
+    position:absolute;
+
+    border-radius:50%;
+
+    z-index:1;
+}
+
+.blob1{
+    width:95px;
+    height:95px;
+
+    background:var(--orange);
+
+    top:90px;
+    left:55px;
+
+    animation:
+    bounce
+    4s
+    infinite;
+}
+
+.blob2{
+    width:70px;
+    height:70px;
+
+    background:var(--yellow);
+
+    right:70px;
+    top:70px;
+
+    animation:
+    bounce
+    5s
+    1s
+    infinite;
+}
+
+.blob3{
+    width:75px;
+    height:75px;
+
+    background:var(--green);
+
+    right:55px;
+    bottom:80px;
+
+    animation:
+    bounce
+    4.5s
+    2s
+    infinite;
+}
+
+.blob4{
+    width:55px;
+    height:55px;
+
+    background:var(--pink);
+
+    left:85px;
+    bottom:90px;
+
+    animation:
+    bounce
+    5s
+    1.5s
+    infinite;
+}
+
+@keyframes bounce{
+
+    0%,100%{
+        transform:
+        translateY(0);
+    }
+
+    50%{
+        transform:
+        translateY(-22px);
+    }
+}
+
+
+/* =====================================================
+   PROFILE IMAGE
+===================================================== */
+
+.profile-photo{
+    position:relative;
+
+    z-index:5;
+
+    width:380px;
+    height:500px;
+
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+
+    overflow:hidden;
+
+    border-radius:
+    45% 45% 0 0;
+}
+
+.profile-photo img{
     width:100%;
     height:100%;
 
     object-fit:cover;
 
-    border-radius:50%;
+    object-position:center;
 
-    border:
-    8px solid
-    #050505;
+    mix-blend-mode:multiply;
+
+    filter:
+    contrast(1.02)
+    saturate(.9);
+
+    transition:.6s;
 }
 
-@keyframes photoFloat{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-15px);
-    }
+.profile-photo:hover img{
+    transform:
+    scale(1.04);
 }
 
 
 /* =====================================================
-   SCROLL
+   DECORATIVE TEXT
 ===================================================== */
 
-.scroll{
+.creative-stamp{
     position:absolute;
 
-    left:50%;
-    bottom:24px;
+    right:5px;
+    bottom:45px;
 
-    transform:
-    translateX(-50%);
+    z-index:8;
 
-    color:#6b7280;
+    width:115px;
+    height:115px;
 
-    font-size:10px;
+    border-radius:50%;
 
-    letter-spacing:3px;
+    background:#171717;
+
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
     text-align:center;
 
+    font-size:12px;
+    font-weight:900;
+
+    line-height:1.4;
+
+    transform:rotate(12deg);
+
+    box-shadow:
+    0 15px 30px
+    rgba(0,0,0,.15);
+
     animation:
-    scrollMove
-    1.6s
+    stampFloat
+    4s
+    ease-in-out
     infinite;
 }
 
-.scroll span{
-    display:block;
-
-    font-size:24px;
-
-    margin-top:5px;
-}
-
-@keyframes scrollMove{
+@keyframes stampFloat{
 
     50%{
         transform:
-        translate(-50%,10px);
+        rotate(5deg)
+        translateY(-12px);
     }
 }
 
 
 /* =====================================================
-   SECTIONS
+   SECTION
 ===================================================== */
 
 .section{
-    padding:120px 0;
+    padding:110px 0;
 }
 
-.section-title{
-    max-width:750px;
-
+.section-heading{
     text-align:center;
 
+    max-width:700px;
+
     margin:
-    0 auto 65px;
+    0 auto 60px;
 }
 
-.label{
-    color:#d4a72c;
+.section-heading small{
+    color:var(--blue);
 
     font-size:12px;
 
@@ -710,19 +745,18 @@ body{
     letter-spacing:4px;
 
     text-transform:uppercase;
-
-    margin-bottom:13px;
 }
 
-.section-title h2{
+.section-heading h2{
     font-size:
-    clamp(36px,5vw,53px);
+    clamp(38px,5vw,55px);
 
-    margin-bottom:15px;
+    margin:
+    10px 0 15px;
 }
 
-.section-title p{
-    color:#8f96a3;
+.section-heading p{
+    color:#777;
 
     line-height:1.8;
 }
@@ -736,7 +770,7 @@ body{
     opacity:0;
 
     transform:
-    translateY(80px);
+    translateY(70px);
 
     transition:
     opacity 1s ease,
@@ -757,38 +791,30 @@ body{
 ===================================================== */
 
 .services{
-    background:
-    rgba(255,255,255,.018);
+    background:#fafafa;
 }
 
-.service-grid{
+.services-grid{
     display:grid;
 
     grid-template-columns:
     repeat(4,1fr);
 
-    gap:22px;
+    gap:20px;
 }
 
 .service{
-    min-height:250px;
-
     padding:30px 24px;
+
+    background:#fff;
 
     border-radius:22px;
 
-    background:
-    linear-gradient(
-        145deg,
-        rgba(255,255,255,.065),
-        rgba(255,255,255,.018)
-    );
-
     border:
     1px solid
-    rgba(255,255,255,.08);
+    #eeeeee;
 
-    transition:.5s;
+    transition:.45s;
 
     position:relative;
 
@@ -797,14 +823,27 @@ body{
 
 .service:hover{
     transform:
-    translateY(-14px);
-
-    border-color:
-    rgba(212,167,44,.5);
+    translateY(-12px);
 
     box-shadow:
-    0 25px 60px
-    rgba(0,0,0,.35);
+    0 25px 50px
+    rgba(0,0,0,.09);
+}
+
+.service:nth-child(1):hover{
+    border-color:#3155ff;
+}
+
+.service:nth-child(2):hover{
+    border-color:#ff713b;
+}
+
+.service:nth-child(3):hover{
+    border-color:#35b878;
+}
+
+.service:nth-child(4):hover{
+    border-color:#ff4f91;
 }
 
 .service-icon{
@@ -817,23 +856,18 @@ body{
 
     border-radius:17px;
 
-    background:
-    rgba(212,167,44,.08);
-
-    border:
-    1px solid
-    rgba(212,167,44,.18);
+    background:#f0f3ff;
 
     font-size:28px;
 
     margin-bottom:20px;
 
-    transition:.5s;
+    transition:.4s;
 }
 
 .service:hover .service-icon{
     transform:
-    rotate(10deg)
+    rotate(8deg)
     scale(1.12);
 }
 
@@ -844,7 +878,7 @@ body{
 }
 
 .service p{
-    color:#8f96a3;
+    color:#777;
 
     font-size:14px;
 
@@ -856,81 +890,44 @@ body{
    PORTFOLIO
 ===================================================== */
 
-.portfolio{
-    background:#070707;
-}
-
 .portfolio-grid{
     display:grid;
 
     grid-template-columns:
     repeat(3,1fr);
 
-    gap:25px;
+    gap:24px;
 }
 
 .project{
+    background:#fff;
+
     border-radius:22px;
 
     overflow:hidden;
 
-    background:#0c0c0c;
-
     border:
     1px solid
-    rgba(255,255,255,.08);
+    #ededed;
 
     transition:.5s;
 }
 
 .project:hover{
     transform:
-    translateY(-14px)
-    scale(1.015);
-
-    border-color:
-    rgba(212,167,44,.5);
+    translateY(-12px);
 
     box-shadow:
-    0 30px 70px
-    rgba(0,0,0,.5);
+    0 25px 60px
+    rgba(0,0,0,.1);
 }
 
 .project-image{
-    height:370px;
+    height:350px;
 
     overflow:hidden;
 
     position:relative;
-}
-
-.project-image::after{
-    content:"";
-
-    position:absolute;
-
-    top:0;
-    left:-130%;
-
-    width:70%;
-    height:100%;
-
-    background:
-    linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.25),
-        transparent
-    );
-
-    transform:skewX(-25deg);
-
-    transition:.8s;
-}
-
-.project:hover
-.project-image::after{
-    left:150%;
 }
 
 .project-image img{
@@ -939,16 +936,16 @@ body{
 
     object-fit:cover;
 
-    transition:.8s;
+    transition:.7s;
 }
 
-.project:hover
-.project-image img{
-    transform:scale(1.1);
+.project:hover img{
+    transform:
+    scale(1.1);
 }
 
 .project-info{
-    padding:22px;
+    padding:21px;
 }
 
 .project-info h3{
@@ -958,7 +955,7 @@ body{
 }
 
 .project-info p{
-    color:#7f8794;
+    color:#777;
 
     font-size:13px;
 }
@@ -967,6 +964,10 @@ body{
 /* =====================================================
    ABOUT
 ===================================================== */
+
+.about{
+    background:#f8f8f8;
+}
 
 .about-grid{
     display:grid;
@@ -979,52 +980,56 @@ body{
     align-items:center;
 }
 
-.about-image{
-    height:520px;
+.about-photo{
+    height:500px;
 
-    border-radius:28px;
+    border-radius:30px;
 
     overflow:hidden;
 
-    border:
-    1px solid
-    rgba(212,167,44,.2);
-
-    transition:.5s;
+    position:relative;
 }
 
-.about-image:hover{
-    transform:
-    scale(1.02)
-    rotate(-1deg);
-
-    box-shadow:
-    0 30px 70px
-    rgba(212,167,44,.08);
-}
-
-.about-image img{
+.about-photo img{
     width:100%;
     height:100%;
 
     object-fit:cover;
+
+    transition:.7s;
+}
+
+.about-photo:hover img{
+    transform:
+    scale(1.05);
+}
+
+.about-content small{
+    color:var(--orange);
+
+    font-size:12px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
 }
 
 .about-content h2{
-    font-size:48px;
+    font-size:
+    clamp(38px,5vw,55px);
 
     line-height:1.1;
 
     margin:
-    10px 0 22px;
+    12px 0 20px;
 }
 
 .about-content p{
-    color:#9299a5;
+    color:#707070;
 
     line-height:1.9;
 
-    margin-bottom:13px;
+    margin-bottom:14px;
 }
 
 .skills{
@@ -1043,26 +1048,23 @@ body{
 
     border-radius:30px;
 
-    color:#d4a72c;
-
-    background:
-    rgba(212,167,44,.07);
+    background:#fff;
 
     border:
     1px solid
-    rgba(212,167,44,.18);
+    #e8e8e8;
 
     font-size:12px;
 
     font-weight:800;
 
-    transition:.35s;
+    transition:.3s;
 }
 
 .skill:hover{
-    background:#d4a72c;
+    background:#171717;
 
-    color:#050505;
+    color:#fff;
 
     transform:
     translateY(-5px);
@@ -1081,36 +1083,25 @@ body{
 
     gap:14px;
 
-    margin-top:32px;
+    margin-top:30px;
 }
 
 .stat{
-    text-align:center;
-
     padding:20px;
+
+    background:#fff;
 
     border-radius:16px;
 
-    background:
-    rgba(255,255,255,.035);
+    text-align:center;
 
     border:
     1px solid
-    rgba(255,255,255,.07);
-
-    transition:.4s;
-}
-
-.stat:hover{
-    transform:
-    translateY(-7px);
-
-    border-color:
-    rgba(212,167,44,.35);
+    #eeeeee;
 }
 
 .stat h3{
-    color:#d4a72c;
+    color:var(--blue);
 
     font-size:30px;
 
@@ -1121,6 +1112,8 @@ body{
     margin:0;
 
     font-size:12px;
+
+    color:#777;
 }
 
 
@@ -1129,12 +1122,11 @@ body{
 ===================================================== */
 
 .contact{
-    background:
-    radial-gradient(
-        circle at center,
-        rgba(212,167,44,.06),
-        transparent 55%
-    );
+    position:relative;
+
+    overflow:hidden;
+
+    background:#fff;
 }
 
 .contact-box{
@@ -1142,39 +1134,37 @@ body{
 
     margin:auto;
 
-    padding:75px 35px;
-
-    text-align:center;
+    padding:75px 30px;
 
     border-radius:30px;
 
+    text-align:center;
+
     background:
-    rgba(255,255,255,.035);
+    linear-gradient(
+        135deg,
+        #eef1ff,
+        #fff5ef
+    );
 
-    border:
-    1px solid
-    rgba(212,167,44,.16);
-
-    box-shadow:
-    0 30px 90px
-    rgba(0,0,0,.25);
+    position:relative;
 }
 
 .contact-box h2{
     font-size:
-    clamp(36px,5vw,55px);
+    clamp(38px,5vw,55px);
 
     margin:
     10px 0 15px;
 }
 
 .contact-box p{
-    max-width:650px;
+    max-width:620px;
 
     margin:
     0 auto 30px;
 
-    color:#8f96a3;
+    color:#707070;
 
     line-height:1.8;
 }
@@ -1184,38 +1174,37 @@ body{
 
     justify-content:center;
 
-    gap:14px;
-
     flex-wrap:wrap;
+
+    gap:14px;
 }
 
 .contact-btn{
     padding:
     15px 24px;
 
-    border-radius:12px;
+    border-radius:30px;
 
-    background:#d4a72c;
+    background:#171717;
 
-    color:#050505;
+    color:#fff;
 
-    font-weight:900;
+    font-weight:800;
 
     transition:.4s;
 }
 
 .contact-btn:hover{
     transform:
-    translateY(-7px)
-    scale(1.04);
+    translateY(-7px);
 
     box-shadow:
-    0 18px 45px
-    rgba(212,167,44,.25);
+    0 15px 30px
+    rgba(0,0,0,.15);
 }
 
-.contact-call{
-    background:#fff;
+.whatsapp{
+    background:#20b968;
 }
 
 
@@ -1228,17 +1217,17 @@ footer{
 
     text-align:center;
 
-    background:#020202;
-
-    color:#646b77;
+    color:#777;
 
     border-top:
     1px solid
-    rgba(255,255,255,.07);
+    #eeeeee;
+
+    background:#fff;
 }
 
 footer strong{
-    color:#d4a72c;
+    color:#171717;
 }
 
 
@@ -1249,19 +1238,20 @@ footer strong{
 @media(max-width:1000px){
 
     .hero-grid{
-        gap:30px;
+        gap:20px;
     }
 
-    .profile-area{
+    .profile-bg{
         width:390px;
         height:390px;
     }
 
-    .photo-frame{
-        inset:62px;
+    .profile-photo{
+        width:320px;
+        height:440px;
     }
 
-    .service-grid{
+    .services-grid{
         grid-template-columns:
         repeat(2,1fr);
     }
@@ -1276,7 +1266,7 @@ footer strong{
 
         position:absolute;
 
-        top:76px;
+        top:78px;
         left:0;
 
         width:100%;
@@ -1285,7 +1275,11 @@ footer strong{
 
         gap:0;
 
-        background:#070707;
+        background:#fff;
+
+        border-bottom:
+        1px solid
+        #eee;
     }
 
     .nav-links.active{
@@ -1297,7 +1291,7 @@ footer strong{
 
         border-bottom:
         1px solid
-        rgba(255,255,255,.07);
+        #eee;
     }
 
     .nav-links a{
@@ -1311,7 +1305,7 @@ footer strong{
     }
 
     .hero{
-        padding-top:115px;
+        padding-top:110px;
     }
 
     .hero-grid{
@@ -1324,15 +1318,10 @@ footer strong{
         order:2;
     }
 
-    .profile-area{
+    .hero-visual{
         order:1;
 
-        width:330px;
-        height:330px;
-    }
-
-    .photo-frame{
-        inset:52px;
+        min-height:500px;
     }
 
     .hero-description{
@@ -1340,7 +1329,7 @@ footer strong{
         margin-right:auto;
     }
 
-    .buttons{
+    .hero-buttons{
         justify-content:center;
     }
 
@@ -1362,48 +1351,85 @@ footer strong{
         width:92%;
     }
 
-    .hero h1{
-        font-size:42px;
-
-        letter-spacing:-2px;
-    }
-
-    .hero h2{
+    .logo{
         font-size:19px;
     }
 
-    .hero-description{
-        font-size:15px;
+    .hero-title{
+        font-size:45px;
+
+        letter-spacing:-3px;
     }
 
-    .profile-area{
-        width:275px;
-        height:275px;
+    .hero-visual{
+        min-height:420px;
     }
 
-    .photo-frame{
-        inset:42px;
+    .profile-bg{
+        width:290px;
+        height:290px;
+    }
+
+    .profile-photo{
+        width:245px;
+        height:350px;
+    }
+
+    .blob1{
+        width:60px;
+        height:60px;
+
+        left:20px;
+    }
+
+    .blob2{
+        width:50px;
+        height:50px;
+
+        right:20px;
+    }
+
+    .blob3{
+        width:55px;
+        height:55px;
+
+        right:20px;
+        bottom:30px;
+    }
+
+    .blob4{
+        width:45px;
+        height:45px;
+
+        left:30px;
+        bottom:40px;
+    }
+
+    .creative-stamp{
+        width:85px;
+        height:85px;
+
+        font-size:9px;
+
+        right:0;
+        bottom:20px;
     }
 
     .section{
         padding:85px 0;
     }
 
-    .service-grid,
+    .services-grid,
     .portfolio-grid{
         grid-template-columns:1fr;
     }
 
     .project-image{
-        height:390px;
+        height:380px;
     }
 
-    .about-image{
-        height:360px;
-    }
-
-    .about-content h2{
-        font-size:36px;
+    .about-photo{
+        height:350px;
     }
 
     .stats{
@@ -1418,8 +1444,41 @@ footer strong{
 
 
 /* =====================================================
-   MOBILE MENU BUTTON
+   CURSOR GLOW
 ===================================================== */
+
+.cursor-glow{
+    position:fixed;
+
+    width:180px;
+    height:180px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(49,85,255,.12),
+        transparent 65%
+    );
+
+    pointer-events:none;
+
+    transform:
+    translate(-50%,-50%);
+
+    z-index:9998;
+
+    display:none;
+}
+
+@media(min-width:901px){
+
+    .cursor-glow{
+        display:block;
+    }
+
+}
 
 </style>
 </head>
@@ -1428,25 +1487,25 @@ footer strong{
 <body>
 
 
-<!-- BACKGROUND -->
+<!-- =====================================================
+     CURSOR
+===================================================== -->
 
-<div class="bg-orb orb1"></div>
-<div class="bg-orb orb2"></div>
-
-<div id="particles"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
 
 
 <!-- =====================================================
      NAVBAR
 ===================================================== -->
 
-<nav class="navbar">
+<header>
 
-<div class="container nav-inner">
+<div class="container nav">
 
 <a href="#home" class="logo">
 Muhammad <span>Ibrahim</span>
 </a>
+
 
 <ul class="nav-links" id="navLinks">
 
@@ -1455,7 +1514,7 @@ Muhammad <span>Ibrahim</span>
 </li>
 
 <li>
-<a href="#services">Services</a>
+<a href="#about">About</a>
 </li>
 
 <li>
@@ -1463,7 +1522,7 @@ Muhammad <span>Ibrahim</span>
 </li>
 
 <li>
-<a href="#about">About</a>
+<a href="#services">Services</a>
 </li>
 
 <li>
@@ -1472,60 +1531,79 @@ Muhammad <span>Ibrahim</span>
 
 </ul>
 
-<div class="menu" onclick="toggleMenu()">
+
+<div
+class="menu"
+onclick="toggleMenu()">
+
 ☰
-</div>
 
 </div>
 
-</nav>
+</div>
+
+</header>
+
 
 
 <!-- =====================================================
      HERO
 ===================================================== -->
 
-<section class="hero" id="home">
+<section
+class="hero"
+id="home">
+
+
+<!-- colorful background -->
+
+<div class="paint blue"></div>
+<div class="paint orange"></div>
+<div class="paint yellow"></div>
+<div class="paint green"></div>
+<div class="paint pink"></div>
+
 
 <div class="container hero-grid">
 
 
+<!-- LEFT -->
+
 <div class="hero-content">
 
-<div class="welcome">
-WELCOME TO MY PORTFOLIO
+<div class="small-title">
+Hello, I'm
 </div>
 
 
-<h1>
+<h1 class="hero-title">
 
-<span class="first">
 Muhammad
-</span>
 
-<span class="last">
+<br>
+
+<span>
 Ibrahim
 </span>
 
 </h1>
 
 
-<h2>
-Graphic Designer & Creative Artist
-</h2>
+<div class="hero-subtitle">
+Graphic Designer
+</div>
 
 
 <p class="hero-description">
 
-I create modern, creative and professional
-designs for businesses, brands, social media
-and personal projects. My goal is to turn
-ideas into beautiful visual designs.
+I create creative, modern and professional
+designs for brands, businesses, social media,
+events and personal projects.
 
 </p>
 
 
-<div class="buttons">
+<div class="hero-buttons">
 
 <a
 href="#portfolio"
@@ -1538,7 +1616,7 @@ View My Work
 
 <a
 href="#contact"
-class="btn btn-secondary">
+class="btn btn-outline">
 
 Contact Me
 
@@ -1549,22 +1627,27 @@ Contact Me
 </div>
 
 
-<!-- =================================================
-     PROFILE IMAGE
-================================================= -->
 
-<div class="profile-area">
+<!-- RIGHT -->
 
-<div class="profile-ring"></div>
-
-<div class="profile-ring two"></div>
-
-<div class="profile-ring three"></div>
+<div class="hero-visual">
 
 
-<div class="photo-frame">
+<div class="profile-bg"></div>
 
-<!-- EXAMPLE PROFESSIONAL PORTRAIT -->
+
+<div class="blob blob1"></div>
+
+<div class="blob blob2"></div>
+
+<div class="blob blob3"></div>
+
+<div class="blob blob4"></div>
+
+
+<div class="profile-photo">
+
+<!-- Example formal portrait -->
 
 <img
 src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=90"
@@ -1572,19 +1655,20 @@ alt="Muhammad Ibrahim">
 
 </div>
 
-</div>
 
+<div class="creative-stamp">
 
-</div>
-
-
-<div class="scroll">
-
-SCROLL
-
-<span>↓</span>
+CREATIVE<br>
+DESIGN<br>
+STUDIO
 
 </div>
+
+
+</div>
+
+</div>
+
 
 </section>
 
@@ -1601,25 +1685,25 @@ id="services">
 <div class="container">
 
 
-<div class="section-title reveal">
+<div class="section-heading reveal">
 
-<div class="label">
-My Services
-</div>
+<small>
+What I Do
+</small>
 
 <h2>
-What I Do
+My Services
 </h2>
 
 <p>
-Creative and professional design
-services for different needs.
+Professional creative services designed
+to make your brand stand out.
 </p>
 
 </div>
 
 
-<div class="service-grid">
+<div class="services-grid">
 
 
 <div class="service reveal">
@@ -1633,8 +1717,8 @@ Graphic Design
 </h3>
 
 <p>
-Modern and creative graphic designs
-for businesses and personal projects.
+Creative and modern designs for
+businesses, brands and individuals.
 </p>
 
 </div>
@@ -1652,7 +1736,7 @@ Poster Design
 
 <p>
 Professional posters for events,
-advertisements and promotions.
+advertising and promotional campaigns.
 </p>
 
 </div>
@@ -1669,8 +1753,8 @@ Branding
 </h3>
 
 <p>
-Creative logos, branding and
-professional visual identity.
+Logo design, visual identity and
+complete branding solutions.
 </p>
 
 </div>
@@ -1687,8 +1771,8 @@ Social Media
 </h3>
 
 <p>
-Attractive posts, advertisements
-and social media designs.
+Creative social media posts,
+advertisements and content designs.
 </p>
 
 </div>
@@ -1707,25 +1791,25 @@ and social media designs.
 ===================================================== -->
 
 <section
-class="section portfolio"
+class="section"
 id="portfolio">
 
 <div class="container">
 
 
-<div class="section-title reveal">
+<div class="section-heading reveal">
 
-<div class="label">
-My Work
-</div>
+<small>
+Selected Work
+</small>
 
 <h2>
-Featured Portfolio
+My Portfolio
 </h2>
 
 <p>
-Example projects are shown below.
-Your original designs can be added later.
+Some example creative projects.
+Your original designs can be placed here later.
 </p>
 
 </div>
@@ -1751,7 +1835,7 @@ Creative Graphic Design
 </h3>
 
 <p>
-Graphic Design Project
+Graphic Design
 </p>
 
 </div>
@@ -1776,7 +1860,7 @@ Brand Identity
 </h3>
 
 <p>
-Branding Project
+Branding
 </p>
 
 </div>
@@ -1790,7 +1874,7 @@ Branding Project
 
 <img
 src="https://images.unsplash.com/photo-1523726491678-bf852e717f6a?auto=format&fit=crop&w=1000&q=90"
-alt="Social Media Design">
+alt="Social Media">
 
 </div>
 
@@ -1801,7 +1885,7 @@ Social Media Design
 </h3>
 
 <p>
-Social Media Project
+Social Media
 </p>
 
 </div>
@@ -1815,7 +1899,7 @@ Social Media Project
 
 <img
 src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?auto=format&fit=crop&w=1000&q=90"
-alt="Business Advertisement">
+alt="Business Design">
 
 </div>
 
@@ -1826,7 +1910,7 @@ Business Advertisement
 </h3>
 
 <p>
-Promotional Project
+Advertisement
 </p>
 
 </div>
@@ -1851,7 +1935,7 @@ Creative Artwork
 </h3>
 
 <p>
-Digital Artwork
+Digital Design
 </p>
 
 </div>
@@ -1876,7 +1960,7 @@ Modern Creative Design
 </h3>
 
 <p>
-Creative Project
+Creative Artwork
 </p>
 
 </div>
@@ -1897,13 +1981,13 @@ Creative Project
 ===================================================== -->
 
 <section
-class="section"
+class="section about"
 id="about">
 
 <div class="container about-grid">
 
 
-<div class="about-image reveal">
+<div class="about-photo reveal">
 
 <img
 src="https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=90"
@@ -1914,30 +1998,40 @@ alt="Creative Design">
 
 <div class="about-content reveal">
 
-<div class="label">
+<small>
 About Me
-</div>
+</small>
 
 <h2>
-Creativity Is My Passion
+Turning Ideas Into Designs
 </h2>
 
+
 <p>
+
 My name is
 <strong>Muhammad Ibrahim</strong>.
 I am passionate about graphic design
 and creative digital artwork.
+
 </p>
 
+
 <p>
-I create clean, modern and attractive
-designs for businesses, brands,
+
+I love creating clean, modern and attractive
+visual designs for businesses, brands,
 social media and personal projects.
+
 </p>
 
+
 <p>
-My goal is to turn ideas into designs
-that look professional and make an impact.
+
+My goal is simple:
+turn your idea into a professional design
+that looks great and gets attention.
+
 </p>
 
 
@@ -1967,6 +2061,7 @@ Printing
 
 
 <div class="stats">
+
 
 <div class="stat">
 
@@ -2001,10 +2096,11 @@ Projects
 </h3>
 
 <p>
-Creativity
+Creative
 </p>
 
 </div>
+
 
 </div>
 
@@ -2026,21 +2122,27 @@ id="contact">
 
 <div class="container">
 
+
 <div class="contact-box reveal">
 
-<div class="label">
-Get In Touch
-</div>
+<div class="section-heading">
+
+<small>
+Let's Talk
+</small>
 
 <h2>
-Let's Work Together
+Have A Project?
 </h2>
 
 <p>
-Have a poster, logo, branding or design
-project? Contact me directly and let's
-create something amazing.
+
+Let's create something creative,
+professional and memorable together.
+
 </p>
+
+</div>
 
 
 <div class="contact-buttons">
@@ -2048,9 +2150,9 @@ create something amazing.
 
 <a
 href="tel:03478306672"
-class="contact-btn contact-call">
+class="contact-btn">
 
-Call: 03478306672
+📞 03478306672
 
 </a>
 
@@ -2058,9 +2160,9 @@ Call: 03478306672
 <a
 href="https://wa.me/923478306672"
 target="_blank"
-class="contact-btn">
+class="contact-btn whatsapp">
 
-WhatsApp Me
+💬 WhatsApp Me
 
 </a>
 
@@ -2105,8 +2207,6 @@ document
 }
 
 
-/* Close menu */
-
 document
 .querySelectorAll(".nav-links a")
 .forEach(function(link){
@@ -2129,24 +2229,26 @@ document
    SCROLL REVEAL
 ===================================================== */
 
-const revealElements =
+const reveals =
 document.querySelectorAll(".reveal");
+
 
 function revealOnScroll(){
 
 const screen =
 window.innerHeight;
 
-revealElements.forEach(
+
+reveals.forEach(
 function(element){
 
-const position =
-element.getBoundingClientRect().top;
+const top =
+element
+.getBoundingClientRect()
+.top;
 
-if(
-position <
-screen - 70
-){
+
+if(top < screen - 70){
 
 element
 .classList
@@ -2158,6 +2260,7 @@ element
 
 }
 
+
 window.addEventListener(
 "scroll",
 revealOnScroll
@@ -2167,89 +2270,120 @@ revealOnScroll();
 
 
 /* =====================================================
-   PARTICLES
+   CURSOR GLOW
 ===================================================== */
 
-function createParticles(){
-
-const container =
+const cursor =
 document.getElementById(
-"particles"
+"cursorGlow"
 );
 
-for(
-let i=0;
-i<40;
-i++
-){
 
-const p =
-document.createElement(
-"div"
-);
+document.addEventListener(
+"mousemove",
+function(e){
 
-p.className =
-"particle";
+cursor.style.left =
+e.clientX+"px";
 
-p.style.left =
-Math.random()*100+"%";
+cursor.style.top =
+e.clientY+"px";
 
-p.style.animationDuration =
-(9+Math.random()*14)+"s";
-
-p.style.animationDelay =
-Math.random()*10+"s";
-
-const size =
-(2+Math.random()*3)+"px";
-
-p.style.width=size;
-p.style.height=size;
-
-container.appendChild(p);
-
-}
-
-}
-
-createParticles();
+});
 
 
 /* =====================================================
-   DESKTOP MOUSE EFFECT
+   PARALLAX PAINT
 ===================================================== */
 
 document.addEventListener(
 "mousemove",
-function(event){
+function(e){
 
-if(window.innerWidth < 900){
+if(window.innerWidth < 901){
 return;
 }
 
 const x =
-event.clientX /
+(e.clientX /
 window.innerWidth -
-.5;
+.5);
 
 const y =
-event.clientY /
+(e.clientY /
 window.innerHeight -
-.5;
+.5);
 
 
-const orb1 =
-document.querySelector(".orb1");
+document
+.querySelectorAll(".paint")
+.forEach(
+function(item,index){
 
-const orb2 =
-document.querySelector(".orb2");
+const amount =
+(index+1)*7;
+
+item.style.marginLeft =
+(x*amount)+"px";
+
+item.style.marginTop =
+(y*amount)+"px";
+
+});
+
+});
 
 
-orb1.style.transform =
-`translate(${x*25}px,${y*25}px)`;
+/* =====================================================
+   PROJECT TILT
+===================================================== */
 
-orb2.style.transform =
-`translate(${x*-25}px,${y*-25}px)`;
+document
+.querySelectorAll(".project")
+.forEach(function(card){
+
+card.addEventListener(
+"mousemove",
+function(e){
+
+if(window.innerWidth < 901){
+return;
+}
+
+const rect =
+card.getBoundingClientRect();
+
+const x =
+e.clientX -
+rect.left;
+
+const y =
+e.clientY -
+rect.top;
+
+const rotateY =
+((x / rect.width)-.5)*8;
+
+const rotateX =
+((y / rect.height)-.5)*-8;
+
+
+card.style.transform =
+`perspective(800px)
+ rotateX(${rotateX}deg)
+ rotateY(${rotateY}deg)
+ translateY(-8px)`;
+
+});
+
+
+card.addEventListener(
+"mouseleave",
+function(){
+
+card.style.transform="";
+
+});
 
 });
 
@@ -2257,3 +2391,4 @@ orb2.style.transform =
 
 </body>
 </html>
+```
