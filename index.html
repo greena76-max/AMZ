@@ -654,7 +654,7 @@ function generatePDF(data) {
         ['Mobile Number:', 'SPECIAL_MOBILE']
     ];
 
-   function generatePDF(data) {
+  function generatePDF(data) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [190, 270] });
 
@@ -739,11 +739,10 @@ function generatePDF(data) {
 
     y += 5;
     
-    // DOCUMENT ATTACHED Heading: Ab yeh bhi Bold ho gayi hai
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.text('DOCUMENT ATTACHED:', left, y);
-    y += 4;
+    y += 5; // Space upar thori barha di heading ke baad
 
     const docsList = [
         'CNIC:', 'Father CNIC:', 'Husband CNIC:', 'Birth Certificate:', 'Bank Receipt:',
@@ -753,7 +752,7 @@ function generatePDF(data) {
 
     const docNameWidth = 70;
     const docBoxWidth = 30;
-    const docRowHeight = 5.2;
+    const docRowHeight = 6.0; // Yahan height aapke wale form jaisi barha di hai
 
     docsList.forEach(docName => {
         doc.setDrawColor(80, 80, 80);
@@ -762,8 +761,8 @@ function generatePDF(data) {
         doc.rect(left, y, docNameWidth, docRowHeight);
         
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(6.8);
-        doc.text(docName, left + 2, y + 3.6);
+        doc.setFontSize(7.2); // Font size bhi thora adjust kar diya
+        doc.text(docName, left + 2, y + 4.0);
         
         doc.rect(left + docNameWidth, y, docBoxWidth, docRowHeight);
         y += docRowHeight;
