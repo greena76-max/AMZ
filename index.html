@@ -165,7 +165,7 @@ button:disabled {
 .status.success { display: block; background: #dcfce7; color: #166534; }
 .status.error-status { display: block; background: #fee2e2; color: #991b1b; }
 
-/* Right Side: Dastak Visual Banner with Fixed Logo */
+/* Right Side: Dastak Visual Banner with Updated Icon */
 .banner-side {
     flex: 1;
     background: linear-gradient(135deg, #fdfbf7 0%, #f4eee1 100%);
@@ -192,8 +192,9 @@ button:disabled {
 }
 
 .gov-logo-container svg {
-    width: 65px;
-    height: 65px;
+    width: 50px;
+    height: 50px;
+    fill: #1b4d3e;
 }
 
 .banner-title {
@@ -348,7 +349,7 @@ button:disabled {
                 </div>
 
                 <div class="form-group">
-                    <label for="nic">NIC Number *</label>
+                    <label for="nic">NIC Number (Without Dashes) *</label>
                     <input type="text" id="nic" maxlength="13" inputmode="numeric" placeholder="13 digit CNIC" required oninput="onlyNumbers(this)">
                     <div class="error" id="nicError">CNIC must be 13 digits.</div>
                 </div>
@@ -360,21 +361,18 @@ button:disabled {
                 </div>
 
                 <div class="actions">
-                    <button type="submit" id="submitBtn"> Download PDF farm </button>
+                    <button type="submit" id="submitBtn"> Download PDF Form </button>
                     <div class="status" id="status"></div>
                 </div>
             </div>
         </form>
     </div>
 
-    <!-- Right Banner Section with Built-in Punjab Govt Logo -->
+    <!-- Right Banner Section with Updated User Profile SVG Icon -->
     <div class="banner-side">
-        <!-- Embedded Official Punjab Govt Emblem SVG -->
         <div class="gov-logo-container">
-            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="250" cy="250" r="230" fill="none" stroke="#1b4d3e" stroke-width="25"/>
-                <path d="M 120 280 Q 250 200 380 280 Q 330 350 250 350 Q 170 350 120 280 Z" fill="#1b4d3e"/>
-                <circle cx="250" cy="150" r="45" fill="#1b4d3e"/>
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
             </svg>
         </div>
 
