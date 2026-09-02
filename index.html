@@ -58,7 +58,7 @@ async function handleFormSubmit(event) {
         mobile: document.getElementById('mobile').value
     };
 
-    // Aapka Google Apps Script URL yahan laga diya gaya hai
+    // Aapka Google Apps Script URL pehle se laga hua hai
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx4Ep9aGvx0Dcbw3GEpQ0QSaJ7ooLkBAkDPPDD2RqbkFKZc64jq_qTFd65hll24udBN2A/exec';
     
     try {
@@ -145,8 +145,8 @@ function generatePDF(data) {
         y += rowHeight;
     });
 
-    // --- DOCUMENT ATTACHED SECTION ---
-    y += 3;
+    // --- DOCUMENT ATTACHED SECTION (Half Width jaisa aapki image mein hai) ---
+    y += 4;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.text("DOCUMENT ATTACHED:", col1, y);
@@ -160,11 +160,11 @@ function generatePDF(data) {
     ];
 
     docsList.forEach(docName => {
-        doc.rect(col1, y, 91, 5.2);
-        doc.rect(col1 + 91, y, 91, 5.2);
+        doc.rect(col1, y, 65, 5.0);       // Left column (Document Name) width 65
+        doc.rect(col1 + 65, y, 35, 5.0);  // Right column (Check box) width 35
         doc.setFont("helvetica", "bold");
-        doc.text(docName, col1 + 2, y + 3.6);
-        y += 5.2;
+        doc.text(docName, col1 + 2, y + 3.5);
+        y += 5.0;
     });
 
     doc.save("Domicile_Submission_Form.pdf");
