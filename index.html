@@ -626,15 +626,16 @@ function generatePDF(data) {
     const labelWidth = 50;
     const valueX = left + labelWidth;
 
-    let y = 10;
+    let y = 8;
 
+    // Title 1
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(13);
+    doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
     doc.text('DOMICILE SUBMISSION FORM:', left, y);
-    
-    y += 6;
-    const rowHeight = 6.2;
+    y += 4;
+
+    const rowHeight = 5.2;
 
     const fields = [
         ['Full Name:', data.fullName],
@@ -655,16 +656,16 @@ function generatePDF(data) {
     ];
 
     fields.forEach(field => {
-        doc.setDrawColor(80, 80, 80);
-        doc.setLineWidth(0.4);
+        doc.setDrawColor(40, 40, 40);
+        doc.setLineWidth(0.3);
         doc.setFillColor(255, 255, 255);
         
         doc.rect(left, y, labelWidth, rowHeight);
         
         doc.setFont('helvetica', 'normal'); 
-        doc.setFontSize(7.5);
+        doc.setFontSize(8);
         doc.setTextColor(20, 20, 20);
-        doc.text(field[0], left + 2, y + 4.2);
+        doc.text(field[0], left + 2, y + 3.6);
 
         const valueWidth = contentWidth - labelWidth;
         doc.rect(valueX, y, valueWidth, rowHeight);
@@ -676,8 +677,8 @@ function generatePDF(data) {
                 doc.rect(x, y, boxWidth, rowHeight);
                 if (data.nic[i]) {
                     doc.setFont('times', 'bold');
-                    doc.setFontSize(8.5);
-                    doc.text(data.nic[i], x + boxWidth / 2, y + 4.3, { align: 'center' });
+                    doc.setFontSize(9);
+                    doc.text(data.nic[i], x + boxWidth / 2, y + 3.7, { align: 'center' });
                 }
             }
         } else if (field[1] === 'SPECIAL_MOBILE') {
@@ -687,24 +688,27 @@ function generatePDF(data) {
                 doc.rect(x, y, boxWidth, rowHeight);
                 if (data.mobile[i]) {
                     doc.setFont('times', 'bold');
-                    doc.setFontSize(8.5);
-                    doc.text(data.mobile[i], x + boxWidth / 2, y + 4.3, { align: 'center' });
+                    doc.setFontSize(9);
+                    doc.text(data.mobile[i], x + boxWidth / 2, y + 3.7, { align: 'center' });
                 }
             }
         } else {
             doc.setFont('times', 'bold');
             doc.setFontSize(8.5);
-            doc.text(field[1] || '', valueX + 2, y + 4.3, { maxWidth: valueWidth - 4 });
+            doc.text(field[1] || '', valueX + 2, y + 3.7, { maxWidth: valueWidth - 4 });
         }
         y += rowHeight;
     });
 
-    y += 5;
+    // Space before Document Attached section to keep it clean and controlled
+    y += 4;
     
+    // Title 2: Document Attached (Placed nicely below)
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(10);
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0);
     doc.text('DOCUMENT ATTACHED:', left, y);
-    y += 5;
+    y += 4;
 
     const docsList = [
         'CNIC:', 'Father CNIC:', 'Husband CNIC:', 'Birth Certificate:', 'Bank Receipt:',
@@ -712,19 +716,19 @@ function generatePDF(data) {
         'School Certificate:', 'Voter List:', 'Duly Filled P1 Form:', 'Domicile Affidavit:', 'Form-B:'
     ];
 
-    const docNameWidth = 70;
+    const docNameWidth = 60;
     const docBoxWidth = 30;
-    const docRowHeight = 6.0;
+    const docRowHeight = 5.2;
 
     docsList.forEach(docName => {
-        doc.setDrawColor(80, 80, 80);
-        doc.setLineWidth(0.4);
+        doc.setDrawColor(40, 40, 40);
+        doc.setLineWidth(0.3);
         
         doc.rect(left, y, docNameWidth, docRowHeight);
         
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(7.2);
-        doc.text(docName, left + 2, y + 4.0);
+        doc.setFontSize(7.5);
+        doc.text(docName, left + 2, y + 3.6);
         
         doc.rect(left + docNameWidth, y, docBoxWidth, docRowHeight);
         y += docRowHeight;
