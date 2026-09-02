@@ -125,12 +125,72 @@ input:focus, select:focus {
     display: none;
 }
 
+/* Captcha Box Styling */
+.captcha-container {
+    grid-column: 1 / -1;
+    background: #f3f4f6;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.captcha-box-inner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.captcha-display {
+    background: #1b4d3e;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    user-select: none;
+    font-family: monospace;
+}
+
+.captcha-refresh {
+    background: none;
+    border: none;
+    color: #1b4d3e;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.verify-btn-container {
+    display: flex;
+    gap: 10px;
+}
+
+.verify-btn {
+    background: #374151;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.verify-btn:hover {
+    background: #1f2937;
+}
+
 .actions {
-    margin-top: 25px;
+    margin-top: 15px;
     grid-column: 1 / -1;
 }
 
-button {
+button[type="submit"] {
     width: 100%;
     height: 48px;
     border: none;
@@ -143,13 +203,13 @@ button {
     transition: all 0.2s;
 }
 
-button:hover {
+button[type="submit"]:hover:not(:disabled) {
     background: #14382d;
     box-shadow: 0 4px 12px rgba(27,77,62,0.25);
 }
 
 button:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
 }
 
@@ -242,6 +302,14 @@ button:disabled {
     color: #1b4d3e;
     margin-bottom: 5px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+/* Dynamic Green Classes for Steps */
+.step-circle.active-green {
+    background: #22c55e !important;
+    border-color: #16a34a !important;
+    color: white !important;
 }
 
 .feature-card {
@@ -287,24 +355,24 @@ button:disabled {
 
         <div class="form-header-center">
             <div class="form-title">Domicile Form Submission</div>
-            <div class="form-subtitle">Fill in the applicant details to save and download the official form.</div>
+            <div class="form-subtitle">Fill in the applicant details, verify captcha, and download your form.</div>
         </div>
 
         <form id="domicileForm" onsubmit="handleFormSubmit(event)">
             <div class="form-grid">
                 <div class="form-group">
                     <label for="fullName">Full Name *</label>
-                    <input type="text" id="fullName" placeholder="Enter full name" required>
+                    <input type="text" id="fullName" placeholder="Enter full name" required oninput="checkFormProgress()">
                 </div>
 
                 <div class="form-group">
                     <label for="fatherName">Father / Husband Name *</label>
-                    <input type="text" id="fatherName" placeholder="Enter father name" required>
+                    <input type="text" id="fatherName" placeholder="Enter father name" required oninput="checkFormProgress()">
                 </div>
 
                 <div class="form-group full">
                     <label for="address">Address *</label>
-                    <input type="text" id="address" placeholder="Enter complete address" required>
+                    <input type="text" id="address" placeholder="Enter complete address" required oninput="checkFormProgress()">
                 </div>
 
                 <div class="form-group">
@@ -350,18 +418,32 @@ button:disabled {
 
                 <div class="form-group">
                     <label for="nic">NIC Number (Without Dashes) *</label>
-                    <input type="text" id="nic" maxlength="13" inputmode="numeric" placeholder="13 digit CNIC" required oninput="onlyNumbers(this)">
+                    <input type="text" id="nic" maxlength="13" inputmode="numeric" placeholder="13 digit CNIC" required oninput="onlyNumbers(this); checkFormProgress();">
                     <div class="error" id="nicError">CNIC must be 13 digits.</div>
                 </div>
 
                 <div class="form-group">
                     <label for="mobile">Mobile Number *</label>
-                    <input type="text" id="mobile" maxlength="12" inputmode="numeric" placeholder="12 digit mobile" required oninput="onlyNumbers(this)">
+                    <input type="text" id="mobile" maxlength="12" inputmode="numeric" placeholder="12 digit mobile" required oninput="onlyNumbers(this); checkFormProgress();">
                     <div class="error" id="mobileError">Mobile must be 12 digits.</div>
                 </div>
 
+                <!-- Captcha Section -->
+                <div class="captcha-container">
+                    <label>Security Captcha Verification *</label>
+                    <div class="captcha-box-inner">
+                        <div class="captcha-display" id="captchaCode">7492</div>
+                        <button type="button" class="captcha-refresh" onclick="generateCaptcha()">Refresh</button>
+                    </div>
+                    <div class="verify-btn-container">
+                        <input type="text" id="captchaInput" placeholder="Enter captcha text" autocomplete="off" style="max-width: 200px;">
+                        <button type="button" class="verify-btn" onclick="verifyCaptcha()">Verify Captcha</button>
+                    </div>
+                    <div class="error" id="captchaError" style="display:block; color:#dc2626; font-size:11px;">Please verify the captcha first.</div>
+                </div>
+
                 <div class="actions">
-                    <button type="submit" id="submitBtn">Download PDF Form</button>
+                    <button type="submit" id="submitBtn" disabled>Download PDF Form</button>
                     <div class="status" id="status"></div>
                 </div>
             </div>
@@ -381,19 +463,19 @@ button:disabled {
         
         <div class="steps-container">
             <div class="step-item">
-                <div class="step-circle">1</div>
+                <div class="step-circle" id="step1Circle">1</div>
                 Fill Form
             </div>
             <div class="step-item">
-                <div class="step-circle">2</div>
+                <div class="step-circle" id="step2Circle">2</div>
                 Verify
             </div>
             <div class="step-item">
-                <div class="step-circle">3</div>
+                <div class="step-circle" id="step3Circle">3</div>
                 Save Sheet
             </div>
             <div class="step-item">
-                <div class="step-circle">4</div>
+                <div class="step-circle" id="step4Circle">4</div>
                 Download
             </div>
         </div>
@@ -409,8 +491,73 @@ button:disabled {
 <script>
 const scriptURL = 'https://script.google.com/macros/s/AKfycbx4Ep9aGvx0Dcbw3GEpQ0QSaJ7ooLkBAkDPPDD2RqbkFKZc64jq_qTFd65hll24udBN2A/exec';
 
+let currentCaptcha = '';
+let isFormValid = false;
+let isCaptchaVerified = false;
+
+window.onload = function() {
+    generateCaptcha();
+};
+
+function generateCaptcha() {
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let code = '';
+    for (let i = 0; i < 4; i++) {
+        code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    currentCaptcha = code;
+    document.getElementById('captchaCode').textContent = currentCaptcha;
+    document.getElementById('captchaInput').value = '';
+    isCaptchaVerified = false;
+    document.getElementById('step2Circle').classList.remove('active-green');
+    document.getElementById('captchaError').textContent = 'Please verify the captcha first.';
+    document.getElementById('captchaError').style.color = '#dc2626';
+    document.getElementById('submitBtn').disabled = true;
+}
+
+function verifyCaptcha() {
+    const userInput = document.getElementById('captchaInput').value.trim().toUpperCase();
+    const errorEl = document.getElementById('captchaError');
+
+    if (userInput === currentCaptcha) {
+        isCaptchaVerified = true;
+        errorEl.textContent = 'Captcha Verified Successfully!';
+        errorEl.style.color = '#166534';
+        document.getElementById('step2Circle').classList.add('active-green');
+        
+        if (isFormValid) {
+            document.getElementById('submitBtn').disabled = false;
+        }
+    } else {
+        isCaptchaVerified = false;
+        errorEl.textContent = 'Incorrect Captcha. Try again.';
+        errorEl.style.color = '#dc2626';
+        document.getElementById('step2Circle').classList.remove('active-green');
+        document.getElementById('submitBtn').disabled = true;
+    }
+}
+
 function onlyNumbers(input) {
     input.value = input.value.replace(/\D/g, '');
+}
+
+function checkFormProgress() {
+    const fullName = document.getElementById('fullName').value.trim();
+    const fatherName = document.getElementById('fatherName').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const nic = document.getElementById('nic').value.trim();
+    const mobile = document.getElementById('mobile').value.trim();
+
+    const step1Circle = document.getElementById('step1Circle');
+
+    if (fullName && fatherName && address && nic.length === 13 && mobile.length === 12) {
+        isFormValid = true;
+        step1Circle.classList.add('active-green');
+    } else {
+        isFormValid = false;
+        step1Circle.classList.remove('active-green');
+        document.getElementById('submitBtn').disabled = true;
+    }
 }
 
 function showStatus(message, type) {
@@ -420,28 +567,17 @@ function showStatus(message, type) {
     setTimeout(() => { status.className = 'status'; }, 5000);
 }
 
-function validateForm(data) {
-    let valid = true;
-    const nicError = document.getElementById('nicError');
-    const mobileError = document.getElementById('mobileError');
-
-    nicError.style.display = 'none';
-    mobileError.style.display = 'none';
-
-    if (data.nic.length !== 13) {
-        nicError.style.display = 'block';
-        valid = false;
-    }
-    if (data.mobile.length !== 12) {
-        mobileError.style.display = 'block';
-        valid = false;
-    }
-    return valid;
-}
-
 function handleFormSubmit(event) {
     event.preventDefault();
+    
+    if (!isFormValid || !isCaptchaVerified) {
+        showStatus('Please complete the form and verify captcha.', 'error-status');
+        return;
+    }
+
     const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving & Generating...';
 
     const formData = {
         fullName: document.getElementById('fullName').value.trim(),
@@ -458,17 +594,10 @@ function handleFormSubmit(event) {
         mobile: document.getElementById('mobile').value.trim()
     };
 
-    if (!validateForm(formData)) {
-        showStatus('Please correct the highlighted fields.', 'error-status');
-        return;
-    }
+    // Step 3 Green (Save Sheet)
+    document.getElementById('step3Circle').classList.add('active-green');
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Generating PDF...';
-
-    generatePDF(formData);
-    showStatus('PDF Form downloaded successfully!', 'success');
-
+    // Send data to google sheet
     fetch(scriptURL, {
         method: 'POST',
         mode: 'no-cors',
@@ -478,15 +607,18 @@ function handleFormSubmit(event) {
         console.error('Sheet sync error:', error);
     });
 
+    // Generate PDF & Step 4 Green (Download)
     setTimeout(() => {
-        submitBtn.disabled = false;
+        generatePDF(formData);
+        document.getElementById('step4Circle').classList.add('active-green');
+        showStatus('Data saved and PDF downloaded successfully!', 'success');
         submitBtn.textContent = 'Download PDF Form';
-    }, 1500);
+        submitBtn.disabled = false;
+    }, 1000);
 }
 
 function generatePDF(data) {
     const { jsPDF } = window.jspdf;
-    // A4 se thoda chota custom format (width: 190mm, height: 270mm)
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [190, 270] });
 
     const pageWidth = 190;
@@ -497,7 +629,6 @@ function generatePDF(data) {
 
     let y = 10;
 
-    // Exact Title format matching reference image
     doc.setFont('arial', 'bold');
     doc.setFontSize(13);
     doc.setTextColor(0, 0, 0);
@@ -567,7 +698,6 @@ function generatePDF(data) {
         y += rowHeight;
     });
 
-    // Document Attached Section matching reference image
     y += 5;
     doc.setFont('arial', 'bold');
     doc.setFontSize(10);
@@ -590,9 +720,7 @@ function generatePDF(data) {
         doc.setFont('arial', 'bold');
         doc.setFontSize(6.8);
         doc.text(docName, left + 2, y + 3.6);
-
         doc.rect(left + docNameWidth, y, docBoxWidth, docRowHeight);
-
         y += docRowHeight;
     });
 
