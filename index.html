@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Domicile Submission Form Generator</title>
+    <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; }
@@ -19,7 +20,7 @@
 <body>
 
 <div class="container">
-    <h2>Domicile Submission Form</h2>
+    <h2>Domicile Form Web Input</h2>
     <form id="domicileForm" onsubmit="handleFormSubmit(event)">
         <div class="form-group"><label>Full Name:</label><input type="text" id="fullName" value="MAHNOOR TABSSUM" required></div>
         <div class="form-group"><label>Father / Husband Name:</label><input type="text" id="fatherName" value="MUHAMMAD AKRAM MUGHAL" required></div>
@@ -34,7 +35,7 @@
         <div class="form-group"><label>Marital Status:</label><input type="text" id="maritalStatus" value="NO"></div>
         <div class="form-group"><label>Mobile Number (12 Digits):</label><input type="text" id="mobile" value="034546661991"></div>
         
-        <button type="submit">Save to Google Sheet & Download PDF</button>
+        <button type="submit">Save to Google Sheet & Download Exact PDF Form</button>
     </form>
 </div>
 
@@ -57,7 +58,7 @@ async function handleFormSubmit(event) {
         mobile: document.getElementById('mobile').value
     };
 
-    // Yahan apna Google Apps Script ka Web App URL paste karein
+    // Apna Google Apps Script URL yahan dalein
     const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
     
     try {
@@ -78,16 +79,17 @@ function generatePDF(data) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Title
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(14);
-    doc.text("DOMICILE SUBMISSION FORM:", 15, 15);
+    doc.setFontSize(13);
+    doc.text("DOMICILE SUBMISSION FORM:", 14, 12);
 
-    doc.setFontSize(9);
-    let y = 22;
-    const rowHeight = 7.5;
-    const col1 = 15;
-    const col2 = 70;
-    const pageWidth = 195;
+    doc.setFontSize(8.5);
+    let y = 16;
+    const rowHeight = 6.2;
+    const col1 = 14;
+    const col2 = 68;
+    const pageWidth = 196;
 
     const fields = [
         ["Full Name:", data.fullName],
@@ -98,7 +100,7 @@ function generatePDF(data) {
         ["Date of Arrival:", data.dateOfArrival],
         ["Occupation:", data.occupation],
         ["Date of Birth:", data.dob],
-        ["Mark of Identification:", data.identification],
+        ["Mark of Identifcation:", data.identification],
         ["NIC Holder:", ""],
         ["NIC Number:", "SPECIAL_NIC"],
         ["Marital Status:", data.maritalStatus],
@@ -108,10 +110,9 @@ function generatePDF(data) {
     ];
 
     fields.forEach(field => {
-        doc.rect(col1, y, 55, rowHeight);
-        
+        doc.rect(col1, y, 54, rowHeight);
         doc.setFont("helvetica", "bold");
-        doc.text(field[0], col1 + 2, y + 4.8);
+        doc.text(field[0], col1 + 2, y + 4.2);
         
         if (field[1] === "SPECIAL_NIC") {
             doc.rect(col2, y, pageWidth - col2, rowHeight);
@@ -121,7 +122,7 @@ function generatePDF(data) {
                 doc.rect(col2 + (i * boxWidth), y, boxWidth, rowHeight);
                 if (nicDigits[i]) {
                     doc.setFont("helvetica", "normal");
-                    doc.text(nicDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.5, y + 4.8);
+                    doc.text(nicDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.2, y + 4.2);
                 }
             }
         } else if (field[1] === "SPECIAL_MOBILE") {
@@ -132,37 +133,38 @@ function generatePDF(data) {
                 doc.rect(col2 + (i * boxWidth), y, boxWidth, rowHeight);
                 if (mobDigits[i]) {
                     doc.setFont("helvetica", "normal");
-                    doc.text(mobDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.5, y + 4.8);
+                    doc.text(mobDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.2, y + 4.2);
                 }
             }
         } else {
             doc.rect(col2, y, pageWidth - col2, rowHeight);
             doc.setFont("helvetica", "normal");
-            doc.text(field[1] || "", col2 + 2, y + 4.8);
+            doc.text(field[1] || "", col2 + 2, y + 4.2);
         }
         
         y += rowHeight;
     });
 
-    // Document Attached Section
-    y += 4;
+    // --- DOCUMENT ATTACHED SECTION (Screenshot ki tarah bilkul exact) ---
+    y += 3;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.text("DOCUMENT ATTACHED:", col1, y);
-    y += 5;
+    y += 4.5;
 
-    doc.setFontSize(9);
+    doc.setFontSize(8.5);
     const docsList = [
-        "CNIC", "Father CNIC", "Husband CNIC", "Birth Certificate", "Bank Receipt",
-        "Photographs", "Property Documents", "Utility Bill", "Resident Certificate",
-        "School Certificate", "Voter List", "Dully Filled P1 Form", "Domicile Affidavit", "Form-B"
+        "CNIC:", "Father CNIC:", "Husband CNIC:", "Birth Certifcate:", "Bank Receipt:",
+        "Photographs:", "Property Documents:", "Utility Bill:", "Resident Certifcate:",
+        "School Certifcate:", "Voter List:", "Dully Filled P1 Form:", "Domicile Affidavit:", "Form-B:"
     ];
 
     docsList.forEach(docName => {
-        doc.rect(col1, y, 90, 5.5);
-        doc.rect(col1 + 90, y, 90, 5.5);
-        doc.text(docName, col1 + 2, y + 3.8);
-        y += 5.5;
+        doc.rect(col1, y, 91, 5.2);
+        doc.rect(col1 + 91, y, 91, 5.2);
+        doc.setFont("helvetica", "bold");
+        doc.text(docName, col1 + 2, y + 3.6);
+        y += 5.2;
     });
 
     doc.save("Domicile_Submission_Form.pdf");
