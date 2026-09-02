@@ -654,13 +654,14 @@ function generatePDF(data) {
         ['Mobile Number:', 'SPECIAL_MOBILE']
     ];
 
-    fields.forEach(field => {
+  fields.forEach(field => {
         doc.setDrawColor(180, 180, 180);
         doc.setFillColor(255, 255, 255);
         
         doc.rect(left, y, labelWidth, rowHeight);
-        // Left Side Label: Arial Regular (normal font)
-        doc.setFont('arial', 'normal');
+        
+        // 👇 Yahan 'helvetica' likhein kyunki jsPDF mein 'helvetica' hi Arial ka standard sans-serif font hota hai
+        doc.setFont('helvetica', 'normal'); 
         doc.setFontSize(7.5);
         doc.setTextColor(20, 20, 20);
         doc.text(field[0], left + 2, y + 4.2);
@@ -674,7 +675,7 @@ function generatePDF(data) {
                 const x = valueX + i * boxWidth;
                 doc.rect(x, y, boxWidth, rowHeight);
                 if (data.nic[i]) {
-                    // Online Data Field: Times New Roman Bold
+                    // Andar wala data Times New Roman Bold
                     doc.setFont('times', 'bold');
                     doc.setFontSize(8.5);
                     doc.text(data.nic[i], x + boxWidth / 2, y + 4.3, { align: 'center' });
@@ -686,14 +687,14 @@ function generatePDF(data) {
                 const x = valueX + i * boxWidth;
                 doc.rect(x, y, boxWidth, rowHeight);
                 if (data.mobile[i]) {
-                    // Online Data Field: Times New Roman Bold
+                    // Andar wala data Times New Roman Bold
                     doc.setFont('times', 'bold');
                     doc.setFontSize(8.5);
                     doc.text(data.mobile[i], x + boxWidth / 2, y + 4.3, { align: 'center' });
                 }
             }
         } else {
-            // Online Data Field: Times New Roman Bold
+            // Andar wala data Times New Roman Bold
             doc.setFont('times', 'bold');
             doc.setFontSize(8.5);
             doc.text(field[1] || '', valueX + 2, y + 4.3, { maxWidth: valueWidth - 4 });
