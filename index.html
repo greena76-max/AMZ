@@ -1,1531 +1,631 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Dastak - Domicile Submission Portal</title>
-
-    <!-- jsPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f8f9fa;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #1f2937;
-        }
-
-        .portal-wrapper {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-        }
-
-        /* ================= FORM SIDE ================= */
-
-        .form-side {
-            flex: 1.2;
-            padding: 40px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .brand-header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .brand-logo {
-            font-size: 25px;
-            font-weight: 800;
-            color: #1b4d3e;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-logo span {
-            color: #d4af37;
-        }
-
-        .form-header-center {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .form-title {
-            font-size: 23px;
-            font-weight: 700;
-            color: #111827;
-            margin-bottom: 7px;
-        }
-
-        .form-subtitle {
-            font-size: 13px;
-            color: #6b7280;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .full {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #374151;
-        }
-
-        input,
-        select {
-            width: 100%;
-            height: 43px;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 0 12px;
-            font-size: 13px;
-            outline: none;
-            background: #f9fafb;
-            transition: all 0.2s ease;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #1b4d3e;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(27, 77, 62, 0.10);
-        }
-
-        input::placeholder {
-            color: #9ca3af;
-        }
-
-        .error {
-            color: #dc2626;
-            font-size: 11px;
-            margin-top: 4px;
-            display: none;
-        }
-
-        .actions {
-            margin-top: 25px;
-            grid-column: 1 / -1;
-        }
-
-        button {
-            width: 100%;
-            height: 49px;
-            border: none;
-            border-radius: 8px;
-            background: #1b4d3e;
-            color: #ffffff;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        button:hover {
-            background: #14382d;
-            box-shadow: 0 4px 12px rgba(27, 77, 62, 0.25);
-        }
-
-        button:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        .status {
-            display: none;
-            margin-top: 12px;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .status.success {
-            display: block;
-            background: #dcfce7;
-            color: #166534;
-        }
-
-        .status.error-status {
-            display: block;
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        /* ================= RIGHT BANNER ================= */
-
-        .banner-side {
-            flex: 1;
-            background: linear-gradient(
-                135deg,
-                #fdfbf7 0%,
-                #f4eee1 100%
-            );
-
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            border-left: 1px solid #f0eae1;
-        }
-
-        .gov-logo-container {
-            width: 88px;
-            height: 88px;
-            background: #ffffff;
-            border-radius: 50%;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-
-            margin-bottom: 18px;
-
-            border: 2px solid #1b4d3e;
-        }
-
-        .gov-logo-container svg {
-            width: 52px;
-            height: 52px;
-            fill: #1b4d3e;
-        }
-
-        .banner-title {
-            font-size: 21px;
-            font-weight: 700;
-            color: #1b4d3e;
-            margin-bottom: 9px;
-        }
-
-        .banner-desc {
-            font-size: 12.5px;
-            color: #4b5563;
-            line-height: 1.55;
-            margin-bottom: 27px;
-            max-width: 360px;
-        }
-
-        /* ================= STEPS ================= */
-
-        .steps-container {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            margin-bottom: 27px;
-        }
-
-        .step-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            font-size: 11px;
-            color: #4b5563;
-            font-weight: 700;
-
-            max-width: 70px;
-        }
-
-        .step-circle {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-
-            background: #ffffff;
-            border: 2px solid #1b4d3e;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            font-weight: 700;
-            color: #1b4d3e;
-
-            margin-bottom: 6px;
-
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-        }
-
-        /* ================= FEATURE ================= */
-
-        .feature-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 360px;
-
-            padding: 18px;
-
-            border-radius: 12px;
-
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-
-            border-left: 4px solid #1b4d3e;
-
-            text-align: left;
-        }
-
-        .feature-card h4 {
-            font-size: 13.5px;
-            color: #1b4d3e;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .feature-card p {
-            font-size: 12px;
-            color: #6b7280;
-            line-height: 1.45;
-        }
-
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 900px) {
-
-            body {
-                padding: 10px;
-                align-items: flex-start;
-            }
-
-            .portal-wrapper {
-                flex-direction: column;
-            }
-
-            .banner-side {
-                display: none;
-            }
-
-            .form-side {
-                padding: 25px 20px;
-                max-height: none;
-            }
-        }
-
-        @media (max-width: 600px) {
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .full {
-                grid-column: auto;
-            }
-
-            .form-title {
-                font-size: 20px;
-            }
-
-            .form-side {
-                padding: 22px 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dastak - Domicile Submission Portal</title>
+<!-- jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #1f2937;
+}
+
+.portal-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+/* Left Side: Form Section */
+.form-side {
+    flex: 1.2;
+    padding: 40px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.brand-header {
+    display: flex;
+    justify-content: center; /* Center aligned logo */
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.brand-logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1b4d3e;
+    letter-spacing: -0.5px;
+}
+
+.brand-logo span {
+    color: #d4af37;
+}
+
+.form-header-center {
+    text-align: center; /* Center aligned titles */
+    margin-bottom: 25px;
+}
+
+.form-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #111;
+    margin-bottom: 6px;
+}
+
+.form-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #374151;
+}
+
+input, select {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    outline: none;
+    background: #f9fafb;
+    transition: all 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #1b4d3e;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(27,77,62,0.1);
+}
+
+.error {
+    color: #dc2626;
+    font-size: 11px;
+    margin-top: 3px;
+    display: none;
+}
+
+.actions {
+    margin-top: 25px;
+    grid-column: 1 / -1;
+}
+
+button {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: #1b4d3e;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: #14382d;
+    box-shadow: 0 4px 12px rgba(27,77,62,0.25);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.status {
+    display: none;
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+.status.success { display: block; background: #dcfce7; color: #166534; }
+.status.error-status { display: block; background: #fee2e2; color: #991b1b; }
+
+/* Right Side: Dastak Visual Banner with Updated Icon */
+.banner-side {
+    flex: 1;
+    background: linear-gradient(135deg, #fdfbf7 0%, #f4eee1 100%);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-left: 1px solid #f0eae1;
+}
+
+.gov-logo-container {
+    width: 85px;
+    height: 85px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 15px;
+    border: 2px solid #1b4d3e;
+}
+
+.gov-logo-container svg {
+    width: 50px;
+    height: 50px;
+    fill: #1b4d3e;
+}
+
+.banner-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1b4d3e;
+    margin-bottom: 8px;
+}
+
+.banner-desc {
+    font-size: 12.5px;
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    max-width: 360px;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.step-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+    color: #4b5563;
+    font-weight: bold;
+    max-width: 70px;
+}
+
+.step-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #1b4d3e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #1b4d3e;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.feature-card {
+    background: #fff;
+    width: 100%;
+    max-width: 360px;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+    border-left: 4px solid #1b4d3e;
+    text-align: left;
+}
+
+.feature-card h4 {
+    font-size: 13.5px;
+    color: #1b4d3e;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.feature-card p {
+    font-size: 12px;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+    .portal-wrapper { flex-direction: column; }
+    .banner-side { display: none; }
+    .form-side { padding: 20px; max-height: none; }
+}
+</style>
 </head>
-
 <body>
 
 <div class="portal-wrapper">
 
-    <!-- ================= LEFT FORM ================= -->
-
+    <!-- Left Form Section -->
     <div class="form-side">
-
         <div class="brand-header">
-            <div class="brand-logo">
-                Das<span>tak</span>
-            </div>
+            <div class="brand-logo">Das<span>tak</span></div>
         </div>
 
         <div class="form-header-center">
-
-            <div class="form-title">
-                Domicile Form Submission
-            </div>
-
-            <div class="form-subtitle">
-                Fill in the applicant details to save and download the official form.
-            </div>
-
+            <div class="form-title">Domicile Form Submission</div>
+            <div class="form-subtitle">Fill in the applicant details to save and download the official form.</div>
         </div>
 
         <form id="domicileForm" onsubmit="handleFormSubmit(event)">
-
             <div class="form-grid">
-
-                <!-- Full Name -->
                 <div class="form-group">
-
-                    <label for="fullName">
-                        Full Name *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="fullName"
-                        placeholder="Enter full name"
-                        required
-                    >
-
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" placeholder="Enter full name" required>
                 </div>
 
-
-                <!-- Father Name -->
                 <div class="form-group">
-
-                    <label for="fatherName">
-                        Father / Husband Name *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="fatherName"
-                        placeholder="Enter father / husband name"
-                        required
-                    >
-
+                    <label for="fatherName">Father / Husband Name *</label>
+                    <input type="text" id="fatherName" placeholder="Enter father name" required>
                 </div>
 
-
-                <!-- Address -->
                 <div class="form-group full">
-
-                    <label for="address">
-                        Address *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="address"
-                        placeholder="Enter complete address"
-                        required
-                    >
-
+                    <label for="address">Address *</label>
+                    <input type="text" id="address" placeholder="Enter complete address" required>
                 </div>
 
-
-                <!-- Place -->
                 <div class="form-group">
-
-                    <label for="place">
-                        Place
-                    </label>
-
-                    <input
-                        type="text"
-                        id="place"
-                        placeholder="Enter place"
-                    >
-
+                    <label for="place">Place</label>
+                    <input type="text" id="place" placeholder="Enter place">
                 </div>
 
-
-                <!-- Tehsil -->
                 <div class="form-group">
-
-                    <label for="tehsil">
-                        Tehsil
-                    </label>
-
-                    <input
-                        type="text"
-                        id="tehsil"
-                        placeholder="Enter tehsil"
-                    >
-
+                    <label for="tehsil">Tehsil</label>
+                    <input type="text" id="tehsil" placeholder="Enter tehsil">
                 </div>
 
-
-                <!-- Date Arrival -->
                 <div class="form-group">
-
-                    <label for="dateOfArrival">
-                        Date of Arrival
-                    </label>
-
-                    <input
-                        type="text"
-                        id="dateOfArrival"
-                        placeholder="DD-MM-YYYY"
-                    >
-
+                    <label for="dateOfArrival">Date of Arrival</label>
+                    <input type="text" id="dateOfArrival" placeholder="DD-MM-YYYY">
                 </div>
 
-
-                <!-- Occupation -->
                 <div class="form-group">
-
-                    <label for="occupation">
-                        Occupation
-                    </label>
-
-                    <input
-                        type="text"
-                        id="occupation"
-                        placeholder="Enter occupation"
-                    >
-
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" placeholder="Enter occupation">
                 </div>
 
-
-                <!-- DOB -->
                 <div class="form-group">
-
-                    <label for="dob">
-                        Date of Birth
-                    </label>
-
-                    <input
-                        type="text"
-                        id="dob"
-                        placeholder="DD-MM-YYYY"
-                    >
-
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" id="dob" placeholder="DD-MM-YYYY">
                 </div>
 
-
-                <!-- Identification -->
                 <div class="form-group">
-
-                    <label for="identification">
-                        Mark of Identification
-                    </label>
-
-                    <input
-                        type="text"
-                        id="identification"
-                        placeholder="Enter identification mark"
-                    >
-
+                    <label for="identification">Mark of Identification</label>
+                    <input type="text" id="identification" placeholder="Enter identification">
                 </div>
 
-
-                <!-- Marital Status -->
                 <div class="form-group">
-
-                    <label for="maritalStatus">
-                        Marital Status
-                    </label>
-
+                    <label for="maritalStatus">Marital Status</label>
                     <select id="maritalStatus">
-
-                        <option value="">
-                            Select status
-                        </option>
-
-                        <option value="Single">
-                            Single
-                        </option>
-
-                        <option value="Married">
-                            Married
-                        </option>
-
-                        <option value="Widowed">
-                            Widowed
-                        </option>
-
-                        <option value="Divorced">
-                            Divorced
-                        </option>
-
+                        <option value="">Select status</option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Widowed">Widowed</option>
+                        <option value="Divorced">Divorced</option>
                     </select>
-
                 </div>
 
-
-                <!-- CNIC -->
                 <div class="form-group">
-
-                    <label for="nic">
-                        NIC Number (Without Dashes) *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="nic"
-                        maxlength="13"
-                        inputmode="numeric"
-                        placeholder="13 digit CNIC"
-                        required
-                        oninput="onlyNumbers(this)"
-                    >
-
-                    <div
-                        class="error"
-                        id="nicError"
-                    >
-                        CNIC must be exactly 13 digits.
-                    </div>
-
+                    <label for="nic">NIC Number *</label>
+                    <input type="text" id="nic" maxlength="13" inputmode="numeric" placeholder="13 digit CNIC" required oninput="onlyNumbers(this)">
+                    <div class="error" id="nicError">CNIC must be 13 digits.</div>
                 </div>
 
-
-                <!-- Mobile -->
                 <div class="form-group">
-
-                    <label for="mobile">
-                        Mobile Number *
-                    </label>
-
-                    <input
-                        type="text"
-                        id="mobile"
-                        maxlength="12"
-                        inputmode="numeric"
-                        placeholder="12 digit mobile number"
-                        required
-                        oninput="onlyNumbers(this)"
-                    >
-
-                    <div
-                        class="error"
-                        id="mobileError"
-                    >
-                        Mobile number must be exactly 12 digits.
-                    </div>
-
+                    <label for="mobile">Mobile Number *</label>
+                    <input type="text" id="mobile" maxlength="12" inputmode="numeric" placeholder="12 digit mobile" required oninput="onlyNumbers(this)">
+                    <div class="error" id="mobileError">Mobile must be 12 digits.</div>
                 </div>
 
-
-                <!-- Submit -->
                 <div class="actions">
-
-                    <button
-                        type="submit"
-                        id="submitBtn"
-                    >
-                        Save to Google Sheet & Download A4 PDF
-                    </button>
-
-                    <div
-                        class="status"
-                        id="status"
-                    ></div>
-
+                    <button type="submit" id="submitBtn">Save to Google Sheet & Download A4 PDF</button>
+                    <div class="status" id="status"></div>
                 </div>
-
             </div>
-
         </form>
-
     </div>
 
-
-    <!-- ================= RIGHT SIDE ================= -->
-
+    <!-- Right Banner Section with Updated User Profile SVG Icon -->
     <div class="banner-side">
-
         <div class="gov-logo-container">
-
-            <svg
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-
             </svg>
-
         </div>
 
-
-        <div class="banner-title">
-            New to Dastak - One Window Services
-        </div>
-
-
-        <div class="banner-desc">
-
-            Submit your government applications digitally
-            with secure record keeping and instant
-            document generation.
-
-        </div>
-
-
-        <!-- Steps -->
-
+        <div class="banner-title">New to Dastak - One Window Services</div>
+        <div class="banner-desc">Submit your government applications digitally with secure record keeping and instant document generation.</div>
+        
         <div class="steps-container">
-
             <div class="step-item">
-
-                <div class="step-circle">
-                    1
-                </div>
-
+                <div class="step-circle">1</div>
                 Fill Form
-
             </div>
-
-
             <div class="step-item">
-
-                <div class="step-circle">
-                    2
-                </div>
-
+                <div class="step-circle">2</div>
                 Verify
-
             </div>
-
-
             <div class="step-item">
-
-                <div class="step-circle">
-                    3
-                </div>
-
+                <div class="step-circle">3</div>
                 Save Sheet
-
             </div>
-
-
             <div class="step-item">
-
-                <div class="step-circle">
-                    4
-                </div>
-
+                <div class="step-circle">4</div>
                 Download
-
             </div>
-
         </div>
-
-
-        <!-- Feature -->
 
         <div class="feature-card">
-
-            <h4>
-                Digital Submission Portal
-            </h4>
-
-            <p>
-                Ensure all CNIC and personal details match
-                official records before submitting your
-                application.
-            </p>
-
+            <h4>Official Digital Portal</h4>
+            <p>Ensure all CNIC and personal details match official records before submitting your application to Google Sheets.</p>
         </div>
-
     </div>
 
 </div>
 
-
 <script>
-
-/* =========================================================
-   GOOGLE APPS SCRIPT
-========================================================= */
-
-const scriptURL =
-"https://script.google.com/macros/s/AKfycbx4Ep9aGvx0Dcbw3GEpQ0QSaJ7ooLkBAkDPPDD2RqbkFKZc64jq_qTFd65hll24udBN2A/exec";
-
-
-/* =========================================================
-   ONLY NUMBERS
-========================================================= */
+const scriptURL = 'https://script.google.com/macros/s/AKfycbx4Ep9aGvx0Dcbw3GEpQ0QSaJ7ooLkBAkDPPDD2RqbkFKZc64jq_qTFd65hll24udBN2A/exec';
 
 function onlyNumbers(input) {
-
-    input.value = input.value.replace(/\D/g, "");
-
+    input.value = input.value.replace(/\D/g, '');
 }
-
-
-/* =========================================================
-   STATUS MESSAGE
-========================================================= */
 
 function showStatus(message, type) {
-
-    const status =
-        document.getElementById("status");
-
+    const status = document.getElementById('status');
     status.textContent = message;
-
-    status.className =
-        "status " + type;
-
+    status.className = 'status ' + type;
+    setTimeout(() => { status.className = 'status'; }, 5000);
 }
-
-
-/* =========================================================
-   VALIDATION
-========================================================= */
 
 function validateForm(data) {
-
     let valid = true;
+    const nicError = document.getElementById('nicError');
+    const mobileError = document.getElementById('mobileError');
 
-    const nicError =
-        document.getElementById("nicError");
-
-    const mobileError =
-        document.getElementById("mobileError");
-
-
-    nicError.style.display = "none";
-
-    mobileError.style.display = "none";
-
-
-    /* CNIC */
+    nicError.style.display = 'none';
+    mobileError.style.display = 'none';
 
     if (data.nic.length !== 13) {
-
-        nicError.style.display = "block";
-
+        nicError.style.display = 'block';
         valid = false;
-
     }
-
-
-    /* Mobile */
-
     if (data.mobile.length !== 12) {
-
-        mobileError.style.display = "block";
-
+        mobileError.style.display = 'block';
         valid = false;
-
     }
-
-
     return valid;
-
 }
-
-
-/* =========================================================
-   FORM SUBMIT
-========================================================= */
 
 async function handleFormSubmit(event) {
-
     event.preventDefault();
-
-
-    const submitBtn =
-        document.getElementById("submitBtn");
-
-
-    /* Collect Data */
+    const submitBtn = document.getElementById('submitBtn');
 
     const formData = {
-
-        fullName:
-            document.getElementById("fullName").value.trim(),
-
-        fatherName:
-            document.getElementById("fatherName").value.trim(),
-
-        address:
-            document.getElementById("address").value.trim(),
-
-        place:
-            document.getElementById("place").value.trim(),
-
-        tehsil:
-            document.getElementById("tehsil").value.trim(),
-
-        dateOfArrival:
-            document.getElementById("dateOfArrival").value.trim(),
-
-        occupation:
-            document.getElementById("occupation").value.trim(),
-
-        dob:
-            document.getElementById("dob").value.trim(),
-
-        identification:
-            document.getElementById("identification").value.trim(),
-
-        nic:
-            document.getElementById("nic").value.trim(),
-
-        maritalStatus:
-            document.getElementById("maritalStatus").value.trim(),
-
-        mobile:
-            document.getElementById("mobile").value.trim()
-
+        fullName: document.getElementById('fullName').value.trim(),
+        fatherName: document.getElementById('fatherName').value.trim(),
+        address: document.getElementById('address').value.trim(),
+        place: document.getElementById('place').value.trim(),
+        tehsil: document.getElementById('tehsil').value.trim(),
+        dateOfArrival: document.getElementById('dateOfArrival').value.trim(),
+        occupation: document.getElementById('occupation').value.trim(),
+        dob: document.getElementById('dob').value.trim(),
+        identification: document.getElementById('identification').value.trim(),
+        nic: document.getElementById('nic').value.trim(),
+        maritalStatus: document.getElementById('maritalStatus').value.trim(),
+        mobile: document.getElementById('mobile').value.trim()
     };
 
-
-    /* Validate */
-
     if (!validateForm(formData)) {
-
-        showStatus(
-            "Please correct the highlighted fields.",
-            "error-status"
-        );
-
+        showStatus('Please correct the highlighted fields.', 'error-status');
         return;
-
     }
-
-
-    /* Loading */
 
     submitBtn.disabled = true;
-
-    submitBtn.textContent =
-        "Processing...";
-
+    submitBtn.textContent = 'Processing...';
 
     try {
-
-        /* Save to Google Sheet */
-
         await fetch(scriptURL, {
-
-            method: "POST",
-
-            mode: "no-cors",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
-
         });
 
-
-        /* Generate PDF */
-
         generatePDF(formData);
-
-
-        showStatus(
-            "Form generated successfully. PDF download started.",
-            "success"
-        );
-
-
+        showStatus('Form generated successfully. PDF download started.', 'success');
     } catch (error) {
-
-        console.error(
-            "Google Sheet Error:",
-            error
-        );
-
-
-        /*
-         * Even if Google Sheet connection
-         * has a problem, generate the PDF.
-         */
-
+        console.error(error);
+        showStatus('PDF generated, but connection failed.', 'error-status');
         generatePDF(formData);
-
-
-        showStatus(
-            "PDF generated. Please check Google Sheet connection.",
-            "error-status"
-        );
-
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Save to Google Sheet & Download A4 PDF';
     }
-
-
-    /* Reset Button */
-
-    submitBtn.disabled = false;
-
-    submitBtn.textContent =
-        "Save to Google Sheet & Download A4 PDF";
-
 }
 
-
-/* =========================================================
-   PDF GENERATOR
-========================================================= */
-
 function generatePDF(data) {
-
     const { jsPDF } = window.jspdf;
-
-
-    const doc = new jsPDF({
-
-        orientation: "portrait",
-
-        unit: "mm",
-
-        format: "a4"
-
-    });
-
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
     const pageWidth = 210;
-
     const pageHeight = 297;
-
     const left = 12;
-
     const right = 12;
-
-    const contentWidth =
-        pageWidth - left - right;
-
+    const contentWidth = pageWidth - left - right;
     const labelWidth = 53;
-
-    const valueX =
-        left + labelWidth;
-
+    const valueX = left + labelWidth;
 
     let y = 12;
 
-
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
-    doc.setFillColor(
-        27,
-        77,
-        62
-    );
-
-    doc.rect(
-        0,
-        0,
-        pageWidth,
-        20,
-        "F"
-    );
-
-
-    doc.setTextColor(
-        255,
-        255,
-        255
-    );
-
-
-    doc.setFont(
-        "helvetica",
-        "bold"
-    );
-
+    // PDF Header
+    doc.setFillColor(27, 77, 62);
+    doc.rect(0, 0, pageWidth, 20, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
     doc.setFontSize(14);
-
-
-    doc.text(
-        "DOMICILE SUBMISSION FORM",
-        pageWidth / 2,
-        9,
-        {
-            align: "center"
-        }
-    );
-
-
-    doc.setFont(
-        "helvetica",
-        "normal"
-    );
-
+    doc.text('DOMICILE SUBMISSION FORM', pageWidth / 2, 9, { align: 'center' });
     doc.setFontSize(7.5);
-
-
-    doc.text(
-        "Dastak Portal - Applicant Information",
-        pageWidth / 2,
-        14,
-        {
-            align: "center"
-        }
-    );
-
-
-    doc.setTextColor(
-        0,
-        0,
-        0
-    );
-
+    doc.setFont('helvetica', 'normal');
+    doc.text('Dastak Portal - Applicant Information', pageWidth / 2, 14, { align: 'center' });
+    doc.setTextColor(0, 0, 0);
 
     y = 25;
-
-
-    /* =====================================================
-       FIELDS
-    ===================================================== */
-
     const rowHeight = 6.5;
 
-
     const fields = [
-
-        ["Full Name:", data.fullName],
-
-        ["Father / Husband Name:", data.fatherName],
-
-        ["Address:", data.address],
-
-        ["Place:", data.place],
-
-        ["Tehsil:", data.tehsil],
-
-        ["Date of Arrival:", data.dateOfArrival],
-
-        ["Occupation:", data.occupation],
-
-        ["Date of Birth:", data.dob],
-
-        ["Mark of Identification:", data.identification],
-
-        ["NIC Holder:", ""],
-
-        ["NIC Number:", "SPECIAL_NIC"],
-
-        ["Marital Status:", data.maritalStatus],
-
-        ["Spouse Name:", ""],
-
-        ["Remarks:", ""],
-
-        ["Mobile Number:", "SPECIAL_MOBILE"]
-
+        ['Full Name:', data.fullName],
+        ['Father / Husband Name:', data.fatherName],
+        ['Address:', data.address],
+        ['Place:', data.place],
+        ['Tehsil:', data.tehsil],
+        ['Date of Arrival:', data.dateOfArrival],
+        ['Occupation:', data.occupation],
+        ['Date of Birth:', data.dob],
+        ['Mark of Identification:', data.identification],
+        ['NIC Holder:', ''],
+        ['NIC Number:', 'SPECIAL_NIC'],
+        ['Marital Status:', data.maritalStatus],
+        ['Spouse Name:', ''],
+        ['Remarks:', ''],
+        ['Mobile Number:', 'SPECIAL_MOBILE']
     ];
-
 
     fields.forEach(field => {
-
-        /* Label */
-
-        doc.setDrawColor(
-            100,
-            100,
-            100
-        );
-
-
-        doc.rect(
-            left,
-            y,
-            labelWidth,
-            rowHeight
-        );
-
-
-        doc.setFont(
-            "helvetica",
-            "bold"
-        );
-
+        doc.setDrawColor(100, 100, 100);
+        doc.rect(left, y, labelWidth, rowHeight);
+        doc.setFont('helvetica', 'bold');
         doc.setFontSize(7.5);
+        doc.text(field[0], left + 2, y + 4.3);
 
+        const valueWidth = contentWidth - labelWidth;
+        doc.rect(valueX, y, valueWidth, rowHeight);
 
-        doc.text(
-            field[0],
-            left + 2,
-            y + 4.3
-        );
-
-
-        /* Value */
-
-        const valueWidth =
-            contentWidth - labelWidth;
-
-
-        doc.rect(
-            valueX,
-            y,
-            valueWidth,
-            rowHeight
-        );
-
-
-        /* CNIC */
-
-        if (field[1] === "SPECIAL_NIC") {
-
-            const boxWidth =
-                valueWidth / 13;
-
-
+        if (field[1] === 'SPECIAL_NIC') {
+            const boxWidth = valueWidth / 13;
             for (let i = 0; i < 13; i++) {
-
-                const x =
-                    valueX + i * boxWidth;
-
-
-                doc.rect(
-                    x,
-                    y,
-                    boxWidth,
-                    rowHeight
-                );
-
-
+                const x = valueX + i * boxWidth;
+                doc.rect(x, y, boxWidth, rowHeight);
                 if (data.nic[i]) {
-
-                    doc.setFont(
-                        "helvetica",
-                        "normal"
-                    );
-
+                    doc.setFont('helvetica', 'normal');
                     doc.setFontSize(8);
-
-
-                    doc.text(
-                        data.nic[i],
-                        x + boxWidth / 2,
-                        y + 4.4,
-                        {
-                            align: "center"
-                        }
-                    );
-
+                    doc.text(data.nic[i], x + boxWidth / 2, y + 4.4, { align: 'center' });
                 }
-
             }
-
-        }
-
-
-        /* Mobile */
-
-        else if (
-            field[1] === "SPECIAL_MOBILE"
-        ) {
-
-            const boxWidth =
-                valueWidth / 12;
-
-
+        } else if (field[1] === 'SPECIAL_MOBILE') {
+            const boxWidth = valueWidth / 12;
             for (let i = 0; i < 12; i++) {
-
-                const x =
-                    valueX + i * boxWidth;
-
-
-                doc.rect(
-                    x,
-                    y,
-                    boxWidth,
-                    rowHeight
-                );
-
-
+                const x = valueX + i * boxWidth;
+                doc.rect(x, y, boxWidth, rowHeight);
                 if (data.mobile[i]) {
-
-                    doc.setFont(
-                        "helvetica",
-                        "normal"
-                    );
-
+                    doc.setFont('helvetica', 'normal');
                     doc.setFontSize(8);
-
-
-                    doc.text(
-                        data.mobile[i],
-                        x + boxWidth / 2,
-                        y + 4.4,
-                        {
-                            align: "center"
-                        }
-                    );
-
+                    doc.text(data.mobile[i], x + boxWidth / 2, y + 4.4, { align: 'center' });
                 }
-
             }
-
-        }
-
-
-        /* Normal field */
-
-        else {
-
-            doc.setFont(
-                "helvetica",
-                "normal"
-            );
-
+        } else {
+            doc.setFont('helvetica', 'normal');
             doc.setFontSize(7.8);
-
-
-            doc.text(
-                field[1] || "",
-                valueX + 2,
-                y + 4.3,
-                {
-                    maxWidth:
-                        valueWidth - 4
-                }
-            );
-
+            doc.text(field[1] || '', valueX + 2, y + 4.3, { maxWidth: valueWidth - 4 });
         }
-
-
         y += rowHeight;
-
     });
 
-
-    /* =====================================================
-       DOCUMENT ATTACHED
-    ===================================================== */
-
+    // Document Attached Section
     y += 5;
-
-
-    doc.setFont(
-        "helvetica",
-        "bold"
-    );
-
+    doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-
-
-    doc.text(
-        "DOCUMENT ATTACHED:",
-        left,
-        y
-    );
-
-
+    doc.text('DOCUMENT ATTACHED:', left, y);
     y += 4;
 
-
     const docsList = [
-
-        "CNIC:",
-        "Father CNIC:",
-        "Husband CNIC:",
-        "Birth Certificate:",
-        "Bank Receipt:",
-        "Photographs:",
-        "Property Documents:",
-        "Utility Bill:",
-        "Resident Certificate:",
-        "School Certificate:",
-        "Voter List:",
-        "Duly Filled P1 Form:",
-        "Domicile Affidavit:",
-        "Form-B:"
-
+        'CNIC:', 'Father CNIC:', 'Husband CNIC:', 'Birth Certificate:', 'Bank Receipt:',
+        'Photographs:', 'Property Documents:', 'Utility Bill:', 'Resident Certificate:',
+        'School Certificate:', 'Voter List:', 'Duly Filled P1 Form:', 'Domicile Affidavit:', 'Form-B:'
     ];
 
-
     const docNameWidth = 70;
-
     const checkWidth = 20;
-
     const docRowHeight = 5.5;
 
-
     docsList.forEach(docName => {
-
-        /* Document name */
-
-        doc.rect(
-            left,
-            y,
-            docNameWidth,
-            docRowHeight
-        );
-
-
-        doc.setFont(
-            "helvetica",
-            "bold"
-        );
-
+        doc.rect(left, y, docNameWidth, docRowHeight);
+        doc.setFont('helvetica', 'bold');
         doc.setFontSize(7);
+        doc.text(docName, left + 2, y + 3.7);
 
-
-        doc.text(
-            docName,
-            left + 2,
-            y + 3.7
-        );
-
-
-        /* YES */
-
-        doc.rect(
-            left + docNameWidth,
-            y,
-            checkWidth,
-            docRowHeight
-        );
-
-
-        doc.setFont(
-            "helvetica",
-            "normal"
-        );
-
+        doc.rect(left + docNameWidth, y, checkWidth, docRowHeight);
+        doc.setFont('helvetica', 'normal');
         doc.setFontSize(6.5);
+        doc.text('YES', left + docNameWidth + 10, y + 3.7, { align: 'center' });
 
-
-        doc.text(
-            "YES",
-            left + docNameWidth + 10,
-            y + 3.7,
-            {
-                align: "center"
-            }
-        );
-
-
-        /* NO */
-
-        doc.rect(
-            left + docNameWidth + checkWidth,
-            y,
-            checkWidth,
-            docRowHeight
-        );
-
-
-        doc.text(
-            "NO",
-            left + docNameWidth + checkWidth + 10,
-            y + 3.7,
-            {
-                align: "center"
-            }
-        );
-
+        doc.rect(left + docNameWidth + checkWidth, y, checkWidth, docRowHeight);
+        doc.text('NO', left + docNameWidth + checkWidth + 10, y + 3.7, { align: 'center' });
 
         y += docRowHeight;
-
     });
 
-
-    /* =====================================================
-       SIGNATURE
-    ===================================================== */
-
+    // Signatures & Footer
     y += 8;
-
-
-    doc.setFont(
-        "helvetica",
-        "bold"
-    );
-
+    doc.setFont('helvetica', 'bold');
     doc.setFontSize(8);
-
-
-    doc.text(
-        "Applicant Signature: ______________________________",
-        left,
-        y
-    );
-
-
-    doc.text(
-        "Date: ________________",
-        145,
-        y
-    );
-
+    doc.text('Applicant Signature: __________________________', left, y);
+    doc.text('Date: ________________', 135, y);
 
     y += 9;
+    doc.text('Office Use Only: ________________________________________________', left, y);
 
-
-    doc.text(
-        "Office Use Only: ________________________________________________",
-        left,
-        y
-    );
-
-
-    /* =====================================================
-       FOOTER
-    ===================================================== */
-
-    doc.setFont(
-        "helvetica",
-        "normal"
-    );
-
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Dastak Domicile Submission Portal', pageWidth / 2, pageHeight - 8, { align: 'center' });
 
-    doc.setTextColor(
-        100,
-        100,
-        100
-    );
-
-
-    doc.text(
-        "Dastak Domicile Submission Portal",
-        pageWidth / 2,
-        pageHeight - 8,
-        {
-            align: "center"
-        }
-    );
-
-
-    /* =====================================================
-       FILE NAME
-    ===================================================== */
-
-    const safeName =
-        data.fullName
-            .replace(/[^a-z0-9]/gi, "_")
-            .substring(0, 30)
-        || "Applicant";
-
-
-    doc.save(
-        `Domicile_${safeName}.pdf`
-    );
-
+    const safeName = data.fullName.replace(/[^a-z0-9]/gi, '_').substring(0, 30) || 'Applicant';
+    doc.save(`Domicile_${safeName}.pdf`);
 }
-
 </script>
 
 </body>
 </html>
-```
