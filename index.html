@@ -654,44 +654,6 @@ function generatePDF(data) {
         ['Mobile Number:', 'SPECIAL_MOBILE']
     ];
 
-  function generatePDF(data) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [190, 270] });
-
-    const pageWidth = 190;
-    const left = 10;
-    const contentWidth = pageWidth - 20;
-    const labelWidth = 50;
-    const valueX = left + labelWidth;
-
-    let y = 10;
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(13);
-    doc.setTextColor(0, 0, 0);
-    doc.text('DOMICILE SUBMISSION FORM:', left, y);
-    
-    y += 6;
-    const rowHeight = 6.2;
-
-    const fields = [
-        ['Full Name:', data.fullName],
-        ['Father / Husband Name:', data.fatherName],
-        ['Address:', data.address],
-        ['Place:', data.place],
-        ['Tehsil:', data.tehsil],
-        ['Date of Arrival:', data.dateOfArrival],
-        ['Occupation:', data.occupation],
-        ['Date of Birth:', data.dob],
-        ['Mark of Identification:', data.identification],
-        ['NIC Holder:', ''],
-        ['NIC Number:', 'SPECIAL_NIC'],
-        ['Marital Status:', data.maritalStatus],
-        ['Spouse Name:', ''],
-        ['Remarks:', ''],
-        ['Mobile Number:', 'SPECIAL_MOBILE']
-    ];
-
     fields.forEach(field => {
         doc.setDrawColor(80, 80, 80);
         doc.setLineWidth(0.4);
@@ -742,7 +704,7 @@ function generatePDF(data) {
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
     doc.text('DOCUMENT ATTACHED:', left, y);
-    y += 5; // Space upar thori barha di heading ke baad
+    y += 5;
 
     const docsList = [
         'CNIC:', 'Father CNIC:', 'Husband CNIC:', 'Birth Certificate:', 'Bank Receipt:',
@@ -752,7 +714,7 @@ function generatePDF(data) {
 
     const docNameWidth = 70;
     const docBoxWidth = 30;
-    const docRowHeight = 6.0; // Yahan height aapke wale form jaisi barha di hai
+    const docRowHeight = 6.0;
 
     docsList.forEach(docName => {
         doc.setDrawColor(80, 80, 80);
@@ -761,7 +723,7 @@ function generatePDF(data) {
         doc.rect(left, y, docNameWidth, docRowHeight);
         
         doc.setFont('helvetica', 'normal');
-        doc.setFontSize(7.2); // Font size bhi thora adjust kar diya
+        doc.setFontSize(7.2);
         doc.text(docName, left + 2, y + 4.0);
         
         doc.rect(left + docNameWidth, y, docBoxWidth, docRowHeight);
