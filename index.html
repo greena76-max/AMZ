@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Domicile Submission Form Generator</title>
+    <title>Domicile Submission Form Generator (A4)</title>
     <!-- jsPDF Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
@@ -22,20 +22,20 @@
 <div class="container">
     <h2>Domicile Form Web Input</h2>
     <form id="domicileForm" onsubmit="handleFormSubmit(event)">
-        <div class="form-group"><label>Full Name:</label><input type="text" id="fullName" value="MAHNOOR TABSSUM" required></div>
-        <div class="form-group"><label>Father / Husband Name:</label><input type="text" id="fatherName" value="MUHAMMAD AKRAM MUGHAL" required></div>
-        <div class="form-group"><label>Address:</label><input type="text" id="address" value="PO KHAS JHULANA , TEHSIL , DISTRICT MANDI BAHAUDDIN" required></div>
-        <div class="form-group"><label>Place:</label><input type="text" id="place" value="MANDI BAHAUDDIN"></div>
-        <div class="form-group"><label>Tehsil:</label><input type="text" id="tehsil" value="MANDI BAHAUDDIN"></div>
+        <div class="form-group"><label>Full Name:</label><input type="text" id="fullName" value=" " required></div>
+        <div class="form-group"><label>Father / Husband Name:</label><input type="text" id="fatherName" value=" " required></div>
+        <div class="form-group"><label>Address:</label><input type="text" id="address" value=" " required></div>
+        <div class="form-group"><label>Place:</label><input type="text" id="place" value=" "></div>
+        <div class="form-group"><label>Tehsil:</label><input type="text" id="tehsil" value=" "></div>
         <div class="form-group"><label>Date of Arrival:</label><input type="text" id="dateOfArrival" value=""></div>
-        <div class="form-group"><label>Occupation:</label><input type="text" id="occupation" value="STUDENT"></div>
-        <div class="form-group"><label>Date of Birth:</label><input type="text" id="dob" value="14-11-2007"></div>
-        <div class="form-group"><label>Mark of Identification:</label><input type="text" id="identification" value="NIL"></div>
-        <div class="form-group"><label>NIC Number (13 Digits):</label><input type="text" id="nic" value="3440264488748"></div>
-        <div class="form-group"><label>Marital Status:</label><input type="text" id="maritalStatus" value="NO"></div>
-        <div class="form-group"><label>Mobile Number (12 Digits):</label><input type="text" id="mobile" value="034546661991"></div>
+        <div class="form-group"><label>Occupation:</label><input type="text" id="occupation" value=" T"></div>
+        <div class="form-group"><label>Date of Birth:</label><input type="text" id="dob" value=" "></div>
+        <div class="form-group"><label>Mark of Identification:</label><input type="text" id="identification" value=" "></div>
+        <div class="form-group"><label>NIC Number (13 Digits):</label><input type="text" id="nic" value=" "></div>
+        <div class="form-group"><label>Marital Status:</label><input type="text" id="maritalStatus" value=" "></div>
+        <div class="form-group"><label>Mobile Number (12 Digits):</label><input type="text" id="mobile" value=" "></div>
         
-        <button type="submit">Save to Google Sheet & Download Exact PDF Form</button>
+        <button type="submit">Save to Google Sheet & Download A4 PDF Form</button>
     </form>
 </div>
 
@@ -58,7 +58,7 @@ async function handleFormSubmit(event) {
         mobile: document.getElementById('mobile').value
     };
 
-    // Aapka Google Apps Script URL pehle se laga hua hai
+    // Google Apps Script URL
     const scriptURL = 'https://script.google.com/macros/s/AKfycbx4Ep9aGvx0Dcbw3GEpQ0QSaJ7ooLkBAkDPPDD2RqbkFKZc64jq_qTFd65hll24udBN2A/exec';
     
     try {
@@ -77,19 +77,27 @@ async function handleFormSubmit(event) {
 
 function generatePDF(data) {
     const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    
+    // Explicitly A4 Size set kiya gaya hai ('a4', portrait)
+    const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+    });
+
+    // A4 width is 210mm. Margins left/right 12mm rakhne se printable width 186mm ho jati hai.
+    const leftMargin = 12;
+    const pageWidth = 186; 
+    const col2 = 65; // Label aur input ke darmiyan ki line
 
     // Title
     doc.setFont("helvetica", "bold");
     doc.setFontSize(13);
-    doc.text("DOMICILE SUBMISSION FORM:", 14, 12);
+    doc.text("DOMICILE SUBMISSION FORM:", leftMargin, 12);
 
     doc.setFontSize(8.5);
     let y = 16;
-    const rowHeight = 6.2;
-    const col1 = 14;
-    const col2 = 68;
-    const pageWidth = 196;
+    const rowHeight = 6.0;
 
     const fields = [
         ["Full Name:", data.fullName],
@@ -110,46 +118,48 @@ function generatePDF(data) {
     ];
 
     fields.forEach(field => {
-        doc.rect(col1, y, 54, rowHeight);
+        doc.rect(leftMargin, y, 53, rowHeight);
         doc.setFont("helvetica", "bold");
-        doc.text(field[0], col1 + 2, y + 4.2);
+        doc.text(field[0], leftMargin + 2, y + 4.1);
         
         if (field[1] === "SPECIAL_NIC") {
-            doc.rect(col2, y, pageWidth - col2, rowHeight);
+            doc.rect(col2, y, (leftMargin + pageWidth) - col2, rowHeight);
             let nicDigits = data.nic.split('');
-            let boxWidth = (pageWidth - col2) / 13;
+            let totalWidth = (leftMargin + pageWidth) - col2;
+            let boxWidth = totalWidth / 13;
             for (let i = 0; i < 13; i++) {
                 doc.rect(col2 + (i * boxWidth), y, boxWidth, rowHeight);
                 if (nicDigits[i]) {
                     doc.setFont("helvetica", "normal");
-                    doc.text(nicDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.2, y + 4.2);
+                    doc.text(nicDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.2, y + 4.1);
                 }
             }
         } else if (field[1] === "SPECIAL_MOBILE") {
-            doc.rect(col2, y, pageWidth - col2, rowHeight);
+            doc.rect(col2, y, (leftMargin + pageWidth) - col2, rowHeight);
             let mobDigits = data.mobile.split('');
-            let boxWidth = (pageWidth - col2) / 12;
+            let totalWidth = (leftMargin + pageWidth) - col2;
+            let boxWidth = totalWidth / 12;
             for (let i = 0; i < 12; i++) {
                 doc.rect(col2 + (i * boxWidth), y, boxWidth, rowHeight);
                 if (mobDigits[i]) {
                     doc.setFont("helvetica", "normal");
-                    doc.text(mobDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.2, y + 4.2);
+                    doc.text(mobDigits[i], col2 + (i * boxWidth) + (boxWidth / 2) - 1.2, y + 4.1);
                 }
             }
         } else {
-            doc.rect(col2, y, pageWidth - col2, rowHeight);
+            doc.rect(col2, y, (leftMargin + pageWidth) - col2, rowHeight);
             doc.setFont("helvetica", "normal");
-            doc.text(field[1] || "", col2 + 2, y + 4.2);
+            doc.text(field[1] || "", col2 + 2, y + 4.1);
         }
         
         y += rowHeight;
     });
 
-    // --- DOCUMENT ATTACHED SECTION (Half Width jaisa aapki image mein hai) ---
+    // --- DOCUMENT ATTACHED SECTION (A4 Proportioned) ---
     y += 4;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
-    doc.text("DOCUMENT ATTACHED:", col1, y);
+    doc.text("DOCUMENT ATTACHED:", leftMargin, y);
     y += 4.5;
 
     doc.setFontSize(8.5);
@@ -160,14 +170,15 @@ function generatePDF(data) {
     ];
 
     docsList.forEach(docName => {
-        doc.rect(col1, y, 65, 5.0);       // Left column (Document Name) width 65
-        doc.rect(col1 + 65, y, 35, 5.0);  // Right column (Check box) width 35
+        doc.rect(leftMargin, y, 60, 4.8);       // Left column width
+        doc.rect(leftMargin + 60, y, 35, 4.8);  // Right check box width
         doc.setFont("helvetica", "bold");
-        doc.text(docName, col1 + 2, y + 3.5);
-        y += 5.0;
+        doc.text(docName, leftMargin + 2, y + 3.4);
+        y += 4.8;
     });
 
-    doc.save("Domicile_Submission_Form.pdf");
+    // Save as A4 PDF
+    doc.save("Domicile_Submission_Form_A4.pdf");
 }
 </script>
 
