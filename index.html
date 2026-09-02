@@ -305,7 +305,6 @@ button:disabled {
     transition: all 0.3s ease;
 }
 
-/* Dynamic Green Classes for Steps */
 .step-circle.active-green {
     background: #22c55e !important;
     border-color: #16a34a !important;
@@ -660,7 +659,8 @@ function generatePDF(data) {
         doc.setFillColor(255, 255, 255);
         
         doc.rect(left, y, labelWidth, rowHeight);
-        doc.setFont('arial', 'bold');
+        // Left Side Label: Arial Regular (normal font)
+        doc.setFont('arial', 'normal');
         doc.setFontSize(7.5);
         doc.setTextColor(20, 20, 20);
         doc.text(field[0], left + 2, y + 4.2);
@@ -674,9 +674,10 @@ function generatePDF(data) {
                 const x = valueX + i * boxWidth;
                 doc.rect(x, y, boxWidth, rowHeight);
                 if (data.nic[i]) {
-                    doc.setFont('arial', 'normal');
-                    doc.setFontSize(8);
-                    doc.text(data.nic[i], x + boxWidth / 2, y + 4.2, { align: 'center' });
+                    // Online Data Field: Times New Roman Bold
+                    doc.setFont('times', 'bold');
+                    doc.setFontSize(8.5);
+                    doc.text(data.nic[i], x + boxWidth / 2, y + 4.3, { align: 'center' });
                 }
             }
         } else if (field[1] === 'SPECIAL_MOBILE') {
@@ -685,21 +686,24 @@ function generatePDF(data) {
                 const x = valueX + i * boxWidth;
                 doc.rect(x, y, boxWidth, rowHeight);
                 if (data.mobile[i]) {
-                    doc.setFont('arial', 'normal');
-                    doc.setFontSize(8);
-                    doc.text(data.mobile[i], x + boxWidth / 2, y + 4.2, { align: 'center' });
+                    // Online Data Field: Times New Roman Bold
+                    doc.setFont('times', 'bold');
+                    doc.setFontSize(8.5);
+                    doc.text(data.mobile[i], x + boxWidth / 2, y + 4.3, { align: 'center' });
                 }
             }
         } else {
-            doc.setFont('arial', 'normal');
-            doc.setFontSize(7.8);
-            doc.text(field[1] || '', valueX + 2, y + 4.2, { maxWidth: valueWidth - 4 });
+            // Online Data Field: Times New Roman Bold
+            doc.setFont('times', 'bold');
+            doc.setFontSize(8.5);
+            doc.text(field[1] || '', valueX + 2, y + 4.3, { maxWidth: valueWidth - 4 });
         }
         y += rowHeight;
     });
 
     y += 5;
-    doc.setFont('arial', 'bold');
+    // Document Attached Title: Arial Regular
+    doc.setFont('arial', 'normal');
     doc.setFontSize(10);
     doc.text('DOCUMENT ATTACHED:', left, y);
     y += 4;
@@ -717,7 +721,7 @@ function generatePDF(data) {
     docsList.forEach(docName => {
         doc.setDrawColor(180, 180, 180);
         doc.rect(left, y, docNameWidth, docRowHeight);
-        doc.setFont('arial', 'bold');
+        doc.setFont('arial', 'normal');
         doc.setFontSize(6.8);
         doc.text(docName, left + 2, y + 3.6);
         doc.rect(left + docNameWidth, y, docBoxWidth, docRowHeight);
