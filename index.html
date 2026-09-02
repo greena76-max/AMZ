@@ -486,27 +486,22 @@ function handleFormSubmit(event) {
 
 function generatePDF(data) {
     const { jsPDF } = window.jspdf;
-    // A4 se thoda chota custom format (width: 195mm, height: 275mm)
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [195, 275] });
+    // A4 se thoda chota custom format (width: 190mm, height: 270mm)
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: [190, 270] });
 
-    const pageWidth = 195;
-    const pageHeight = 275;
+    const pageWidth = 190;
     const left = 10;
-    const right = 10;
-    const contentWidth = pageWidth - left - right;
-    const labelWidth = 52;
+    const contentWidth = pageWidth - 20;
+    const labelWidth = 50;
     const valueX = left + labelWidth;
 
     let y = 10;
 
-    // Simple Plain Title (No Green Banner)
+    // Exact Title format matching reference image
     doc.setFont('arial', 'bold');
     doc.setFontSize(13);
-    doc.text('DOMICILE SUBMISSION FORM', pageWidth / 2, y, { align: 'center' });
-    y += 5;
-    doc.setFont('arial', 'normal');
-    doc.setFontSize(7.5);
-    doc.text('Dastak Portal - Applicant Information', pageWidth / 2, y, { align: 'center' });
+    doc.setTextColor(0, 0, 0);
+    doc.text('DOMICILE SUBMISSION FORM:', left, y);
     
     y += 6;
     const rowHeight = 6.2;
@@ -530,18 +525,17 @@ function generatePDF(data) {
     ];
 
     fields.forEach(field => {
-        // Halka border color (light gray)
         doc.setDrawColor(180, 180, 180);
         doc.setFillColor(255, 255, 255);
         
-        doc.rect(left, y, labelWidth, rowHeight, 'FD');
+        doc.rect(left, y, labelWidth, rowHeight);
         doc.setFont('arial', 'bold');
         doc.setFontSize(7.5);
-        doc.setTextColor(30, 30, 30);
+        doc.setTextColor(20, 20, 20);
         doc.text(field[0], left + 2, y + 4.2);
 
         const valueWidth = contentWidth - labelWidth;
-        doc.rect(valueX, y, valueWidth, rowHeight, 'FD');
+        doc.rect(valueX, y, valueWidth, rowHeight);
 
         if (field[1] === 'SPECIAL_NIC') {
             const boxWidth = valueWidth / 13;
@@ -573,12 +567,12 @@ function generatePDF(data) {
         y += rowHeight;
     });
 
-    // Document Attached Section
-    y += 4;
+    // Document Attached Section matching reference image
+    y += 5;
     doc.setFont('arial', 'bold');
-    doc.setFontSize(9);
+    doc.setFontSize(10);
     doc.text('DOCUMENT ATTACHED:', left, y);
-    y += 3.5;
+    y += 4;
 
     const docsList = [
         'CNIC:', 'Father CNIC:', 'Husband CNIC:', 'Birth Certificate:', 'Bank Receipt:',
@@ -586,37 +580,21 @@ function generatePDF(data) {
         'School Certificate:', 'Voter List:', 'Duly Filled P1 Form:', 'Domicile Affidavit:', 'Form-B:'
     ];
 
-    const docNameWidth = 105;
-    const checkWidth = 37;
-    const docRowHeight = 5.0;
+    const docNameWidth = 70;
+    const docBoxWidth = 30;
+    const docRowHeight = 5.2;
 
     docsList.forEach(docName => {
         doc.setDrawColor(180, 180, 180);
         doc.rect(left, y, docNameWidth, docRowHeight);
         doc.setFont('arial', 'bold');
         doc.setFontSize(6.8);
-        doc.text(docName, left + 2, y + 3.4);
+        doc.text(docName, left + 2, y + 3.6);
 
-        doc.rect(left + docNameWidth, y, checkWidth, docRowHeight);
-        doc.setFont('arial', 'normal');
-        doc.setFontSize(6.5);
-        doc.text('YES', left + docNameWidth + (checkWidth / 2), y + 3.4, { align: 'center' });
-
-        doc.rect(left + docNameWidth + checkWidth, y, checkWidth, docRowHeight);
-        doc.text('NO', left + docNameWidth + checkWidth + (checkWidth / 2), y + 3.4, { align: 'center' });
+        doc.rect(left + docNameWidth, y, docBoxWidth, docRowHeight);
 
         y += docRowHeight;
     });
-
-    // Signatures section
-    y += 6;
-    doc.setFont('arial', 'bold');
-    doc.setFontSize(7.5);
-    doc.text('Applicant Signature: __________________________', left, y);
-    doc.text('Date: ________________', 125, y);
-
-    y += 6;
-    doc.text('Office Use Only: ____________________________________________________', left, y);
 
     const safeName = data.fullName.replace(/[^a-z0-9]/gi, '_').substring(0, 30) || 'Applicant';
     doc.save(`Domicile_${safeName}.pdf`);
