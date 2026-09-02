@@ -58,8 +58,8 @@ async function handleFormSubmit(event) {
         mobile: document.getElementById('mobile').value
     };
 
-    // Apna Google Apps Script URL yahan dalein
-    const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+    // Aapka Google Apps Script URL yahan laga diya gaya hai
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbx4Ep9aGvx0Dcbw3GEpQ0QSaJ7ooLkBAkDPPDD2RqbkFKZc64jq_qTFd65hll24udBN2A/exec';
     
     try {
         fetch(scriptURL, {
@@ -145,7 +145,7 @@ function generatePDF(data) {
         y += rowHeight;
     });
 
-    // --- DOCUMENT ATTACHED SECTION (Screenshot ki tarah bilkul exact) ---
+    // --- DOCUMENT ATTACHED SECTION ---
     y += 3;
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
