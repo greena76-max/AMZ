@@ -700,10 +700,10 @@ function generatePDF(data) {
         y += rowHeight;
     });
 
-    // Space before Document Attached section to keep it clean and controlled
+    // Space before Document Attached section
     y += 4;
     
-    // Title 2: Document Attached (Placed nicely below)
+    // Title 2: Document Attached
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
@@ -717,7 +717,7 @@ function generatePDF(data) {
     ];
 
     const docNameWidth = 60;
-    const docBoxWidth = 30;
+    const docBoxWidth = contentWidth - docNameWidth; // 110mm full width alignment
     const docRowHeight = 5.2;
 
     docsList.forEach(docName => {
