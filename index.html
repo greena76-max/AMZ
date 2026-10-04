@@ -141,7 +141,7 @@
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 15px;
         }
         .card {
@@ -151,6 +151,10 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
             transition: transform 0.2s, box-shadow 0.2s;
             padding: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .card:hover {
             transform: translateY(-3px);
@@ -165,49 +169,238 @@
             color: #777;
             font-size: 12px;
             border-radius: 4px;
+            overflow: hidden;
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         .card-body {
             padding: 10px 5px;
         }
         .card-body h4 {
             font-size: 14px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #333;
-            font-weight: 500;
+            font-weight: 600;
+        }
+        .price-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 6px;
         }
         .card-price {
             color: #ff5722;
             font-size: 16px;
             font-weight: bold;
-            margin-bottom: 10px;
         }
-        .btn-order {
-            display: block;
+        .card-old-price {
+            color: #999;
+            font-size: 13px;
+            text-decoration: line-through;
+        }
+
+        /* Daraz Style Modal / Panel */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        .modal-content {
+            background: white;
+            width: 800px;
+            max-width: 95%;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-header-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #555;
+            background: #f1f1f1;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .modal-header-close:hover {
             background: #ff5722;
             color: white;
-            padding: 8px;
-            border: none;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
         }
-        .btn-order:hover {
+        .modal-body {
+            display: flex;
+            gap: 30px;
+            padding: 30px;
+        }
+        .modal-gallery {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .main-preview {
+            width: 100%;
+            height: 300px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .main-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .thumbnail-row {
+            display: flex;
+            gap: 10px;
+        }
+        .thumb {
+            width: 70px;
+            height: 70px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+            background: #eee;
+        }
+        .thumb.active {
+            border-color: #ff5722;
+        }
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .modal-details {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #222;
+        }
+        .modal-prices {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .modal-current-price {
+            font-size: 24px;
+            color: #ff5722;
+            font-weight: bold;
+        }
+        .modal-old-price {
+            font-size: 16px;
+            color: #888;
+            text-decoration: line-through;
+        }
+        .modal-desc {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .qty-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .qty-btns {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .qty-btns button {
+            background: #f1f1f1;
+            border: none;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .qty-btns button:hover {
+            background: #ddd;
+        }
+        .qty-value {
+            padding: 0 15px;
+            font-weight: bold;
+        }
+        .modal-action-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-cart {
+            flex: 1;
+            background: #ffd814;
+            color: #111;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-cart:hover {
+            background: #f7ca00;
+        }
+        .btn-buy {
+            flex: 1;
+            background: #ff5722;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-buy:hover {
             background: #e64a19;
+        }
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: #777;
+            font-size: 16px;
         }
 
         /* Footer */
-        footer {
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            font-size: 13px;
-        }
+        <footer>
+            <p>&copy; 2026 hystoreofficial.com. All Rights Reserved.</p>
+        </footer>
     </style>
 </head>
 <body>
@@ -255,37 +448,45 @@
             </div>
 
             <h2 class="section-heading">Just For You</h2>
-            <div class="product-grid">
-                <div class="card">
-                    <div class="card-img">Product Image</div>
-                    <div class="card-body">
-                        <h4>Wireless Earbuds Pro</h4>
-                        <div class="card-price">Rs. 1,999</div>
-                        <a href="#" class="btn-order">Order Now</a>
+            <div class="product-grid" id="product-grid">
+                <div class="loading">Loading products from Google Sheets...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Daraz Style Product Detail Modal -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header-close" onclick="closeModal()">&times;</div>
+            <div class="modal-body">
+                <!-- Gallery Section -->
+                <div class="modal-gallery">
+                    <div class="main-preview" id="mainPreview">
+                        <img id="activeImg" src="" alt="Product Preview">
+                    </div>
+                    <div class="thumbnail-row" id="thumbnailRow">
+                        <!-- Thumbnails will be injected here -->
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-img">Product Image</div>
-                    <div class="card-body">
-                        <h4>Smart Fitness Band</h4>
-                        <div class="card-price">Rs. 3,299</div>
-                        <a href="#" class="btn-order">Order Now</a>
+                <!-- Details Section -->
+                <div class="modal-details">
+                    <h2 class="modal-title" id="modalTitle"></h2>
+                    <div class="modal-prices">
+                        <span class="modal-current-price" id="modalPrice"></span>
+                        <span class="modal-old-price" id="modalOldPrice"></span>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-img">Product Image</div>
-                    <div class="card-body">
-                        <h4>RGB Gaming Mouse</h4>
-                        <div class="card-price">Rs. 1,499</div>
-                        <a href="#" class="btn-order">Order Now</a>
+                    <div class="modal-desc" id="modalDesc"></div>
+                    <div class="qty-container">
+                        <span>Quantity:</span>
+                        <div class="qty-btns">
+                            <button onclick="changeQty(-1)">-</button>
+                            <span class="qty-value" id="qtyVal">1</span>
+                            <button onclick="changeQty(1)">+</button>
+                        </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-img">Product Image</div>
-                    <div class="card-body">
-                        <h4>Portable Bluetooth Speaker</h4>
-                        <div class="card-price">Rs. 2,499</div>
-                        <a href="#" class="btn-order">Order Now</a>
+                    <div class="modal-action-btns">
+                        <button class="btn-cart" onclick="addToCart()">Add to Cart</button>
+                        <button class="btn-buy" onclick="buyNow()">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -297,5 +498,115 @@
         <p>&copy; 2026 hystoreofficial.com. All Rights Reserved.</p>
     </footer>
 
+    <!-- JavaScript logic -->
+    <script>
+        const apiURL = "https://script.google.com/macros/s/AKfycbwJVWcaQYf-fHG458v2WnB-DZzBT09Y_p75-UpK35DBrdm1vSr7CDXwb_FSp1FbsKGt8A/exec";
+        let currentProduct = null;
+        let selectedQty = 1;
+
+        async function fetchProducts() {
+            const grid = document.getElementById('product-grid');
+            try {
+                const response = await fetch(apiURL);
+                const products = await response.json();
+
+                if (products.length === 0) {
+                    grid.innerHTML = '<div class="loading">No products found.</div>';
+                    return;
+                }
+
+                grid.innerHTML = ""; 
+
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.onclick = () => openModal(product);
+                    card.innerHTML = `
+                        <div class="card-img">
+                            ${product.img1 ? `<img src="${product.img1}" alt="${product.name}">` : 'No Image'}
+                        </div>
+                        <div class="card-body">
+                            <h4>${product.name}</h4>
+                            <div class="price-box">
+                                <span class="card-price">Rs. ${product.price}</span>
+                                ${product.old ? `<span class="card-old-price">Rs. ${product.old}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                grid.innerHTML = '<div class="loading" style="color: red;">Failed to load products. Check URL.</div>';
+            }
+        }
+
+        function openModal(product) {
+            currentProduct = product;
+            selectedQty = 1;
+            document.getElementById('qtyVal').innerText = selectedQty;
+
+            document.getElementById('modalTitle').innerText = product.name;
+            document.getElementById('modalPrice').innerText = "Rs. " + product.price;
+            document.getElementById('modalOldPrice').innerText = product.old ? "Rs. " + product.old : "";
+            document.getElementById('modalDesc').innerText = product.desc || "No description available for this item.";
+
+            // Setup images (img1, img2, img3)
+            const images = [product.img1, product.img2, product.img3].filter(img => img && img.trim() !== "");
+            
+            if (images.length > 0) {
+                document.getElementById('activeImg').src = images[0];
+            } else {
+                document.getElementById('activeImg').src = "";
+            }
+
+            const thumbRow = document.getElementById('thumbnailRow');
+            thumbRow.innerHTML = "";
+
+            images.forEach((imgUrl, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = `thumb ${index === 0 ? 'active' : ''}`;
+                thumb.innerHTML = `<img src="${imgUrl}" alt="Thumb">`;
+                thumb.onclick = () => {
+                    document.getElementById('activeImg').src = imgUrl;
+                    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                };
+                thumbRow.appendChild(thumb);
+            });
+
+            document.getElementById('productModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        function changeQty(val) {
+            selectedQty += val;
+            if (selectedQty < 1) selectedQty = 1;
+            document.getElementById('qtyVal').innerText = selectedQty;
+        }
+
+        function addToCart() {
+            alert(`Added ${selectedQty} item(s) of "${currentProduct.name}" to cart!`);
+            closeModal();
+        }
+
+        function buyNow() {
+            alert(`Proceeding to checkout for ${selectedQty} x "${currentProduct.name}" (Total: Rs. ${currentProduct.price * selectedQty})`);
+            closeModal();
+        }
+
+        // Close modal when clicking outside content
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        fetchProducts();
+    </script>
 </body>
 </html>
