@@ -35,38 +35,100 @@
             width: 100%;
             max-width: 1350px;
         }
-        /* Styled Text Logo with Orange Bottom Border */
+        
+        /* Styled Text Logo with Silver Text & Full Width Orange Border */
         .logo {
             display: inline-flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
-            margin: 0 auto;
             text-decoration: none;
         }
         .logo-text-box {
-            background: #f85606;
-            padding: 6px 14px;
+            background: #1e1e1e;
+            padding: 8px 16px;
             border-radius: 4px;
-            border-bottom: 3px solid #d44502;
-            display: inline-block;
+            border-bottom: 3.5px solid #f85606; /* Full width bottom border */
+            display: block;
+            width: 100%;
+            text-align: center;
         }
         .logo-text-box span {
-            color: #ffffff;
+            color: #c0c0c0; /* Silver Color Text */
             font-size: 16px;
             font-weight: 800;
-            letter-spacing: 2.5px;
+            letter-spacing: 2px;
             display: block;
-            text-align: center;
             text-transform: uppercase;
+            text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
         }
-        .logo img {
-            display: none;
-            max-width: 180px;
-            max-height: 46px;
-            width: auto;
-            height: 100%;
-            object-fit: contain;
+
+        /* Nav Buttons Group on Right Side */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* Standardized Nav Buttons (Same Size for Track Order & Cart) */
+        .nav-btn-style {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            color: #333 !important;
+            transition: all 0.2s ease;
+            height: 38px;
+            box-sizing: border-box;
+        }
+        .nav-btn-style:hover {
+            border-color: #f85606;
+            color: #f85606 !important;
+            background: #fff5f0;
+        }
+
+        .cart-badge {
+            background: #f85606;
+            color: white;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-weight: bold;
+        }
+
+        .auth-link-btn {
+            background: #f85606;
+            color: #fff !important;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-weight: 700 !important;
+            font-size: 13px !important;
+            height: 38px;
+            display: inline-flex;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+        .auth-link-btn:hover {
+            background: #e04a05;
+        }
+
+        .user-greeting {
+            color: #f85606;
+            font-weight: bold;
+            font-size: 13px;
         }
 
         .search-box {
@@ -91,63 +153,6 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 14px;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        .nav-links a:hover {
-            color: #f85606;
-        }
-        .tracking-nav-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            padding: 9px 13px;
-            border-radius: 9px;
-            color: #fff !important;
-            background: linear-gradient(135deg, #f85606, #ff7a28);
-            box-shadow: 0 4px 12px rgba(248, 86, 6, .2);
-            font-weight: 700 !important;
-            transition: transform .2s ease, box-shadow .2s ease;
-        }
-        .tracking-nav-btn:hover {
-            color: #fff !important;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(248, 86, 6, .28);
-        }
-        .cart-nav-btn {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-weight: 700 !important;
-        }
-        .cart-badge {
-            background: #f85606;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-weight: bold;
-        }
-        .user-greeting {
-            color: #f85606;
-            font-weight: bold;
-            font-size: 13px;
         }
         
         /* Dashboard Container */
@@ -273,8 +278,9 @@
             z-index: 10;
         }
         .dot {
-            width: 10px;
+            width: 100%;
             height: 10px;
+            width: 10px;
             border-radius: 50%;
             background: rgba(255,255,255,0.5);
             cursor: pointer;
@@ -908,7 +914,7 @@
             color: #888;
         }
 
-        /* HY Store Professional Notification Panel */
+        /* Notification Panel */
         #notificationPanel {
             position: fixed;
             top: 130px;
@@ -971,88 +977,42 @@
         @keyframes hyNoticeProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 
         /* Responsive */
-        html { scroll-behavior: smooth; }
-        body { overflow-x: hidden; }
-        img { max-width: 100%; }
-        button, input, select, textarea { font: inherit; }
-        .wrapper { width: 100%; }
-        .main-content { min-width: 0; }
-        .product-grid { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
-        .card { min-width: 0; }
-
-        @media (max-width: 900px) {
-            .header { padding: 10px 16px; }
-            .search-box { width: 100%; max-width: 100%; }
-            .header-top { flex-wrap: wrap; gap: 10px; }
-            .nav-links { gap: 10px; }
-            .wrapper { padding: 0 12px; gap: 12px; }
-            .sidebar { width: 210px; }
-            .promo-slider { height: clamp(190px, 38vw, 300px); }
-            .hero-banner { padding: 22px; }
-            .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-        }
-
         @media (max-width: 600px) {
-            body { background: #f5f6f8; }
-            .header {
-                position: sticky;
-                top: 0;
-                padding: 10px 12px;
-                gap: 8px;
-                box-shadow: 0 3px 14px rgba(20, 30, 45, .09);
-            }
-            .header-top { gap: 6px; }
-            .logo-text-box { padding: 5px 10px; }
-            .logo-text-box span { font-size: 13px; letter-spacing: 1.5px; }
-            .nav-links { gap: 6px; font-size: 11px; }
-            .nav-links a { font-size: 11px; }
-            .tracking-nav-btn { padding: 6px 8px; font-size: 10px !important; }
-            .user-greeting { max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-            .search-box input { padding: 9px 12px; font-size: 13px; border-width: 1px; }
-            .search-box button { padding: 0 14px; font-size: 13px; }
-            .wrapper { display: block; margin: 12px auto; padding: 0 10px; }
-            .sidebar { width: 100%; margin-bottom: 12px; }
-            .main-content { width: 100%; }
-            .category-toggle-btn { width: 100%; padding: 10px 12px; text-align: left; }
-            .promo-slider { height: 190px; border-radius: 12px; margin-bottom: 12px; }
-            .slide-caption { padding: 18px 15px 16px; }
-            .slide-caption h2 { font-size: 18px; line-height: 1.25; }
-            .slide-caption p { font-size: 12px; max-width: 85%; }
-            .hero-banner { padding: 18px; border-radius: 12px; gap: 14px; align-items: flex-start; flex-direction: column; }
-            .hero-banner h1 { font-size: 20px; }
-            .hero-banner p { font-size: 12px; line-height: 1.5; }
-            .flash-timer { width: 100%; padding: 10px 14px; }
-            .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
-            .modal-content, .cart-box { width: calc(100% - 20px); max-width: 500px; max-height: 90vh; overflow-y: auto; border-radius: 14px; }
-            .modal-body { flex-direction: column; }
-            footer { padding: 25px 15px 14px; margin-top: 25px; }
-            .footer-content { grid-template-columns: 1fr 1fr; gap: 20px 14px; }
-            #notificationPanel { top: 145px; left: 10px; right: 10px; width: auto; max-width: none; }
+            .header-top { gap: 8px; flex-direction: column; }
+            .nav-links { width: 100%; justify-content: center; gap: 8px; }
+            .nav-btn-style { padding: 6px 10px; font-size: 11px !important; height: 34px; }
+            .auth-link-btn { font-size: 11px !important; padding: 6px 10px; height: 34px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header with Custom Styled Text Logo -->
+    <!-- Header with Custom Text Logo & Exact Requested Nav Button Sequence -->
     <header class="header">
         <div class="header-top">
-            <div style="display:flex; align-items:center;">
-                <!-- Left spacer -->
-            </div>
-            <!-- Center Custom Text Logo with Orange Box and Bottom Border -->
+            <!-- Left Logo with Silver Text and Full Width Orange Border -->
             <a class="logo" href="#" onclick="location.reload(); return false;">
                 <div class="logo-text-box">
                     <span>H Y &nbsp; S T O R E &nbsp; OFFICIAL</span>
                 </div>
             </a>
+
+            <!-- Right Buttons Order: Track Order -> Cart -> Login/Profile -->
             <div class="nav-links">
-                <span id="userGreeting" class="user-greeting" style="display:none;"></span>
-                <a id="authNavBtn" onclick="openAuthModal('login')">Login / Sign Up</a>
-                <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red;">Logout</a>
-                <a class="tracking-nav-btn" href="#" onclick="openTrackingModal(); return false;">📦 Track Order</a>
-                <a class="cart-nav-btn" href="#" onclick="openCartModal(); return false;">
+                <!-- 1. Track Order Button (Equal size to Cart) -->
+                <a class="nav-btn-style" href="#" onclick="openTrackingModal(); return false;">
+                    📦 Track Order
+                </a>
+
+                <!-- 2. Cart Button -->
+                <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;">
                     🛒 Cart <span class="cart-badge" id="cartBadgeCount">0</span>
                 </a>
+
+                <!-- 3. Login / Profile Button -->
+                <span id="userGreeting" class="user-greeting" style="display:none;"></span>
+                <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">Login / Sign Up</a>
+                <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red; font-weight: bold; font-size: 13px;">Logout</a>
             </div>
         </div>
         <div class="search-box">
@@ -1152,7 +1112,7 @@
                 <h3>Shopping Cart</h3>
             </div>
             <div class="cart-body-items" id="cartItemsContainer">
-                <!-- Dynamically populated cart items with corrected price formatting -->
+                <!-- Cart items populated via JS -->
             </div>
             <div class="cart-footer">
                 <div class="cart-subtotal-row">
@@ -1303,14 +1263,11 @@
         </div>
     </footer>
 
-    <!-- HY Store Professional Notification Panel -->
-    <div id="notificationPanel" aria-live="polite" aria-atomic="false"></div>
+    <div id="notificationPanel"></div>
 
-    <!-- JavaScript logic -->
     <script>
         const apiURL = "https://script.google.com/macros/s/AKfycbz6lNjGfchepV3D0KBFf3xBlThK7svDfK9LCu6gZloA8lJiS1tILVMoRzIuxc-HEZd_9g/exec";
 
-        // Professional Notification
         function showNotification(message, type = "info", title = "") {
             const panel = document.getElementById("notificationPanel");
             if (!panel) return;
@@ -1342,7 +1299,6 @@
             const close = document.createElement("button");
             close.className = "hy-notice-close";
             close.type = "button";
-            close.setAttribute("aria-label", "Close notification");
             close.innerHTML = "&times;";
             const progress = document.createElement("div");
             progress.className = "hy-notice-progress";
@@ -1367,7 +1323,7 @@
         let selectedQty = 1;
         let isSignupMode = false;
         let currentUser = JSON.parse(localStorage.getItem('hy_logged_user')) || null;
-        
+
         function getCartStorageKey() {
             return currentUser ? `hy_cart_${currentUser.email}` : 'hy_cart_guest';
         }
@@ -1400,14 +1356,12 @@
                 greeting.style.display = 'inline';
                 authNavBtn.style.display = 'none';
                 logoutNavBtn.style.display = 'inline';
-                
                 userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
                 updateCartBadge();
             } else {
                 greeting.style.display = 'none';
                 authNavBtn.style.display = 'inline';
                 logoutNavBtn.style.display = 'none';
-                
                 userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
                 updateCartBadge();
             }
@@ -1425,12 +1379,8 @@
                 displayProducts(allProducts);
             } catch (error) {
                 console.error("Error fetching products:", error);
-                showNotification("Products could not be loaded. Please check your internet connection.", "error", "Unable to Load Products");
-                grid.innerHTML = `
-                    <div class="loading-container">
-                        <div class="hy-loader" style="background:#ff3333; box-shadow:0 0 20px rgba(255,51,51,0.5);"><span>!</span></div>
-                        <div class="loading-text" style="color: red;">Failed to load products. Please check connection.</div>
-                    </div>`;
+                showNotification("Products could not be loaded. Please check your internet connection.", "error");
+                grid.innerHTML = `<div class="loading-container"><div class="loading-text" style="color:red;">Failed to load products.</div></div>`;
             }
         }
 
@@ -1554,7 +1504,6 @@
             document.getElementById('qtyVal').innerText = selectedQty;
         }
 
-        /* Cart Logic with Clean Price Layout */
         function addToCart() {
             let existingItem = userCart.find(item => item.name === currentProduct.name);
             if (existingItem) {
@@ -1568,7 +1517,7 @@
                 });
             }
             saveCart();
-            showNotification(`Added "${currentProduct.name}" (${selectedQty}x) to your cart!`, "success", "Added to Cart");
+            showNotification(`Added "${currentProduct.name}" (${selectedQty}x) to cart!`, "success", "Added to Cart");
             closeModal();
         }
 
@@ -1624,9 +1573,7 @@
 
         function updateCartItemQty(index, change) {
             userCart[index].qty += change;
-            if (userCart[index].qty < 1) {
-                userCart[index].qty = 1;
-            }
+            if (userCart[index].qty < 1) userCart[index].qty = 1;
             saveCart();
             renderCartItems();
         }
@@ -1639,7 +1586,6 @@
             showNotification(`Removed "${removedName}" from cart.`, "info", "Item Removed");
         }
 
-        /* Order Tracking Panel Modal */
         function openTrackingModal() {
             document.getElementById('trackingModal').style.display = 'flex';
         }
@@ -1654,7 +1600,7 @@
             const details = document.getElementById('trackOrderDetails');
 
             if (!query) {
-                showNotification("Please enter a Tracking ID or Phone Number.", "warning", "Input Required");
+                showNotification("Please enter Tracking ID or Phone Number.", "warning", "Input Required");
                 return;
             }
 
@@ -1663,7 +1609,6 @@
             resPanel.style.display = 'block';
         }
 
-        /* Auth Modals */
         function openAuthModal(mode) {
             switchAuthMode(mode);
             document.getElementById('authModal').style.display = 'flex';
@@ -1703,26 +1648,25 @@
                 const name = document.getElementById('authName').value.trim();
                 let existingUser = usersDB.find(u => u.email === email);
                 if (existingUser) {
-                    showNotification("An account with this email already exists. Please log in instead.", "warning", "Account Already Exists");
+                    showNotification("An account with this email already exists.", "warning");
                     switchAuthMode('login');
                     return;
                 }
                 const newUser = { name, email, password };
                 usersDB.push(newUser);
                 localStorage.setItem('hy_users_db', JSON.stringify(usersDB));
-                
                 currentUser = newUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
-                showNotification("Your account has been created and you are now logged in.", "success", "Account Created");
+                showNotification("Account created & logged in.", "success");
             } else {
                 let matchedUser = usersDB.find(u => u.email === email && u.password === password);
                 if (!matchedUser) {
-                    showNotification("Invalid email or password. Please check your details or create an account.", "error", "Login Failed");
+                    showNotification("Invalid email or password.", "error");
                     return;
                 }
                 currentUser = matchedUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
-                showNotification("You have successfully logged in to your account.", "success", "Welcome Back!");
+                showNotification("Successfully logged in.", "success");
             }
 
             closeAuthModal();
@@ -1734,47 +1678,41 @@
             localStorage.removeItem('hy_logged_user');
             currentUser = null;
             updateAuthUI();
-            showNotification("You have been logged out successfully.", "info", "Logged Out");
+            showNotification("Logged out successfully.", "info");
         }
 
         let checkoutModeType = 'direct';
 
         function openDirectCheckout() {
             if (!currentUser) {
-                showNotification("Please log in to your account before placing an order.", "warning", "Login Required");
+                showNotification("Please log in before placing an order.", "warning");
                 closeModal();
                 openAuthModal('login');
                 return;
             }
-
             checkoutModeType = 'direct';
             closeModal();
             document.getElementById('checkoutTitle').innerText = "Complete Your Order";
             document.getElementById('checkoutModal').style.display = 'flex';
-            if(currentUser.name) {
-                document.getElementById('custName').value = currentUser.name;
-            }
+            if(currentUser.name) document.getElementById('custName').value = currentUser.name;
         }
 
         function openCartCheckout() {
             if (!currentUser) {
-                showNotification("Please log in to your account before placing an order.", "warning", "Login Required");
+                showNotification("Please log in before placing an order.", "warning");
                 closeCartModal();
                 openAuthModal('login');
                 return;
             }
             if (userCart.length === 0) {
-                showNotification("Your cart is empty!", "warning", "Cart Empty");
+                showNotification("Your cart is empty!", "warning");
                 return;
             }
-
             checkoutModeType = 'cart';
             closeCartModal();
             document.getElementById('checkoutTitle').innerText = "Complete Cart Order (" + userCart.length + " items)";
             document.getElementById('checkoutModal').style.display = 'flex';
-            if(currentUser.name) {
-                document.getElementById('custName').value = currentUser.name;
-            }
+            if(currentUser.name) document.getElementById('custName').value = currentUser.name;
         }
 
         function closeCheckout() {
@@ -1828,12 +1766,12 @@
                     saveCart();
                 }
 
-                showNotification("Your order has been successfully placed. Thank you for choosing HY Store!", "success", "Order Placed Successfully!");
+                showNotification("Your order has been placed successfully!", "success", "Order Confirmed");
                 closeCheckout();
                 document.getElementById('orderForm').reset();
             } catch (error) {
                 console.error("Order error:", error);
-                showNotification("We could not submit your order. Please check your connection and try again.", "error", "Order Submission Failed");
+                showNotification("Order submission failed. Try again.", "error");
             } finally {
                 btn.innerText = "Confirm Order";
                 btn.disabled = false;
