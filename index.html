@@ -140,46 +140,14 @@
             border-color: #f85606;
         }
 
-        .hero-banner {
-            background: linear-gradient(135deg, #f85606 0%, #ff8a50 100%);
-            color: white;
-            padding: 25px 30px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(248, 86, 6, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .hero-banner h1 {
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
-        .hero-banner p {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-        .flash-timer {
-            background: rgba(0,0,0,0.2);
-            padding: 10px 15px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 12px;
-        }
-        .flash-timer span {
-            font-weight: bold;
-            font-size: 15px;
-            display: block;
-        }
-
-        /* Live Promo Slider Styles */
+        /* Live Promo Slider Styles (Height increased) */
         .promo-slider {
             position: relative;
             width: 100%;
-            height: 280px;
+            height: 350px;
             border-radius: 8px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.08);
             background: #222;
         }
@@ -204,22 +172,22 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
             color: #fff;
-            padding: 20px 25px 15px 25px;
+            padding: 25px 30px 20px 30px;
         }
         .slide-caption h2 {
-            font-size: 20px;
-            margin-bottom: 4px;
+            font-size: 24px;
+            margin-bottom: 6px;
         }
         .slide-caption p {
-            font-size: 13px;
+            font-size: 14px;
             color: #ddd;
         }
         .slider-dots {
             position: absolute;
-            bottom: 12px;
-            right: 20px;
+            bottom: 15px;
+            right: 25px;
             display: flex;
             gap: 6px;
             z-index: 10;
@@ -234,8 +202,42 @@
         }
         .dot.active {
             background: #f85606;
-            width: 22px;
+            width: 25px;
             border-radius: 5px;
+        }
+
+        /* Flash Sale Timer Banner (Now Below Slider & Height increased) */
+        .hero-banner {
+            background: linear-gradient(135deg, #f85606 0%, #ff8a50 100%);
+            color: white;
+            padding: 30px 35px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(248, 86, 6, 0.25);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero-banner h1 {
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+        .hero-banner p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        .flash-timer {
+            background: rgba(0,0,0,0.25);
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .flash-timer span {
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            margin-top: 2px;
         }
 
         .section-heading {
@@ -610,19 +612,7 @@
         <div class="main-content">
             <button class="category-toggle-btn" onclick="toggleSidebar()">☰ Categories</button>
 
-            <!-- Flash Sale Timer Banner -->
-            <div class="hero-banner">
-                <div>
-                    <h1>Flash Sale Is Live!</h1>
-                    <p>Grab massive discounts on top-selling gadgets and apparel today.</p>
-                </div>
-                <div class="flash-timer">
-                    Ending In
-                    <span id="countdownTimer">05 : 42 : 19</span>
-                </div>
-            </div>
-
-            <!-- Live Slider Banner (Added below timer & above products) -->
+            <!-- Live Promo Slider Banner (Placed at Top with Increased Height) -->
             <div class="promo-slider">
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
@@ -651,6 +641,18 @@
                     <span class="dot active" onclick="currentSlide(0)"></span>
                     <span class="dot" onclick="currentSlide(1)"></span>
                     <span class="dot" onclick="currentSlide(2)"></span>
+                </div>
+            </div>
+
+            <!-- Flash Sale Timer Banner (Now Below Slider & Height increased) -->
+            <div class="hero-banner">
+                <div>
+                    <h1>Flash Sale Is Live!</h1>
+                    <p>Grab massive discounts on top-selling gadgets and apparel today.</p>
+                </div>
+                <div class="flash-timer">
+                    Ending In
+                    <span id="countdownTimer">05 : 42 : 19</span>
                 </div>
             </div>
 
