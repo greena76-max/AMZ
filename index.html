@@ -35,21 +35,40 @@
             width: 100%;
             max-width: 1350px;
         }
+        /* Styled Text Logo with Orange Bottom Border */
         .logo {
-            display: flex;
+            display: inline-flex;
+            flex-direction: column;
             align-items: center;
-            height: 40px;
             cursor: pointer;
             margin: 0 auto;
+            text-decoration: none;
+        }
+        .logo-text-box {
+            background: #f85606;
+            padding: 6px 14px;
+            border-radius: 4px;
+            border-bottom: 3px solid #d44502;
+            display: inline-block;
+        }
+        .logo-text-box span {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            display: block;
+            text-align: center;
+            text-transform: uppercase;
         }
         .logo img {
-            display: block;
+            display: none;
             max-width: 180px;
             max-height: 46px;
             width: auto;
             height: 100%;
             object-fit: contain;
         }
+
         .search-box {
             display: flex;
             width: 100%;
@@ -678,7 +697,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #f1f1f1;
         }
         .cart-item-info {
@@ -686,28 +705,33 @@
             align-items: center;
             gap: 12px;
             flex: 1;
+            min-width: 0;
         }
         .cart-item-img {
             width: 55px;
             height: 55px;
+            min-width: 55px;
             border-radius: 4px;
             object-fit: contain;
             background: #f9f9f9;
             border: 1px solid #eee;
         }
+        .cart-item-details {
+            flex: 1;
+            min-width: 0;
+        }
         .cart-item-details h5 {
             font-size: 13px;
             color: #333;
-            margin-bottom: 3px;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
+            margin-bottom: 4px;
+            white-space: nowrap;
             overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .cart-item-price {
+        .cart-item-price-calc {
             font-size: 13px;
             color: #f85606;
-            font-weight: bold;
+            font-weight: 600;
         }
         .cart-item-controls {
             display: flex;
@@ -958,7 +982,6 @@
 
         @media (max-width: 900px) {
             .header { padding: 10px 16px; }
-            .logo { height: 38px; }
             .search-box { width: 100%; max-width: 100%; }
             .header-top { flex-wrap: wrap; gap: 10px; }
             .nav-links { gap: 10px; }
@@ -979,8 +1002,8 @@
                 box-shadow: 0 3px 14px rgba(20, 30, 45, .09);
             }
             .header-top { gap: 6px; }
-            .logo { height: 34px; margin: 0 auto; }
-            .logo img { max-width: 145px; max-height: 34px; }
+            .logo-text-box { padding: 5px 10px; }
+            .logo-text-box span { font-size: 13px; letter-spacing: 1.5px; }
             .nav-links { gap: 6px; font-size: 11px; }
             .nav-links a { font-size: 11px; }
             .tracking-nav-btn { padding: 6px 8px; font-size: 10px !important; }
@@ -1010,17 +1033,18 @@
 </head>
 <body>
 
-    <!-- Header with Centered Logo -->
+    <!-- Header with Custom Styled Text Logo -->
     <header class="header">
         <div class="header-top">
             <div style="display:flex; align-items:center;">
-                <!-- Left spacer or back items if needed -->
+                <!-- Left spacer -->
             </div>
-            <!-- Center Logo Image -->
-            <div class="logo" onclick="location.reload()">
-                <img src="logo.png" alt="HY Store Official" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <span style="display:none; font-size:24px; font-weight:bold; color:#f85606;">HY Store</span>
-            </div>
+            <!-- Center Custom Text Logo with Orange Box and Bottom Border -->
+            <a class="logo" href="#" onclick="location.reload(); return false;">
+                <div class="logo-text-box">
+                    <span>H Y &nbsp; S T O R E &nbsp; OFFICIAL</span>
+                </div>
+            </a>
             <div class="nav-links">
                 <span id="userGreeting" class="user-greeting" style="display:none;"></span>
                 <a id="authNavBtn" onclick="openAuthModal('login')">Login / Sign Up</a>
@@ -1128,7 +1152,7 @@
                 <h3>Shopping Cart</h3>
             </div>
             <div class="cart-body-items" id="cartItemsContainer">
-                <!-- Dynamically populated cart items with Qty +/-, Delete option -->
+                <!-- Dynamically populated cart items with corrected price formatting -->
             </div>
             <div class="cart-footer">
                 <div class="cart-subtotal-row">
@@ -1344,7 +1368,6 @@
         let isSignupMode = false;
         let currentUser = JSON.parse(localStorage.getItem('hy_logged_user')) || null;
         
-        // Multi-user & Persistent cart storage mapping by user email (or guest session)
         function getCartStorageKey() {
             return currentUser ? `hy_cart_${currentUser.email}` : 'hy_cart_guest';
         }
@@ -1378,7 +1401,6 @@
                 authNavBtn.style.display = 'none';
                 logoutNavBtn.style.display = 'inline';
                 
-                // Switch cart data to logged-in user's specific cart storage
                 userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
                 updateCartBadge();
             } else {
@@ -1532,7 +1554,7 @@
             document.getElementById('qtyVal').innerText = selectedQty;
         }
 
-        /* Cart Logic: Add, View, Modify Qty, Delete, and Subtotal */
+        /* Cart Logic with Clean Price Layout */
         function addToCart() {
             let existingItem = userCart.find(item => item.name === currentProduct.name);
             if (existingItem) {
@@ -1582,7 +1604,7 @@
                         <img src="${item.img}" class="cart-item-img" alt="Item">
                         <div class="cart-item-details">
                             <h5>${item.name}</h5>
-                            <span class="cart-item-price">Rs. ${item.price} x ${item.qty} = Rs. ${itemTotal}</span>
+                            <div class="cart-item-price-calc">Rs. ${item.price} &times; ${item.qty} = Rs. ${itemTotal}</div>
                         </div>
                     </div>
                     <div class="cart-item-controls">
@@ -1715,7 +1737,7 @@
             showNotification("You have been logged out successfully.", "info", "Logged Out");
         }
 
-        let checkoutModeType = 'direct'; // 'direct' or 'cart'
+        let checkoutModeType = 'direct';
 
         function openDirectCheckout() {
             if (!currentUser) {
@@ -1785,7 +1807,6 @@
                         body: JSON.stringify(orderData)
                     });
                 } else {
-                    // Send order for each cart item or aggregated summary
                     let subtotal = userCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                     let itemsSummary = userCart.map(i => `${i.name} (x${i.qty})`).join(', ');
                     
@@ -1803,7 +1824,6 @@
                         body: JSON.stringify(orderData)
                     });
 
-                    // Clear cart after successful order placement
                     userCart = [];
                     saveCart();
                 }
