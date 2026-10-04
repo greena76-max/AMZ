@@ -145,7 +145,7 @@
             color: white;
             padding: 25px 30px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(248, 86, 6, 0.2);
             display: flex;
             justify-content: space-between;
@@ -170,6 +170,72 @@
             font-weight: bold;
             font-size: 15px;
             display: block;
+        }
+
+        /* Live Promo Slider Styles */
+        .promo-slider {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            background: #222;
+        }
+        .slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #fff;
+            padding: 20px 25px 15px 25px;
+        }
+        .slide-caption h2 {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        .slide-caption p {
+            font-size: 13px;
+            color: #ddd;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            display: flex;
+            gap: 6px;
+            z-index: 10;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background: #f85606;
+            width: 22px;
+            border-radius: 5px;
         }
 
         .section-heading {
@@ -544,6 +610,7 @@
         <div class="main-content">
             <button class="category-toggle-btn" onclick="toggleSidebar()">☰ Categories</button>
 
+            <!-- Flash Sale Timer Banner -->
             <div class="hero-banner">
                 <div>
                     <h1>Flash Sale Is Live!</h1>
@@ -552,6 +619,38 @@
                 <div class="flash-timer">
                     Ending In
                     <span id="countdownTimer">05 : 42 : 19</span>
+                </div>
+            </div>
+
+            <!-- Live Slider Banner (Added below timer & above products) -->
+            <div class="promo-slider">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1200&q=80" alt="Mega Sale">
+                        <div class="slide-caption">
+                            <h2>Mega Seasonal Sale</h2>
+                            <p>Up to 70% Off on Electronics & Gadgets</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&q=80" alt="Smart Wearables">
+                        <div class="slide-caption">
+                            <h2>Smart Wearables Collection</h2>
+                            <p>Track your fitness in style with latest smartwatches</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1200&q=80" alt="Audio Accessories">
+                        <div class="slide-caption">
+                            <h2>Immersive Sound Experience</h2>
+                            <p>Wireless Earbuds & Professional Microphones</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-dots" id="sliderDots">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
                 </div>
             </div>
 
@@ -732,6 +831,32 @@
                 String(m).padStart(2, '0') + " : " + 
                 String(s).padStart(2, '0');
         }, 1000);
+
+        // Auto Slider Logic
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+
+        function showSlide(index) {
+            if (index >= slides.length) slideIndex = 0;
+            if (index < 0) slideIndex = slides.length - 1;
+            
+            document.getElementById('sliderTrack').style.transform = `translateX(-${slideIndex * 100}%)`;
+            
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[slideIndex].classList.add('active');
+        }
+
+        function currentSlide(index) {
+            slideIndex = index;
+            showSlide(slideIndex);
+        }
+
+        // Automatic sliding every 3.5 seconds
+        setInterval(() => {
+            slideIndex++;
+            showSlide(slideIndex);
+        }, 3500);
 
         // Modal Functions
         function openModal(product) {
