@@ -174,7 +174,7 @@
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
             gap: 15px;
         }
         .card {
@@ -189,6 +189,7 @@
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            height: 290px;
         }
         .card:hover {
             transform: translateY(-3px);
@@ -513,8 +514,8 @@
 
     <!-- Main Dashboard Body -->
     <div class="wrapper">
-        <!-- Sidebar Menu -->
-        <div class="sidebar" id="sidebarMenu">
+        <!-- Sidebar Menu (Default Hidden on Load) -->
+        <div class="sidebar hidden" id="sidebarMenu">
             <h3>Categories</h3>
             <ul>
                 <li onclick="filterByCategory('All')">All Products</li>
