@@ -17,7 +17,7 @@
             color: #333;
             overflow-x: hidden;
         }
-        /* Professional Mobile-Friendly Header */
+        /* Header */
         .header {
             background: #ffffff;
             padding: 10px 12px;
@@ -93,7 +93,7 @@
             .search-box input { font-size: 14px; padding: 10px 14px; }
         }
         
-        /* Dashboard Container */
+        /* Layout Container */
         .wrapper {
             max-width: 1300px;
             margin: 10px auto;
@@ -105,7 +105,7 @@
             .wrapper { margin: 15px auto; padding: 0 12px; gap: 15px; }
         }
 
-        /* Sidebar Categories */
+        /* Sidebar */
         .sidebar {
             width: 220px;
             background: white;
@@ -127,7 +127,7 @@
             overflow-y: auto;
         }
         @media(min-width: 992px) {
-            .sidebar { display: block !important; position: static; height: fit-content; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+            .sidebar { display: block !important; position: static; height: fit-content; }
         }
         .sidebar h3 {
             font-size: 14px;
@@ -139,9 +139,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        .sidebar ul {
-            list-style: none;
-        }
+        .sidebar ul { list-style: none; }
         .sidebar ul li {
             padding: 7px 6px;
             font-size: 12px;
@@ -155,7 +153,7 @@
             border-radius: 4px;
         }
 
-        /* Main Content View */
+        /* Main Content */
         .main-content {
             flex: 1;
             min-width: 0;
@@ -173,11 +171,9 @@
             align-items: center;
             gap: 5px;
         }
-        @media(min-width: 992px) {
-            .category-toggle-btn { display: none; }
-        }
+        @media(min-width: 992px) { .category-toggle-btn { display: none; } }
 
-        /* Promo Slider */
+        /* Slider */
         .promo-slider {
             position: relative;
             width: 100%;
@@ -186,7 +182,6 @@
             overflow: hidden;
             margin-bottom: 12px;
             background: #222;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
         }
         @media(min-width: 576px) { .promo-slider { height: 260px; } }
         @media(min-width: 992px) { .promo-slider { height: 340px; } }
@@ -218,7 +213,6 @@
         .slide-caption h2 { font-size: 14px; margin-bottom: 2px; }
         .slide-caption p { font-size: 10px; color: #ddd; }
         @media(min-width: 768px) {
-            .slide-caption { padding: 20px 20px 15px 20px; }
             .slide-caption h2 { font-size: 20px; }
             .slide-caption p { font-size: 13px; }
         }
@@ -242,45 +236,7 @@
             border-radius: 3px;
         }
 
-        /* Flash Sale Timer Banner */
-        .hero-banner {
-            background: linear-gradient(135deg, #f85606 0%, #ff8a50 100%);
-            color: white;
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 3px 10px rgba(248, 86, 6, 0.2);
-        }
-        .hero-banner h1 { font-size: 14px; margin-bottom: 2px; }
-        .hero-banner p { font-size: 11px; opacity: 0.95; }
-        .flash-timer {
-            background: rgba(0,0,0,0.2);
-            padding: 6px 10px;
-            border-radius: 4px;
-            text-align: center;
-            font-size: 10px;
-        }
-        .flash-timer span { font-weight: bold; font-size: 13px; display: block; }
-        @media(min-width: 768px) {
-            .hero-banner { padding: 20px 25px; }
-            .hero-banner h1 { font-size: 22px; }
-            .hero-banner p { font-size: 13px; }
-            .flash-timer { font-size: 12px; padding: 8px 14px; }
-            .flash-timer span { font-size: 16px; }
-        }
-
-        .section-heading {
-            font-size: 15px;
-            margin-bottom: 10px;
-            color: #111;
-            font-weight: 600;
-        }
-        @media(min-width: 768px) { .section-heading { font-size: 18px; margin-bottom: 12px; } }
-
-        /* Mobile First Product Grid (2 columns tight & neat) */
+        /* Product Grid & Cards */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -288,7 +244,6 @@
             width: 100%;
         }
         @media(min-width: 576px) { .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; } }
-
         .card {
             background: white;
             border-radius: 6px;
@@ -302,21 +257,7 @@
             position: relative;
             height: 235px;
         }
-        @media(min-width: 768px) {
-            .card { height: 285px; padding: 10px; }
-        }
-        .discount-badge {
-            position: absolute;
-            top: 6px;
-            left: 6px;
-            background: #f85606;
-            color: white;
-            font-size: 9px;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: bold;
-            z-index: 5;
-        }
+        @media(min-width: 768px) { .card { height: 285px; padding: 10px; } }
         .card-img {
             height: 120px;
             background: #fff;
@@ -327,286 +268,10 @@
             overflow: hidden;
         }
         @media(min-width: 768px) { .card-img { height: 165px; } }
-        .card-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        .card-body {
-            padding: 4px 2px;
-        }
-        .card-body h4 {
-            font-size: 11px;
-            margin-bottom: 3px;
-            color: #333;
-            font-weight: 500;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            height: 28px;
-            line-height: 1.3;
-        }
-        @media(min-width: 768px) { .card-body h4 { font-size: 13px; height: 36px; } }
-        .price-box {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-        .card-price {
-            color: #f85606;
-            font-size: 13px;
-            font-weight: bold;
-        }
-        @media(min-width: 768px) { .card-price { font-size: 15px; } }
-        .card-old-price {
-            color: #999;
-            font-size: 10px;
-            text-decoration: line-through;
-        }
-        .rating-stars {
-            color: #ff9800;
-            font-size: 9px;
-            margin-top: 1px;
-        }
-        .rating-stars span { color: #777; }
-
-        /* Daraz Style Loading State (With Logo slot inside spinner) */
-        .loading-container {
-            grid-column: 1 / -1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-            gap: 12px;
-        }
-        .daraz-loader-box {
-            position: relative;
-            width: 70px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .side-spinner {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid #f1f1f1;
-            border-top: 3px solid #f85606;
-            border-radius: 50%;
-            animation: spinCircle 1s linear infinite;
-        }
-        .center-logo-slot {
-            background: #fff;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            z-index: 2;
-            overflow: hidden;
-        }
-        .center-logo-slot img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-        }
-        @keyframes spinCircle {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .loading-text {
-            color: #666;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        /* Modals (Product, Auth, Checkout, Captcha) */
-        .modal-overlay, .auth-overlay, .checkout-overlay, .captcha-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            padding: 10px;
-        }
-        .modal-content, .auth-box, .checkout-box, .captcha-box {
-            background: white;
-            width: 100%;
-            max-width: 420px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            position: relative;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 16px;
-        }
-        @media(min-width: 768px) {
-            .modal-content { max-width: 750px; padding: 25px; }
-        }
-        
-        .modal-header-close, .close-auth, .close-checkout, .captcha-close {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            font-size: 18px;
-            cursor: pointer;
-            color: #666;
-            background: #f1f1f1;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        /* Product Modal Specifics */
-        .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        @media(min-width: 768px) { .modal-body { flex-direction: row; gap: 25px; } }
-        .modal-gallery { flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .main-preview {
-            width: 100%;
-            height: 200px;
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        @media(min-width: 768px) { .main-preview { height: 260px; } }
-        .main-preview img { width: 100%; height: 100%; object-fit: contain; }
-        .thumbnail-row { display: flex; gap: 6px; overflow-x: auto; }
-        .thumb {
-            width: 48px;
-            height: 48px;
-            border: 2px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .thumb.active { border-color: #f85606; }
-        .thumb img { width: 100%; height: 100%; object-fit: contain; }
-        .modal-details { flex: 1.2; display: flex; flex-direction: column; gap: 10px; }
-        .modal-title { font-size: 14px; font-weight: 600; color: #222; }
-        @media(min-width: 768px) { .modal-title { font-size: 17px; } }
-        .modal-prices { display: flex; align-items: center; gap: 8px; }
-        .modal-current-price { font-size: 18px; color: #f85606; font-weight: bold; }
-        .modal-old-price { font-size: 12px; color: #888; text-decoration: line-through; }
-        .modal-desc { font-size: 11px; color: #555; line-height: 1.4; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 6px 0; max-height: 60px; overflow-y: auto; }
-        
-        .qty-container { display: flex; align-items: center; gap: 10px; font-size: 12px; }
-        .qty-btns { display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px; }
-        .qty-btns button { background: #f1f1f1; border: none; padding: 4px 8px; cursor: pointer; font-weight: bold; }
-        .qty-value { padding: 0 8px; font-weight: bold; }
-        
-        .modal-action-btns { display: flex; gap: 8px; margin-top: 5px; }
-        .btn-cart, .btn-buy { flex: 1; border: none; padding: 9px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 12px; }
-        .btn-cart { background: #ffd814; color: #111; }
-        .btn-buy { background: #f85606; color: white; }
-
-        /* Auth & Checkout Forms */
-        .auth-box h3, .checkout-box h3 { margin-bottom: 10px; color: #f85606; font-size: 16px; }
-        .form-group { margin-bottom: 8px; }
-        .form-group label { display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px; color: #333; }
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 12px;
-            outline: none;
-        }
-        .form-group input:focus, .form-group textarea:focus { border-color: #f85606; }
-        .btn-submit-form, .btn-submit-order {
-            width: 100%;
-            background: #f85606;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            margin-top: 6px;
-        }
-        .auth-switch { text-align: center; margin-top: 8px; font-size: 11px; color: #555; }
-        .auth-switch span { color: #f85606; font-weight: bold; cursor: pointer; }
-
-        /* Slider Captcha */
-        .slider-captcha-track {
-            position: relative;
-            background: #eaeaea;
-            height: 38px;
-            border-radius: 19px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 10px;
-            user-select: none;
-        }
-        .slider-captcha-text { font-size: 11px; color: #666; font-weight: 600; }
-        .slider-captcha-btn {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 42px;
-            height: 38px;
-            background: #f85606;
-            border-radius: 19px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* Footer */
-        footer {
-            background: #242424;
-            color: #fff;
-            padding: 20px 10px 10px 10px;
-            margin-top: 25px;
-            font-size: 11px;
-        }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-bottom: 12px;
-        }
-        .footer-col h4 { color: #f85606; margin-bottom: 8px; font-size: 12px; }
-        .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 4px; color: #bbb; cursor: pointer; }
-        .footer-bottom { border-top: 1px solid #444; padding-top: 10px; text-align: center; color: #888; font-size: 10px; }
+        .card-img img { width: 100%; height: 100%; object-fit: contain; }
     </style>
 </head>
 <body>
-
-    <!-- Header -->
     <header class="header">
         <div class="logo" onclick="location.reload()">
             <img src="logo.png" alt="HY Store Official" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
@@ -623,10 +288,9 @@
             <a href="#">🛒 Cart</a>
         </div>
     </header>
-
-    <!-- Main Dashboard Body -->
+    <!-- Main Wrapper -->
     <div class="wrapper">
-        <!-- Sidebar Menu -->
+        <!-- Sidebar -->
         <div class="sidebar" id="sidebarMenu">
             <h3>Categories <span style="cursor:pointer; font-size:16px;" onclick="toggleSidebar()">&times;</span></h3>
             <ul>
@@ -640,16 +304,14 @@
                 <li onclick="filterByCategory('Toys & Games'); toggleSidebar();">Toys & Games</li>
                 <li onclick="filterByCategory('Kitchen'); toggleSidebar();">Kitchen Appliances</li>
                 <li onclick="filterByCategory('Personalised Gifts'); toggleSidebar();">Personalised Gifts</li>
-                <li onclick="filterByCategory('Stationery'); toggleSidebar();">Stationery & Personal</li>
-                <li onclick="filterByCategory('Office Supplies'); toggleSidebar();">Office Supplies</li>
             </ul>
         </div>
 
-        <!-- Products Section -->
+        <!-- Products Main Section -->
         <div class="main-content">
             <button class="category-toggle-btn" onclick="toggleSidebar()">☰ Categories</button>
 
-            <!-- Custom Banners Slider -->
+            <!-- Promo Slider -->
             <div class="promo-slider">
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
@@ -666,92 +328,71 @@
                             <p>Track your fitness with latest smartwatches</p>
                         </div>
                     </div>
-                    <div class="slide">
-                        <img src="banner3.jpg" alt="Banner 3" onerror="this.src='https://via.placeholder.com/800x350/ff8a50/ffffff?text=Immersive+Sound'">
-                        <div class="slide-caption">
-                            <h2>Immersive Sound Experience</h2>
-                            <p>Wireless Earbuds & Professional Microphones</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="slider-dots" id="sliderDots">
                     <span class="dot active" onclick="currentSlide(0)"></span>
                     <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
                 </div>
             </div>
 
-            <!-- Flash Sale Timer Banner -->
-            <div class="hero-banner">
+            <!-- Flash Sale Banner -->
+            <div style="background: linear-gradient(135deg, #f85606 0%, #ff8a50 100%); color: white; padding: 12px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
                 <div>
-                    <h1>Flash Sale Is Live!</h1>
-                    <p>Grab massive discounts today.</p>
+                    <h1 style="font-size: 14px; margin-bottom: 2px;">Flash Sale Is Live!</h1>
+                    <p style="font-size: 11px; opacity: 0.95;">Grab massive discounts today.</p>
                 </div>
-                <div class="flash-timer">
+                <div style="background: rgba(0,0,0,0.2); padding: 6px 10px; border-radius: 4px; text-align: center; font-size: 10px;">
                     Ending In
-                    <span id="countdownTimer">05 : 42 : 19</span>
+                    <span id="countdownTimer" style="font-weight: bold; font-size: 13px; display: block;">05 : 42 : 19</span>
                 </div>
             </div>
 
-            <h2 class="section-heading" id="sectionTitle">Just For You</h2>
+            <h2 id="sectionTitle" style="font-size: 15px; margin-bottom: 10px; color: #111; font-weight: 600;">Just For You</h2>
             <div class="product-grid" id="product-grid">
-                <!-- Daraz Style Loading State with Center Logo Slot -->
-                <div class="loading-container">
-                    <div class="daraz-loader-box">
-                        <div class="side-spinner"></div>
-                        <div class="center-logo-slot">
-                            <img src="logo.png" alt="Logo" onerror="this.style.display='none';">
+                <!-- Loader -->
+                <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; gap: 12px; width: 100%;">
+                    <div style="position: relative; width: 70px; height: 70px; display: flex; align-items: center; justify-content: center;">
+                        <div style="position: absolute; width: 100%; height: 100%; border: 3px solid #f1f1f1; border-top: 3px solid #f85606; border-radius: 50%; animation: spinCircle 1s linear infinite;"></div>
+                        <div style="background: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.08); z-index: 2; overflow: hidden;">
+                            <img src="logo.png" alt="Logo" onerror="this.style.display='none';" style="width: 80%; height: 80%; object-fit: contain;">
                         </div>
                     </div>
-                    <div class="loading-text">Loading Products...</div>
+                    <div style="color: #666; font-size: 12px; font-weight: 600;">Loading Products...</div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Captcha Modal -->
-    <div class="captcha-overlay" id="captchaModal">
-        <div class="captcha-box">
-            <span class="captcha-close" onclick="closeCaptcha()">&times;</span>
-            <div style="font-size:14px; font-weight:bold; margin-bottom:2px;">Security Verification</div>
-            <div style="font-size:10px; color:#777; margin-bottom:12px;">Please slide to verify normal access</div>
-            <div class="slider-captcha-track" id="captchaTrack">
-                <span class="slider-captcha-text">Please slide to verify</span>
-                <div class="slider-captcha-btn" id="captchaBtn" onmousedown="startSlide(event)" ontouchstart="startSlide(event)">>></div>
             </div>
         </div>
     </div>
 
     <!-- Product Detail Modal -->
-    <div class="modal-overlay" id="productModal">
-        <div class="modal-content">
-            <div class="modal-header-close" onclick="closeModal()">&times;</div>
-            <div class="modal-body">
-                <div class="modal-gallery">
-                    <div class="main-preview">
-                        <img id="activeImg" src="" alt="Product Preview">
+    <div id="productModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 10px;">
+        <div style="background: white; width: 100%; max-width: 420px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative; max-height: 90vh; overflow-y: auto; padding: 16px;">
+            <div onclick="closeModal()" style="position: absolute; top: 10px; right: 12px; font-size: 18px; cursor: pointer; color: #666; background: #f1f1f1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">&times;</div>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="width: 100%; height: 200px; background: #fff; border: 1px solid #eee; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <img id="activeImg" src="" alt="Product Preview" style="width: 100%; height: 100%; object-fit: contain;">
                     </div>
-                    <div class="thumbnail-row" id="thumbnailRow"></div>
+                    <div id="thumbnailRow" style="display: flex; gap: 6px; overflow-x: auto;"></div>
                 </div>
-                <div class="modal-details">
-                    <h2 class="modal-title" id="modalTitle"></h2>
-                    <div class="modal-prices">
-                        <span class="modal-current-price" id="modalPrice"></span>
-                        <span class="modal-old-price" id="modalOldPrice"></span>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <h2 id="modalTitle" style="font-size: 14px; font-weight: 600; color: #222;"></h2>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span id="modalPrice" style="font-size: 18px; color: #f85606; font-weight: bold;"></span>
+                        <span id="modalOldPrice" style="font-size: 12px; color: #888; text-decoration: line-through;"></span>
                     </div>
-                    <div class="rating-stars">★★★★★ <span>(4.8)</span></div>
-                    <div class="modal-desc" id="modalDesc"></div>
-                    <div class="qty-container">
+                    <div style="color: #ff9800; font-size: 9px;">★★★★★ <span style="color: #777;">(4.8)</span></div>
+                    <div id="modalDesc" style="font-size: 11px; color: #555; line-height: 1.4; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 6px 0; max-height: 60px; overflow-y: auto;"></div>
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 12px;">
                         <span>Quantity:</span>
-                        <div class="qty-btns">
-                            <button onclick="changeQty(-1)">-</button>
-                            <span class="qty-value" id="qtyVal">1</span>
-                            <button onclick="changeQty(1)">+</button>
+                        <div style="display: flex; align-items: center; border: 1px solid #ccc; border-radius: 4px;">
+                            <button onclick="changeQty(-1)" style="background: #f1f1f1; border: none; padding: 4px 8px; cursor: pointer; font-weight: bold;">-</button>
+                            <span id="qtyVal" style="padding: 0 8px; font-weight: bold;">1</span>
+                            <button onclick="changeQty(1)" style="background: #f1f1f1; border: none; padding: 4px 8px; cursor: pointer; font-weight: bold;">+</button>
                         </div>
                     </div>
-                    <div class="modal-action-btns">
-                        <button class="btn-cart" onclick="addToCart()">Add to Cart</button>
-                        <button class="btn-buy" onclick="openCheckout()">Buy Now</button>
+                    <div style="display: flex; gap: 8px; margin-top: 5px;">
+                        <button onclick="addToCart()" style="flex: 1; border: none; padding: 9px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 12px; background: #ffd814; color: #111;">Add to Cart</button>
+                        <button onclick="openCheckout()" style="flex: 1; border: none; padding: 9px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 12px; background: #f85606; color: white;">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -759,87 +400,71 @@
     </div>
 
     <!-- Auth Modal -->
-    <div class="auth-overlay" id="authModal">
-        <div class="auth-box">
-            <span class="close-auth" onclick="closeAuthModal()">&times;</span>
-            <h3 id="authTitle">Login to HY Store</h3>
+    <div id="authModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 10px;">
+        <div style="background: white; width: 100%; max-width: 420px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative; padding: 16px;">
+            <span onclick="closeAuthModal()" style="position: absolute; top: 10px; right: 12px; font-size: 18px; cursor: pointer; color: #666; background: #f1f1f1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">&times;</span>
+            <h3 id="authTitle" style="margin-bottom: 12px; font-size: 15px;">Login to HY Store</h3>
             <form id="authForm" onsubmit="handleAuthSubmit(event)">
-                <div class="form-group" id="nameGroup" style="display:none;">
-                    <label>Full Name</label>
-                    <input type="text" id="authName" placeholder="Enter your full name">
+                <div id="nameGroup" style="display:none; margin-bottom: 8px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px;">Full Name</label>
+                    <input type="text" id="authName" placeholder="Enter your full name" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;">
                 </div>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="authEmail" required placeholder="example@email.com">
+                <div style="margin-bottom: 8px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px;">Email Address</label>
+                    <input type="email" id="authEmail" required placeholder="example@email.com" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;">
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="authPassword" required placeholder="Enter password">
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px;">Password</label>
+                    <input type="password" id="authPassword" required placeholder="Enter password" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;">
                 </div>
-                <button type="submit" class="btn-submit-form" id="authBtn">Login</button>
+                <button type="submit" id="authBtn" style="width: 100%; background: #f85606; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 13px;">Login</button>
             </form>
-            <div class="auth-switch" id="authSwitchText">
-                Don't have an account? <span onclick="switchAuthMode('signup')">Sign Up</span>
+            <div id="authSwitchText" style="text-align: center; margin-top: 8px; font-size: 11px; color: #555;">
+                Don't have an account? <span onclick="switchAuthMode('signup')" style="color: #f85606; font-weight: bold; cursor: pointer;">Sign Up</span>
             </div>
         </div>
     </div>
 
     <!-- Checkout Modal -->
-    <div class="checkout-overlay" id="checkoutModal">
-        <div class="checkout-box">
-            <span class="close-checkout" onclick="closeCheckout()">&times;</span>
-            <h3>Complete Your Order</h3>
+    <div id="checkoutModal" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 10px;">
+        <div style="background: white; width: 100%; max-width: 420px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative; padding: 16px;">
+            <span onclick="closeCheckout()" style="position: absolute; top: 10px; right: 12px; font-size: 18px; cursor: pointer; color: #666; background: #f1f1f1; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">&times;</span>
+            <h3 style="margin-bottom: 12px; font-size: 15px;">Complete Your Order</h3>
             <form id="orderForm" onsubmit="submitOrder(event)">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="custName" required placeholder="Enter your name">
+                <div style="margin-bottom: 8px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px;">Full Name</label>
+                    <input type="text" id="custName" required placeholder="Enter your name" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;">
                 </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="text" id="custPhone" required placeholder="03XXXXXXXXX">
+                <div style="margin-bottom: 8px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px;">Phone Number</label>
+                    <input type="text" id="custPhone" required placeholder="03XXXXXXXXX" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;">
                 </div>
-                <div class="form-group">
-                    <label>Delivery Address</label>
-                    <textarea id="custAddress" rows="2" required placeholder="House #, Street, City"></textarea>
+                <div style="margin-bottom: 12px;">
+                    <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 3px;">Delivery Address</label>
+                    <textarea id="custAddress" rows="2" required placeholder="House #, Street, City" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 12px;"></textarea>
                 </div>
-                <button type="submit" class="btn-submit-order" id="submitBtn">Confirm Order</button>
+                <button type="submit" id="submitBtn" style="width: 100%; background: #f85606; color: white; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; font-size: 13px;">Confirm Order</button>
             </form>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-col">
-                <h4>Customer Care</h4>
-                <ul>
-                    <li>Help Center</li>
-                    <li>How to Buy</li>
-                    <li>Returns & Refunds</li>
-                </ul>
+    <footer style="background: #242424; color: #fff; padding: 20px 10px 10px 10px; margin-top: 25px; font-size: 11px;">
+        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 12px;">
+            <div>
+                <h4 style="color: #f85606; margin-bottom: 8px; font-size: 12px;">Customer Care</h4>
+                <ul style="list-style: none;"><li style="margin-bottom: 4px; color: #bbb;">Help Center</li><li style="margin-bottom: 4px; color: #bbb;">Returns & Refunds</li></ul>
             </div>
-            <div class="footer-col">
-                <h4>HY Store Official</h4>
-                <ul>
-                    <li>About Us</li>
-                    <li>Careers</li>
-                    <li>Terms & Conditions</li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Secure Payments</h4>
-                <ul>
-                    <li>Cash on Delivery</li>
-                    <li>JazzCash / EasyPaisa</li>
-                </ul>
+            <div>
+                <h4 style="color: #f85606; margin-bottom: 8px; font-size: 12px;">HY Store Official</h4>
+                <ul style="list-style: none;"><li style="margin-bottom: 4px; color: #bbb;">About Us</li><li style="margin-bottom: 4px; color: #bbb;">Terms & Conditions</li></ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div style="border-top: 1px solid #444; padding-top: 10px; text-align: center; color: #888; font-size: 10px;">
             <p>&copy; 2026 hystoreofficial.com. All Rights Reserved.</p>
         </div>
     </footer>
-
-    <!-- Script Logic -->
+    <!-- Script -->
     <script>
         const apiURL = "https://script.google.com/macros/s/AKfycbz6lNjGfchepV3D0KBFf3xBlThK7svDfK9LCu6gZloA8lJiS1tILVMoRzIuxc-HEZd_9g/exec";
         let allProducts = [];
@@ -847,7 +472,6 @@
         let selectedQty = 1;
         let isSignupMode = false;
         let currentUser = JSON.parse(localStorage.getItem('hy_logged_user')) || null;
-        let failedLoginAttempts = 0;
 
         window.onload = function() {
             fetchProducts();
@@ -876,20 +500,17 @@
             try {
                 const response = await fetch(apiURL + "?action=getProducts");
                 allProducts = await response.json();
-                if (allProducts.length === 0) {
-                    grid.innerHTML = '<div class="loading-container"><div class="loading-text">No products available.</div></div>';
+                if (!allProducts || allProducts.length === 0) {
+                    grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:30px; font-weight:600; color:#666;">No products available.</div>';
                     return;
                 }
                 displayProducts(allProducts);
             } catch (error) {
                 console.error("Error fetching products:", error);
                 grid.innerHTML = `
-                    <div class="loading-container">
-                        <div class="daraz-loader-box">
-                            <div class="side-spinner" style="border-top-color:#ff3333;"></div>
-                            <div class="center-logo-slot" style="color:#ff3333; font-weight:bold;">!</div>
-                        </div>
-                        <div class="loading-text" style="color: red;">Failed to load products. Check connection.</div>
+                    <div style="grid-column: 1/-1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:30px; gap:10px;">
+                        <div style="color:red; font-weight:bold; font-size:16px;">!</div>
+                        <div style="color: red; font-size: 12px; font-weight: 600;">Failed to load products. Check connection or Apps Script URL.</div>
                     </div>`;
             }
         }
@@ -901,7 +522,7 @@
                 let discountHTML = "";
                 if (product.old && product.price) {
                     let disc = Math.round(((product.old - product.price) / product.old) * 100);
-                    if (disc > 0) discountHTML = `<div class="discount-badge">-${disc}%</div>`;
+                    if (disc > 0) discountHTML = `<div style="position: absolute; top: 6px; left: 6px; background: #f85606; color: white; font-size: 9px; padding: 2px 4px; border-radius: 3px; font-weight: bold; z-index: 5;">-${disc}%</div>`;
                 }
 
                 const card = document.createElement('div');
@@ -912,13 +533,13 @@
                     <div class="card-img">
                         ${product.img1 ? `<img src="${product.img1}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/150?text=No+Image'">` : 'No Image'}
                     </div>
-                    <div class="card-body">
-                        <h4>${product.name}</h4>
-                        <div class="price-box">
-                            <span class="card-price">Rs. ${product.price}</span>
-                            ${product.old ? `<span class="card-old-price">Rs. ${product.old}</span>` : ''}
+                    <div style="padding: 4px 2px;">
+                        <h4 style="font-size: 11px; margin-bottom: 3px; color: #333; font-weight: 500; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 28px; line-height: 1.3;">${product.name}</h4>
+                        <div style="display: flex; align-items: center; gap: 5px; flex-wrap: wrap;">
+                            <span style="color: #f85606; font-size: 13px; font-weight: bold;">Rs. ${product.price}</span>
+                            ${product.old ? `<span style="color: #999; font-size: 10px; text-decoration: line-through;">Rs. ${product.old}</span>` : ''}
                         </div>
-                        <div class="rating-stars">★★★★★ <span>(4.5)</span></div>
+                        <div style="color: #ff9800; font-size: 9px; margin-top: 1px;">★★★★★ <span style="color: #777;">(4.5)</span></div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -947,31 +568,16 @@
             document.getElementById('sidebarMenu').classList.toggle('active');
         }
 
-        let totalSeconds = 5 * 3600 + 42 * 60 + 19;
-        setInterval(() => {
-            if (totalSeconds > 0) totalSeconds--;
-            let h = Math.floor(totalSeconds / 3600);
-            let m = Math.floor((totalSeconds % 3600) / 60);
-            let s = totalSeconds % 60;
-            document.getElementById('countdownTimer').innerText = 
-                String(h).padStart(2, '0') + " : " + 
-                String(m).padStart(2, '0') + " : " + 
-                String(s).padStart(2, '0');
-        }, 1000);
-
         let slideIndex = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
         function showSlide(index) {
             if (index >= slides.length) slideIndex = 0;
             if (index < 0) slideIndex = slides.length - 1;
-            document.getElementById('sliderTrack').style.transform = `translateX(-${slideIndex * 100}%)`;
+            const track = document.getElementById('sliderTrack');
+            if (track) track.style.transform = `translateX(-${slideIndex * 100}%)`;
             dots.forEach(dot => dot.classList.remove('active'));
-            dots[slideIndex].classList.add('active');
-        }
-        function currentSlide(index) {
-            slideIndex = index;
-            showSlide(slideIndex);
+            if(dots[slideIndex]) dots[slideIndex].classList.add('active');
         }
         setInterval(() => { slideIndex++; showSlide(slideIndex); }, 3500);
 
@@ -991,12 +597,12 @@
             thumbRow.innerHTML = "";
             images.forEach((imgUrl, index) => {
                 const thumb = document.createElement('div');
-                thumb.className = `thumb ${index === 0 ? 'active' : ''}`;
-                thumb.innerHTML = `<img src="${imgUrl}" alt="Thumb">`;
+                thumb.style.cssText = `width: 48px; height: 48px; border: 2px solid ${index === 0 ? '#f85606' : '#ddd'}; border-radius: 4px; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;`;
+                thumb.innerHTML = `<img src="${imgUrl}" alt="Thumb" style="width: 100%; height: 100%; object-fit: contain;">`;
                 thumb.onclick = () => {
                     document.getElementById('activeImg').src = imgUrl;
-                    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
+                    Array.from(thumbRow.children).forEach(t => t.style.borderColor = '#ddd');
+                    thumb.style.borderColor = '#f85606';
                 };
                 thumbRow.appendChild(thumb);
             });
@@ -1034,27 +640,17 @@
                 title.innerText = "Create HY Store Account";
                 nameGroup.style.display = 'block';
                 authBtn.innerText = "Sign Up";
-                switchText.innerHTML = `Already have an account? <span onclick="switchAuthMode('login')">Login</span>`;
+                switchText.innerHTML = `Already have an account? <span onclick="switchAuthMode('login')" style="color: #f85606; font-weight: bold; cursor: pointer;">Login</span>`;
             } else {
                 title.innerText = "Login to HY Store";
                 nameGroup.style.display = 'none';
                 authBtn.innerText = "Login";
-                switchText.innerHTML = `Don't have an account? <span onclick="switchAuthMode('signup')">Sign Up</span>`;
+                switchText.innerHTML = `Don't have an account? <span onclick="switchAuthMode('signup')" style="color: #f85606; font-weight: bold; cursor: pointer;">Sign Up</span>`;
             }
         }
 
         function handleAuthSubmit(event) {
             event.preventDefault();
-            failedLoginAttempts++;
-            if (failedLoginAttempts >= 3) {
-                closeAuthModal();
-                showErrorToast("Your login has failed too many times, please retry after an hour.");
-                return;
-            }
-            processLoginOrSignup();
-        }
-
-        function processLoginOrSignup() {
             const email = document.getElementById('authEmail').value.trim();
             const password = document.getElementById('authPassword').value.trim();
             let usersDB = JSON.parse(localStorage.getItem('hy_users_db')) || [];
@@ -1063,8 +659,7 @@
                 const name = document.getElementById('authName').value.trim();
                 let existingUser = usersDB.find(u => u.email === email);
                 if (existingUser) {
-                    alert("An account with this email already exists! Please log in.");
-                    switchAuthMode('login');
+                    alert("Account already exists with this email!");
                     return;
                 }
                 const newUser = { name, email, password };
@@ -1076,50 +671,17 @@
             } else {
                 let matchedUser = usersDB.find(u => u.email === email && u.password === password);
                 if (!matchedUser) {
-                    alert(`Invalid email or password! Attempts left: ${3 - failedLoginAttempts}`);
+                    alert("Invalid email or password!");
                     return;
                 }
                 currentUser = matchedUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
                 alert("Logged in successfully!");
-                failedLoginAttempts = 0;
             }
 
             closeAuthModal();
             updateAuthUI();
             document.getElementById('authForm').reset();
-        }
-
-        function showErrorToast(message) {
-            let existingToast = document.getElementById('errorToast');
-            if (existingToast) existingToast.remove();
-
-            const toast = document.createElement('div');
-            toast.id = 'errorToast';
-            toast.style.cssText = `
-                position: fixed;
-                top: 15px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: #222;
-                color: #fff;
-                padding: 10px 16px;
-                border-radius: 6px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                z-index: 4000;
-                font-size: 12px;
-                font-weight: 500;
-                border-left: 4px solid #ff3333;
-                width: 92%;
-                max-width: 380px;
-            `;
-            toast.innerHTML = `<span style="background:#ff3333; color:white; min-width:18px; height:18px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:bold;">✕</span> ${message}`;
-            
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.remove(); }, 5000);
         }
 
         function logoutUser() {
@@ -1170,7 +732,7 @@
                 closeCheckout();
                 document.getElementById('orderForm').reset();
             } catch (error) {
-                alert("Failed to submit the order. Please try again.");
+                alert("Failed to submit the order.");
             } finally {
                 btn.innerText = "Confirm Order";
                 btn.disabled = false;
