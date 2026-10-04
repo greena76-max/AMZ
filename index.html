@@ -117,6 +117,7 @@
         /* Main Content View */
         .main-content {
             flex: 1;
+            min-width: 0; /* Prevents flex items from overflowing */
         }
         .category-toggle-btn {
             background: #fff;
@@ -174,8 +175,9 @@
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 220px));
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             gap: 15px;
+            width: 100%;
         }
         .card {
             background: white;
