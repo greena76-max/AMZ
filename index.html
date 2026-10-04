@@ -1083,7 +1083,7 @@
         }
 
         function addToCart() {
-            alert(`Added ${selectedQty} item(s) of "${currentProduct.name}" to cart!`);
+            alert(`Added ${selectedQty} item(s) of "${currentProduct.name}" to your cart!`);
             closeModal();
         }
 
@@ -1126,7 +1126,7 @@
                 const name = document.getElementById('authName').value.trim();
                 let existingUser = usersDB.find(u => u.email === email);
                 if (existingUser) {
-                    alert("Is email par pehle hi account bana hua hai! Baraye meharbani Login karein.");
+                    alert("An account with this email already exists! Please log in instead.");
                     switchAuthMode('login');
                     return;
                 }
@@ -1136,16 +1136,16 @@
                 
                 currentUser = newUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
-                alert("Account successfully ban gaya aur login ho gaye!");
+                alert("Account created successfully and logged in!");
             } else {
                 let matchedUser = usersDB.find(u => u.email === email && u.password === password);
                 if (!matchedUser) {
-                    alert("Galat email ya password! Agar account nahi hai toh pehle Sign Up karein.");
+                    alert("Invalid email or password! Please sign up if you don't have an account.");
                     return;
                 }
                 currentUser = matchedUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
-                alert("Kamyabi se login ho gaye!");
+                alert("Logged in successfully!");
             }
 
             closeAuthModal();
@@ -1157,12 +1157,12 @@
             localStorage.removeItem('hy_logged_user');
             currentUser = null;
             updateAuthUI();
-            alert("Aap logout ho chuke hain.");
+            alert("You have been logged out successfully.");
         }
 
         function openCheckout() {
             if (!currentUser) {
-                alert("Order karne ke liye pehle Login karna lazmi hai!");
+                alert("Please log in first to place an order!");
                 closeModal();
                 openAuthModal('login');
                 return;
@@ -1203,12 +1203,12 @@
                     body: JSON.stringify(orderData)
                 });
 
-                alert("🎉 Congratulations! Your order has been successfully placed. Thank you for choosing us!");
+                alert("🎉 Congratulations! Your order has been successfully placed. Thank you for shopping with us!");
                 closeCheckout();
                 document.getElementById('orderForm').reset();
             } catch (error) {
                 console.error("Order error:", error);
-                alert("Order submit karne mein masla aya. Dobara koshish karein.");
+                alert("Failed to submit the order. Please try again.");
             } finally {
                 btn.innerText = "Confirm Order";
                 btn.disabled = false;
