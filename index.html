@@ -48,13 +48,13 @@
             background: #1e1e1e;
             padding: 8px 16px;
             border-radius: 4px;
-            border-bottom: 3.5px solid #f85606;
+            border-bottom: 3.5px solid #f85606; /* Full width bottom border */
             display: block;
             width: 100%;
             text-align: center;
         }
         .logo-text-box span {
-            color: #c0c0c0;
+            color: #c0c0c0; /* Silver Color Text */
             font-size: 16px;
             font-weight: 800;
             letter-spacing: 2px;
@@ -986,25 +986,32 @@
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header with Custom Text Logo & Exact Requested Nav Button Sequence -->
     <header class="header">
         <div class="header-top">
+            <!-- Left Logo with Silver Text and Full Width Orange Border -->
             <a class="logo" href="#" onclick="location.reload(); return false;">
                 <div class="logo-text-box">
                     <span>H Y &nbsp; S T O R E &nbsp; OFFICIAL</span>
                 </div>
             </a>
 
+            <!-- Right Buttons Order: Track Order -> Cart -> Login/Profile -->
             <div class="nav-links">
+                <!-- 1. Track Order Button (Equal size to Cart) -->
                 <a class="nav-btn-style" href="#" onclick="openTrackingModal(); return false;">
                     📦 Track Order
                 </a>
+
+                <!-- 2. Cart Button -->
                 <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;">
                     🛒 Cart <span class="cart-badge" id="cartBadgeCount">0</span>
                 </a>
+
+                <!-- 3. Login / Profile Button -->
                 <span id="userGreeting" class="user-greeting" style="display:none;"></span>
                 <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">Login / Sign Up</a>
-                <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red; font-weight: bold; font-size: 13px; cursor: pointer;">Logout</a>
+                <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red; font-weight: bold; font-size: 13px;">Logout</a>
             </div>
         </div>
         <div class="search-box">
@@ -1015,6 +1022,7 @@
 
     <!-- Main Dashboard Body -->
     <div class="wrapper">
+        <!-- Sidebar Menu -->
         <div class="sidebar hidden" id="sidebarMenu">
             <h3>Categories</h3>
             <ul>
@@ -1033,9 +1041,11 @@
             </ul>
         </div>
 
+        <!-- Products Section -->
         <div class="main-content">
             <button class="category-toggle-btn" onclick="toggleSidebar()">☰ Categories</button>
 
+            <!-- Custom Banners Slider -->
             <div class="promo-slider">
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
@@ -1067,6 +1077,7 @@
                 </div>
             </div>
 
+            <!-- Flash Sale Timer Banner -->
             <div class="hero-banner">
                 <div>
                     <h1>Flash Sale Is Live!</h1>
@@ -1080,6 +1091,7 @@
 
             <h2 class="section-heading" id="sectionTitle">Just For You</h2>
             <div class="product-grid" id="product-grid">
+                <!-- Animated HY Loading State -->
                 <div class="loading-container">
                     <div class="hy-loader">
                         <img src="logo.png" alt="HY Store Logo"
@@ -1091,14 +1103,16 @@
         </div>
     </div>
 
-    <!-- Modals (Cart, Tracking, Details, Auth, Checkout) -->
+    <!-- Interactive Cart Modal -->
     <div class="cart-overlay" id="cartModal">
         <div class="cart-box">
             <span class="close-cart" onclick="closeCartModal()">&times;</span>
             <div class="cart-header">
                 <h3>Shopping Cart</h3>
             </div>
-            <div class="cart-body-items" id="cartItemsContainer"></div>
+            <div class="cart-body-items" id="cartItemsContainer">
+                <!-- Cart items populated via JS -->
+            </div>
             <div class="cart-footer">
                 <div class="cart-subtotal-row">
                     <span>Subtotal:</span>
@@ -1109,15 +1123,18 @@
         </div>
     </div>
 
+    <!-- Hidden Track Order Panel Modal -->
     <div class="tracking-overlay" id="trackingModal">
         <div class="tracking-box">
             <span class="close-tracking" onclick="closeTrackingModal()">&times;</span>
             <h3 style="text-align: center; margin-bottom: 8px;">Order Tracking</h3>
             <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 15px;">Track your order status quickly and easily.</p>
+            
             <div class="form-group">
                 <input type="text" id="trackInput" placeholder="Enter Order Tracking ID or Phone #">
             </div>
             <button type="button" class="btn-submit-form" onclick="executeOrderTracking()">Track Order</button>
+
             <div class="tracking-result" id="trackingResultPanel">
                 <strong id="trackOrderTitle" style="display:block; color:#f85606; margin-bottom: 5px;"></strong>
                 <p id="trackOrderDetails" style="color:#444; margin: 0;"></p>
@@ -1125,6 +1142,7 @@
         </div>
     </div>
 
+    <!-- Product Detail Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <div class="modal-header-close" onclick="closeModal()">&times;</div>
@@ -1160,6 +1178,7 @@
         </div>
     </div>
 
+    <!-- Auth Modal (Login / Sign Up) -->
     <div class="auth-overlay" id="authModal">
         <div class="auth-box">
             <span class="close-auth" onclick="closeAuthModal()">&times;</span>
@@ -1185,6 +1204,7 @@
         </div>
     </div>
 
+    <!-- Checkout Form Modal -->
     <div class="checkout-overlay" id="checkoutModal">
         <div class="checkout-box">
             <span class="close-checkout" onclick="closeCheckout()">&times;</span>
@@ -1207,6 +1227,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-col">
