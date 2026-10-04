@@ -18,7 +18,7 @@
         /* Main Header */
         .header {
             background: #ffffff;
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -28,10 +28,14 @@
             z-index: 1000;
         }
         .logo {
-            font-size: 26px;
-            font-weight: bold;
-            color: #f85606;
-            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            height: 40px;
+            cursor: pointer;
+        }
+        .logo img {
+            height: 100%;
+            object-fit: contain;
         }
         .search-box {
             display: flex;
@@ -39,7 +43,7 @@
         }
         .search-box input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 10px 15px;
             border: 2px solid #f85606;
             border-radius: 4px 0 0 4px;
             outline: none;
@@ -49,25 +53,31 @@
             background: #f85606;
             color: white;
             border: none;
-            padding: 0 30px;
+            padding: 0 25px;
             border-radius: 0 4px 4px 0;
             cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 14px;
         }
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
         .nav-links a {
             text-decoration: none;
             color: #333;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
+            cursor: pointer;
         }
         .nav-links a:hover {
             color: #f85606;
+        }
+        .user-greeting {
+            color: #f85606;
+            font-weight: bold;
+            font-size: 13px;
         }
         
         /* Dashboard Container */
@@ -380,8 +390,8 @@
             letter-spacing: 0.5px;
         }
 
-        /* Daraz Style Modal */
-        .modal-overlay {
+        /* Product Detail Modal */
+        .modal-overlay, .auth-overlay, .checkout-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -568,29 +578,17 @@
             background: #e04a05;
         }
 
-        /* Checkout Form Modal Styles */
-        .checkout-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2500;
-        }
-        .checkout-box {
+        /* Auth Modal (Login / Signup) */
+        .auth-box, .checkout-box {
             background: white;
-            width: 450px;
+            width: 420px;
             max-width: 90%;
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
         }
-        .checkout-box h3 {
+        .auth-box h3, .checkout-box h3 {
             margin-bottom: 15px;
             color: #f85606;
             font-size: 20px;
@@ -616,7 +614,7 @@
         .form-group input:focus, .form-group textarea:focus {
             border-color: #f85606;
         }
-        .btn-submit-order {
+        .btn-submit-form, .btn-submit-order {
             width: 100%;
             background: #f85606;
             color: white;
@@ -628,10 +626,21 @@
             font-size: 15px;
             margin-top: 10px;
         }
-        .btn-submit-order:hover {
+        .btn-submit-form:hover, .btn-submit-order:hover {
             background: #e04a05;
         }
-        .close-checkout {
+        .auth-switch {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 13px;
+            color: #555;
+        }
+        .auth-switch span {
+            color: #f85606;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-auth, .close-checkout {
             position: absolute;
             top: 12px;
             right: 15px;
@@ -682,16 +691,20 @@
 </head>
 <body>
 
-    <!-- Header with Search -->
+    <!-- Header with Search and Logo Image -->
     <header class="header">
-        <div class="logo">HY Store</div>
+        <div class="logo" onclick="location.reload()">
+            <img src="logo.png" alt="HY Store Official" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <span style="display:none; font-size:24px; font-weight:bold; color:#f85606;">HY Store</span>
+        </div>
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Search in HY Store..." onkeyup="filterProducts()">
             <button onclick="filterProducts()">Search</button>
         </div>
         <div class="nav-links">
-            <a href="#">Login</a>
-            <a href="#">Sign Up</a>
+            <span id="userGreeting" class="user-greeting" style="display:none;"></span>
+            <a id="authNavBtn" onclick="openAuthModal('login')">Login / Sign Up</a>
+            <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red;">Logout</a>
             <a href="#">🛒 Cart</a>
         </div>
     </header>
@@ -814,6 +827,32 @@
         </div>
     </div>
 
+    <!-- Auth Modal (Login / Sign Up) -->
+    <div class="auth-overlay" id="authModal">
+        <div class="auth-box">
+            <span class="close-auth" onclick="closeAuthModal()">&times;</span>
+            <h3 id="authTitle">Login to HY Store</h3>
+            <form id="authForm" onsubmit="handleAuthSubmit(event)">
+                <div class="form-group" id="nameGroup" style="display:none;">
+                    <label>Full Name</label>
+                    <input type="text" id="authName" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="authEmail" required placeholder="example@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="authPassword" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="btn-submit-form" id="authBtn">Login</button>
+            </form>
+            <div class="auth-switch" id="authSwitchText">
+                Don't have an account? <span onclick="switchAuthMode('signup')">Sign Up</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Checkout Form Modal -->
     <div class="checkout-overlay" id="checkoutModal">
         <div class="checkout-box">
@@ -874,18 +913,42 @@
 
     <!-- JavaScript logic -->
     <script>
-        const apiURL = "https://script.google.com/macros/s/AKfycbysE_06JoKzzjaH4P4iKnAf0vvFGVuFseaRzr5Hh05zp0PK5z21PJQBvVMigkqJABMuyg/exec";
+        const apiURL = "https://script.google.com/macros/s/AKfycbz6lNjGfchepV3D0KBFf3xBlThK7svDfK9LCu6gZloA8lJiS1tILVMoRzIuxc-HEZd_9g/exec";
         let allProducts = [];
         let currentProduct = null;
         let selectedQty = 1;
+        let isSignupMode = false;
+        let currentUser = JSON.parse(localStorage.getItem('hy_logged_user')) || null;
+
+        window.onload = function() {
+            fetchProducts();
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            const greeting = document.getElementById('userGreeting');
+            const authNavBtn = document.getElementById('authNavBtn');
+            const logoutNavBtn = document.getElementById('logoutNavBtn');
+
+            if (currentUser) {
+                greeting.innerText = `Hi, ${currentUser.name}`;
+                greeting.style.display = 'inline';
+                authNavBtn.style.display = 'none';
+                logoutNavBtn.style.display = 'inline';
+            } else {
+                greeting.style.display = 'none';
+                authNavBtn.style.display = 'inline';
+                logoutNavBtn.style.display = 'none';
+            }
+        }
 
         async function fetchProducts() {
             const grid = document.getElementById('product-grid');
             try {
-                const response = await fetch(apiURL);
+                const response = await fetch(apiURL + "?action=getProducts");
                 allProducts = await response.json();
                 if (allProducts.length === 0) {
-                    grid.innerHTML = '<div class="loading-container"><div class="loading-text">No products found in sheet.</div></div>';
+                    grid.innerHTML = '<div class="loading-container"><div class="loading-text">No products available.</div></div>';
                     return;
                 }
                 displayProducts(allProducts);
@@ -894,7 +957,7 @@
                 grid.innerHTML = `
                     <div class="loading-container">
                         <div class="hy-loader" style="background:#ff3333; box-shadow:0 0 20px rgba(255,51,51,0.5);"><span>!</span></div>
-                        <div class="loading-text" style="color: red;">Failed to load products. Check console or Apps Script deployment.</div>
+                        <div class="loading-text" style="color: red;">Failed to load products. Please check connection.</div>
                     </div>`;
             }
         }
@@ -1024,16 +1087,98 @@
             closeModal();
         }
 
+        function openAuthModal(mode) {
+            switchAuthMode(mode);
+            document.getElementById('authModal').style.display = 'flex';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function switchAuthMode(mode) {
+            isSignupMode = (mode === 'signup');
+            const title = document.getElementById('authTitle');
+            const nameGroup = document.getElementById('nameGroup');
+            const authBtn = document.getElementById('authBtn');
+            const switchText = document.getElementById('authSwitchText');
+
+            if (isSignupMode) {
+                title.innerText = "Create HY Store Account";
+                nameGroup.style.display = 'block';
+                authBtn.innerText = "Sign Up";
+                switchText.innerHTML = `Already have an account? <span onclick="switchAuthMode('login')">Login</span>`;
+            } else {
+                title.innerText = "Login to HY Store";
+                nameGroup.style.display = 'none';
+                authBtn.innerText = "Login";
+                switchText.innerHTML = `Don't have an account? <span onclick="switchAuthMode('signup')">Sign Up</span>`;
+            }
+        }
+
+        function handleAuthSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value.trim();
+            let usersDB = JSON.parse(localStorage.getItem('hy_users_db')) || [];
+
+            if (isSignupMode) {
+                const name = document.getElementById('authName').value.trim();
+                let existingUser = usersDB.find(u => u.email === email);
+                if (existingUser) {
+                    alert("Is email par pehle hi account bana hua hai! Baraye meharbani Login karein.");
+                    switchAuthMode('login');
+                    return;
+                }
+                const newUser = { name, email, password };
+                usersDB.push(newUser);
+                localStorage.setItem('hy_users_db', JSON.stringify(usersDB));
+                
+                currentUser = newUser;
+                localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
+                alert("Account successfully ban gaya aur login ho gaye!");
+            } else {
+                let matchedUser = usersDB.find(u => u.email === email && u.password === password);
+                if (!matchedUser) {
+                    alert("Galat email ya password! Agar account nahi hai toh pehle Sign Up karein.");
+                    return;
+                }
+                currentUser = matchedUser;
+                localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
+                alert("Kamyabi se login ho gaye!");
+            }
+
+            closeAuthModal();
+            updateAuthUI();
+            document.getElementById('authForm').reset();
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('hy_logged_user');
+            currentUser = null;
+            updateAuthUI();
+            alert("Aap logout ho chuke hain.");
+        }
+
         function openCheckout() {
+            if (!currentUser) {
+                alert("Order karne ke liye pehle Login karna lazmi hai!");
+                closeModal();
+                openAuthModal('login');
+                return;
+            }
+
             closeModal();
             document.getElementById('checkoutModal').style.display = 'flex';
+            if(currentUser.name) {
+                document.getElementById('custName').value = currentUser.name;
+            }
         }
 
         function closeCheckout() {
             document.getElementById('checkoutModal').style.display = 'none';
         }
 
-        // Order Submit Function to Google Sheets
         async function submitOrder(event) {
             event.preventDefault();
             const btn = document.getElementById('submitBtn');
@@ -1041,6 +1186,7 @@
             btn.disabled = true;
 
             const orderData = {
+                action: "order",
                 name: currentProduct.name,
                 price: currentProduct.price,
                 qty: selectedQty,
@@ -1053,12 +1199,11 @@
             try {
                 await fetch(apiURL, {
                     method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                     body: JSON.stringify(orderData)
                 });
 
-                alert("🎉Congratulations! Your order has been successfully placed. Thank you for choosing us!.");
+                alert("🎉 Congratulations! Your order has been successfully placed. Thank you for choosing us!");
                 closeCheckout();
                 document.getElementById('orderForm').reset();
             } catch (error) {
@@ -1072,10 +1217,9 @@
 
         window.onclick = function(event) {
             if (event.target == document.getElementById('productModal')) closeModal();
+            if (event.target == document.getElementById('authModal')) closeAuthModal();
             if (event.target == document.getElementById('checkoutModal')) closeCheckout();
         }
-
-        fetchProducts();
     </script>
 </body>
 </html>
