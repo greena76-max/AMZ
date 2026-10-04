@@ -687,6 +687,74 @@
             text-align: center;
             color: #888;
         }
+
+
+        /* HY Store Professional Notification Panel */
+        #notificationPanel {
+            position: fixed;
+            top: 86px;
+            right: 22px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 370px;
+            max-width: calc(100vw - 30px);
+            pointer-events: none;
+        }
+        .hy-notification {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 17px 15px;
+            background: #fff;
+            border: 1px solid #edf0f2;
+            border-radius: 13px;
+            box-shadow: 0 12px 35px rgba(20, 28, 38, .17);
+            pointer-events: auto;
+            overflow: hidden;
+            animation: hyNoticeIn .35s ease both;
+        }
+        .hy-notification.is-leaving { animation: hyNoticeOut .28s ease both; }
+        .hy-notice-icon {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 21px;
+            font-weight: 800;
+        }
+        .hy-notification.success .hy-notice-icon { background: #e8f8ef; color: #159653; }
+        .hy-notification.error .hy-notice-icon { background: #fff0ef; color: #d93632; }
+        .hy-notification.warning .hy-notice-icon { background: #fff6e5; color: #c98712; }
+        .hy-notification.info .hy-notice-icon { background: #eaf2ff; color: #2875c7; }
+        .hy-notice-content { flex: 1; min-width: 0; padding-top: 2px; }
+        .hy-notice-title { margin: 0 0 5px; color: #202833; font-size: 14px; font-weight: 750; }
+        .hy-notice-message { color: #667085; font-size: 12.5px; line-height: 1.55; overflow-wrap: anywhere; }
+        .hy-notice-close {
+            border: 0; background: transparent; color: #98a1ad; cursor: pointer;
+            font-size: 21px; line-height: 1; padding: 0 2px;
+        }
+        .hy-notice-close:hover { color: #202833; }
+        .hy-notice-progress {
+            position: absolute; left: 0; bottom: 0; width: 100%; height: 3px;
+            transform-origin: left; animation: hyNoticeProgress 4.8s linear forwards;
+        }
+        .hy-notification.success .hy-notice-progress { background: #159653; }
+        .hy-notification.error .hy-notice-progress { background: #d93632; }
+        .hy-notification.warning .hy-notice-progress { background: #c98712; }
+        .hy-notification.info .hy-notice-progress { background: #2875c7; }
+        @keyframes hyNoticeIn { from { opacity: 0; transform: translateX(35px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes hyNoticeOut { to { opacity: 0; transform: translateX(35px); } }
+        @keyframes hyNoticeProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+        @media (max-width: 480px) {
+            #notificationPanel { top: 74px; left: 12px; right: 12px; width: auto; max-width: none; }
+            .hy-notification { padding: 14px; }
+        }
+
     </style>
 </head>
 <body>
@@ -911,9 +979,67 @@
         </div>
     </footer>
 
+
+    <!-- HY Store Professional Notification Panel -->
+    <div id="notificationPanel" aria-live="polite" aria-atomic="false"></div>
+
     <!-- JavaScript logic -->
     <script>
         const apiURL = "https://script.google.com/macros/s/AKfycbz6lNjGfchepV3D0KBFf3xBlThK7svDfK9LCu6gZloA8lJiS1tILVMoRzIuxc-HEZd_9g/exec";
+
+
+        // Professional, reusable notification panel (no browser alert popups)
+        function showNotification(message, type = "info", title = "") {
+            const panel = document.getElementById("notificationPanel");
+            if (!panel) return;
+
+            const presets = {
+                success: { icon: "✓", title: title || "Success" },
+                error: { icon: "×", title: title || "Something Went Wrong" },
+                warning: { icon: "!", title: title || "Please Note" },
+                info: { icon: "i", title: title || "HY Store" }
+            };
+            const preset = presets[type] || presets.info;
+            const notice = document.createElement("div");
+            notice.className = `hy-notification ${type in presets ? type : "info"}`;
+
+            const icon = document.createElement("div");
+            icon.className = "hy-notice-icon";
+            icon.textContent = preset.icon;
+
+            const content = document.createElement("div");
+            content.className = "hy-notice-content";
+            const heading = document.createElement("div");
+            heading.className = "hy-notice-title";
+            heading.textContent = preset.title;
+            const body = document.createElement("div");
+            body.className = "hy-notice-message";
+            body.textContent = String(message);
+            content.append(heading, body);
+
+            const close = document.createElement("button");
+            close.className = "hy-notice-close";
+            close.type = "button";
+            close.setAttribute("aria-label", "Close notification");
+            close.innerHTML = "&times;";
+            const progress = document.createElement("div");
+            progress.className = "hy-notice-progress";
+
+            notice.append(icon, content, close, progress);
+            panel.appendChild(notice);
+
+            const dismiss = () => {
+                if (!notice.isConnected || notice.classList.contains("is-leaving")) return;
+                clearTimeout(timer);
+                notice.classList.add("is-leaving");
+                setTimeout(() => notice.remove(), 300);
+            };
+            close.addEventListener("click", dismiss);
+            const timer = setTimeout(dismiss, 4800);
+
+            while (panel.children.length > 4) panel.firstElementChild.remove();
+        }
+
         let allProducts = [];
         let currentProduct = null;
         let selectedQty = 1;
@@ -954,6 +1080,7 @@
                 displayProducts(allProducts);
             } catch (error) {
                 console.error("Error fetching products:", error);
+                showNotification("Products could not be loaded. Please check your internet connection.", "error", "Unable to Load Products");
                 grid.innerHTML = `
                     <div class="loading-container">
                         <div class="hy-loader" style="background:#ff3333; box-shadow:0 0 20px rgba(255,51,51,0.5);"><span>!</span></div>
@@ -1083,7 +1210,7 @@
         }
 
         function addToCart() {
-            alert(`Added ${selectedQty} item(s) of "${currentProduct.name}" to your cart!`);
+            showNotification(`Added ${selectedQty} item(s) of "${currentProduct.name}" to your cart.`, "success", "Added to Cart");
             closeModal();
         }
 
@@ -1126,7 +1253,7 @@
                 const name = document.getElementById('authName').value.trim();
                 let existingUser = usersDB.find(u => u.email === email);
                 if (existingUser) {
-                    alert("An account with this email already exists! Please log in instead.");
+                    showNotification("An account with this email already exists. Please log in instead.", "warning", "Account Already Exists");
                     switchAuthMode('login');
                     return;
                 }
@@ -1136,16 +1263,16 @@
                 
                 currentUser = newUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
-                alert("Account created successfully and logged in!");
+                showNotification("Your account has been created and you are now logged in.", "success", "Account Created");
             } else {
                 let matchedUser = usersDB.find(u => u.email === email && u.password === password);
                 if (!matchedUser) {
-                    alert("Invalid email or password! Please sign up if you don't have an account.");
+                    showNotification("Invalid email or password. Please check your details or create an account.", "error", "Login Failed");
                     return;
                 }
                 currentUser = matchedUser;
                 localStorage.setItem('hy_logged_user', JSON.stringify(currentUser));
-                alert("Logged in successfully!");
+                showNotification("You have successfully logged in to your account.", "success", "Welcome Back!");
             }
 
             closeAuthModal();
@@ -1157,12 +1284,12 @@
             localStorage.removeItem('hy_logged_user');
             currentUser = null;
             updateAuthUI();
-            alert("You have been logged out successfully.");
+            showNotification("You have been logged out successfully.", "info", "Logged Out");
         }
 
         function openCheckout() {
             if (!currentUser) {
-                alert("Please log in first to place an order!");
+                showNotification("Please log in to your account before placing an order.", "warning", "Login Required");
                 closeModal();
                 openAuthModal('login');
                 return;
@@ -1203,12 +1330,12 @@
                     body: JSON.stringify(orderData)
                 });
 
-                alert("🎉 Congratulations! Your order has been successfully placed. Thank you for shopping with us!");
+                showNotification("Your order has been successfully placed. Thank you for choosing HY Store!", "success", "Order Placed Successfully!");
                 closeCheckout();
                 document.getElementById('orderForm').reset();
             } catch (error) {
                 console.error("Order error:", error);
-                alert("Failed to submit the order. Please try again.");
+                showNotification("We could not submit your order. Please check your connection and try again.", "error", "Order Submission Failed");
             } finally {
                 btn.innerText = "Confirm Order";
                 btn.disabled = false;
