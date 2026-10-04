@@ -81,7 +81,7 @@
 
         /* Sidebar Categories */
         .sidebar {
-            width: 220px;
+            width: 240px;
             background: white;
             padding: 15px;
             border-radius: 6px;
@@ -101,23 +101,28 @@
         }
         .sidebar ul {
             list-style: none;
+            max-height: 500px;
+            overflow-y: auto;
         }
         .sidebar ul li {
-            padding: 8px 0;
-            font-size: 14px;
+            padding: 8px 6px;
+            font-size: 13px;
             color: #555;
             cursor: pointer;
             transition: 0.2s;
+            border-bottom: 1px solid #f9f9f9;
         }
         .sidebar ul li:hover {
             color: #f85606;
-            padding-left: 5px;
+            background: #fff5f0;
+            padding-left: 10px;
+            border-radius: 4px;
         }
 
         /* Main Content View */
         .main-content {
             flex: 1;
-            min-width: 0; /* Prevents flex items from overflowing */
+            min-width: 0;
         }
         .category-toggle-btn {
             background: #fff;
@@ -516,15 +521,22 @@
 
     <!-- Main Dashboard Body -->
     <div class="wrapper">
-        <!-- Sidebar Menu (Default Hidden on Load) -->
+        <!-- Sidebar Menu matching Sheet categories -->
         <div class="sidebar hidden" id="sidebarMenu">
             <h3>Categories</h3>
             <ul>
                 <li onclick="filterByCategory('All')">All Products</li>
-                <li onclick="filterByCategory('Electronics')">Electronics & Gadgets</li>
-                <li onclick="filterByCategory('Home')">Home & Living</li>
-                <li onclick="filterByCategory('Fashion')">Men & Women Fashion</li>
-                <li onclick="filterByCategory('Sports')">Sports & Fitness</li>
+                <li onclick="filterByCategory('Audio')">Audio & Earbuds</li>
+                <li onclick="filterByCategory('Wearable Tech')">Wearable Technology</li>
+                <li onclick="filterByCategory('Mobile Accessories')">Mobile Accessories</li>
+                <li onclick="filterByCategory('Photography')">Photography & Lighting</li>
+                <li onclick="filterByCategory('Fashion Accessories')">Fashion Accessories</li>
+                <li onclick="filterByCategory('Home Decor')">Home Decor & Living</li>
+                <li onclick="filterByCategory('Toys & Games')">Toys & Games</li>
+                <li onclick="filterByCategory('Kitchen')">Kitchen Appliances & Ware</li>
+                <li onclick="filterByCategory('Personalised Gifts')">Personalised Gifts</li>
+                <li onclick="filterByCategory('Stationery')">Stationery & Personal</li>
+                <li onclick="filterByCategory('Office Supplies')">Office Supplies</li>
             </ul>
         </div>
 
@@ -543,7 +555,7 @@
                 </div>
             </div>
 
-            <h2 class="section-heading">Just For You</h2>
+            <h2 class="section-heading" id="sectionTitle">Just For You</h2>
             <div class="product-grid" id="product-grid">
                 <div class="loading">Loading products from Google Sheets...</div>
             </div>
@@ -687,15 +699,18 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
             displayProducts(filtered);
+            document.getElementById('sectionTitle').innerText = query ? `Search Results for "${query}"` : "Just For You";
         }
 
-        // Category Filter
+        // Category Filter matching sheet data
         function filterByCategory(category) {
             if (category === 'All') {
                 displayProducts(allProducts);
+                document.getElementById('sectionTitle').innerText = "Just For You";
             } else {
-                const filtered = allProducts.filter(p => p.category && p.category.toLowerCase().includes(category.toLowerCase()));
-                displayProducts(filtered.length > 0 ? filtered : allProducts);
+                const filtered = allProducts.filter(p => p.cat && p.cat.toLowerCase().includes(category.toLowerCase()));
+                displayProducts(filtered);
+                document.getElementById('sectionTitle').innerText = category;
             }
         }
 
