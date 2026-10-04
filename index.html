@@ -78,6 +78,24 @@
         .nav-links a:hover {
             color: #f85606;
         }
+        .tracking-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 13px;
+            border-radius: 9px;
+            color: #fff !important;
+            background: linear-gradient(135deg, #f85606, #ff7a28);
+            box-shadow: 0 4px 12px rgba(248, 86, 6, .2);
+            font-weight: 700 !important;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .tracking-nav-btn:hover {
+            color: #fff !important;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(248, 86, 6, .28);
+        }
         .user-greeting {
             color: #f85606;
             font-weight: bold;
@@ -816,7 +834,7 @@
             .logo { height: 34px; max-width: 42%; }
             .logo img { max-width: 145px; max-height: 34px; }
             .nav-links { gap: 9px; font-size: 12px; }
-            .nav-links a { font-size: 11px; }
+            .nav-links a { font-size: 11px; }\n            .tracking-nav-btn { padding: 7px 9px; font-size: 10px !important; }
             .user-greeting { max-width: 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
             .search-box { min-width: 0; }
             .search-box input { min-width: 0; padding: 11px 12px; font-size: 13px; border-width: 1px; }
@@ -908,6 +926,7 @@
             <span id="userGreeting" class="user-greeting" style="display:none;"></span>
             <a id="authNavBtn" onclick="openAuthModal('login')">Login / Sign Up</a>
             <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red;">Logout</a>
+            <a class="tracking-nav-btn" href="#" onclick="showNotification('This is a demo tracking button. The order tracking system will be connected when your tracking page is ready.','info','Order Tracking'); return false;">📦 Track Order</a>
             <a href="#">🛒 Cart</a>
         </div>
     </header>
