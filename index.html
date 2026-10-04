@@ -140,7 +140,7 @@
             border-color: #f85606;
         }
 
-        /* Live Promo Slider Styles (Height increased) */
+        /* Live Promo Slider Styles */
         .promo-slider {
             position: relative;
             width: 100%;
@@ -206,7 +206,7 @@
             border-radius: 5px;
         }
 
-        /* Flash Sale Timer Banner (Below Slider & Height increased) */
+        /* Flash Sale Timer Banner */
         .hero-banner {
             background: linear-gradient(135deg, #f85606 0%, #ff8a50 100%);
             color: white;
@@ -523,6 +523,79 @@
         .btn-buy:hover {
             background: #e04a05;
         }
+
+        /* Checkout Form Modal Styles */
+        .checkout-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+        }
+        .checkout-box {
+            background: white;
+            width: 450px;
+            max-width: 90%;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .checkout-box h3 {
+            margin-bottom: 15px;
+            color: #f85606;
+            font-size: 20px;
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #f85606;
+        }
+        .btn-submit-order {
+            width: 100%;
+            background: #f85606;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        .btn-submit-order:hover {
+            background: #e04a05;
+        }
+        .close-checkout {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #777;
+        }
+
         .loading {
             grid-column: 1 / -1;
             text-align: center;
@@ -589,7 +662,7 @@
 
     <!-- Main Dashboard Body -->
     <div class="wrapper">
-        <!-- Sidebar Menu matching Sheet categories -->
+        <!-- Sidebar Menu -->
         <div class="sidebar hidden" id="sidebarMenu">
             <h3>Categories</h3>
             <ul>
@@ -612,7 +685,7 @@
         <div class="main-content">
             <button class="category-toggle-btn" onclick="toggleSidebar()">☰ Categories</button>
 
-            <!-- Custom Banners Slider (banner1, banner2, banner3) -->
+            <!-- Custom Banners Slider -->
             <div class="promo-slider">
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
@@ -692,10 +765,33 @@
                     </div>
                     <div class="modal-action-btns">
                         <button class="btn-cart" onclick="addToCart()">Add to Cart</button>
-                        <button class="btn-buy" onclick="buyNow()">Buy Now</button>
+                        <button class="btn-buy" onclick="openCheckout()">Buy Now</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Checkout Form Modal -->
+    <div class="checkout-overlay" id="checkoutModal">
+        <div class="checkout-box">
+            <span class="close-checkout" onclick="closeCheckout()">&times;</span>
+            <h3>Complete Your Order</h3>
+            <form id="orderForm" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="custName" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="custPhone" required placeholder="03XXXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <textarea id="custAddress" rows="3" required placeholder="House #, Street, City"></textarea>
+                </div>
+                <button type="submit" class="btn-submit-order" id="submitBtn">Confirm Order</button>
+            </form>
         </div>
     </div>
 
@@ -736,23 +832,20 @@
 
     <!-- JavaScript logic -->
     <script>
-        const apiURL = "https://script.google.com/macros/s/AKfycbwJVWcaQYf-fHG458v2WnB-DZzBT09Y_p75-UpK35DBrdm1vSr7CDXwb_FSp1FbsKGt8A/exec";
+        const apiURL = "https://script.google.com/macros/s/AKfycbylnBNkg_qfhmO3TByrFSQruIQ2BC3f7EBilY75jmwdh8rBn4wn1AiLh-Dsn7U-Spqx3Q/exec";
         let allProducts = [];
         let currentProduct = null;
         let selectedQty = 1;
 
-        // Fetch Products from Google Apps Script
         async function fetchProducts() {
             const grid = document.getElementById('product-grid');
             try {
                 const response = await fetch(apiURL);
                 allProducts = await response.json();
-
                 if (allProducts.length === 0) {
                     grid.innerHTML = '<div class="loading">No products found.</div>';
                     return;
                 }
-
                 displayProducts(allProducts);
             } catch (error) {
                 console.error("Error fetching products:", error);
@@ -760,18 +853,14 @@
             }
         }
 
-        // Display Products in Grid
         function displayProducts(products) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = "";
-
             products.forEach(product => {
                 let discountHTML = "";
                 if (product.old && product.price) {
                     let disc = Math.round(((product.old - product.price) / product.old) * 100);
-                    if (disc > 0) {
-                        discountHTML = `<div class="discount-badge">-${disc}%</div>`;
-                    }
+                    if (disc > 0) discountHTML = `<div class="discount-badge">-${disc}%</div>`;
                 }
 
                 const card = document.createElement('div');
@@ -795,7 +884,6 @@
             });
         }
 
-        // Live Search Filter
         function filterProducts() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
@@ -803,7 +891,6 @@
             document.getElementById('sectionTitle').innerText = query ? `Search Results for "${query}"` : "Just For You";
         }
 
-        // Category Filter matching sheet data
         function filterByCategory(category) {
             if (category === 'All') {
                 displayProducts(allProducts);
@@ -815,13 +902,10 @@
             }
         }
 
-        // Toggle Sidebar Hide/Show
         function toggleSidebar() {
-            const sidebar = document.getElementById('sidebarMenu');
-            sidebar.classList.toggle('hidden');
+            document.getElementById('sidebarMenu').classList.toggle('hidden');
         }
 
-        // Live Countdown Timer
         let totalSeconds = 5 * 3600 + 42 * 60 + 19;
         setInterval(() => {
             if (totalSeconds > 0) totalSeconds--;
@@ -834,49 +918,36 @@
                 String(s).padStart(2, '0');
         }, 1000);
 
-        // Auto Slider Logic
         let slideIndex = 0;
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.dot');
-
         function showSlide(index) {
             if (index >= slides.length) slideIndex = 0;
             if (index < 0) slideIndex = slides.length - 1;
-            
             document.getElementById('sliderTrack').style.transform = `translateX(-${slideIndex * 100}%)`;
-            
             dots.forEach(dot => dot.classList.remove('active'));
             dots[slideIndex].classList.add('active');
         }
-
         function currentSlide(index) {
             slideIndex = index;
             showSlide(slideIndex);
         }
+        setInterval(() => { slideIndex++; showSlide(slideIndex); }, 3500);
 
-        // Automatic sliding every 3.5 seconds
-        setInterval(() => {
-            slideIndex++;
-            showSlide(slideIndex);
-        }, 3500);
-
-        // Modal Functions
         function openModal(product) {
             currentProduct = product;
             selectedQty = 1;
             document.getElementById('qtyVal').innerText = selectedQty;
-
             document.getElementById('modalTitle').innerText = product.name;
             document.getElementById('modalPrice').innerText = "Rs. " + product.price;
             document.getElementById('modalOldPrice').innerText = product.old ? "Rs. " + product.old : "";
-            document.getElementById('modalDesc').innerText = product.desc || "No description available for this item.";
+            document.getElementById('modalDesc').innerText = product.desc || "No description available.";
 
             const images = [product.img1, product.img2, product.img3].filter(img => img && img.trim() !== "");
             document.getElementById('activeImg').src = images.length > 0 ? images[0] : "";
 
             const thumbRow = document.getElementById('thumbnailRow');
             thumbRow.innerHTML = "";
-
             images.forEach((imgUrl, index) => {
                 const thumb = document.createElement('div');
                 thumb.className = `thumb ${index === 0 ? 'active' : ''}`;
@@ -907,17 +978,57 @@
             closeModal();
         }
 
-        function buyNow() {
-            alert(`Proceeding to checkout for ${selectedQty} x "${currentProduct.name}" (Total: Rs. ${currentProduct.price * selectedQty})`);
+        function openCheckout() {
             closeModal();
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        // Order Submit Function to Google Sheets
+        async function submitOrder(event) {
+            event.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "Placing Order...";
+            btn.disabled = true;
+
+            const orderData = {
+                name: currentProduct.name,
+                price: currentProduct.price,
+                qty: selectedQty,
+                total: currentProduct.price * selectedQty,
+                custName: document.getElementById('custName').value,
+                custPhone: document.getElementById('custPhone').value,
+                custAddress: document.getElementById('custAddress').value
+            };
+
+            try {
+                await fetch(apiURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Google Apps Script ke sath POST ke liye zaroori hai
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                alert("🎉 Mubarak ho! Aapka order successfully place ho gaya hai aur Google Sheet mein save ho chuka hai.");
+                closeCheckout();
+                document.getElementById('orderForm').reset();
+            } catch (error) {
+                console.error("Order error:", error);
+                alert("Order submit karne mein masla aya. Dobara koshish karein.");
+            } finally {
+                btn.innerText = "Confirm Order";
+                btn.disabled = false;
+            }
         }
 
         window.onclick = function(event) {
-            const modal = document.getElementById('productModal');
-            if (event.target == modal) closeModal();
+            if (event.target == document.getElementById('productModal')) closeModal();
+            if (event.target == document.getElementById('checkoutModal')) closeCheckout();
         }
 
-        // Initialize
         fetchProducts();
     </script>
 </body>
