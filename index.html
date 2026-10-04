@@ -15,19 +15,10 @@
             background-color: #f4f5f7;
             color: #333;
         }
-        /* Top Utility Bar */
-        top-bar {
-            background: #111;
-            color: #ddd;
-            padding: 8px 40px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-        }
         /* Main Header */
         .header {
             background: #ffffff;
-            padding: 15px 40px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -81,21 +72,25 @@
         
         /* Dashboard Container */
         .wrapper {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 15px;
+            max-width: 1350px;
+            margin: 15px auto;
+            padding: 0 10px;
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
 
         /* Sidebar Categories */
         .sidebar {
-            flex: 0 0 220px;
+            width: 220px;
             background: white;
             padding: 15px;
             border-radius: 6px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
             height: fit-content;
+            transition: all 0.3s ease;
+        }
+        .sidebar.hidden {
+            display: none;
         }
         .sidebar h3 {
             font-size: 15px;
@@ -123,10 +118,26 @@
         .main-content {
             flex: 1;
         }
+        .category-toggle-btn {
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .category-toggle-btn:hover {
+            background: #f85606;
+            color: #fff;
+            border-color: #f85606;
+        }
+
         .hero-banner {
             background: linear-gradient(135deg, #f85606 0%, #ff8a50 100%);
             color: white;
-            padding: 30px 35px;
+            padding: 25px 30px;
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 4px 10px rgba(248, 86, 6, 0.2);
@@ -135,7 +146,7 @@
             align-items: center;
         }
         .hero-banner h1 {
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 5px;
         }
         .hero-banner p {
@@ -147,11 +158,11 @@
             padding: 10px 15px;
             border-radius: 6px;
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
         }
         .flash-timer span {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 15px;
             display: block;
         }
 
@@ -163,7 +174,7 @@
         }
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
         .card {
@@ -196,7 +207,7 @@
             z-index: 10;
         }
         .card-img {
-            height: 180px;
+            height: 170px;
             background: #fff;
             display: flex;
             align-items: center;
@@ -207,7 +218,7 @@
         .card-img img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Image cut nahi hogi aur poori dikhegi */
+            object-fit: contain;
         }
         .card-body {
             padding: 10px 5px;
@@ -249,7 +260,7 @@
             margin-left: 4px;
         }
 
-        /* Daraz Style Modal / Panel */
+        /* Daraz Style Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -272,11 +283,6 @@
             overflow: hidden;
             position: relative;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
         }
         .modal-header-close {
             position: absolute;
@@ -449,11 +455,11 @@
             font-size: 16px;
         }
 
-        /* Professional Footer */
+        /* Footer */
         footer {
             background: #242424;
             color: #fff;
-            padding: 40px 20px 20px 20px;
+            padding: 30px 20px 15px 20px;
             margin-top: 40px;
             font-size: 13px;
         }
@@ -463,18 +469,18 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .footer-col h4 {
             color: #f85606;
-            margin-bottom: 15px;
-            font-size: 15px;
+            margin-bottom: 12px;
+            font-size: 14px;
         }
         .footer-col ul {
             list-style: none;
         }
         .footer-col ul li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #bbb;
             cursor: pointer;
         }
@@ -483,7 +489,7 @@
         }
         .footer-bottom {
             border-top: 1px solid #444;
-            padding-top: 20px;
+            padding-top: 15px;
             text-align: center;
             color: #888;
         }
@@ -495,8 +501,8 @@
     <header class="header">
         <div class="logo">HY Store</div>
         <div class="search-box">
-            <input type="text" placeholder="Search in HY Store...">
-            <button>Search</button>
+            <input type="text" id="searchInput" placeholder="Search in HY Store..." onkeyup="filterProducts()">
+            <button onclick="filterProducts()">Search</button>
         </div>
         <div class="nav-links">
             <a href="#">Login</a>
@@ -508,20 +514,21 @@
     <!-- Main Dashboard Body -->
     <div class="wrapper">
         <!-- Sidebar Menu -->
-        <div class="sidebar">
+        <div class="sidebar" id="sidebarMenu">
             <h3>Categories</h3>
             <ul>
-                <li>Electronics & Gadgets</li>
-                <li>Home & Living</li>
-                <li>Men's Fashion</li>
-                <li>Women's Fashion</li>
-                <li>Sports & Fitness</li>
-                <li>Grocery & Essentials</li>
+                <li onclick="filterByCategory('All')">All Products</li>
+                <li onclick="filterByCategory('Electronics')">Electronics & Gadgets</li>
+                <li onclick="filterByCategory('Home')">Home & Living</li>
+                <li onclick="filterByCategory('Fashion')">Men & Women Fashion</li>
+                <li onclick="filterByCategory('Sports')">Sports & Fitness</li>
             </ul>
         </div>
 
         <!-- Products Section -->
         <div class="main-content">
+            <button class="category-toggle-btn" onclick="toggleSidebar()">☰ Categories</button>
+
             <div class="hero-banner">
                 <div>
                     <h1>Flash Sale Is Live!</h1>
@@ -529,7 +536,7 @@
                 </div>
                 <div class="flash-timer">
                     Ending In
-                    <span>05 : 42 : 19</span>
+                    <span id="countdownTimer">05 : 42 : 19</span>
                 </div>
             </div>
 
@@ -540,21 +547,17 @@
         </div>
     </div>
 
-    <!-- Daraz Style Product Detail Modal -->
+    <!-- Product Detail Modal -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <div class="modal-header-close" onclick="closeModal()">&times;</div>
             <div class="modal-body">
-                <!-- Gallery Section -->
                 <div class="modal-gallery">
-                    <div class="main-preview" id="mainPreview">
+                    <div class="main-preview">
                         <img id="activeImg" src="" alt="Product Preview">
                     </div>
-                    <div class="thumbnail-row" id="thumbnailRow">
-                        <!-- Thumbnails injected here -->
-                    </div>
+                    <div class="thumbnail-row" id="thumbnailRow"></div>
                 </div>
-                <!-- Details Section -->
                 <div class="modal-details">
                     <h2 class="modal-title" id="modalTitle"></h2>
                     <div class="modal-prices">
@@ -580,7 +583,7 @@
         </div>
     </div>
 
-    <!-- Professional Footer -->
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
             <div class="footer-col">
@@ -618,57 +621,101 @@
     <!-- JavaScript logic -->
     <script>
         const apiURL = "https://script.google.com/macros/s/AKfycbwJVWcaQYf-fHG458v2WnB-DZzBT09Y_p75-UpK35DBrdm1vSr7CDXwb_FSp1FbsKGt8A/exec";
+        let allProducts = [];
         let currentProduct = null;
         let selectedQty = 1;
 
+        // Fetch Products from Google Apps Script
         async function fetchProducts() {
             const grid = document.getElementById('product-grid');
             try {
                 const response = await fetch(apiURL);
-                const products = await response.json();
+                allProducts = await response.json();
 
-                if (products.length === 0) {
+                if (allProducts.length === 0) {
                     grid.innerHTML = '<div class="loading">No products found.</div>';
                     return;
                 }
 
-                grid.innerHTML = ""; 
-
-                products.forEach(product => {
-                    // Discount calculation if old price exists
-                    let discountHTML = "";
-                    if (product.old && product.price) {
-                        let disc = Math.round(((product.old - product.price) / product.old) * 100);
-                        if (disc > 0) {
-                            discountHTML = `<div class="discount-badge">-${disc}%</div>`;
-                        }
-                    }
-
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.onclick = () => openModal(product);
-                    card.innerHTML = `
-                        ${discountHTML}
-                        <div class="card-img">
-                            ${product.img1 ? `<img src="${product.img1}" alt="${product.name}">` : 'No Image'}
-                        </div>
-                        <div class="card-body">
-                            <h4>${product.name}</h4>
-                            <div class="price-box">
-                                <span class="card-price">Rs. ${product.price}</span>
-                                ${product.old ? `<span class="card-old-price">Rs. ${product.old}</span>` : ''}
-                            </div>
-                            <div class="rating-stars">★★★★★ <span>(4.5)</span></div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
+                displayProducts(allProducts);
             } catch (error) {
                 console.error("Error fetching products:", error);
                 grid.innerHTML = '<div class="loading" style="color: red;">Failed to load products. Check URL.</div>';
             }
         }
 
+        // Display Products in Grid
+        function displayProducts(products) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = "";
+
+            products.forEach(product => {
+                let discountHTML = "";
+                if (product.old && product.price) {
+                    let disc = Math.round(((product.old - product.price) / product.old) * 100);
+                    if (disc > 0) {
+                        discountHTML = `<div class="discount-badge">-${disc}%</div>`;
+                    }
+                }
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => openModal(product);
+                card.innerHTML = `
+                    ${discountHTML}
+                    <div class="card-img">
+                        ${product.img1 ? `<img src="${product.img1}" alt="${product.name}">` : 'No Image'}
+                    </div>
+                    <div class="card-body">
+                        <h4>${product.name}</h4>
+                        <div class="price-box">
+                            <span class="card-price">Rs. ${product.price}</span>
+                            ${product.old ? `<span class="card-old-price">Rs. ${product.old}</span>` : ''}
+                        </div>
+                        <div class="rating-stars">★★★★★ <span>(4.5)</span></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Live Search Filter
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allProducts.filter(p => p.name.toLowerCase().includes(query));
+            displayProducts(filtered);
+        }
+
+        // Category Filter
+        function filterByCategory(category) {
+            if (category === 'All') {
+                displayProducts(allProducts);
+            } else {
+                const filtered = allProducts.filter(p => p.category && p.category.toLowerCase().includes(category.toLowerCase()));
+                displayProducts(filtered.length > 0 ? filtered : allProducts);
+            }
+        }
+
+        // Toggle Sidebar Hide/Show
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebarMenu');
+            sidebar.classList.toggle('hidden');
+        }
+
+        // Live Countdown Timer
+        let totalSeconds = 5 * 3600 + 42 * 60 + 19;
+        setInterval(() => {
+            if (totalSeconds > 0) totalSeconds--;
+            let h = Math.floor(totalSeconds / 3600);
+            let m = Math.floor((totalSeconds % 3600) / 60);
+            let s = totalSeconds % 60;
+            document.getElementById('countdownTimer').innerText = 
+                String(h).padStart(2, '0') + " : " + 
+                String(m).padStart(2, '0') + " : " + 
+                String(s).padStart(2, '0');
+        }, 1000);
+
+        // Modal Functions
         function openModal(product) {
             currentProduct = product;
             selectedQty = 1;
@@ -679,14 +726,8 @@
             document.getElementById('modalOldPrice').innerText = product.old ? "Rs. " + product.old : "";
             document.getElementById('modalDesc').innerText = product.desc || "No description available for this item.";
 
-            // Setup images (img1, img2, img3)
             const images = [product.img1, product.img2, product.img3].filter(img => img && img.trim() !== "");
-            
-            if (images.length > 0) {
-                document.getElementById('activeImg').src = images[0];
-            } else {
-                document.getElementById('activeImg').src = "";
-            }
+            document.getElementById('activeImg').src = images.length > 0 ? images[0] : "";
 
             const thumbRow = document.getElementById('thumbnailRow');
             thumbRow.innerHTML = "";
@@ -728,11 +769,10 @@
 
         window.onclick = function(event) {
             const modal = document.getElementById('productModal');
-            if (event.target == modal) {
-                closeModal();
-            }
+            if (event.target == modal) closeModal();
         }
 
+        // Initialize
         fetchProducts();
     </script>
 </body>
