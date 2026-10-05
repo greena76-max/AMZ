@@ -978,10 +978,37 @@
 
         /* Responsive */
         @media (max-width: 600px) {
+            .header { padding: 8px 10px; gap: 8px; }
             .header-top { gap: 8px; flex-direction: column; }
-            .nav-links { width: 100%; justify-content: center; gap: 8px; }
-            .nav-btn-style { padding: 6px 10px; font-size: 11px !important; height: 34px; }
-            .auth-link-btn { font-size: 11px !important; padding: 6px 10px; height: 34px; }
+            .logo-text-box { padding: 7px 10px; }
+            .logo-text-box span { font-size: 13px; letter-spacing: 1px; }
+            .nav-links { width: 100%; justify-content: center; gap: 5px; flex-wrap: wrap; }
+            .nav-btn-style { padding: 6px 8px; font-size: 10px !important; height: 32px; }
+            .auth-link-btn { font-size: 10px !important; padding: 6px 8px; height: 32px; }
+            .search-box input { font-size: 12px; padding: 9px 10px; }
+            .search-box button { padding: 0 14px; font-size: 12px; }
+            .wrapper { margin: 8px auto; padding: 0 8px; display: block; }
+            .sidebar { width: 100%; margin-bottom: 10px; }
+            .promo-slider { height: 180px; border-radius: 6px; }
+            .slide img { object-fit: cover; }
+            .slide-caption { padding: 18px 12px 12px; }
+            .slide-caption h2 { font-size: 16px; margin-bottom: 3px; }
+            .slide-caption p { font-size: 10px; }
+            .hero-banner { padding: 16px 12px; gap: 10px; flex-direction: column; align-items: stretch; }
+            .hero-banner h1 { font-size: 18px; }
+            .hero-banner p { font-size: 11px; }
+            .flash-timer { padding: 8px 12px; }
+            .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+            .card { height: 250px; padding: 7px; }
+            .card-img { height: 140px; }
+            .card-body { padding: 7px 3px; }
+            .card-body h4 { font-size: 11px; height: 31px; }
+            .card-price { font-size: 14px; }
+            .card-old-price { font-size: 10px; }
+            .tracking-box, .auth-box, .checkout-box { width: calc(100% - 24px); max-width: none; padding: 18px 14px; }
+            .tracking-box h3, .auth-box h3, .checkout-box h3 { font-size: 18px; }
+            .tracking-result { max-height: 55vh; overflow-y: auto; }
+            #notificationPanel { top: 90px; right: 10px; width: calc(100vw - 20px); }
         }
     </style>
 </head>
@@ -1132,7 +1159,7 @@
             <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 15px;">Track your order status quickly and easily.</p>
             
             <div class="form-group">
-                <input type="text" id="trackInput" placeholder="Enter Order Tracking ID or Phone #">
+                <input type="text" id="trackInput" placeholder="Enter Order ID (e.g. HY-37032)">
             </div>
             <button type="button" class="btn-submit-form" onclick="executeOrderTracking()">Track Order</button>
 
@@ -1593,20 +1620,90 @@
             document.getElementById('trackingModal').style.display = 'none';
             document.getElementById('trackingResultPanel').style.display = 'none';
         }
-        function executeOrderTracking() {
-            const query = document.getElementById('trackInput').value.trim();
+        async function executeOrderTracking() {
+            const query = document.getElementById('trackInput').value.trim().toUpperCase();
             const resPanel = document.getElementById('trackingResultPanel');
             const title = document.getElementById('trackOrderTitle');
             const details = document.getElementById('trackOrderDetails');
+            const button = document.querySelector('#trackingModal .btn-submit-form');
 
             if (!query) {
-                showNotification("Please enter Tracking ID or Phone Number.", "warning", "Input Required");
+                showNotification("Please enter your Order ID.", "warning", "Order ID Required");
                 return;
             }
 
-            title.innerText = "Order #" + query;
-            details.innerText = "Tracking section UI is active. Connected to store backend for real-time status updates.";
+            button.disabled = true;
+            button.innerText = "Checking...";
             resPanel.style.display = 'block';
+            title.innerText = "Checking Order #" + query;
+            details.innerHTML = '<div style="padding:8px 0;color:#666;">Please wait...</div>';
+
+            try {
+                const response = await fetch(apiURL + "?action=trackOrder&orderId=" + encodeURIComponent(query), {
+                    method: 'GET',
+                    cache: 'no-store'
+                });
+                const data = await response.json();
+
+                if (data.status !== 'success') {
+                    title.innerText = "Order Not Found";
+                    details.innerHTML = '<div style="color:#d93632;font-weight:600;padding:8px 0;">' +
+                        (data.message || 'No order was found with this Order ID.') + '</div>';
+                    return;
+                }
+
+                const statuses = [
+                    'Pending',
+                    'Order Confirmed',
+                    'Designing',
+                    'Printing',
+                    'Ready for Delivery',
+                    'Dispatch'
+                ];
+                const currentStatus = String(data.orderStatus || 'Pending').trim();
+                const isCancelled = currentStatus.toLowerCase() === 'cancelled';
+                const currentIndex = statuses.findIndex(s => s.toLowerCase() === currentStatus.toLowerCase());
+
+                title.innerText = 'Order #' + data.orderId;
+
+                let timeline = '';
+                if (isCancelled) {
+                    timeline = '<div style="margin-top:12px;padding:12px;border-radius:6px;background:#fff0ef;color:#d93632;font-weight:700;">✕ Cancelled</div>';
+                } else {
+                    timeline = statuses.map((status, index) => {
+                        const done = currentIndex >= 0 && index <= currentIndex;
+                        const active = currentIndex === index;
+                        return '<div style="display:flex;align-items:center;gap:10px;margin:8px 0;">' +
+                            '<span style="width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:' +
+                            (done ? '#f85606' : '#e5e7eb') + ';color:' + (done ? '#fff' : '#777') + ';font-size:12px;font-weight:700;">' +
+                            (done ? '✓' : (index + 1)) + '</span>' +
+                            '<span style="font-weight:' + (active ? '700' : '500') + ';color:' + (active ? '#f85606' : '#444') + ';">' +
+                            status + (active ? ' — Current Status' : '') + '</span></div>';
+                    }).join('');
+                }
+
+                details.innerHTML =
+                    '<div style="display:grid;gap:6px;margin-bottom:12px;">' +
+                    '<div><strong>Customer:</strong> ' + escapeTrackingText(data.customerName || '') + '</div>' +
+                    '<div><strong>Product:</strong> ' + escapeTrackingText(data.productName || '') + '</div>' +
+                    '<div><strong>Amount:</strong> Rs. ' + escapeTrackingText(data.price || '') + '</div>' +
+                    '<div><strong>Status:</strong> <span style="color:#f85606;font-weight:700;">' + escapeTrackingText(currentStatus) + '</span></div>' +
+                    '</div>' + timeline;
+
+            } catch (error) {
+                console.error('Tracking error:', error);
+                title.innerText = 'Tracking Error';
+                details.innerHTML = '<div style="color:#d93632;padding:8px 0;">Unable to connect to the tracking service. Please try again.</div>';
+            } finally {
+                button.disabled = false;
+                button.innerText = 'Track Order';
+            }
+        }
+
+        function escapeTrackingText(value) {
+            return String(value).replace(/[&<>"']/g, function(char) {
+                return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char];
+            });
         }
 
         function openAuthModal(mode) {
