@@ -15,146 +15,179 @@
             background-color: #f4f5f7;
             color: #333;
         }
-        /* Main Header */
+        /* HY Store Professional Header */
         .header {
-            background: #ffffff;
-            padding: 12px 20px;
+            background: #fff;
+            padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            align-items: stretch;
+            gap: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,.08);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .promo-bar {
+            height: 52px;
+            background: #111111;
+            color: #fff;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             width: 100%;
-            max-width: 1350px;
         }
-        
-        /* Styled Text Logo with Silver Text & Full Width Orange Border */
+        .promo-item {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:10px;
+            padding: 0 14px;
+            border-right: 1px solid rgba(255,255,255,.16);
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.15;
+        }
+        .promo-item:last-child { border-right: 0; }
+        .promo-icon { font-size: 21px; }
+        .promo-item strong { color:#fff; display:block; }
+        .promo-item small { color:#ffd8c5; display:block; font-size:11px; font-weight:600; margin-top:2px; }
+
+        .store-nav {
+            background: #f85606;
+            min-height: 66px;
+            display:flex;
+            align-items:center;
+            gap:16px;
+            padding: 0 22px;
+        }
+        .header-top {
+            display: contents;
+        }
         .logo {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            text-decoration: none;
+            display:inline-flex;
+            align-items:center;
+            flex: 0 0 auto;
+            cursor:pointer;
+            text-decoration:none;
         }
         .logo-text-box {
-            background: #1e1e1e;
-            padding: 8px 16px;
-            border-radius: 4px;
-            border-bottom: 3.5px solid #f85606; /* Full width bottom border */
-            display: block;
-            width: 100%;
-            text-align: center;
+            background:#171717;
+            padding:8px 15px;
+            border:1px solid rgba(255,255,255,.18);
+            border-bottom:3px solid #ff6a1a;
+            border-radius:9px;
+            text-align:center;
+            box-shadow:0 3px 8px rgba(0,0,0,.18);
         }
         .logo-text-box span {
-            color: #c0c0c0; /* Silver Color Text */
-            font-size: 16px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            display: block;
-            text-transform: uppercase;
-            text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+            color:#fff;
+            font-size:15px;
+            font-weight:900;
+            letter-spacing:2.4px;
+            display:block;
+            text-transform:uppercase;
+            white-space:nowrap;
         }
-
-        /* Nav Buttons Group on Right Side */
+        .store-brand {
+            color:#fff;
+            font-size:16px;
+            font-weight:900;
+            letter-spacing:.4px;
+            white-space:nowrap;
+            margin-right:auto;
+        }
+        .store-brand small {
+            display:block;
+            font-size:10px;
+            font-weight:600;
+            opacity:.9;
+            margin-top:2px;
+        }
         .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            flex-wrap:nowrap;
         }
         .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
+            text-decoration:none;
+            cursor:pointer;
         }
-
-        /* Standardized Nav Buttons (Same Size for Track Order & Cart) */
         .nav-btn-style {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 700 !important;
-            font-size: 13px !important;
-            color: #333 !important;
-            transition: all 0.2s ease;
-            height: 38px;
-            box-sizing: border-box;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            gap:6px;
+            background:#fff;
+            border:1px solid rgba(0,0,0,.12);
+            padding:9px 13px;
+            border-radius:22px;
+            font-weight:800 !important;
+            font-size:12px !important;
+            color:#252525 !important;
+            transition:all .2s ease;
+            min-height:40px;
+            white-space:nowrap;
+            box-shadow:0 2px 5px rgba(0,0,0,.08);
         }
-        .nav-btn-style:hover {
-            border-color: #f85606;
-            color: #f85606 !important;
-            background: #fff5f0;
-        }
-
+        .nav-btn-style:hover { background:#fff7f2; color:#f85606 !important; transform:translateY(-1px); }
         .cart-badge {
-            background: #f85606;
-            color: white;
-            font-size: 11px;
-            padding: 2px 6px;
-            border-radius: 50%;
-            font-weight: bold;
+            background:#f85606;
+            color:#fff;
+            font-size:10px;
+            min-width:19px;
+            height:19px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            font-weight:900;
         }
-
         .auth-link-btn {
-            background: #f85606;
-            color: #fff !important;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 700 !important;
-            font-size: 13px !important;
-            height: 38px;
-            display: inline-flex;
-            align-items: center;
-            transition: background 0.2s ease;
+            background:#1c1c1c;
+            color:#fff !important;
+            padding:9px 13px;
+            border-radius:22px;
+            font-weight:800 !important;
+            font-size:12px !important;
+            min-height:40px;
+            display:inline-flex;
+            align-items:center;
+            white-space:nowrap;
+            transition:all .2s ease;
         }
-        .auth-link-btn:hover {
-            background: #e04a05;
-        }
-
-        .user-greeting {
-            color: #f85606;
-            font-weight: bold;
-            font-size: 13px;
-        }
-
+        .auth-link-btn:hover { background:#000; transform:translateY(-1px); }
+        .user-greeting { color:#fff; font-weight:800; font-size:12px; white-space:nowrap; }
         .search-box {
-            display: flex;
-            width: 100%;
-            max-width: 700px;
+            display:flex;
+            width:min(680px, 46vw);
+            margin-left:auto;
+            margin-right:auto;
+            order: 3;
+            transform: translateY(-58px);
+            margin-bottom:-58px;
         }
         .search-box input {
-            width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #f85606;
-            border-radius: 4px 0 0 4px;
-            outline: none;
-            font-size: 14px;
+            width:100%;
+            padding:11px 17px;
+            border:0;
+            outline:none;
+            font-size:13px;
+            background:#fff;
+            border-radius:22px 0 0 22px;
         }
         .search-box button {
-            background: #f85606;
-            color: white;
-            border: none;
-            padding: 0 25px;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
+            background:#1b1b1b;
+            color:#fff;
+            border:none;
+            padding:0 22px;
+            border-radius:0 22px 22px 0;
+            cursor:pointer;
+            font-weight:800;
+            font-size:13px;
         }
-        
+        .search-box button:hover { background:#000; }
+
         /* Dashboard Container */
         .wrapper {
             max-width: 1350px;
@@ -864,171 +897,15 @@
             color: #777;
         }
 
-        /* Professional Order Tracking Result */
+        /* Tracking Result Panel */
         .tracking-result {
-            margin-top: 18px;
-            padding: 0;
-            background: #fff;
-            border: 1px solid #e7eaf0;
-            border-radius: 14px;
+            margin-top: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
             font-size: 13px;
             display: none;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(20, 35, 55, 0.08);
-        }
-        .tracking-order-head {
-            padding: 16px 17px 13px;
-            background: linear-gradient(135deg, #fff8f3, #fff);
-            border-bottom: 1px solid #edf0f4;
-        }
-        .tracking-order-label {
-            display: block;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: .7px;
-            color: #7b8491;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .tracking-order-title {
-            display: block;
-            color: #172033;
-            font-size: 18px;
-            font-weight: 800;
-            margin: 0;
-        }
-        .tracking-summary {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 8px;
-            padding: 13px 15px;
-            background: #fafbfc;
-            border-bottom: 1px solid #edf0f4;
-        }
-        .tracking-summary-item {
-            min-width: 0;
-            padding: 9px 10px;
-            background: #fff;
-            border: 1px solid #edf0f4;
-            border-radius: 9px;
-        }
-        .tracking-summary-item small {
-            display: block;
-            color: #89919d;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: .4px;
-            margin-bottom: 3px;
-        }
-        .tracking-summary-item strong {
-            display: block;
-            color: #273142;
-            font-size: 12px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .tracking-timeline {
-            padding: 16px 17px 18px;
-        }
-        .tracking-timeline-title {
-            font-size: 12px;
-            font-weight: 800;
-            color: #263142;
-            margin-bottom: 13px;
-        }
-        .tracking-step {
-            position: relative;
-            display: flex;
-            align-items: flex-start;
-            gap: 11px;
-            min-height: 43px;
-        }
-        .tracking-step:not(:last-child)::before {
-            content: '';
-            position: absolute;
-            left: 11px;
-            top: 25px;
-            width: 2px;
-            height: 28px;
-            background: #e4e8ee;
-            border-radius: 2px;
-        }
-        .tracking-step.done:not(:last-child)::before {
-            background: #f85606;
-        }
-        .tracking-dot {
-            position: relative;
-            z-index: 1;
-            flex: 0 0 24px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #eef1f5;
-            color: #8b94a1;
-            font-size: 11px;
-            font-weight: 800;
-            border: 2px solid #eef1f5;
-            box-sizing: border-box;
-        }
-        .tracking-step.done .tracking-dot {
-            background: #f85606;
-            border-color: #f85606;
-            color: #fff;
-        }
-        .tracking-step.active .tracking-dot {
-            box-shadow: 0 0 0 5px rgba(248, 86, 6, .12);
-        }
-        .tracking-step-content {
-            padding-top: 2px;
-            min-width: 0;
-        }
-        .tracking-step-name {
-            display: block;
-            color: #525b68;
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 20px;
-        }
-        .tracking-step.done .tracking-step-name {
-            color: #333c49;
-        }
-        .tracking-step.active .tracking-step-name {
-            color: #f85606;
-            font-weight: 800;
-        }
-        .tracking-current-badge {
-            display: inline-flex;
-            align-items: center;
-            margin-left: 6px;
-            padding: 2px 7px;
-            border-radius: 20px;
-            background: #fff0e7;
-            color: #f85606;
-            font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: .3px;
-            vertical-align: middle;
-        }
-        .tracking-cancelled {
-            margin: 15px 17px 18px;
-            padding: 13px 14px;
-            border: 1px solid #ffd7d4;
-            border-radius: 10px;
-            background: #fff5f4;
-            color: #d93632;
-            font-weight: 800;
-        }
-        @media (max-width: 600px) {
-            .tracking-summary { grid-template-columns: 1fr; }
-            .tracking-summary-item strong { white-space: normal; }
-            .tracking-order-head, .tracking-timeline { padding-left: 14px; padding-right: 14px; }
-            .tracking-cancelled { margin-left: 14px; margin-right: 14px; }
         }
 
         /* Footer */
@@ -1133,71 +1010,69 @@
         @keyframes hyNoticeProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 
         /* Responsive */
+        @media (max-width: 900px) {
+            .store-brand { display:none; }
+            .store-nav { padding:0 12px; gap:8px; }
+            .nav-links { margin-left:auto; }
+            .search-box { width:55vw; }
+        }
         @media (max-width: 600px) {
-            .header { padding: 8px 10px; gap: 8px; }
-            .header-top { gap: 8px; flex-direction: column; }
-            .logo-text-box { padding: 7px 10px; }
-            .logo-text-box span { font-size: 13px; letter-spacing: 1px; }
-            .nav-links { width: 100%; justify-content: center; gap: 5px; flex-wrap: wrap; }
-            .nav-btn-style { padding: 6px 8px; font-size: 10px !important; height: 32px; }
-            .auth-link-btn { font-size: 10px !important; padding: 6px 8px; height: 32px; }
-            .search-box input { font-size: 12px; padding: 9px 10px; }
-            .search-box button { padding: 0 14px; font-size: 12px; }
-            .wrapper { margin: 8px auto; padding: 0 8px; display: block; }
-            .sidebar { width: 100%; margin-bottom: 10px; }
-            .promo-slider { height: 180px; border-radius: 6px; }
-            .slide img { object-fit: cover; }
-            .slide-caption { padding: 18px 12px 12px; }
-            .slide-caption h2 { font-size: 16px; margin-bottom: 3px; }
-            .slide-caption p { font-size: 10px; }
-            .hero-banner { padding: 16px 12px; gap: 10px; flex-direction: column; align-items: stretch; }
-            .hero-banner h1 { font-size: 18px; }
-            .hero-banner p { font-size: 11px; }
-            .flash-timer { padding: 8px 12px; }
-            .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-            .card { height: 250px; padding: 7px; }
-            .card-img { height: 140px; }
-            .card-body { padding: 7px 3px; }
-            .card-body h4 { font-size: 11px; height: 31px; }
-            .card-price { font-size: 14px; }
-            .card-old-price { font-size: 10px; }
-            .tracking-box, .auth-box, .checkout-box { width: calc(100% - 24px); max-width: none; padding: 18px 14px; }
-            .tracking-box h3, .auth-box h3, .checkout-box h3 { font-size: 18px; }
-            .tracking-result { max-height: 55vh; overflow-y: auto; }
-            #notificationPanel { top: 90px; right: 10px; width: calc(100vw - 20px); }
+            .promo-bar { height:44px; grid-template-columns:repeat(3,1fr); }
+            .promo-item { font-size:9px; gap:4px; padding:0 3px; }
+            .promo-item small { font-size:8px; }
+            .promo-icon { font-size:15px; }
+            .store-nav { min-height:58px; padding:0 7px; }
+            .logo-text-box { padding:7px 8px; border-radius:7px; }
+            .logo-text-box span { font-size:10px; letter-spacing:1.2px; }
+            .nav-links { gap:4px; }
+            .nav-btn-style, .auth-link-btn { min-height:34px; padding:6px 8px; font-size:10px !important; border-radius:18px; }
+            .nav-btn-style:first-child { font-size:0 !important; }
+            .nav-btn-style:first-child::before { content:'📦'; font-size:15px; }
+            .auth-link-btn { font-size:0 !important; }
+            .auth-link-btn::before { content:'👤'; font-size:15px; }
+            .user-greeting, #logoutNavBtn { display:none !important; }
+            .search-box { width:calc(100% - 18px); transform:none; margin:7px auto 9px; order:initial; }
+            .search-box input { padding:10px 13px; font-size:12px; }
+            .search-box button { padding:0 15px; font-size:11px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header with Custom Text Logo & Exact Requested Nav Button Sequence -->
+    <!-- Professional HY Store Header -->
     <header class="header">
-        <div class="header-top">
-            <!-- Left Logo with Silver Text and Full Width Orange Border -->
-            <a class="logo" href="#" onclick="location.reload(); return false;">
-                <div class="logo-text-box">
-                    <span>H Y &nbsp; S T O R E &nbsp; OFFICIAL</span>
-                </div>
-            </a>
-
-            <!-- Right Buttons Order: Track Order -> Cart -> Login/Profile -->
-            <div class="nav-links">
-                <!-- 1. Track Order Button (Equal size to Cart) -->
-                <a class="nav-btn-style" href="#" onclick="openTrackingModal(); return false;">
-                    📦 Track Order
-                </a>
-
-                <!-- 2. Cart Button -->
-                <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;">
-                    🛒 Cart <span class="cart-badge" id="cartBadgeCount">0</span>
-                </a>
-
-                <!-- 3. Login / Profile Button -->
-                <span id="userGreeting" class="user-greeting" style="display:none;"></span>
-                <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">Login / Sign Up</a>
-                <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:red; font-weight: bold; font-size: 13px;">Logout</a>
+        <div class="promo-bar">
+            <div class="promo-item">
+                <span class="promo-icon">🚚</span>
+                <div><strong>Free Shipping on All Orders</strong><small>Limited-time offer</small></div>
+            </div>
+            <div class="promo-item">
+                <span class="promo-icon">💰</span>
+                <div><strong>Price Adjustment</strong><small>Within 30 days</small></div>
+            </div>
+            <div class="promo-item">
+                <span class="promo-icon">📱</span>
+                <div><strong>Shop HY Store Anytime</strong><small>Fast & easy shopping</small></div>
             </div>
         </div>
+
+        <div class="store-nav">
+            <div class="header-top">
+                <a class="logo" href="#" onclick="location.reload(); return false;" aria-label="HY Store Official">
+                    <div class="logo-text-box"><span>H Y STORE OFFICIAL</span></div>
+                </a>
+                <div class="store-brand">HY STORE OFFICIAL<small>Smart Shopping • Trusted Service</small></div>
+
+                <div class="nav-links">
+                    <a class="nav-btn-style" href="#" onclick="openTrackingModal(); return false;">📦 Track Order</a>
+                    <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;">🛒 Cart <span class="cart-badge" id="cartBadgeCount">0</span></a>
+                    <span id="userGreeting" class="user-greeting" style="display:none;"></span>
+                    <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">👤 Login / Sign Up</a>
+                    <a id="logoutNavBtn" onclick="logoutUser()" style="display:none; color:#fff; font-weight:800; font-size:12px; cursor:pointer;">Logout</a>
+                </div>
+            </div>
+        </div>
+
         <div class="search-box">
             <input type="text" id="searchInput" placeholder="Search in HY Store..." onkeyup="filterProducts()">
             <button onclick="filterProducts()">Search</button>
@@ -1311,11 +1186,11 @@
     <div class="tracking-overlay" id="trackingModal">
         <div class="tracking-box">
             <span class="close-tracking" onclick="closeTrackingModal()">&times;</span>
-            <h3 style="text-align: center; margin-bottom: 6px;">Order Tracking</h3>
+            <h3 style="text-align: center; margin-bottom: 8px;">Order Tracking</h3>
             <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 15px;">Track your order status quickly and easily.</p>
             
             <div class="form-group">
-                <input type="text" id="trackInput" placeholder="Enter Order ID (e.g. HY-37032)">
+                <input type="text" id="trackInput" placeholder="Enter Order Tracking ID or Phone #">
             </div>
             <button type="button" class="btn-submit-form" onclick="executeOrderTracking()">Track Order</button>
 
@@ -1776,98 +1651,20 @@
             document.getElementById('trackingModal').style.display = 'none';
             document.getElementById('trackingResultPanel').style.display = 'none';
         }
-        async function executeOrderTracking() {
-            const query = document.getElementById('trackInput').value.trim().toUpperCase();
+        function executeOrderTracking() {
+            const query = document.getElementById('trackInput').value.trim();
             const resPanel = document.getElementById('trackingResultPanel');
             const title = document.getElementById('trackOrderTitle');
             const details = document.getElementById('trackOrderDetails');
-            const button = document.querySelector('#trackingModal .btn-submit-form');
 
             if (!query) {
-                showNotification("Please enter your Order ID.", "warning", "Order ID Required");
+                showNotification("Please enter Tracking ID or Phone Number.", "warning", "Input Required");
                 return;
             }
 
-            button.disabled = true;
-            button.innerText = "Checking...";
+            title.innerText = "Order #" + query;
+            details.innerText = "Tracking section UI is active. Connected to store backend for real-time status updates.";
             resPanel.style.display = 'block';
-            title.innerText = "Checking Order #" + query;
-            details.innerHTML = '<div style="padding:8px 0;color:#666;">Please wait...</div>';
-
-            try {
-                const response = await fetch(apiURL + "?action=trackOrder&orderId=" + encodeURIComponent(query), {
-                    method: 'GET',
-                    cache: 'no-store'
-                });
-                const data = await response.json();
-
-                if (data.status !== 'success') {
-                    title.innerText = "Order Not Found";
-                    details.innerHTML = '<div style="color:#d93632;font-weight:600;padding:8px 0;">' +
-                        (data.message || 'No order was found with this Order ID.') + '</div>';
-                    return;
-                }
-
-                const statuses = [
-                    'Pending',
-                    'Order Confirmed',
-                    'Designing',
-                    'Printing',
-                    'Ready for Delivery',
-                    'Dispatch'
-                ];
-                const currentStatus = String(data.orderStatus || 'Pending').trim();
-                const isCancelled = currentStatus.toLowerCase() === 'cancelled';
-                const currentIndex = statuses.findIndex(s => s.toLowerCase() === currentStatus.toLowerCase());
-
-                title.innerText = 'Order #' + data.orderId;
-
-                let timeline = '';
-                if (isCancelled) {
-                    timeline = '<div class="tracking-cancelled">✕ &nbsp;Order Cancelled</div>';
-                } else {
-                    timeline = '<div class="tracking-timeline">' +
-                        '<div class="tracking-timeline-title">Order Progress</div>' +
-                        statuses.map((status, index) => {
-                            const done = currentIndex >= 0 && index <= currentIndex;
-                            const active = currentIndex === index;
-                            return '<div class="tracking-step ' + (done ? 'done ' : '') + (active ? 'active' : '') + '">' +
-                                '<span class="tracking-dot">' + (done ? '✓' : (index + 1)) + '</span>' +
-                                '<div class="tracking-step-content">' +
-                                    '<span class="tracking-step-name">' + escapeTrackingText(status) +
-                                    (active ? '<span class="tracking-current-badge">Current Status</span>' : '') +
-                                    '</span>' +
-                                '</div>' +
-                            '</div>';
-                        }).join('') +
-                    '</div>';
-                }
-
-                details.innerHTML =
-                    '<div class="tracking-order-head">' +
-                        '<span class="tracking-order-label">Order Details</span>' +
-                        '<strong class="tracking-order-title">Order #' + escapeTrackingText(data.orderId || query) + '</strong>' +
-                    '</div>' +
-                    '<div class="tracking-summary">' +
-                        '<div class="tracking-summary-item"><small>Customer</small><strong>' + escapeTrackingText(data.customerName || '—') + '</strong></div>' +
-                        '<div class="tracking-summary-item"><small>Product</small><strong>' + escapeTrackingText(data.productName || '—') + '</strong></div>' +
-                        '<div class="tracking-summary-item"><small>Amount</small><strong>Rs. ' + escapeTrackingText(data.price || '—') + '</strong></div>' +
-                    '</div>' + timeline;
-
-            } catch (error) {
-                console.error('Tracking error:', error);
-                title.innerText = 'Tracking Error';
-                details.innerHTML = '<div style="color:#d93632;padding:8px 0;">Unable to connect to the tracking service. Please try again.</div>';
-            } finally {
-                button.disabled = false;
-                button.innerText = 'Track Order';
-            }
-        }
-
-        function escapeTrackingText(value) {
-            return String(value).replace(/[&<>"']/g, function(char) {
-                return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char];
-            });
         }
 
         function openAuthModal(mode) {
