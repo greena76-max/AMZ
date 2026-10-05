@@ -946,6 +946,9 @@
         @keyframes hyNoticeOut { to { opacity: 0; transform: translateX(35px); } }
         @keyframes hyNoticeProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 
+        .card-add-cart{width:100%;margin-top:7px;background:#f85606;color:#fff;border:0;border-radius:5px;padding:8px 6px;font-size:12px;font-weight:700;cursor:pointer;line-height:1.1;}
+        .card-add-cart:active{transform:scale(.98);}
+
         /* ===== RESPONSIVE ===== */
         .tracking-step{display:flex;align-items:flex-start;gap:9px;margin:8px 0;font-size:12px;position:relative;min-height:30px;}
         .tracking-step-number{width:23px;height:23px;min-width:23px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;z-index:2;}
@@ -959,16 +962,16 @@
             *{box-sizing:border-box;}
             html,body{width:100%;max-width:100%;overflow-x:hidden;}
             body{margin:0;}
-            .promo-bar{min-height:44px;height:44px;display:flex;overflow:hidden;}
-            .promo-item{min-height:44px;height:44px;padding:5px 7px;gap:5px;flex:1;min-width:0;border-right:1px solid rgba(255,255,255,.12);}
+            .promo-bar{min-height:52px;height:52px;display:flex;overflow:hidden;}
+            .promo-item{min-height:52px;height:52px;padding:7px 8px;gap:6px;flex:1 1 50%;min-width:0;border-right:1px solid rgba(255,255,255,.16);}
             .promo-item:nth-child(2){display:none;}
-            .promo-icon{font-size:16px;flex:0 0 auto;}
-            .promo-item strong{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-            .promo-item small{font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+            .promo-icon{font-size:17px;flex:0 0 auto;}
+            .promo-item strong{font-size:10.5px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+            .promo-item small{display:block;font-size:8.5px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
             .header-main{width:100%;}
-            .header-top{min-height:60px;width:100%;padding:7px 9px;gap:5px;align-items:center;overflow:hidden;}
-            .brand{gap:6px;flex:1 1 auto;min-width:0;max-width:58%;overflow:hidden;}
+            .header-top{min-height:66px;width:100%;padding:8px 9px;gap:5px;align-items:center;overflow:hidden;}
+            .brand{gap:6px;flex:1 1 auto;min-width:0;max-width:57%;overflow:hidden;}
             .brand-logo,.brand-fallback{width:36px;height:36px;min-width:36px;border-radius:7px;padding:3px;}
             .brand-name{font-size:12px;letter-spacing:.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
             .brand-tagline{display:none;}
@@ -981,28 +984,35 @@
             #logoutNavBtn{font-size:0!important;width:31px!important;min-width:31px!important;padding:5px!important;}
             #logoutNavBtn::before{content:'↪';font-size:18px;}
 
-            .search-row{width:100%;padding:8px 9px;background:#fff;border-top:1px solid #eee;border-bottom:1px solid #eee;}
-            .search-box{width:100%;height:40px;max-width:none;display:flex;}
-            .search-box input{width:100%;min-width:0;font-size:12px;padding:8px 11px;}
-            .search-box button{flex:0 0 auto;height:40px;padding:0 13px;font-size:11px;white-space:nowrap;}
+            .search-row{width:100%;padding:9px 9px;background:#fff;border-top:1px solid #eee;border-bottom:1px solid #ddd;}
+            .search-box{width:100%;height:44px;max-width:none;display:flex;border:2px solid #f85606;border-radius:23px;overflow:hidden;background:#fff;}
+            .search-box input{width:100%;min-width:0;border:0!important;outline:0;font-size:13px;padding:9px 13px;}
+            .search-box button{flex:0 0 88px;height:44px;margin-top:-2px;margin-right:-2px;border:0;border-radius:0 22px 22px 0;background:#f85606;color:#fff;padding:0 10px;font-size:12px;font-weight:700;white-space:nowrap;}
 
-            .wrapper{width:100%;margin-top:8px;padding:0 8px;display:block;overflow:visible;}
+            .wrapper{width:100%;margin-top:7px;padding:0 8px 20px;display:block;overflow:visible;}
             .main-content{width:100%;min-width:0;}
-            .category-toggle-btn{margin-bottom:8px;padding:7px 11px;font-size:12px;}
+            .category-toggle-btn{width:auto;margin:0 0 9px;padding:9px 15px;font-size:13px;border-radius:6px;background:#fff;border:1px solid #ccc;font-weight:700;}
 
-            /* Keep the product banners like the original website: full width, short and clean on mobile. */
-            .promo-slider{width:100%;height:170px;margin:0 0 12px;border-radius:7px;overflow:hidden;}
+            /* Original-style mobile banner: wide, short, no broken/cropped layout. */
+            .promo-slider{width:100%;height:155px;margin:0 0 12px;border-radius:9px;overflow:hidden;background:linear-gradient(135deg,#222,#111);}
             .slider-track,.slide{width:100%;height:100%;min-width:100%;}
             .slide img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;}
-            .slide-caption{padding:18px 12px 11px;}
-            .slide-caption h2{font-size:16px;margin-bottom:3px;}
-            .slide-caption p{font-size:10px;line-height:1.25;}
+            .slide-caption{padding:14px 11px 9px;}
+            .slide-caption h2{font-size:15px;margin-bottom:3px;}
+            .slide-caption p{font-size:9.5px;line-height:1.25;}
             .slider-dots{bottom:8px;right:10px;gap:4px;}
             .dot{width:7px;height:7px;}
 
-            .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;}
-            .card{width:100%;min-width:0;padding:7px;border-radius:7px;}
-            .card img{width:100%;height:auto;max-height:180px;object-fit:contain;}
+            .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%;align-items:start;}
+            .card{width:100%;min-width:0;padding:7px;border-radius:8px;height:auto;min-height:300px;overflow:hidden;}
+            .card-img{height:145px;flex:0 0 145px;}
+            .card-img img{width:100%;height:100%;max-height:none;object-fit:contain;}
+            .card-body{padding:7px 3px 2px;}
+            .card-body h4{font-size:12px;height:34px;margin-bottom:4px;}
+            .card-price{font-size:14px;}
+            .card-old-price{font-size:10px;}
+            .rating-stars{font-size:9px;margin-top:3px;}
+            .card-add-cart{font-size:11px;padding:8px 4px;margin-top:7px;}
 
             .tracking-overlay{position:fixed;inset:0;padding:10px;display:flex;align-items:center;justify-content:center;overflow-y:auto;}
             .tracking-box{width:100%;max-width:390px;max-height:calc(100vh - 20px);overflow-y:auto;padding:17px 12px 14px;border-radius:10px;margin:0;}
@@ -1028,8 +1038,11 @@
             .search-box,.search-box button{height:38px;}
             .search-box button{padding:0 10px;}
             .promo-slider{height:145px;}
-            .slide-caption h2{font-size:14px;}
-            .slide-caption p{font-size:9px;}
+            .slide-caption h2{font-size:13px;}
+            .slide-caption p{font-size:8.5px;}
+            .card{min-height:285px;}
+            .card-img{height:130px;flex-basis:130px;}
+            .card-add-cart{padding:7px 3px;font-size:10.5px;}
             .tracking-box{padding:15px 10px 12px;}
         }
     </style>
@@ -1099,21 +1112,21 @@
             <div class="promo-slider">
                 <div class="slider-track" id="sliderTrack">
                     <div class="slide">
-                        <img src="banner1.jpg" alt="Banner 1">
+                        <img src="banner1.jpg" alt="Banner 1" onerror="this.style.display='none';">
                         <div class="slide-caption">
                             <h2>Mega Seasonal Sale</h2>
                             <p>Up to 70% Off on Electronics & Gadgets</p>
                         </div>
                     </div>
                     <div class="slide">
-                        <img src="banner2.jpg" alt="Banner 2">
+                        <img src="banner2.jpg" alt="Banner 2" onerror="this.src='banner1.jpg';">
                         <div class="slide-caption">
                             <h2>Smart Wearables Collection</h2>
                             <p>Track your fitness in style with latest smartwatches</p>
                         </div>
                     </div>
                     <div class="slide">
-                        <img src="banner3.jpg" alt="Banner 3">
+                        <img src="banner3.jpg" alt="Banner 3" onerror="this.src='banner1.jpg';">
                         <div class="slide-caption">
                             <h2>Immersive Sound Experience</h2>
                             <p>Wireless Earbuds & Professional Microphones</p>
@@ -1456,6 +1469,7 @@
                             ${product.old ? `<span class="card-old-price">Rs. ${product.old}</span>` : ''}
                         </div>
                         <div class="rating-stars">★★★★★ <span>(4.5)</span></div>
+                        <button type="button" class="card-add-cart" onclick="event.stopPropagation(); openModal(product);">Add to Cart</button>
                     </div>
                 `;
                 grid.appendChild(card);
