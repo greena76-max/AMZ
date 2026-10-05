@@ -54,7 +54,7 @@
 
         .store-nav {
             background: #f85606;
-            min-height: 66px;
+            min-height: 58px;
             display:flex;
             align-items:center;
             gap:16px;
@@ -103,6 +103,31 @@
             opacity:.9;
             margin-top:2px;
         }
+        .tracking-brand {
+            display:flex;
+            align-items:center;
+            gap:9px;
+            color:#fff;
+            cursor:pointer;
+            margin-right:auto;
+            user-select:none;
+        }
+        .tracking-brand-icon {
+            width:38px; height:38px;
+            display:flex; align-items:center; justify-content:center;
+            background:#111;
+            border:1px solid rgba(255,255,255,.18);
+            border-radius:10px;
+            font-size:20px;
+            box-shadow:0 2px 6px rgba(0,0,0,.18);
+        }
+        .tracking-brand strong {
+            display:block; font-size:15px; font-weight:900; letter-spacing:.2px;
+        }
+        .tracking-brand small {
+            display:block; font-size:10px; font-weight:600; opacity:.9; margin-top:1px;
+        }
+
         .nav-links {
             display:flex;
             align-items:center;
@@ -1026,10 +1051,13 @@
             .logo-text-box span { font-size:10px; letter-spacing:1.2px; }
             .nav-links { gap:4px; }
             .nav-btn-style, .auth-link-btn { min-height:34px; padding:6px 8px; font-size:10px !important; border-radius:18px; }
-            .nav-btn-style:first-child { font-size:0 !important; }
-            .nav-btn-style:first-child::before { content:'📦'; font-size:15px; }
-            .auth-link-btn { font-size:0 !important; }
-            .auth-link-btn::before { content:'👤'; font-size:15px; }
+            .tracking-brand { margin-right:0; }
+            .tracking-brand strong { font-size:11px; }
+            .tracking-brand small { display:none; }
+            .tracking-brand-icon { width:32px; height:32px; font-size:16px; }
+            .nav-links { margin-left:auto; }
+            .tracking-nav-btn { display:inline-flex !important; font-size:10px !important; }
+            .auth-link-btn { font-size:10px !important; }
             .user-greeting, #logoutNavBtn { display:none !important; }
             .search-box { width:calc(100% - 18px); transform:none; margin:7px auto 9px; order:initial; }
             .search-box input { padding:10px 13px; font-size:12px; }
@@ -1051,20 +1079,20 @@
                 <div><strong>Price Adjustment</strong><small>Within 30 days</small></div>
             </div>
             <div class="promo-item">
-                <span class="promo-icon">📱</span>
-                <div><strong>Shop HY Store Anytime</strong><small>Fast & easy shopping</small></div>
+                <span class="promo-icon">🎁</span>
+                <div><strong>Gifts for Every Occasion</strong><small>Perfect gifting • Easy shopping</small></div>
             </div>
         </div>
 
         <div class="store-nav">
             <div class="header-top">
-                <a class="logo" href="#" onclick="location.reload(); return false;" aria-label="HY Store Official">
-                    <div class="logo-text-box"><span>H Y STORE OFFICIAL</span></div>
-                </a>
-                <div class="store-brand">HY STORE OFFICIAL<small>Smart Shopping • Trusted Service</small></div>
+                <div class="tracking-brand" onclick="openTrackingModal()" role="button" tabindex="0" aria-label="Order Tracking">
+                    <span class="tracking-brand-icon">📦</span>
+                    <span><strong>Order Tracking</strong><small>Track your order</small></span>
+                </div>
 
                 <div class="nav-links">
-                    <a class="nav-btn-style" href="#" onclick="openTrackingModal(); return false;">📦 Track Order</a>
+                    <a class="nav-btn-style tracking-nav-btn" href="#" onclick="openTrackingModal(); return false;"><span>📦</span> Track Order</a>
                     <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;">🛒 Cart <span class="cart-badge" id="cartBadgeCount">0</span></a>
                     <span id="userGreeting" class="user-greeting" style="display:none;"></span>
                     <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">👤 Login / Sign Up</a>
