@@ -864,15 +864,171 @@
             color: #777;
         }
 
-        /* Tracking Result Panel */
+        /* Professional Order Tracking Result */
         .tracking-result {
-            margin-top: 15px;
-            padding: 12px;
-            background: #f9f9f9;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            margin-top: 18px;
+            padding: 0;
+            background: #fff;
+            border: 1px solid #e7eaf0;
+            border-radius: 14px;
             font-size: 13px;
             display: none;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(20, 35, 55, 0.08);
+        }
+        .tracking-order-head {
+            padding: 16px 17px 13px;
+            background: linear-gradient(135deg, #fff8f3, #fff);
+            border-bottom: 1px solid #edf0f4;
+        }
+        .tracking-order-label {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .7px;
+            color: #7b8491;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .tracking-order-title {
+            display: block;
+            color: #172033;
+            font-size: 18px;
+            font-weight: 800;
+            margin: 0;
+        }
+        .tracking-summary {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
+            padding: 13px 15px;
+            background: #fafbfc;
+            border-bottom: 1px solid #edf0f4;
+        }
+        .tracking-summary-item {
+            min-width: 0;
+            padding: 9px 10px;
+            background: #fff;
+            border: 1px solid #edf0f4;
+            border-radius: 9px;
+        }
+        .tracking-summary-item small {
+            display: block;
+            color: #89919d;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            margin-bottom: 3px;
+        }
+        .tracking-summary-item strong {
+            display: block;
+            color: #273142;
+            font-size: 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .tracking-timeline {
+            padding: 16px 17px 18px;
+        }
+        .tracking-timeline-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #263142;
+            margin-bottom: 13px;
+        }
+        .tracking-step {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            min-height: 43px;
+        }
+        .tracking-step:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 25px;
+            width: 2px;
+            height: 28px;
+            background: #e4e8ee;
+            border-radius: 2px;
+        }
+        .tracking-step.done:not(:last-child)::before {
+            background: #f85606;
+        }
+        .tracking-dot {
+            position: relative;
+            z-index: 1;
+            flex: 0 0 24px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eef1f5;
+            color: #8b94a1;
+            font-size: 11px;
+            font-weight: 800;
+            border: 2px solid #eef1f5;
+            box-sizing: border-box;
+        }
+        .tracking-step.done .tracking-dot {
+            background: #f85606;
+            border-color: #f85606;
+            color: #fff;
+        }
+        .tracking-step.active .tracking-dot {
+            box-shadow: 0 0 0 5px rgba(248, 86, 6, .12);
+        }
+        .tracking-step-content {
+            padding-top: 2px;
+            min-width: 0;
+        }
+        .tracking-step-name {
+            display: block;
+            color: #525b68;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+        .tracking-step.done .tracking-step-name {
+            color: #333c49;
+        }
+        .tracking-step.active .tracking-step-name {
+            color: #f85606;
+            font-weight: 800;
+        }
+        .tracking-current-badge {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 6px;
+            padding: 2px 7px;
+            border-radius: 20px;
+            background: #fff0e7;
+            color: #f85606;
+            font-size: 9px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            vertical-align: middle;
+        }
+        .tracking-cancelled {
+            margin: 15px 17px 18px;
+            padding: 13px 14px;
+            border: 1px solid #ffd7d4;
+            border-radius: 10px;
+            background: #fff5f4;
+            color: #d93632;
+            font-weight: 800;
+        }
+        @media (max-width: 600px) {
+            .tracking-summary { grid-template-columns: 1fr; }
+            .tracking-summary-item strong { white-space: normal; }
+            .tracking-order-head, .tracking-timeline { padding-left: 14px; padding-right: 14px; }
+            .tracking-cancelled { margin-left: 14px; margin-right: 14px; }
         }
 
         /* Footer */
@@ -1155,7 +1311,7 @@
     <div class="tracking-overlay" id="trackingModal">
         <div class="tracking-box">
             <span class="close-tracking" onclick="closeTrackingModal()">&times;</span>
-            <h3 style="text-align: center; margin-bottom: 8px;">Order Tracking</h3>
+            <h3 style="text-align: center; margin-bottom: 6px;">Order Tracking</h3>
             <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 15px;">Track your order status quickly and easily.</p>
             
             <div class="form-group">
@@ -1668,26 +1824,34 @@
 
                 let timeline = '';
                 if (isCancelled) {
-                    timeline = '<div style="margin-top:12px;padding:12px;border-radius:6px;background:#fff0ef;color:#d93632;font-weight:700;">✕ Cancelled</div>';
+                    timeline = '<div class="tracking-cancelled">✕ &nbsp;Order Cancelled</div>';
                 } else {
-                    timeline = statuses.map((status, index) => {
-                        const done = currentIndex >= 0 && index <= currentIndex;
-                        const active = currentIndex === index;
-                        return '<div style="display:flex;align-items:center;gap:10px;margin:8px 0;">' +
-                            '<span style="width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:' +
-                            (done ? '#f85606' : '#e5e7eb') + ';color:' + (done ? '#fff' : '#777') + ';font-size:12px;font-weight:700;">' +
-                            (done ? '✓' : (index + 1)) + '</span>' +
-                            '<span style="font-weight:' + (active ? '700' : '500') + ';color:' + (active ? '#f85606' : '#444') + ';">' +
-                            status + (active ? ' — Current Status' : '') + '</span></div>';
-                    }).join('');
+                    timeline = '<div class="tracking-timeline">' +
+                        '<div class="tracking-timeline-title">Order Progress</div>' +
+                        statuses.map((status, index) => {
+                            const done = currentIndex >= 0 && index <= currentIndex;
+                            const active = currentIndex === index;
+                            return '<div class="tracking-step ' + (done ? 'done ' : '') + (active ? 'active' : '') + '">' +
+                                '<span class="tracking-dot">' + (done ? '✓' : (index + 1)) + '</span>' +
+                                '<div class="tracking-step-content">' +
+                                    '<span class="tracking-step-name">' + escapeTrackingText(status) +
+                                    (active ? '<span class="tracking-current-badge">Current Status</span>' : '') +
+                                    '</span>' +
+                                '</div>' +
+                            '</div>';
+                        }).join('') +
+                    '</div>';
                 }
 
                 details.innerHTML =
-                    '<div style="display:grid;gap:6px;margin-bottom:12px;">' +
-                    '<div><strong>Customer:</strong> ' + escapeTrackingText(data.customerName || '') + '</div>' +
-                    '<div><strong>Product:</strong> ' + escapeTrackingText(data.productName || '') + '</div>' +
-                    '<div><strong>Amount:</strong> Rs. ' + escapeTrackingText(data.price || '') + '</div>' +
-                    '<div><strong>Status:</strong> <span style="color:#f85606;font-weight:700;">' + escapeTrackingText(currentStatus) + '</span></div>' +
+                    '<div class="tracking-order-head">' +
+                        '<span class="tracking-order-label">Order Details</span>' +
+                        '<strong class="tracking-order-title">Order #' + escapeTrackingText(data.orderId || query) + '</strong>' +
+                    '</div>' +
+                    '<div class="tracking-summary">' +
+                        '<div class="tracking-summary-item"><small>Customer</small><strong>' + escapeTrackingText(data.customerName || '—') + '</strong></div>' +
+                        '<div class="tracking-summary-item"><small>Product</small><strong>' + escapeTrackingText(data.productName || '—') + '</strong></div>' +
+                        '<div class="tracking-summary-item"><small>Amount</small><strong>Rs. ' + escapeTrackingText(data.price || '—') + '</strong></div>' +
                     '</div>' + timeline;
 
             } catch (error) {
