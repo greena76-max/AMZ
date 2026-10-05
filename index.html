@@ -947,73 +947,90 @@
         @keyframes hyNoticeProgress { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 
         /* ===== RESPONSIVE ===== */
+        .tracking-step{display:flex;align-items:flex-start;gap:9px;margin:8px 0;font-size:12px;position:relative;min-height:30px;}
+        .tracking-step-number{width:23px;height:23px;min-width:23px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;z-index:2;}
+        .tracking-step-content{display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding-top:1px;line-height:1.15;}
+        .tracking-step-name{font-weight:600;color:#333;}
+        .tracking-step:not(:last-child)::after{content:"";position:absolute;left:11px;top:23px;height:18px;border-left:1px solid #ddd;}
+        .tracking-step.is-current .tracking-step-name{font-weight:800;}
+        .tracking-current-pill{display:inline-block;background:#e5e5e5;color:#666;border-radius:10px;padding:2px 9px;font-size:10px;font-weight:600;line-height:1.1;}
+
         @media (max-width: 700px) {
-            body { overflow-x:hidden; }
-            .promo-bar { min-height:40px; height:auto; overflow:hidden; }
-            .promo-item { min-height:40px; padding:5px 8px; gap:5px; flex:1; }
-            .promo-item:nth-child(2) { display:none; }
-            .promo-icon { font-size:16px; }
-            .promo-item strong { font-size:10px; white-space:nowrap; }
-            .promo-item small { font-size:8px; white-space:nowrap; }
+            *{box-sizing:border-box;}
+            html,body{width:100%;max-width:100%;overflow-x:hidden;}
+            body{margin:0;}
+            .promo-bar{min-height:44px;height:44px;display:flex;overflow:hidden;}
+            .promo-item{min-height:44px;height:44px;padding:5px 7px;gap:5px;flex:1;min-width:0;border-right:1px solid rgba(255,255,255,.12);}
+            .promo-item:nth-child(2){display:none;}
+            .promo-icon{font-size:16px;flex:0 0 auto;}
+            .promo-item strong{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+            .promo-item small{font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-            .header-main { width:100%; }
-            .header-top {
-                min-height:62px; padding:8px 9px; gap:6px;
-                align-items:center; overflow:hidden;
-            }
-            .brand { gap:7px; flex:1 1 auto; min-width:0; max-width:58%; }
-            .brand-logo, .brand-fallback { width:38px; height:38px; min-width:38px; border-radius:7px; padding:3px; }
-            .brand-name { font-size:14px; letter-spacing:.2px; white-space:nowrap; }
-            .brand-tagline { display:none; }
-            .nav-links {
-                flex:0 0 auto; display:flex; flex-wrap:nowrap; gap:4px;
-                justify-content:flex-end; min-width:0;
-            }
-            .nav-btn-style, .auth-link-btn {
-                height:32px !important; min-width:32px; padding:5px 7px !important;
-                border-radius:7px !important; font-size:0 !important;
-            }
-            .nav-btn-style .btn-icon { display:inline-flex; font-size:15px; line-height:1; }
-            .nav-btn-style .btn-text { display:none !important; }
-            .cart-badge { font-size:8px; padding:1px 4px; margin-left:-3px; }
-            .user-greeting { display:none !important; }
-            #authNavBtn { font-size:0 !important; }
-            #authNavBtn::before { content:'👤'; font-size:15px; }
-            #logoutNavBtn { font-size:0 !important; padding:5px !important; }
-            #logoutNavBtn::before { content:'↪'; font-size:18px; }
+            .header-main{width:100%;}
+            .header-top{min-height:60px;width:100%;padding:7px 9px;gap:5px;align-items:center;overflow:hidden;}
+            .brand{gap:6px;flex:1 1 auto;min-width:0;max-width:58%;overflow:hidden;}
+            .brand-logo,.brand-fallback{width:36px;height:36px;min-width:36px;border-radius:7px;padding:3px;}
+            .brand-name{font-size:12px;letter-spacing:.1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+            .brand-tagline{display:none;}
+            .nav-links{flex:0 0 auto;display:flex;align-items:center;gap:4px;min-width:0;}
+            .nav-btn-style,.auth-link-btn{height:32px!important;min-width:31px!important;width:31px!important;padding:5px!important;border-radius:7px!important;font-size:0!important;display:inline-flex!important;align-items:center;justify-content:center;}
+            .nav-btn-style .btn-icon{display:inline-flex;font-size:15px;line-height:1;}
+            .nav-btn-style .btn-text,.user-greeting{display:none!important;}
+            .cart-badge{font-size:8px;padding:1px 4px;margin-left:-4px;}
+            #authNavBtn::before{content:'👤';font-size:15px;}
+            #logoutNavBtn{font-size:0!important;width:31px!important;min-width:31px!important;padding:5px!important;}
+            #logoutNavBtn::before{content:'↪';font-size:18px;}
 
-            .search-row { padding:8px 10px; border-top:1px solid #eee; background:#fff; }
-            .search-box { width:100%; height:40px; max-width:none; }
-            .search-box input { font-size:12px; padding:8px 12px; min-width:0; }
-            .search-box button { padding:0 15px; font-size:11px; white-space:nowrap; }
+            .search-row{width:100%;padding:8px 9px;background:#fff;border-top:1px solid #eee;border-bottom:1px solid #eee;}
+            .search-box{width:100%;height:40px;max-width:none;display:flex;}
+            .search-box input{width:100%;min-width:0;font-size:12px;padding:8px 11px;}
+            .search-box button{flex:0 0 auto;height:40px;padding:0 13px;font-size:11px;white-space:nowrap;}
 
-            .wrapper { margin-top:8px; padding:0 8px; display:block; }
-            .tracking-overlay { padding:12px; align-items:center; overflow-y:auto; }
-            .tracking-box {
-                width:100%; max-width:420px; max-height:calc(100vh - 24px);
-                overflow-y:auto; padding:20px 14px 16px; border-radius:12px;
-                box-sizing:border-box;
-            }
-            .tracking-box h3 { font-size:20px !important; margin-bottom:6px !important; }
-            .tracking-box .tracking-subtitle { font-size:12px !important; margin-bottom:12px !important; }
-            .tracking-box .form-group { margin-bottom:7px; }
-            .tracking-box input { height:43px; box-sizing:border-box; font-size:13px; }
-            .tracking-box .btn-submit-form { height:44px; margin-top:5px; padding:9px; }
-            .tracking-result { max-height:none; overflow:visible; margin-top:12px; padding:10px; font-size:12px; }
-            .tracking-result > div { overflow-wrap:anywhere; }
+            .wrapper{width:100%;margin-top:8px;padding:0 8px;display:block;overflow:visible;}
+            .main-content{width:100%;min-width:0;}
+            .category-toggle-btn{margin-bottom:8px;padding:7px 11px;font-size:12px;}
+
+            /* Keep the product banners like the original website: full width, short and clean on mobile. */
+            .promo-slider{width:100%;height:170px;margin:0 0 12px;border-radius:7px;overflow:hidden;}
+            .slider-track,.slide{width:100%;height:100%;min-width:100%;}
+            .slide img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;}
+            .slide-caption{padding:18px 12px 11px;}
+            .slide-caption h2{font-size:16px;margin-bottom:3px;}
+            .slide-caption p{font-size:10px;line-height:1.25;}
+            .slider-dots{bottom:8px;right:10px;gap:4px;}
+            .dot{width:7px;height:7px;}
+
+            .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;}
+            .card{width:100%;min-width:0;padding:7px;border-radius:7px;}
+            .card img{width:100%;height:auto;max-height:180px;object-fit:contain;}
+
+            .tracking-overlay{position:fixed;inset:0;padding:10px;display:flex;align-items:center;justify-content:center;overflow-y:auto;}
+            .tracking-box{width:100%;max-width:390px;max-height:calc(100vh - 20px);overflow-y:auto;padding:17px 12px 14px;border-radius:10px;margin:0;}
+            .tracking-box h3{font-size:19px!important;margin:0 0 5px!important;}
+            .tracking-box .tracking-subtitle{font-size:11px!important;margin-bottom:10px!important;}
+            .tracking-box input{width:100%;height:42px;font-size:13px;}
+            .tracking-box .btn-submit-form{width:100%;height:43px;margin-top:4px;}
+            .tracking-result{margin-top:10px;padding:9px;font-size:11px;overflow:visible;max-height:none;}
+            .tracking-step{margin:7px 0;font-size:11px;gap:8px;min-height:28px;}
+            .tracking-step-number{width:22px;height:22px;min-width:22px;}
+            .tracking-step:not(:last-child)::after{left:10px;top:22px;height:16px;}
+            .tracking-current-pill{font-size:9px;padding:2px 8px;}
         }
 
         @media (max-width: 390px) {
-            .promo-item:nth-child(3) { display:none; }
-            .brand { max-width:52%; }
-            .brand-logo, .brand-fallback { width:34px; height:34px; min-width:34px; }
-            .brand-name { font-size:12px; }
-            .nav-links { gap:3px; }
-            .nav-btn-style, .auth-link-btn { min-width:30px; width:30px; padding:4px !important; }
-            .nav-btn-style .btn-icon, #authNavBtn::before, #logoutNavBtn::before { font-size:14px; }
-            .cart-badge { font-size:7px; padding:1px 3px; }
-            .search-box button { padding:0 11px; }
-            .tracking-box { padding:18px 12px 14px; }
+            .brand{max-width:53%;}
+            .brand-logo,.brand-fallback{width:32px;height:32px;min-width:32px;}
+            .brand-name{font-size:11px;}
+            .nav-links{gap:3px;}
+            .nav-btn-style,.auth-link-btn,#logoutNavBtn{min-width:29px!important;width:29px!important;height:30px!important;padding:4px!important;}
+            .nav-btn-style .btn-icon,#authNavBtn::before,#logoutNavBtn::before{font-size:13px;}
+            .search-row{padding:7px 8px;}
+            .search-box,.search-box button{height:38px;}
+            .search-box button{padding:0 10px;}
+            .promo-slider{height:145px;}
+            .slide-caption h2{font-size:14px;}
+            .slide-caption p{font-size:9px;}
+            .tracking-box{padding:15px 10px 12px;}
         }
     </style>
 </head>
@@ -1662,7 +1679,7 @@
                         <div><b>Current Status:</b> <span style="color:#f85606;font-weight:800">${escapeTrackingText(current)}</span></div>
                       </div>
                       <div style="border-top:1px solid #eee;padding-top:10px">
-                        ${statuses.map((st,i)=>`<div style="display:flex;align-items:center;gap:9px;margin:8px 0;font-size:12px;color:${i<=currentIndex?'#333':'#999'};font-weight:${i===currentIndex?'800':'500'}"><span style="width:23px;height:23px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:${i<currentIndex?'#22a06b':i===currentIndex?'#f85606':'#eee'};color:${i<=currentIndex?'#fff':'#888'}">${i<currentIndex?'✓':i+1}</span><span>${st}${i===currentIndex?' — Current Status':''}</span></div>`).join('')}
+                        ${statuses.map((st,i)=>`<div class="tracking-step ${i===currentIndex?'is-current':''}"><span class="tracking-step-number" style="background:${i<currentIndex?'#22a06b':i===currentIndex?'#f85606':'#eee'};color:${i<=currentIndex?'#fff':'#888'}">${i<currentIndex?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${i===currentIndex?'<span class="tracking-current-pill">Current</span>':''}</div></div>`).join('')}
                       </div>`;
                 }
             } catch (err) {
