@@ -3818,11 +3818,18 @@ footer{
         }
 
         function openTrackingModal() {
-            document.getElementById('trackingModal').style.display = 'flex';
+            const modal = document.getElementById('trackingModal');
+            if (!modal) return;
+            modal.classList.add('hy-tracking-open');
+            modal.setAttribute('aria-hidden','false');
         }
         function closeTrackingModal() {
-            document.getElementById('trackingModal').style.display = 'none';
-            document.getElementById('trackingResultPanel').style.display = 'none';
+            const modal = document.getElementById('trackingModal');
+            if (!modal) return;
+            modal.classList.remove('hy-tracking-open');
+            modal.setAttribute('aria-hidden','true');
+            const panel = document.getElementById('trackingResultPanel');
+            if (panel) panel.style.display = 'none';
         }
         async function executeOrderTracking() {
             const query = document.getElementById('trackInput').value.trim().toUpperCase();
@@ -4297,20 +4304,47 @@ footer{
                 return;
             }
 
+            const trackingStatuses = ['Pending','Order Confirmed','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
+            const normalizeStatus = value => String(value || 'Pending').trim().toLowerCase();
+            const getProfileStatusIndex = value => {
+                const v = normalizeStatus(value);
+                if (v === 'delivered' || v === 'complete' || v === 'completed') return 6;
+                if (v === 'dispatch' || v === 'dispatched' || v === 'shipped' || v === 'out for delivery') return 5;
+                if (v === 'ready for delivery' || v === 'ready') return 4;
+                if (v === 'printing' || v === 'printed') return 3;
+                if (v === 'designing' || v === 'design') return 2;
+                if (v === 'order confirmed' || v === 'confirmed' || v === 'confirm') return 1;
+                return 0;
+            };
+
             box.innerHTML = orders.map(order => {
-                const status = order.orderStatus || order.status || 'Pending';
+                const rawStatus = order.orderStatus || order.status || 'Pending';
+                const statusNorm = normalizeStatus(rawStatus);
+                const isCancelled = ['cancelled','canceled','rejected','reject'].includes(statusNorm);
+                const currentIndex = getProfileStatusIndex(rawStatus);
+                const displayStatus = isCancelled ? (statusNorm === 'rejected' || statusNorm === 'reject' ? 'Rejected' : 'Cancelled') : rawStatus;
                 const dateValue = order.createdAt || order.date || order.timestamp;
                 const date = dateValue ? new Date(dateValue).toLocaleDateString('en-PK',{day:'2-digit',month:'short',year:'numeric'}) : '-';
                 const orderId = order.orderId || order.id || '-';
                 const product = order.productName || order.name || 'Order';
                 const total = order.total ?? order.price ?? '-';
                 const qty = order.qty ?? 1;
+                const safeId = String(orderId).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+                const miniTimeline = isCancelled
+                  ? `<div class="profile-mini-cancelled"><span>✕</span><strong>${escapeProfileText(displayStatus)}</strong><small>Order status</small></div>`
+                  : `<div class="profile-mini-tracking">
+                      ${trackingStatuses.map((st,i)=>`<div class="profile-mini-step ${i < currentIndex ? 'done' : ''} ${i === currentIndex ? 'current' : ''}">
+                        <span class="profile-mini-dot">${i < currentIndex ? '✓' : (i+1)}</span>
+                        <span class="profile-mini-label">${st}${i === currentIndex ? '<b>Current</b>' : ''}</span>
+                      </div>`).join('')}
+                    </div>`;
 
                 return `
                   <div class="profile-order-card">
                     <div class="profile-order-top">
                       <strong>#${escapeProfileText(orderId)}</strong>
-                      <span class="profile-status">${escapeProfileText(status)}</span>
+                      <span class="profile-status ${isCancelled ? 'is-cancelled' : ''}">${escapeProfileText(displayStatus)}</span>
                     </div>
                     <div class="profile-order-product">${escapeProfileText(product)}</div>
                     <div class="profile-order-meta">
@@ -4318,7 +4352,9 @@ footer{
                       <span>Rs. ${escapeProfileText(total)}</span>
                     </div>
                     <div class="profile-order-date">${escapeProfileText(date)}</div>
-                    <button type="button" class="profile-track-btn" onclick="trackFromProfile('${String(orderId).replace(/'/g,"\\\\'")}')">Track Order</button>
+                    <div class="profile-status-heading">Order Tracking Status</div>
+                    ${miniTimeline}
+                    <button type="button" class="profile-track-btn" onclick="trackFromProfile('${safeId}')">Open Full Tracking</button>
                   </div>`;
             }).join('');
         }
@@ -4445,6 +4481,158 @@ body.hy-page-open{overflow:hidden!important;}
  const wrap=(name,id)=>{const old=window[name];if(typeof old!=='function')return;window[name]=function(){closeOthers(id);const r=old.apply(this,arguments);const e=document.getElementById(id);if(e && e.style.display!=='none')openOnly(id);return r;};};
  wrap('openTrackingModal','trackingModal');wrap('openCartModal','cartModal');wrap('openModal','productModal');wrap('openAuthModal','authModal');wrap('openCheckout','checkoutModal');wrap('openProfileModal','profileModal');wrap('openCartCheckout','checkoutModal');
  ['closeTrackingModal','closeCartModal','closeModal','closeAuthModal','closeCheckout','closeProfileModal','closeOrderSuccessModal'].forEach((name,i)=>{const old=window[name];if(typeof old==='function'){window[name]=function(){const r=old.apply(this,arguments);closeOnly(ids[i]);return r;};}});
+})();
+</script>
+
+<style id="HY-FINAL-ORDER-PROFILE-TRACKING-FIX">
+/* ===== HY STORE FINAL ORDER PROFILE + MOBILE TRACKING FIX ===== */
+/* Tracking must stay CLOSED after page refresh. It opens only through the button/function. */
+.tracking-overlay{
+  display:none!important;
+}
+.tracking-overlay.hy-tracking-open{
+  display:flex!important;
+}
+
+/* Profile orders now show the same tracking-style progress inside each order. */
+.profile-order-card{overflow:hidden;}
+.profile-status-heading{
+  margin-top:10px;
+  margin-bottom:7px;
+  font-size:11px;
+  font-weight:800;
+  color:#222;
+  border-top:1px solid #eee;
+  padding-top:9px;
+}
+.profile-status.is-cancelled{
+  background:#fff1f1!important;
+  color:#c0392b!important;
+  border-color:#f2b8b8!important;
+}
+.profile-mini-tracking{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:2px;
+  padding:3px 0 7px;
+}
+.profile-mini-step{
+  min-width:0;
+  position:relative;
+  text-align:center;
+}
+.profile-mini-step:not(:last-child)::after{
+  content:"";
+  position:absolute;
+  left:58%;
+  right:-42%;
+  top:10px;
+  height:2px;
+  background:#e5e5e5;
+  z-index:0;
+}
+.profile-mini-step.done:not(:last-child)::after{background:#22a06b;}
+.profile-mini-dot{
+  position:relative;
+  z-index:1;
+  width:21px;
+  height:21px;
+  margin:0 auto 4px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#eee;
+  color:#888;
+  font-size:9px;
+  font-weight:800;
+  border:2px solid #fff;
+  box-shadow:0 0 0 1px #ddd;
+}
+.profile-mini-step.done .profile-mini-dot{
+  background:#22a06b;
+  color:#fff;
+  box-shadow:0 0 0 1px #22a06b;
+}
+.profile-mini-step.current .profile-mini-dot{
+  background:#f85606;
+  color:#fff;
+  box-shadow:0 0 0 2px #ffd9c8;
+}
+.profile-mini-label{
+  display:block;
+  font-size:7px;
+  line-height:1.15;
+  color:#888;
+  word-break:break-word;
+}
+.profile-mini-step.done .profile-mini-label,
+.profile-mini-step.current .profile-mini-label{
+  color:#333;
+  font-weight:700;
+}
+.profile-mini-label b{
+  display:block;
+  color:#f85606;
+  font-size:7px;
+  margin-top:2px;
+}
+.profile-mini-cancelled{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  margin-bottom:7px;
+  border:1px solid #f2b8b8;
+  background:#fff7f7;
+  border-radius:8px;
+  color:#c0392b;
+}
+.profile-mini-cancelled span{font-size:18px;font-weight:900;}
+.profile-mini-cancelled strong{font-size:11px;}
+.profile-mini-cancelled small{font-size:9px;color:#888;}
+
+/* Mobile: keep the full progress readable and compact. */
+@media(max-width:700px){
+  .profile-mini-tracking{gap:0;padding-top:2px;}
+  .profile-mini-step:not(:last-child)::after{left:57%;right:-43%;top:9px;}
+  .profile-mini-dot{width:19px;height:19px;font-size:8px;}
+  .profile-mini-label{font-size:6.5px;}
+  .profile-mini-label b{font-size:6.5px;}
+
+  /* Flash Sale orange banner: shorter on phones. */
+  .hero-banner{
+    min-height:52px!important;
+    height:52px!important;
+    padding:7px 10px!important;
+    margin-bottom:9px!important;
+    border-radius:7px!important;
+  }
+  .hero-banner h1{font-size:14px!important;line-height:1.05!important;margin-bottom:2px!important;}
+  .hero-banner p{font-size:8px!important;line-height:1.15!important;}
+}
+@media(max-width:390px){
+  .hero-banner{
+    min-height:48px!important;
+    height:48px!important;
+    padding:6px 9px!important;
+  }
+  .hero-banner h1{font-size:13px!important;}
+  .hero-banner p{font-size:7.5px!important;}
+}
+</style>
+<script>
+/* Safety: never restore the tracking popup automatically after refresh. */
+(function(){
+  function forceTrackingClosed(){
+    const m=document.getElementById('trackingModal');
+    if(m && !m.classList.contains('hy-tracking-open')){
+      m.style.removeProperty('display');
+      m.setAttribute('aria-hidden','true');
+    }
+  }
+  window.addEventListener('pageshow', forceTrackingClosed);
+  window.addEventListener('load', forceTrackingClosed);
 })();
 </script>
 </body>
