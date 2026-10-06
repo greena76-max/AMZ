@@ -1292,6 +1292,13 @@
   .card-img { height:135px; }
 }
 
+
+/* Cash on Delivery confirmation */
+.cod-confirm-box{margin:14px 0 16px;padding:12px 14px;border:1px solid #d9d9d9;border-radius:12px;background:#fafafa;}
+.cod-check-label{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-weight:600;line-height:1.45;}
+.cod-check-label input{width:19px;height:19px;min-width:19px;margin-top:2px;accent-color:#111;cursor:pointer;}
+.cod-note{font-size:12px;color:#777;margin:7px 0 0 29px;}
+.cod-check-label input:not(:checked){outline:2px solid #eee;}
 </style>
 
 <style id="HY-FINAL-MOBILE-REPAIR">
@@ -2946,6 +2953,13 @@ button,a{ -webkit-tap-highlight-color:transparent; }
                     <label>Complete Address</label>
                     <textarea id="custAddress" rows="3" required placeholder="House #, Street, Mohalla / Area"></textarea>
                 </div>
+                <div class="cod-confirm-box">
+                    <label class="cod-check-label">
+                        <input type="checkbox" id="codConfirm" required>
+                        <span>Cash on Delivery (COD) — I confirm that I want to place this order with Cash on Delivery.</span>
+                    </label>
+                    <div class="cod-note">Order will not be placed unless Cash on Delivery is selected.</div>
+                </div>
                 <button type="submit" class="btn-submit-order" id="submitBtn">Confirm Order</button>
             </form>
         </div>
@@ -3609,6 +3623,13 @@ button,a{ -webkit-tap-highlight-color:transparent; }
         }
 
         async function submitOrder(event) {
+    const cod = document.getElementById('codConfirm');
+    if (cod && !cod.checked) {
+        event.preventDefault();
+        cod.focus();
+        alert('Please select Cash on Delivery before placing your order.');
+        return false;
+    }
             event.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.innerText = "Placing Order...";
