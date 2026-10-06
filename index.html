@@ -867,6 +867,7 @@
             border: 2px solid #22a06b;
             animation: completePop .45s ease-out;
         }
+        .tracking-complete-icon-img{width:100%;height:100%;object-fit:contain;border-radius:50%;}
         .tracking-complete-title {
             margin: 3px 0 4px;
             color: #14804f;
@@ -894,6 +895,20 @@
             70% { transform: scale(1.08); opacity: 1; }
             100% { transform: scale(1); }
         }
+
+        /* Order success / tracking ID modal */
+        .order-success-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:16px;z-index:10020;}
+        .order-success-box{width:100%;max-width:430px;background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 18px 60px rgba(0,0,0,.3);position:relative;}
+        .order-success-icon{width:68px;height:68px;border-radius:50%;margin:0 auto 10px;background:#e8fff2;border:2px solid #22a06b;display:flex;align-items:center;justify-content:center;font-size:34px;}
+        .order-success-title{margin:0;color:#14804f;font-size:22px;font-weight:900;}
+        .order-success-text{margin:6px 0 16px;color:#666;font-size:13px;line-height:1.5;}
+        .order-id-copy-row{display:flex;gap:8px;align-items:center;background:#f7f7f7;border:1px solid #ddd;border-radius:10px;padding:7px;margin:0 auto 12px;max-width:340px;}
+        .order-id-copy-row input{flex:1;min-width:0;border:0;background:transparent;outline:0;font-size:16px;font-weight:900;color:#222;text-align:center;}
+        .copy-order-id-btn{border:0;background:#f85606;color:#fff;border-radius:8px;padding:9px 12px;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;}
+        .copy-order-id-btn:hover{background:#e04a05;}
+        .order-success-note{font-size:11px;color:#777;margin-bottom:15px;}
+        .order-success-close{width:100%;border:0;background:#222;color:#fff;border-radius:9px;padding:11px;font-weight:800;cursor:pointer;}
+        .order-success-close:hover{background:#111;}
 
         /* Footer */
         footer {
@@ -1183,6 +1198,17 @@
   .tracking-result-panel { max-height:48vh; overflow-y:auto; }
 }
 
+@media (max-width:700px) {
+  .nav-btn-style .btn-icon{display:none!important;}
+  .nav-btn-style{justify-content:center!important;text-align:center!important;}
+  .track-nav-btn{font-size:10.5px!important;}
+  .tracking-box h3{padding-right:20px;}
+  .order-success-box{max-width:360px;padding:20px 14px;}
+  .order-id-copy-row{max-width:100%;}
+  .order-id-copy-row input{font-size:14px;}
+  .copy-order-id-btn{padding:8px 10px;}
+}
+
 @media (max-width:380px) {
   .brand-name { font-size:15px; }
   .nav-btn-style { padding:5px 6px; font-size:10px !important; }
@@ -1214,7 +1240,7 @@
                     </div>
                 </a>
                 <div class="nav-links">
-                    <a class="nav-btn-style track-nav-btn" href="#" onclick="openTrackingModal(); return false;"><span class="btn-icon">📦</span><span class="btn-text">Track Order</span></a>
+                    <a class="nav-btn-style track-nav-btn" href="#" onclick="openTrackingModal(); return false;"><span class="btn-icon">📦</span><span class="btn-text">ORDER TRACK</span></a>
                     <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;"><span class="btn-icon">🛒</span><span class="btn-text">Cart</span> <span class="cart-badge" id="cartBadgeCount">0</span></a>
                     <span id="userGreeting" class="user-greeting" style="display:none;"></span>
                     <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">Login / Sign Up</a>
@@ -1330,6 +1356,21 @@
                 </div>
                 <button type="button" class="btn-place-cart-order" onclick="openCartCheckout()">Place Order</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Order Success / Tracking ID Modal -->
+    <div class="order-success-overlay" id="orderSuccessModal">
+        <div class="order-success-box">
+            <div class="order-success-icon">✓</div>
+            <h3 class="order-success-title">Order Confirmed!</h3>
+            <p class="order-success-text">Your order has been placed successfully. Save your Tracking ID to check your order status anytime.</p>
+            <div class="order-id-copy-row">
+                <input id="newOrderTrackingId" type="text" readonly value="">
+                <button type="button" class="copy-order-id-btn" onclick="copyOrderId()">Copy</button>
+            </div>
+            <div class="order-success-note">Keep this ID safe for Order Tracking.</div>
+            <button type="button" class="order-success-close" onclick="closeOrderSuccessModal()">Continue Shopping</button>
         </div>
     </div>
 
@@ -1849,7 +1890,7 @@
                       </div>
                       ${current === 'Delivered' ? `
                         <div class="tracking-complete-box">
-                          <div class="tracking-complete-icon">🎉</div>
+                          <div class="tracking-complete-icon"><img src="icon-party.png" alt="Congratulations" class="tracking-complete-icon-img" onerror="this.style.display='none';this.parentElement.textContent='🎉';"></div>
                           <div class="tracking-complete-title">Congratulations!</div>
                           <p class="tracking-complete-text">Your order has been delivered successfully. Thank you for shopping with us!</p>
                           <span class="tracking-complete-badge">✓ Order Complete</span>
@@ -1983,6 +2024,7 @@
             const btn = document.getElementById('submitBtn');
             btn.innerText = "Placing Order...";
             btn.disabled = true;
+            let createdOrderId = '';
 
             const custName = document.getElementById('custName').value;
             const custPhone = document.getElementById('custPhone').value;
@@ -1996,13 +2038,17 @@
                         price: currentProduct.price,
                         qty: selectedQty,
                         total: currentProduct.price * selectedQty,
-                        custName, custPhone, custAddress
+                        custName, custPhone, custAddress,
+                        userEmail: currentUser ? currentUser.email : ''
                     };
-                    await fetch(apiURL, {
+                    const response = await fetch(apiURL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(orderData)
                     });
+                    const result = await response.json();
+                    if (result.status !== 'success') throw new Error(result.message || 'Order submission failed');
+                    createdOrderId = result.orderId || '';
                 } else {
                     let subtotal = userCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                     let itemsSummary = userCart.map(i => `${i.name} (x${i.qty})`).join(', ');
@@ -2013,27 +2059,59 @@
                         price: subtotal,
                         qty: 1,
                         total: subtotal,
-                        custName, custPhone, custAddress
+                        custName, custPhone, custAddress,
+                        userEmail: currentUser ? currentUser.email : ''
                     };
-                    await fetch(apiURL, {
+                    const response = await fetch(apiURL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify(orderData)
                     });
+                    const result = await response.json();
+                    if (result.status !== 'success') throw new Error(result.message || 'Order submission failed');
+                    createdOrderId = result.orderId || '';
 
                     userCart = [];
                     saveCart();
                 }
 
-                showNotification("Your order has been placed successfully!", "success", "Order Confirmed");
                 closeCheckout();
                 document.getElementById('orderForm').reset();
+                if (createdOrderId) {
+                    showOrderSuccessModal(createdOrderId);
+                } else {
+                    showNotification("Your order has been placed successfully!", "success", "Order Confirmed");
+                }
             } catch (error) {
                 console.error("Order error:", error);
-                showNotification("Order submission failed. Try again.", "error");
+                showNotification(error.message || "Order submission failed. Try again.", "error");
             } finally {
                 btn.innerText = "Confirm Order";
                 btn.disabled = false;
+            }
+        }
+
+        function showOrderSuccessModal(orderId) {
+            document.getElementById('newOrderTrackingId').value = orderId;
+            document.getElementById('orderSuccessModal').style.display = 'flex';
+        }
+
+        function closeOrderSuccessModal() {
+            document.getElementById('orderSuccessModal').style.display = 'none';
+        }
+
+        async function copyOrderId() {
+            const input = document.getElementById('newOrderTrackingId');
+            const btn = document.querySelector('.copy-order-id-btn');
+            try {
+                await navigator.clipboard.writeText(input.value);
+                btn.innerText = 'Copied ✓';
+                setTimeout(() => btn.innerText = 'Copy', 1600);
+            } catch (e) {
+                input.select();
+                document.execCommand('copy');
+                btn.innerText = 'Copied ✓';
+                setTimeout(() => btn.innerText = 'Copy', 1600);
             }
         }
 
@@ -2043,6 +2121,7 @@
             if (event.target == document.getElementById('checkoutModal')) closeCheckout();
             if (event.target == document.getElementById('trackingModal')) closeTrackingModal();
             if (event.target == document.getElementById('cartModal')) closeCartModal();
+            if (event.target == document.getElementById('orderSuccessModal')) closeOrderSuccessModal();
         }
     </script>
 </body>
