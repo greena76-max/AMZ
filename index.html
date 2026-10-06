@@ -3459,29 +3459,30 @@ button,a{ -webkit-tap-highlight-color:transparent; }
                 }
                 title.innerText = "Order #" + escapeTrackingText(data.orderId || query);
                 const statuses = ['Pending','Order Confirmed','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
-                const current = String(data.orderStatus || 'Pending');
-                if (current === 'Cancelled') {
-                    details.innerHTML = '<div style="padding:10px 12px;background:#fff1f1;border:1px solid #f2b8b8;border-radius:8px;color:#c0392b;font-weight:700">✕ Order Cancelled</div>';
-                } else {
-                    let currentIndex = statuses.indexOf(current); if (currentIndex < 0) currentIndex = 0;
-                    details.innerHTML = `
-                      <div style="margin-bottom:12px;line-height:1.6">
-                        <div><b>Customer:</b> ${escapeTrackingText(data.customerName || '-')}</div>
-                        <div><b>Product:</b> ${escapeTrackingText(data.productName || '-')}</div>
-                        <div><b>Amount:</b> Rs. ${escapeTrackingText(data.price || '-')}</div>
-                        <div><b>Current Status:</b> <span style="color:#f85606;font-weight:800">${escapeTrackingText(current)}</span></div>
-                      </div>
-                      <div style="border-top:1px solid #eee;padding-top:10px">
-                        ${statuses.map((st,i)=>`<div class="tracking-step ${i===currentIndex?'is-current':''}"><span class="tracking-step-number" style="background:${i<currentIndex?'#22a06b':i===currentIndex?'#f85606':'#eee'};color:${i<=currentIndex?'#fff':'#888'}">${i<currentIndex?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${i===currentIndex?'<span class="tracking-current-pill">'+(current === 'Delivered' ? 'Complete' : 'Current')+'</span>':''}</div></div>`).join('')}
-                      </div>
-                      ${current === 'Delivered' ? `
-                        <div class="tracking-complete-box">
-                          <div class="tracking-complete-icon"><img src="icon-party.png" alt="Congratulations" class="tracking-complete-icon-img" onerror="this.style.display='none';this.parentElement.textContent='🎉';"></div>
-                          <div class="tracking-complete-title">Congratulations!</div>
-                          <p class="tracking-complete-text">Congratulations! Your order has been delivered successfully. We hope you enjoy your purchase. Thank you for shopping with us!</p>
-                          <span class="tracking-complete-badge">✓ Order Complete</span>
-                        </div>` : ''}`;
-                }
+                const rawStatus = String(data.orderStatus || 'Pending').trim();
+                const current = rawStatus.toLowerCase() === 'canceled' ? 'Cancelled' : rawStatus;
+                const isCancelled = current.toLowerCase() === 'cancelled';
+                const currentIndex = statuses.indexOf(current);
+                const statusColor = isCancelled ? '#c0392b' : '#f85606';
+                const statusLabel = isCancelled ? 'Cancelled' : current;
+                details.innerHTML = `
+                  <div style="margin-bottom:12px;line-height:1.6">
+                    <div><b>Customer:</b> ${escapeTrackingText(data.customerName || '-')}</div>
+                    <div><b>Product:</b> ${escapeTrackingText(data.productName || '-')}</div>
+                    <div><b>Amount:</b> Rs. ${escapeTrackingText(data.price || '-')}</div>
+                    <div><b>Current Status:</b> <span style="color:${statusColor};font-weight:800">${escapeTrackingText(statusLabel)}</span></div>
+                  </div>
+                  <div style="border-top:1px solid #eee;padding-top:10px">
+                    ${statuses.map((st,i)=>`<div class="tracking-step ${!isCancelled && i===currentIndex?'is-current':''}"><span class="tracking-step-number" style="background:${!isCancelled && i<currentIndex?'#22a06b':!isCancelled && i===currentIndex?'#f85606':'#eee'};color:${!isCancelled && i<=currentIndex?'#fff':'#888'}">${!isCancelled && i<currentIndex?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${!isCancelled && i===currentIndex?'<span class="tracking-current-pill">'+(current === 'Delivered' ? 'Complete' : 'Current')+'</span>':''}</div></div>`).join('')}
+                    ${isCancelled ? `<div class="tracking-step is-current" style="margin-top:12px;"><span class="tracking-step-number" style="background:#c0392b;color:#fff;box-shadow:0 0 0 3px #fde5e5;">✕</span><div class="tracking-step-content"><span class="tracking-step-name" style="color:#c0392b;font-weight:800;">Cancelled</span><span class="tracking-current-pill" style="background:#fff1f1;color:#c0392b;border-color:#f2b8b8;">Order Cancelled</span></div></div>` : ''}
+                  </div>
+                  ${current === 'Delivered' ? `
+                    <div class="tracking-complete-box">
+                      <div class="tracking-complete-icon"><img src="icon-party.png" alt="Congratulations" class="tracking-complete-icon-img" onerror="this.style.display='none';this.parentElement.textContent='🎉';"></div>
+                      <div class="tracking-complete-title">Congratulations!</div>
+                      <p class="tracking-complete-text">Congratulations! Your order has been delivered successfully. We hope you enjoy your purchase. Thank you for shopping with us!</p>
+                      <span class="tracking-complete-badge">✓ Order Complete</span>
+                    </div>` : ''}`;
             } catch (err) {
                 title.innerText = "Tracking Error";
                 details.innerHTML = '<p style="margin:0;color:#c0392b">Tracking service is temporarily unavailable. Please try again.</p>';
@@ -4029,6 +4030,24 @@ button,a{ -webkit-tap-highlight-color:transparent; }
         }
 
         document.addEventListener('DOMContentLoaded', renderReviews);
+</script>
+
+<style>
+/* HY Store: every opened panel is a clean full page */
+.hy-single-page{position:fixed!important;inset:0!important;width:100%!important;height:100%!important;margin:0!important;z-index:999999!important;overflow:auto!important;}
+body.hy-page-open{overflow:hidden!important;}
+</style>
+<script>
+(function(){
+ const ids=['trackingModal','cartModal','productModal','authModal','checkoutModal','profileModal','orderSuccessModal'];
+ function closeOthers(except){ids.forEach(id=>{if(id!==except){const e=document.getElementById(id);if(e)e.style.setProperty('display','none','important');}});}
+ function openOnly(id){closeOthers(id);const e=document.getElementById(id);if(e){e.classList.add('hy-single-page');e.style.setProperty('display','flex','important');document.body.classList.add('hy-page-open');}}
+ function closeOnly(id){const e=document.getElementById(id);if(e)e.style.setProperty('display','none','important');document.body.classList.remove('hy-page-open');}
+ window.addEventListener('load',function(){closeOthers(null);ids.forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('hy-single-page');});});
+ const wrap=(name,id)=>{const old=window[name];if(typeof old!=='function')return;window[name]=function(){closeOthers(id);const r=old.apply(this,arguments);const e=document.getElementById(id);if(e && e.style.display!=='none')openOnly(id);return r;};};
+ wrap('openTrackingModal','trackingModal');wrap('openCartModal','cartModal');wrap('openModal','productModal');wrap('openAuthModal','authModal');wrap('openCheckout','checkoutModal');wrap('openProfileModal','profileModal');wrap('openCartCheckout','checkoutModal');
+ ['closeTrackingModal','closeCartModal','closeModal','closeAuthModal','closeCheckout','closeProfileModal','closeOrderSuccessModal'].forEach((name,i)=>{const old=window[name];if(typeof old==='function'){window[name]=function(){const r=old.apply(this,arguments);closeOnly(ids[i]);return r;};}});
+})();
 </script>
 </body>
 </html>
