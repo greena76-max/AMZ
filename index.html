@@ -910,6 +910,14 @@
         .order-success-close{width:100%;border:0;background:#222;color:#fff;border-radius:9px;padding:11px;font-weight:800;cursor:pointer;}
         .order-success-close:hover{background:#111;}
 
+        /* Professional checkout phone + address fields */
+        .phone-row{display:flex;gap:8px;align-items:stretch;}
+        .country-code{width:112px;flex:0 0 112px;padding:10px 8px;border:1px solid #ccc;border-radius:4px;background:#fff;font-size:14px;outline:none;}
+        .phone-row input{flex:1;min-width:0;}
+        .address-select{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;background:#fff;font-size:14px;outline:none;color:#333;}
+        .country-code:focus,.address-select:focus{border-color:#f85606;}
+        .field-hint{display:block;margin-top:4px;font-size:10px;color:#888;}
+
         /* Footer */
         footer {
             background: #242424;
@@ -1259,6 +1267,26 @@
 
 /* Keep the congratulations asset clean and professional. */
 .tracking-complete-icon-img{display:block!important;object-fit:contain!important;}
+
+@media (max-width:700px){
+  .checkout-overlay{padding:8px!important;align-items:center!important;}
+  .checkout-box{width:100%!important;max-width:390px!important;max-height:94vh!important;overflow-y:auto!important;padding:18px 14px!important;border-radius:12px!important;box-sizing:border-box!important;}
+  .checkout-box h3{font-size:18px!important;margin-right:24px!important;}
+  .checkout-box .form-group{margin-bottom:10px!important;}
+  .checkout-box .form-group label{font-size:12px!important;margin-bottom:4px!important;}
+  .checkout-box .form-group input,.checkout-box .form-group textarea,.checkout-box .country-code,.checkout-box .address-select{box-sizing:border-box!important;width:100%;font-size:13px!important;padding:10px!important;}
+  .checkout-box .phone-row{display:flex!important;gap:6px!important;width:100%!important;}
+  .checkout-box .phone-row .country-code{width:104px!important;flex:0 0 104px!important;}
+  .checkout-box .phone-row #custPhone{flex:1!important;min-width:0!important;}
+  .checkout-box .field-hint{font-size:9px!important;}
+  .checkout-box textarea{min-height:72px!important;resize:vertical!important;}
+  .checkout-box .btn-submit-order{margin-top:6px!important;padding:11px!important;font-size:13px!important;}
+}
+@media (max-width:380px){
+  .checkout-box{padding:16px 11px!important;}
+  .checkout-box .phone-row .country-code{width:96px!important;flex-basis:96px!important;font-size:12px!important;}
+  .checkout-box .phone-row #custPhone{font-size:12px!important;}
+}
 </style>
 
 </head>
@@ -1506,12 +1534,66 @@
                     <input type="text" id="custName" required placeholder="Enter your name">
                 </div>
                 <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="text" id="custPhone" required placeholder="03XXXXXXXXX">
+                    <label>Mobile Number</label>
+                    <div class="phone-row">
+                        <select id="countryCode" class="country-code" required aria-label="Country Code">
+                            <option value="+92" selected>🇵🇰 +92</option>
+                            <option value="+91">🇮🇳 +91</option>
+                            <option value="+971">🇦🇪 +971</option>
+                            <option value="+966">🇸🇦 +966</option>
+                            <option value="+974">🇶🇦 +974</option>
+                            <option value="+44">🇬🇧 +44</option>
+                            <option value="+1">🇺🇸 +1</option>
+                        </select>
+                        <input type="tel" id="custPhone" required inputmode="numeric" autocomplete="tel" placeholder="3001234567" maxlength="15">
+                    </div>
+                    <small class="field-hint">Select country code, then enter your mobile number.</small>
                 </div>
                 <div class="form-group">
-                    <label>Delivery Address</label>
-                    <textarea id="custAddress" rows="3" required placeholder="House #, Street, City"></textarea>
+                    <label>District</label>
+                    <select id="custDistrict" class="address-select" required>
+                        <option value="" selected disabled>Select District</option>
+                        <option>Attock</option><option>Bahawalnagar</option><option>Bahawalpur</option><option>Bhakkar</option>
+                        <option>Chakwal</option><option>Chiniot</option><option>Dera Ghazi Khan</option><option>Faisalabad</option>
+                        <option>Gujranwala</option><option>Gujrat</option><option>Hafizabad</option><option>Jhang</option>
+                        <option>Jhelum</option><option>Kasur</option><option>Khanewal</option><option>Khushab</option>
+                        <option>Lahore</option><option>Layyah</option><option>Lodhran</option><option>Mandi Bahauddin</option>
+                        <option>Mianwali</option><option>Multan</option><option>Muzaffargarh</option><option>Nankana Sahib</option>
+                        <option>Narowal</option><option>Okara</option><option>Pakpattan</option><option>Rahim Yar Khan</option>
+                        <option>Rajanpur</option><option>Rawalpindi</option><option>Sahiwal</option><option>Sargodha</option>
+                        <option>Sheikhupura</option><option>Sialkot</option><option>Talagang</option><option>Toba Tek Singh</option>
+                        <option>Vehari</option>
+                        <option>Abbottabad</option><option>Bajaur</option><option>Bannu</option><option>Batagram</option>
+                        <option>Buner</option><option>Charsadda</option><option>Chitral Lower</option><option>Chitral Upper</option>
+                        <option>Dera Ismail Khan</option><option>Dir Lower</option><option>Dir Upper</option><option>Hangu</option>
+                        <option>Haripur</option><option>Karak</option><option>Khyber</option><option>Kohat</option>
+                        <option>Kurram</option><option>Lakki Marwat</option><option>Lower South Waziristan</option><option>Malakand</option>
+                        <option>Mansehra</option><option>Mardan</option><option>Mohmand</option><option>North Waziristan</option>
+                        <option>Nowshera</option><option>Orakzai</option><option>Shangla</option><option>South Waziristan Upper</option>
+                        <option>Swabi</option><option>Swat</option><option>Tank</option><option>Torghar</option>
+                        <option>Upper South Waziristan</option>
+                        <option>Badin</option><option>Dadu</option><option>Ghotki</option><option>Hyderabad</option>
+                        <option>Jacobabad</option><option>Jamshoro</option><option>Karachi Central</option><option>Karachi East</option>
+                        <option>Karachi South</option><option>Karachi West</option><option>Keamari</option><option>Kashmore</option>
+                        <option>Khairpur</option><option>Larkana</option><option>Matiari</option><option>Mirpur Khas</option>
+                        <option>Naushahro Feroze</option><option>Qambar Shahdadkot</option><option>Sanghar</option><option>Shaheed Benazirabad</option>
+                        <option>Shikarpur</option><option>Sujawal</option><option>Sukkur</option><option>Thatta</option><option>Tharparkar</option><option>Tando Allahyar</option><option>Tando Muhammad Khan</option>
+                        <option>Awaran</option><option>Barkhan</option><option>Chagai</option><option>Chaman</option><option>Dera Bugti</option>
+                        <option>Gwadar</option><option>Harnai</option><option>Jafarabad</option><option>Jhal Magsi</option><option>Kachhi</option>
+                        <option>Kalat</option><option>Kech</option><option>Kharan</option><option>Killa Abdullah</option><option>Killa Saifullah</option>
+                        <option>Kohlu</option><option>Lasbela</option><option>Loralai</option><option>Mastung</option><option>Musakhel</option>
+                        <option>Nasirabad</option><option>Nushki</option><option>Panjgur</option><option>Pishin</option><option>Quetta</option>
+                        <option>Sherani</option><option>Sibi</option><option>Sohrab</option><option>Surab</option><option>Washuk</option><option>Zhob</option><option>Ziarat</option>
+                        <option>Islamabad</option><option>Gilgit</option><option>Hunza</option><option>Skardu</option><option>Muzaffarabad</option><option>Mirpur AJK</option><option>Rawalakot</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" id="custCity" required placeholder="Enter your city" autocomplete="address-level2">
+                </div>
+                <div class="form-group">
+                    <label>Complete Address</label>
+                    <textarea id="custAddress" rows="3" required placeholder="House #, Street, Mohalla / Area"></textarea>
                 </div>
                 <button type="submit" class="btn-submit-order" id="submitBtn">Confirm Order</button>
             </form>
@@ -2068,9 +2150,21 @@
             btn.disabled = true;
             let createdOrderId = '';
 
-            const custName = document.getElementById('custName').value;
-            const custPhone = document.getElementById('custPhone').value;
-            const custAddress = document.getElementById('custAddress').value;
+            const custName = document.getElementById('custName').value.trim();
+            const countryCode = document.getElementById('countryCode').value;
+            let mobileNumber = document.getElementById('custPhone').value.trim().replace(/\D/g, '');
+            const custDistrict = document.getElementById('custDistrict').value;
+            const custCity = document.getElementById('custCity').value.trim();
+            const exactAddress = document.getElementById('custAddress').value.trim();
+            if (mobileNumber.startsWith('0')) mobileNumber = mobileNumber.substring(1);
+            if (!mobileNumber || mobileNumber.length < 7) {
+                showNotification('Please enter a valid mobile number.', 'error');
+                btn.innerText = 'Confirm Order';
+                btn.disabled = false;
+                return;
+            }
+            const custPhone = countryCode + mobileNumber;
+            const custAddress = 'District: ' + custDistrict + ', City: ' + custCity + ', Address: ' + exactAddress;
 
             try {
                 if (checkoutModeType === 'direct') {
