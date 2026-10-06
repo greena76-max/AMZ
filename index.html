@@ -1480,10 +1480,18 @@
   .btn-buy{background:#f85606!important;color:#fff!important;}
 
   .modal-content{max-height:94vh!important;overflow-y:auto!important;}
-  .modal-body{padding:16px!important;gap:14px!important;}
-  .main-preview{height:220px!important;}
-  .modal-details{gap:10px!important;}
-  .qty-container{justify-content:space-between!important;}
+  /* Product detail modal: stack everything vertically on mobile */
+  .modal-content{display:flex!important;flex-direction:column!important;width:calc(100vw - 14px)!important;max-width:390px!important;max-height:92vh!important;margin:auto!important;}
+  .modal-body{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;box-sizing:border-box!important;padding:14px!important;gap:12px!important;overflow-y:auto!important;overflow-x:hidden!important;}
+  .modal-gallery{width:100%!important;min-width:0!important;flex:none!important;}
+  .main-preview{width:100%!important;height:190px!important;min-height:190px!important;}
+  .thumbnail-row{width:100%!important;overflow-x:auto!important;flex-wrap:nowrap!important;}
+  .modal-details{width:100%!important;min-width:0!important;flex:none!important;gap:9px!important;}
+  .modal-title{font-size:17px!important;line-height:1.25!important;word-break:break-word!important;}
+  .modal-desc{max-height:90px!important;overflow-y:auto!important;font-size:12px!important;line-height:1.45!important;}
+  .qty-container{justify-content:space-between!important;width:100%!important;}
+  .modal-action-btns{display:grid!important;grid-template-columns:1fr 1fr!important;position:relative!important;z-index:20!important;margin-top:4px!important;padding-bottom:4px!important;}
+  .modal-action-btns .btn-cart,.modal-action-btns .btn-buy{display:flex!important;visibility:visible!important;opacity:1!important;position:relative!important;width:100%!important;height:46px!important;min-height:46px!important;align-items:center!important;justify-content:center!important;font-size:13px!important;font-weight:800!important;}
 
   /* Card Add to Cart button always sits inside the card */
   .card{display:flex!important;flex-direction:column!important;}
@@ -1494,9 +1502,10 @@
   .mobile-bottom-nav{height:60px;padding-left:5px;padding-right:5px;}
   .mobile-bottom-nav button{font-size:10px;}
   .mobile-bottom-nav .mb-icon{font-size:18px;}
-  .modal-body{padding:11px!important;}
-  .main-preview{height:190px!important;}
-  .modal-action-btns button{min-height:42px!important;font-size:12px!important;}
+  .modal-body{padding:10px!important;gap:10px!important;}
+  .main-preview{height:165px!important;min-height:165px!important;}
+  .modal-action-btns{grid-template-columns:1fr 1fr!important;}
+  .modal-action-btns button{min-height:44px!important;height:44px!important;font-size:12px!important;}
 }
 </style>
 </head>
