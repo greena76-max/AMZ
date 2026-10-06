@@ -1892,6 +1892,86 @@
 }
 </style>
 
+
+<style id="HY-CUSTOMER-PROFILE-POLISH">
+/* Separate logout button removed: Login button becomes Logout after login. */
+#logoutNavBtn{display:none!important;}
+#authNavBtn{cursor:pointer!important;}
+@media(max-width:700px){
+  #logoutNavBtn{display:none!important;}
+  .auth-link-btn{min-width:max-content!important;}
+}
+
+/* Customer profile */
+.profile-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.68);display:none;
+  align-items:center;justify-content:center;padding:14px;z-index:10070;
+}
+.profile-box{
+  width:100%;max-width:520px;max-height:90vh;overflow-y:auto;
+  background:#fff;border-radius:16px;box-shadow:0 20px 70px rgba(0,0,0,.28);
+  padding:20px;position:relative;
+}
+.profile-close{
+  position:absolute;right:14px;top:12px;width:34px;height:34px;border:0;
+  border-radius:50%;background:#f2f2f2;color:#555;font-size:24px;cursor:pointer;
+}
+.profile-close:hover{background:#f85606;color:#fff;}
+.profile-head{display:flex;align-items:center;gap:12px;padding-right:40px;margin-bottom:16px;}
+.profile-avatar{
+  width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+  background:#fff1ea;border:1px solid #ffd2bf;font-size:25px;
+}
+.profile-head h3{margin:0;color:#222;font-size:21px;}
+.profile-head p{margin:4px 0 0;color:#888;font-size:11px;}
+.profile-account-card{
+  background:#f8f9fa;border:1px solid #e9ecef;border-radius:12px;padding:12px;
+  margin-bottom:18px;
+}
+.profile-field{display:flex;justify-content:space-between;gap:15px;padding:9px 2px;border-bottom:1px solid #e9ecef;}
+.profile-field:last-child{border-bottom:0;}
+.profile-field span{color:#888;font-size:12px;}
+.profile-field strong{color:#222;font-size:12px;max-width:65%;text-align:right;overflow-wrap:anywhere;}
+.profile-orders-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.profile-orders-head h4{margin:0;color:#222;font-size:16px;}
+.profile-orders-head button{
+  border:1px solid #ddd;background:#fff;border-radius:7px;padding:6px 9px;
+  font-size:11px;font-weight:700;cursor:pointer;
+}
+.profile-orders-head button:hover{border-color:#f85606;color:#f85606;}
+.profile-orders{display:flex;flex-direction:column;gap:10px;}
+.profile-empty{
+  text-align:center;padding:25px 12px;border:1px dashed #ddd;border-radius:10px;
+  color:#777;font-size:12px;
+}
+.profile-empty p{margin:5px 0 0;color:#999;font-size:11px;}
+.profile-order-card{
+  border:1px solid #e7e7e7;border-radius:11px;padding:12px;
+  background:#fff;box-shadow:0 3px 12px rgba(0,0,0,.04);
+}
+.profile-order-top{display:flex;justify-content:space-between;gap:8px;align-items:center;}
+.profile-order-top strong{font-size:13px;color:#222;}
+.profile-status{
+  display:inline-flex;padding:4px 7px;border-radius:999px;background:#fff1ea;
+  color:#f85606;font-size:9px;font-weight:800;
+}
+.profile-order-product{margin-top:8px;font-size:13px;font-weight:700;color:#333;line-height:1.35;}
+.profile-order-meta{display:flex;justify-content:space-between;margin-top:8px;color:#f85606;font-size:12px;font-weight:800;}
+.profile-order-date{margin-top:5px;color:#999;font-size:10px;}
+.profile-track-btn{
+  width:100%;margin-top:9px;border:0;border-radius:7px;padding:8px;
+  background:#f85606;color:#fff;font-size:11px;font-weight:800;cursor:pointer;
+}
+.profile-track-btn:hover{background:#e04a05;}
+@media(max-width:700px){
+  .profile-overlay{padding:8px;align-items:center;}
+  .profile-box{max-width:390px;max-height:92vh;padding:16px 13px;border-radius:13px;}
+  .profile-head h3{font-size:19px;}
+  .profile-field{padding:8px 1px;}
+  .profile-order-card{padding:11px;}
+}
+</style>
+
 </head>
 <body>
 
@@ -1916,8 +1996,7 @@
                     <a class="nav-btn-style track-nav-btn" href="#" onclick="openTrackingModal(); return false;"><span class="btn-icon">📦</span><span class="btn-text">ORDER TRACK</span></a>
                     <a class="nav-btn-style" href="#" onclick="openCartModal(); return false;"><span class="btn-icon">🛒</span><span class="btn-text">Cart</span> <span class="cart-badge" id="cartBadgeCount">0</span></a>
                     <span id="userGreeting" class="user-greeting" style="display:none;"></span>
-                    <a id="authNavBtn" class="auth-link-btn" onclick="openAuthModal('login')">Login / Sign Up</a>
-                    <a id="logoutNavBtn" onclick="logoutUser()" style="display:none;color:#ff5b5b;font-weight:bold;font-size:13px">Logout</a>
+                    <a id="authNavBtn" class="auth-link-btn" onclick="handleAuthNavClick()">Login / Sign Up</a>
                 </div>
             </div>
         </div>
@@ -2363,23 +2442,42 @@
         function updateAuthUI() {
             const greeting = document.getElementById('userGreeting');
             const authNavBtn = document.getElementById('authNavBtn');
-            const logoutNavBtn = document.getElementById('logoutNavBtn');
 
             if (currentUser) {
                 document.body.classList.add('hy-user-logged-in');
-                greeting.innerText = `Hi, ${currentUser.name}`;
-                greeting.style.display = 'inline';
-                authNavBtn.style.display = 'none';
-                logoutNavBtn.style.display = 'inline';
+                if (greeting) {
+                    greeting.innerText = `Hi, ${currentUser.name || currentUser.email}`;
+                    greeting.style.display = 'inline';
+                }
+                if (authNavBtn) {
+                    authNavBtn.innerText = 'Logout';
+                    authNavBtn.setAttribute('aria-label', 'Logout');
+                    authNavBtn.title = 'Logout';
+                }
                 userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
                 updateCartBadge();
+                const mobileProfileText = document.getElementById('mobileProfileText');
+                if (mobileProfileText) mobileProfileText.innerText = currentUser.name || 'Profile';
             } else {
                 document.body.classList.remove('hy-user-logged-in');
-                greeting.style.display = 'none';
-                authNavBtn.style.display = 'inline';
-                logoutNavBtn.style.display = 'none';
+                if (greeting) greeting.style.display = 'none';
+                if (authNavBtn) {
+                    authNavBtn.innerText = 'Login / Sign Up';
+                    authNavBtn.setAttribute('aria-label', 'Login / Sign Up');
+                    authNavBtn.title = 'Login / Sign Up';
+                }
                 userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
                 updateCartBadge();
+                const mobileProfileText = document.getElementById('mobileProfileText');
+                if (mobileProfileText) mobileProfileText.innerText = 'Profile';
+            }
+        }
+
+        function handleAuthNavClick() {
+            if (currentUser) {
+                logoutUser();
+            } else {
+                openAuthModal('login');
             }
         }
 
@@ -2775,7 +2873,9 @@
         function logoutUser() {
             localStorage.removeItem('hy_logged_user');
             currentUser = null;
+            userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
             updateAuthUI();
+            closeProfileModal();
             showNotification("Logged out successfully.", "info");
         }
 
@@ -2859,6 +2959,19 @@
                     const result = await response.json();
                     if (result.status !== 'success') throw new Error(result.message || 'Order submission failed');
                     createdOrderId = result.orderId || '';
+                    saveLocalOrderHistory({
+                        orderId: createdOrderId,
+                        productName: currentProduct.name,
+                        price: currentProduct.price,
+                        qty: selectedQty,
+                        total: currentProduct.price * selectedQty,
+                        customerName: custName,
+                        phone: custPhone,
+                        address: custAddress,
+                        email: currentUser ? currentUser.email : '',
+                        orderStatus: 'Pending',
+                        createdAt: new Date().toISOString()
+                    });
                 } else {
                     let subtotal = userCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                     let itemsSummary = userCart.map(i => `${i.name} (x${i.qty})`).join(', ');
@@ -2880,6 +2993,19 @@
                     const result = await response.json();
                     if (result.status !== 'success') throw new Error(result.message || 'Order submission failed');
                     createdOrderId = result.orderId || '';
+                    saveLocalOrderHistory({
+                        orderId: createdOrderId,
+                        productName: `[Cart Order]: ${itemsSummary}`,
+                        price: subtotal,
+                        qty: 1,
+                        total: subtotal,
+                        customerName: custName,
+                        phone: custPhone,
+                        address: custAddress,
+                        email: currentUser ? currentUser.email : '',
+                        orderStatus: 'Pending',
+                        createdAt: new Date().toISOString()
+                    });
 
                     userCart = [];
                     saveCart();
@@ -2932,8 +3058,36 @@
             if (event.target == document.getElementById('trackingModal')) closeTrackingModal();
             if (event.target == document.getElementById('cartModal')) closeCartModal();
             if (event.target == document.getElementById('orderSuccessModal')) closeOrderSuccessModal();
+            if (event.target == document.getElementById('profileModal')) closeProfileModal();
         }
     </script>
+
+<!-- HY STORE CUSTOMER PROFILE MODAL -->
+<div id="profileModal" class="profile-overlay" aria-hidden="true">
+  <div class="profile-box">
+    <button class="profile-close" type="button" onclick="closeProfileModal()">×</button>
+    <div class="profile-head">
+      <div class="profile-avatar">👤</div>
+      <div>
+        <h3>My Profile</h3>
+        <p id="profileSubtitle">Account details & order history</p>
+      </div>
+    </div>
+
+    <div class="profile-account-card">
+      <div class="profile-field"><span>Name</span><strong id="profileName">-</strong></div>
+      <div class="profile-field"><span>Email</span><strong id="profileEmail">-</strong></div>
+    </div>
+
+    <div class="profile-orders-head">
+      <h4>My Orders</h4>
+      <button type="button" onclick="loadMyOrders()">↻ Refresh</button>
+    </div>
+    <div id="profileOrders" class="profile-orders">
+      <div class="profile-empty">Loading your orders...</div>
+    </div>
+  </div>
+</div>
 
 <!-- HY STORE MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav" aria-label="Mobile Store Navigation">
@@ -2979,16 +3133,152 @@
     }
   };
   window.openMobileProfile=function(){
-    if(typeof currentUser!=='undefined' && currentUser){
-      openAuthModal('login');
-      const title=document.getElementById('authTitle');
-      if(title) title.textContent='HY Store Profile';
-    }else{
-      openAuthModal('login');
-    }
+    openProfileModal();
   };
 })();
 
+
+
+        // ===== HY STORE CUSTOMER PROFILE =====
+        const HY_ORDER_HISTORY_KEY = 'hy_store_order_history_v1';
+
+        function getLocalOrderHistory() {
+            try {
+                const all = JSON.parse(localStorage.getItem(HY_ORDER_HISTORY_KEY) || '{}');
+                return currentUser && currentUser.email ? (all[currentUser.email.toLowerCase()] || []) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveLocalOrderHistory(order) {
+            if (!order || !currentUser || !currentUser.email) return;
+            try {
+                const all = JSON.parse(localStorage.getItem(HY_ORDER_HISTORY_KEY) || '{}');
+                const key = currentUser.email.toLowerCase();
+                all[key] = all[key] || [];
+                if (order.orderId && !all[key].some(o => String(o.orderId) === String(order.orderId))) {
+                    all[key].unshift(order);
+                }
+                all[key] = all[key].slice(0, 50);
+                localStorage.setItem(HY_ORDER_HISTORY_KEY, JSON.stringify(all));
+            } catch (e) {}
+        }
+
+        function openProfileModal() {
+            const modal = document.getElementById('profileModal');
+            if (!modal) return;
+
+            if (!currentUser) {
+                openAuthModal('login');
+                return;
+            }
+
+            document.getElementById('profileName').innerText = currentUser.name || '-';
+            document.getElementById('profileEmail').innerText = currentUser.email || '-';
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+            loadMyOrders();
+        }
+
+        function closeProfileModal() {
+            const modal = document.getElementById('profileModal');
+            if (!modal) return;
+            modal.style.display = 'none';
+            modal.setAttribute('aria-hidden', 'true');
+        }
+
+        function escapeProfileText(value) {
+            return String(value ?? '').replace(/[&<>'"]/g, c => ({
+                '&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'
+            }[c]));
+        }
+
+        function renderProfileOrders(orders) {
+            const box = document.getElementById('profileOrders');
+            if (!box) return;
+
+            if (!orders || !orders.length) {
+                box.innerHTML = `
+                  <div class="profile-empty">
+                    <div style="font-size:28px;margin-bottom:5px">📦</div>
+                    <strong>No orders found</strong>
+                    <p>Your orders made with this email will appear here.</p>
+                  </div>`;
+                return;
+            }
+
+            box.innerHTML = orders.map(order => {
+                const status = order.orderStatus || order.status || 'Pending';
+                const dateValue = order.createdAt || order.date || order.timestamp;
+                const date = dateValue ? new Date(dateValue).toLocaleDateString('en-PK',{day:'2-digit',month:'short',year:'numeric'}) : '-';
+                const orderId = order.orderId || order.id || '-';
+                const product = order.productName || order.name || 'Order';
+                const total = order.total ?? order.price ?? '-';
+                const qty = order.qty ?? 1;
+
+                return `
+                  <div class="profile-order-card">
+                    <div class="profile-order-top">
+                      <strong>#${escapeProfileText(orderId)}</strong>
+                      <span class="profile-status">${escapeProfileText(status)}</span>
+                    </div>
+                    <div class="profile-order-product">${escapeProfileText(product)}</div>
+                    <div class="profile-order-meta">
+                      <span>Qty: ${escapeProfileText(qty)}</span>
+                      <span>Rs. ${escapeProfileText(total)}</span>
+                    </div>
+                    <div class="profile-order-date">${escapeProfileText(date)}</div>
+                    <button type="button" class="profile-track-btn" onclick="trackFromProfile('${String(orderId).replace(/'/g,"\\\\'")}')">Track Order</button>
+                  </div>`;
+            }).join('');
+        }
+
+        async function loadMyOrders() {
+            const box = document.getElementById('profileOrders');
+            if (!box) return;
+
+            if (!currentUser) {
+                box.innerHTML = '<div class="profile-empty">Please login first.</div>';
+                return;
+            }
+
+            const localOrders = getLocalOrderHistory();
+            box.innerHTML = '<div class="profile-empty">Loading your orders...</div>';
+
+            // The existing order submit flow stores userEmail. If the Apps Script
+            // endpoint supports getUserOrders, use the live sheet data; otherwise
+            // safely fall back to the orders saved in this browser.
+            try {
+                const url = apiURL + '?action=getUserOrders&email=' + encodeURIComponent(currentUser.email);
+                const response = await fetch(url, { method:'GET', cache:'no-store' });
+                if (response.ok) {
+                    const data = await response.json();
+                    if (Array.isArray(data)) {
+                        renderProfileOrders(data);
+                        return;
+                    }
+                    if (data && Array.isArray(data.orders)) {
+                        renderProfileOrders(data.orders);
+                        return;
+                    }
+                    if (data && data.status === 'success' && Array.isArray(data.data)) {
+                        renderProfileOrders(data.data);
+                        return;
+                    }
+                }
+            } catch (e) {}
+
+            renderProfileOrders(localOrders);
+        }
+
+        function trackFromProfile(orderId) {
+            closeProfileModal();
+            const input = document.getElementById('trackInput');
+            if (input) input.value = String(orderId || '').toUpperCase();
+            openTrackingModal();
+            if (orderId) setTimeout(() => executeOrderTracking(), 80);
+        }
 
         // ===== HY STORE CUSTOMER REVIEWS =====
         let selectedReviewRating = 1;
