@@ -2563,6 +2563,74 @@ button,a{ -webkit-tap-highlight-color:transparent; }
 }
 </style>
 
+
+<style id="HY-FINAL-BANNER-PRODUCT-FIX">
+/* ===== FINAL WEB BANNER FIX =====
+   Show the complete banner without side cropping.
+   The banner keeps its natural wide ratio instead of forcing cover-cropping.
+*/
+.promo-slider{
+  width:100%!important;
+  height:auto!important;
+  aspect-ratio: 2.85 / 1!important;
+  overflow:hidden!important;
+  background:#17191c!important;
+}
+.slider-track,
+.slide{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+}
+.slide img{
+  width:100%!important;
+  height:100%!important;
+  display:block!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  background:#17191c!important;
+}
+
+/* Remove the Pakistan analog/digital watch from the Flash Sale banner */
+.analog-clock-box{
+  display:none!important;
+}
+
+/* Make the Flash Sale content use the full available width after removing clock */
+.hero-banner{
+  width:100%!important;
+}
+
+/* Products must remain visible and occupy the full available content width */
+#product-grid{
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+#product-grid .loading-container{
+  grid-column:1 / -1;
+}
+
+/* Desktop product cards */
+@media (min-width:701px){
+  .product-grid{
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;
+    align-items:stretch!important;
+  }
+}
+
+/* Mobile: keep the complete banner visible */
+@media (max-width:700px){
+  .promo-slider{
+    aspect-ratio:2.85 / 1!important;
+    height:auto!important;
+  }
+  .slide img{
+    object-fit:contain!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -3074,18 +3142,48 @@ button,a{ -webkit-tap-highlight-color:transparent; }
 
         async function fetchProducts() {
             const grid = document.getElementById('product-grid');
+            if (!grid) return;
+
             try {
-                const response = await fetch(apiURL + "?action=getProducts");
-                allProducts = await response.json();
+                const response = await fetch(apiURL + "?action=getProducts", {
+                    method: "GET",
+                    cache: "no-store"
+                });
+
+                if (!response.ok) {
+                    throw new Error("Products API HTTP " + response.status);
+                }
+
+                const raw = await response.json();
+
+                // Support both a direct array and common Apps Script wrappers.
+                let data = raw;
+                if (raw && !Array.isArray(raw)) {
+                    data = raw.products || raw.data || raw.items || raw.result || [];
+                }
+
+                // Some Apps Script setups return the array as a JSON string.
+                if (typeof data === "string") {
+                    try { data = JSON.parse(data); } catch (_) {}
+                }
+
+                if (!Array.isArray(data)) data = [];
+
+                allProducts = data.filter(Boolean);
+
                 if (allProducts.length === 0) {
                     grid.innerHTML = '<div class="loading-container"><div class="loading-text">No products available.</div></div>';
                     return;
                 }
+
                 displayProducts(allProducts);
+
             } catch (error) {
                 console.error("Error fetching products:", error);
                 showNotification("Products could not be loaded. Please check your internet connection.", "error");
-                grid.innerHTML = `<div class="loading-container"><div class="loading-text" style="color:red;">Failed to load products.</div></div>`;
+                grid.innerHTML = `<div class="loading-container">
+                    <div class="loading-text" style="color:#d93025;">Products could not be loaded.</div>
+                </div>`;
             }
         }
 
