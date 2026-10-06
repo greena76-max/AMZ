@@ -4087,7 +4087,11 @@ body.hy-subpage-open .hy-feedback-page{display:block!important;position:fixed!im
     }
   }
   function showPage(id){ body.classList.add('hy-subpage-open'); const el=document.getElementById(id); if(el) el.style.display='flex'; }
-  function hidePage(id){ const el=document.getElementById(id); if(el) el.style.display='none'; if(![...document.querySelectorAll('.hy-full-page-overlay')].some(x=>x.style.display==='flex')) body.classList.remove('hy-subpage-open'); }
+  function hidePage(id){
+    const el=document.getElementById(id);
+    if(el) el.style.setProperty('display','none','important');
+    body.classList.remove('hy-subpage-open');
+  }
   window.HYShowPage=showPage;
   window.HYHidePage=hidePage;
 
