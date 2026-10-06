@@ -1420,6 +1420,38 @@
 </style>
 
 
+
+<style id="HY-FEEDBACK-REVIEWS">
+/* ===== HY STORE FEEDBACK & REVIEWS ===== */
+.hy-feedback-section{max-width:1200px;margin:5px auto 28px;padding:22px;background:linear-gradient(145deg,#1d1d1d,#292929);border:1px solid #3a3a3a;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.22)}
+.hy-feedback-head{text-align:center;margin-bottom:18px}
+.hy-feedback-head h3{margin:0 0 6px;color:#fff;font-size:24px}
+.hy-feedback-head p{margin:0;color:#aaa;font-size:13px}
+.hy-feedback-layout{display:grid;grid-template-columns:minmax(260px,330px) 1fr;gap:22px;align-items:start}
+.hy-feedback-form{background:#111;padding:18px;border:1px solid #393939;border-radius:12px}
+.hy-feedback-form label{display:block;color:#ddd;font-size:12px;font-weight:700;margin:0 0 6px}
+.hy-feedback-form input,.hy-feedback-form textarea{width:100%;box-sizing:border-box;background:#222;color:#fff;border:1px solid #444;border-radius:8px;padding:11px 12px;outline:none;font-family:inherit;margin-bottom:12px}
+.hy-feedback-form input:focus,.hy-feedback-form textarea:focus{border-color:#f85606;box-shadow:0 0 0 2px rgba(248,86,6,.12)}
+.hy-feedback-form textarea{resize:vertical;min-height:92px}
+.hy-stars-select{display:flex;gap:4px;margin:2px 0 14px}
+.hy-star-btn{border:0;background:transparent;color:#555;font-size:27px;line-height:1;cursor:pointer;padding:0;transition:.2s;}
+.hy-star-btn:hover,.hy-star-btn.active{color:#ffb400;transform:translateY(-2px) scale(1.08)}
+.hy-review-submit{width:100%;border:0;border-radius:8px;background:linear-gradient(135deg,#f85606,#ff7a18);color:#fff;font-weight:800;padding:11px;cursor:pointer;transition:.25s;box-shadow:0 6px 16px rgba(248,86,6,.2)}
+.hy-review-submit:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(248,86,6,.28)}
+.hy-reviews-list{display:flex;flex-direction:column;gap:12px;max-height:390px;overflow-y:auto;padding:2px 5px 2px 2px}
+.hy-review-empty{text-align:center;color:#888;border:1px dashed #444;border-radius:10px;padding:35px 15px}
+.hy-review-card{position:relative;background:#f8f8f8;color:#222;border-radius:12px;padding:14px 16px;border-left:4px solid #f85606;box-shadow:0 7px 18px rgba(0,0,0,.2);animation:hyReviewSlideIn .5s cubic-bezier(.2,.8,.2,1) both;overflow:hidden}
+.hy-review-card::after{content:"";position:absolute;top:0;left:0;width:55px;height:2px;background:#ffb400;animation:hyReviewGlow .8s ease-out both}
+.hy-review-top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:5px}
+.hy-review-name{font-weight:800;font-size:14px;color:#222}
+.hy-review-date{font-size:10px;color:#888;white-space:nowrap}
+.hy-review-stars{color:#ffb400;font-size:15px;letter-spacing:1px;margin-bottom:5px}
+.hy-review-text{margin:0;color:#444;font-size:13px;line-height:1.55;word-break:break-word}
+@keyframes hyReviewSlideIn{from{opacity:0;transform:translateX(-70px) scale(.96)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes hyReviewGlow{from{width:0;opacity:0}to{width:55px;opacity:1}}
+@media(max-width:700px){.hy-feedback-section{margin:0 0 22px;padding:15px;border-radius:10px}.hy-feedback-head h3{font-size:20px}.hy-feedback-layout{grid-template-columns:1fr;gap:15px}.hy-feedback-form{padding:14px}.hy-reviews-list{max-height:none;overflow:visible}.hy-review-card{padding:12px}.hy-review-top{align-items:flex-start}.hy-review-date{font-size:9px}}
+</style>
+
 <style id="HY-MOBILE-FINAL-FIX">
 /* HY STORE - FINAL MOBILE LAYOUT */
 .mobile-bottom-nav{display:none;}
@@ -1817,6 +1849,35 @@
                 </ul>
             </div>
         </div>
+
+        <!-- Feedback & Reviews -->
+        <section class="hy-feedback-section" id="feedbackReviews">
+            <div class="hy-feedback-head">
+                <h3>⭐ Customer Feedback & Reviews</h3>
+                <p>Apna experience share karein — aapka review doosre customers ke liye bhi helpful hai.</p>
+            </div>
+            <div class="hy-feedback-layout">
+                <form class="hy-feedback-form" id="reviewForm" onsubmit="submitReview(event)">
+                    <label for="reviewName">Your Name</label>
+                    <input id="reviewName" type="text" maxlength="40" placeholder="Enter your name" required>
+                    <label>Your Rating</label>
+                    <div class="hy-stars-select" id="reviewStarsSelect" aria-label="Select rating">
+                        <button type="button" class="hy-star-btn active" data-rating="1" onclick="selectReviewRating(1)">★</button>
+                        <button type="button" class="hy-star-btn" data-rating="2" onclick="selectReviewRating(2)">★</button>
+                        <button type="button" class="hy-star-btn" data-rating="3" onclick="selectReviewRating(3)">★</button>
+                        <button type="button" class="hy-star-btn" data-rating="4" onclick="selectReviewRating(4)">★</button>
+                        <button type="button" class="hy-star-btn" data-rating="5" onclick="selectReviewRating(5)">★</button>
+                    </div>
+                    <label for="reviewText">Your Feedback</label>
+                    <textarea id="reviewText" maxlength="500" placeholder="Write your experience with HY Store..." required></textarea>
+                    <button class="hy-review-submit" type="submit">Submit Review ✨</button>
+                </form>
+                <div class="hy-reviews-list" id="reviewsList">
+                    <div class="hy-review-empty">No reviews yet. Be the first to share your experience! 😊</div>
+                </div>
+            </div>
+        </section>
+
         <div class="footer-bottom">
             <p>&copy; 2026 hystoreofficial.com. All Rights Reserved.</p>
         </div>
@@ -2481,7 +2542,7 @@
 <!-- HY STORE MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav" aria-label="Mobile Store Navigation">
   <button type="button" onclick="openTrackingModal()">
-    <span class="mb-icon"></span><span>Tracking</span>
+    <span class="mb-icon">📦</span><span>Tracking</span>
   </button>
   <button type="button" onclick="openMobileProfile()">
     <span class="mb-icon">👤</span><span class="mb-profile-name" id="mobileProfileText">Profile</span>
@@ -2513,6 +2574,67 @@
     }
   };
 })();
+
+
+        // ===== HY STORE CUSTOMER REVIEWS =====
+        let selectedReviewRating = 1;
+        const REVIEW_STORAGE_KEY = 'hy_store_customer_reviews_v1';
+
+        function selectReviewRating(rating) {
+            selectedReviewRating = Number(rating) || 1;
+            document.querySelectorAll('#reviewStarsSelect .hy-star-btn').forEach(btn => {
+                btn.classList.toggle('active', Number(btn.dataset.rating) <= selectedReviewRating);
+            });
+        }
+
+        function getStoredReviews() {
+            try { return JSON.parse(localStorage.getItem(REVIEW_STORAGE_KEY) || '[]'); }
+            catch(e) { return []; }
+        }
+
+        function renderReviews() {
+            const list = document.getElementById('reviewsList');
+            if (!list) return;
+            const reviews = getStoredReviews();
+            if (!reviews.length) {
+                list.innerHTML = '<div class="hy-review-empty">No reviews yet. Be the first to share your experience! 😊</div>';
+                return;
+            }
+            list.innerHTML = reviews.map((review, index) => {
+                const stars = '★'.repeat(Math.max(1, Math.min(5, Number(review.rating) || 1))) + '☆'.repeat(5 - Math.max(1, Math.min(5, Number(review.rating) || 1)));
+                return `<article class="hy-review-card" style="animation-delay:${Math.min(index * 0.06, 0.3)}s">
+                    <div class="hy-review-top"><span class="hy-review-name">${escapeReviewHTML(review.name)}</span><span class="hy-review-date">${escapeReviewHTML(review.date)}</span></div>
+                    <div class="hy-review-stars">${stars}</div>
+                    <p class="hy-review-text">${escapeReviewHTML(review.text)}</p>
+                </article>`;
+            }).join('');
+        }
+
+        function escapeReviewHTML(value) {
+            return String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+        }
+
+        function submitReview(event) {
+            event.preventDefault();
+            const name = document.getElementById('reviewName').value.trim();
+            const text = document.getElementById('reviewText').value.trim();
+            if (!name || !text) return;
+            const reviews = getStoredReviews();
+            reviews.unshift({
+                name,
+                rating: selectedReviewRating,
+                text,
+                date: new Date().toLocaleDateString('en-PK', {day:'2-digit', month:'short', year:'numeric'})
+            });
+            localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(reviews));
+            document.getElementById('reviewForm').reset();
+            selectReviewRating(5);
+            renderReviews();
+            showNotification('Your review has been added successfully! ⭐', 'success', 'Thank You');
+            setTimeout(() => document.querySelector('#reviewsList .hy-review-card')?.scrollIntoView({behavior:'smooth', block:'nearest'}), 80);
+        }
+
+        document.addEventListener('DOMContentLoaded', renderReviews);
 </script>
 </body>
 </html>
