@@ -1031,9 +1031,15 @@
         .tracking-step.is-current .tracking-step-name{font-weight:800;}
         .tracking-current-pill{display:inline-block;background:#d9dde1;color:#555;border:1px solid #c8ccd1;border-radius:9px;padding:2px 8px;font-size:9px;font-weight:700;line-height:1.05;margin-top:1px;}
 
-        .clock-label{font-size:11px;font-weight:700;opacity:.95;white-space:nowrap;}
-        .pakistan-clock-box{min-width:120px;}
-        .pakistan-clock-box span{letter-spacing:1px;}
+        .analog-clock-box{flex:0 0 142px;width:142px;min-width:142px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+        .analog-clock{position:relative;width:118px;height:118px;border-radius:50%;background:#fff;border:5px solid #f85606;box-shadow:0 5px 16px rgba(0,0,0,.16),inset 0 0 0 2px #f1f1f1;overflow:hidden;}
+        .clock-number{position:absolute;left:50%;top:50%;font-size:11px;font-weight:800;color:#444;line-height:1;transform:translate(-50%,-50%);}
+        .clock-number.n12{top:10px;}.clock-number.n1{top:17px;left:76%;}.clock-number.n2{top:31px;left:89%;}.clock-number.n3{top:50%;left:94%;}.clock-number.n4{top:69%;left:89%;}.clock-number.n5{top:83%;left:76%;}.clock-number.n6{top:91%;}.clock-number.n7{top:83%;left:24%;}.clock-number.n8{top:69%;left:11%;}.clock-number.n9{top:50%;left:6%;}.clock-number.n10{top:31px;left:11%;}.clock-number.n11{top:17px;left:24%;}
+        .clock-hand{position:absolute;left:50%;bottom:50%;width:3px;height:34px;border-radius:3px;background:#222;transform-origin:50% 100%;transform:translateX(-50%) rotate(0deg);z-index:3;}
+        .clock-hand.hour{height:28px;width:4px;}.clock-hand.minute{height:38px;width:3px;}.clock-hand.second{height:44px;width:1.5px;background:#f85606;z-index:4;}
+        .clock-center{position:absolute;left:50%;top:50%;width:9px;height:9px;border-radius:50%;background:#f85606;border:2px solid #fff;box-shadow:0 0 0 1px #f85606;transform:translate(-50%,-50%);z-index:5;}
+        .clock-label{font-size:10px;font-weight:800;white-space:nowrap;color:inherit;}
+        .clock-digital{font-size:9px;font-weight:700;opacity:.8;white-space:nowrap;letter-spacing:.3px;}
 
         @media (max-width: 700px) {
             *{box-sizing:border-box;}
@@ -1087,9 +1093,14 @@
             .hero-banner>div:first-child{min-width:0;max-width:62%;}
             .hero-banner h1{font-size:22px;line-height:1.08;margin-bottom:7px;}
             .hero-banner p{font-size:12px;line-height:1.25;}
-            .flash-timer{flex:0 0 94px;width:94px;min-width:94px;padding:10px 5px;border-radius:9px;font-size:10px;}
-            .clock-label{font-size:9px;line-height:1.15;}
-            .pakistan-clock-box span{font-size:15px!important;line-height:1.25;margin-top:5px;letter-spacing:.5px;}
+            .analog-clock-box{flex:0 0 102px;width:102px;min-width:102px;gap:2px;}
+            .analog-clock{width:82px;height:82px;border-width:3px;box-shadow:0 3px 10px rgba(0,0,0,.14),inset 0 0 0 1px #f1f1f1;}
+            .clock-number{font-size:7px;}
+            .clock-number.n12{top:7px;}.clock-number.n1{top:12px;}.clock-number.n2{top:21px;}.clock-number.n3{left:93%;}.clock-number.n4{top:61%;}.clock-number.n5{top:73%;}.clock-number.n6{top:88%;}.clock-number.n7{top:73%;}.clock-number.n8{top:61%;}.clock-number.n9{left:7%;}.clock-number.n10{top:21px;}.clock-number.n11{top:12px;}
+            .clock-hand.hour{height:20px;width:3px;}.clock-hand.minute{height:27px;width:2px;}.clock-hand.second{height:31px;width:1px;}
+            .clock-center{width:7px;height:7px;}
+            .clock-label{font-size:7.5px;line-height:1.05;}
+            .clock-digital{font-size:7px;line-height:1;}
 
             .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;width:100%;align-items:start;}
             .card{width:100%;min-width:0;padding:7px;border-radius:8px;height:auto;min-height:300px;overflow:hidden;}
@@ -1364,6 +1375,50 @@
 }
 </style>
 
+
+<style id="compact-flash-sale-final">
+/* FINAL compact Flash Sale banner */
+.hero-banner{
+  min-height:92px !important;
+  height:92px !important;
+  padding:10px 28px !important;
+  margin-bottom:14px !important;
+  border-radius:8px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  overflow:visible !important;
+  box-shadow:0 7px 18px rgba(248,86,6,.25) !important;
+}
+.hero-banner>div:first-child{min-width:0 !important;max-width:72% !important;}
+.hero-banner h1{font-size:22px !important;line-height:1.05 !important;margin:0 0 5px !important;}
+.hero-banner p{font-size:12px !important;line-height:1.2 !important;margin:0 !important;}
+.analog-clock-box{flex:0 0 112px !important;width:112px !important;min-width:112px !important;gap:2px !important;position:relative;z-index:3;}
+.analog-clock{width:86px !important;height:86px !important;border-width:4px !important;box-shadow:0 7px 18px rgba(0,0,0,.28),0 0 0 4px rgba(255,255,255,.18),inset 0 0 0 1px #f1f1f1 !important;}
+.clock-number{font-size:8px !important;}
+.clock-number.n12{top:7px !important}.clock-number.n1{top:12px !important}.clock-number.n2{top:22px !important}.clock-number.n3{left:93% !important}.clock-number.n4{top:61% !important}.clock-number.n5{top:75% !important}.clock-number.n6{top:89% !important}.clock-number.n7{top:75% !important}.clock-number.n8{top:61% !important}.clock-number.n9{left:7% !important}.clock-number.n10{top:22px !important}.clock-number.n11{top:12px !important}
+.clock-hand.hour{height:21px !important;width:3px !important}.clock-hand.minute{height:29px !important;width:2px !important}.clock-hand.second{height:33px !important;width:1px !important}.clock-center{width:7px !important;height:7px !important}
+.clock-label{font-size:8px !important;line-height:1 !important}.clock-digital{font-size:7px !important;line-height:1 !important}
+@media(max-width:700px){
+  .hero-banner{min-height:76px !important;height:76px !important;padding:7px 10px !important;margin-bottom:9px !important;border-radius:7px !important;gap:4px !important;}
+  .hero-banner>div:first-child{max-width:68% !important;}
+  .hero-banner h1{font-size:14px !important;margin-bottom:3px !important;}
+  .hero-banner p{font-size:8px !important;line-height:1.2 !important;}
+  .analog-clock-box{flex-basis:82px !important;width:82px !important;min-width:82px !important;gap:1px !important;}
+  .analog-clock{width:64px !important;height:64px !important;border-width:3px !important;box-shadow:0 5px 12px rgba(0,0,0,.28),0 0 0 3px rgba(255,255,255,.18),inset 0 0 0 1px #f1f1f1 !important;}
+  .clock-number{font-size:6px !important;}
+  .clock-number.n12{top:5px !important}.clock-number.n1{top:9px !important}.clock-number.n2{top:16px !important}.clock-number.n3{left:92% !important}.clock-number.n4{top:61% !important}.clock-number.n5{top:74% !important}.clock-number.n6{top:88% !important}.clock-number.n7{top:74% !important}.clock-number.n8{top:61% !important}.clock-number.n9{left:8% !important}.clock-number.n10{top:16px !important}.clock-number.n11{top:9px !important}
+  .clock-hand.hour{height:15px !important;width:2px !important}.clock-hand.minute{height:21px !important;width:1.5px !important}.clock-hand.second{height:24px !important;width:1px !important}.clock-center{width:5px !important;height:5px !important}
+  .clock-label{font-size:6px !important}.clock-digital{font-size:5.5px !important;}
+}
+@media(max-width:390px){
+  .hero-banner{min-height:70px !important;height:70px !important;padding:6px 8px !important;}
+  .hero-banner h1{font-size:12.5px !important}.hero-banner p{font-size:7px !important;}
+  .analog-clock-box{flex-basis:74px !important;width:74px !important;min-width:74px !important;}
+  .analog-clock{width:58px !important;height:58px !important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -1458,15 +1513,24 @@
                 </div>
             </div>
 
-            <!-- Flash Sale Timer Banner -->
+            <!-- Flash Sale Banner + Live Pakistan Analog Clock -->
             <div class="hero-banner">
                 <div>
                     <h1>Flash Sale Is Live!</h1>
                     <p>Grab massive discounts on top-selling gadgets and apparel today.</p>
                 </div>
-                <div class="flash-timer pakistan-clock-box" aria-label="Pakistan Standard Time">
-                    <div class="clock-label">⌚ Pakistan Time</div>
-                    <span id="pakistanClock">-- : -- : --</span>
+                <div class="analog-clock-box" aria-label="Live Pakistan Standard Time">
+                    <div class="analog-clock" id="pakistanAnalogClock">
+                        <span class="clock-number n12">12</span><span class="clock-number n1">1</span><span class="clock-number n2">2</span><span class="clock-number n3">3</span>
+                        <span class="clock-number n4">4</span><span class="clock-number n5">5</span><span class="clock-number n6">6</span><span class="clock-number n7">7</span>
+                        <span class="clock-number n8">8</span><span class="clock-number n9">9</span><span class="clock-number n10">10</span><span class="clock-number n11">11</span>
+                        <span class="clock-hand hour" id="clockHour"></span>
+                        <span class="clock-hand minute" id="clockMinute"></span>
+                        <span class="clock-hand second" id="clockSecond"></span>
+                        <span class="clock-center"></span>
+                    </div>
+                    <div class="clock-label">Pakistan Time</div>
+                    <div class="clock-digital" id="pakistanClock">-- : -- : --</div>
                 </div>
             </div>
 
@@ -1885,19 +1949,31 @@
             document.getElementById('sidebarMenu').classList.toggle('hidden');
         }
 
-        // Live Pakistan Standard Time (PKT / Asia-Karachi).
+        // Live Pakistan Standard Time (PKT / Asia-Karachi) — analog + digital clock.
         function updatePakistanClock() {
-            const el = document.getElementById('pakistanClock');
-            if (!el) return;
-            const now = new Date();
-            const time = new Intl.DateTimeFormat('en-PK', {
+            const digital = document.getElementById('pakistanClock');
+            const hourHand = document.getElementById('clockHour');
+            const minuteHand = document.getElementById('clockMinute');
+            const secondHand = document.getElementById('clockSecond');
+            if (!digital || !hourHand || !minuteHand || !secondHand) return;
+
+            const parts = new Intl.DateTimeFormat('en-US', {
                 timeZone: 'Asia/Karachi',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: true
-            }).format(now);
-            el.textContent = time;
+                hour: 'numeric', minute: 'numeric', second: 'numeric',
+                hour12: false
+            }).formatToParts(new Date());
+            const get = (type) => Number(parts.find(p => p.type === type)?.value || 0);
+            const hour = get('hour') % 12;
+            const minute = get('minute');
+            const second = get('second');
+
+            hourHand.style.transform = `translateX(-50%) rotate(${hour * 30 + minute * 0.5}deg)`;
+            minuteHand.style.transform = `translateX(-50%) rotate(${minute * 6 + second * 0.1}deg)`;
+            secondHand.style.transform = `translateX(-50%) rotate(${second * 6}deg)`;
+
+            digital.textContent = new Intl.DateTimeFormat('en-PK', {
+                timeZone: 'Asia/Karachi', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+            }).format(new Date());
         }
         updatePakistanClock();
         setInterval(updatePakistanClock, 1000);
