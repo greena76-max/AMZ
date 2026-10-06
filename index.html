@@ -1062,7 +1062,87 @@
             .card-add-cart{padding:7px 3px;font-size:10.5px;}
             .tracking-box{padding:15px 10px 12px;}
         }
-    </style>
+    
+/* FINAL MOBILE FIX */
+@media (max-width: 700px) {
+  html, body { width:100%; max-width:100%; overflow-x:hidden; }
+  body { font-size:14px; }
+  .header { position:relative; width:100%; }
+  .promo-bar { min-height:42px; height:42px; overflow:hidden; display:flex; }
+  .promo-item { min-width:100%; max-width:none; height:42px; min-height:42px; padding:4px 8px; gap:6px; border-right:0; font-size:10px; }
+  .promo-item:not(:first-child) { display:none; }
+  .promo-icon { font-size:18px; }
+  .promo-item strong { font-size:11px; }
+  .promo-item small { font-size:9px; }
+
+  .header-main { width:100%; }
+  .header-top { min-height:0; width:100%; padding:8px 8px 7px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .brand { width:100%; justify-content:center; gap:8px; }
+  .brand-logo, .brand-fallback { width:42px; height:42px; border-radius:8px; }
+  .brand-name { font-size:17px; letter-spacing:.2px; }
+  .brand-tagline { display:none; }
+  .nav-links { width:100%; display:flex; flex-wrap:nowrap; justify-content:center; gap:5px; overflow:visible; }
+  .nav-btn-style { height:34px; padding:6px 8px; border-radius:7px; font-size:11px !important; gap:4px; }
+  .nav-btn-style .btn-icon { font-size:13px; }
+  .nav-btn-style .btn-text { display:inline; }
+  .cart-badge { font-size:9px; min-width:15px; height:15px; line-height:15px; }
+  .auth-link-btn { height:34px; padding:6px 8px !important; font-size:11px !important; white-space:nowrap; }
+  #logoutNavBtn { font-size:10px !important; }
+
+  .search-row { padding:8px 8px 9px; border-top:1px solid #eee; }
+  .search-box { height:38px; width:100%; }
+  .search-box input { min-width:0; font-size:12px; padding:8px 11px; }
+  .search-box button { padding:0 13px; font-size:11px; }
+
+  .wrapper { display:block; width:100%; max-width:100%; margin:8px 0; padding:0 8px; }
+  .sidebar { width:100%; margin-bottom:8px; }
+  .main-content { width:100%; min-width:0; }
+  .category-toggle-btn { width:100%; margin-bottom:8px; }
+
+  .promo-slider { width:100%; height:145px; min-height:145px; margin-bottom:8px; border-radius:7px; }
+  .slide img { width:100%; height:100%; object-fit:cover; }
+  .slide-caption { padding:15px 12px 12px; }
+  .slide-caption h2 { font-size:14px; margin-bottom:2px; }
+  .slide-caption p { font-size:9px; }
+  .slider-dots { bottom:7px; right:10px; gap:4px; }
+  .dot { width:7px; height:7px; }
+  .dot.active { width:17px; }
+
+  .hero-banner { min-height:64px; height:auto; padding:10px 12px; margin-bottom:10px; border-radius:7px; gap:8px; }
+  .hero-banner h1 { font-size:15px; margin-bottom:2px; }
+  .hero-banner p { font-size:9px; line-height:1.25; }
+  .flash-timer { padding:7px 9px; font-size:9px; }
+  .flash-timer span { font-size:12px; }
+
+  .section-heading { font-size:16px; margin:8px 0 9px; }
+  .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; width:100%; }
+  .card { min-width:0; width:100%; height:285px; padding:7px; border-radius:7px; }
+  .card-img { height:145px; }
+  .card-img img { object-fit:contain; }
+  .card-info h3 { font-size:12px; line-height:1.2; }
+  .card-info p { font-size:10px; }
+  .price { font-size:13px; }
+  .card-actions { display:flex; gap:5px; }
+  .card-actions button { flex:1; min-width:0; padding:7px 4px; font-size:10px; border-radius:5px; }
+
+  .tracking-overlay, .cart-overlay, .auth-overlay, .checkout-overlay { padding:8px; }
+  .tracking-box, .cart-box, .auth-box, .checkout-box { width:100%; max-width:380px; max-height:92vh; overflow-y:auto; border-radius:10px; }
+  .tracking-box { padding:16px 12px; }
+  #trackInput { width:100%; box-sizing:border-box; }
+  .tracking-box .btn-submit-form { width:100%; }
+  .tracking-result-panel { max-height:48vh; overflow-y:auto; }
+}
+
+@media (max-width:380px) {
+  .brand-name { font-size:15px; }
+  .nav-btn-style { padding:5px 6px; font-size:10px !important; }
+  .auth-link-btn { padding:5px 6px !important; font-size:10px !important; }
+  .promo-slider { height:132px; min-height:132px; }
+  .card { height:275px; }
+  .card-img { height:135px; }
+}
+
+</style>
 </head>
 <body>
 
