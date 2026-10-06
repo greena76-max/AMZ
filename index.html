@@ -1821,6 +1821,77 @@
 }
 </style>
 
+
+<style id="HY-PRO-HEADER-BANNER-FINAL">
+/* HY STORE PRO FINAL - only header/promo/flash/banner polish */
+.brand-fallback{display:none!important;}
+
+@media (min-width:701px){
+  /* Desktop banner fills the available content edge-to-edge */
+  .main-content > .promo-slider{width:calc(100% + 20px)!important;margin-left:-10px!important;margin-right:0!important;}
+}
+
+@media (max-width:700px){
+  html,body{overflow-x:hidden!important;}
+
+  /* Compact top offer strip */
+  .promo-bar{height:58px!important;min-height:58px!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;}
+  .promo-item{display:flex!important;height:58px!important;min-height:58px!important;padding:5px 3px!important;gap:3px!important;justify-content:center!important;text-align:center!important;border-right:1px solid rgba(255,255,255,.18)!important;}
+  .promo-item:last-child{border-right:0!important;}
+  .promo-icon{font-size:15px!important;}
+  .promo-item strong{font-size:8.5px!important;line-height:1.05!important;}
+  .promo-item small{font-size:7px!important;line-height:1.05!important;}
+
+  /* Clean professional mobile header: logo/name left, actions underneath */
+  .header-top{position:relative!important;display:grid!important;grid-template-columns:1fr!important;grid-template-rows:auto auto!important;width:100%!important;min-height:0!important;height:auto!important;padding:9px 10px 8px!important;gap:8px!important;overflow:visible!important;justify-content:initial!important;}
+  .brand{width:100%!important;max-width:none!important;min-width:0!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;gap:8px!important;overflow:hidden!important;margin:0!important;}
+  .brand-logo{display:block!important;width:42px!important;height:42px!important;min-width:42px!important;border-radius:9px!important;padding:2px!important;object-fit:contain!important;background:#fff!important;}
+  .brand-fallback{display:none!important;}
+  .brand-name{font-size:18px!important;line-height:1!important;letter-spacing:0!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;}
+  .brand-name .hy{font-weight:900!important;}
+  .brand-name .official{font-weight:900!important;}
+  .brand-tagline{display:none!important;}
+
+  /* Order Track left, Cart center, Login/Logout right */
+  .nav-links{position:relative!important;width:100%!important;max-width:none!important;min-width:0!important;display:grid!important;grid-template-columns:1fr 1fr 1fr!important;align-items:center!important;justify-content:stretch!important;gap:7px!important;overflow:visible!important;padding:0!important;}
+  .nav-btn-style,.auth-link-btn,#logoutNavBtn{width:100%!important;min-width:0!important;height:38px!important;padding:7px 5px!important;border-radius:9px!important;font-size:11px!important;line-height:1!important;white-space:nowrap!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;}
+  .nav-btn-style .btn-icon,.auth-link-btn::before,#logoutNavBtn::before{display:none!important;}
+  .nav-btn-style .btn-text{display:inline!important;font-size:11px!important;font-weight:800!important;}
+  .track-nav-btn{width:100%!important;min-width:0!important;}
+  .cart-badge{font-size:8px!important;min-width:16px!important;height:16px!important;line-height:16px!important;padding:0 4px!important;margin-left:1px!important;}
+  #authNavBtn{font-size:11px!important;background:#f85606!important;color:#fff!important;}
+  #logoutNavBtn{width:100%!important;min-width:0!important;font-size:11px!important;background:#fff!important;color:#e53935!important;border:1px solid #e53935!important;}
+  .user-greeting{position:absolute!important;right:8px!important;top:-49px!important;display:none!important;max-width:120px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;color:#fff!important;background:rgba(248,86,6,.95)!important;border-radius:14px!important;padding:4px 8px!important;font-size:9px!important;z-index:5!important;}
+  body.hy-user-logged-in .user-greeting{display:inline-block!important;}
+
+  /* Search stays clean below header */
+  .search-row{padding:8px 9px!important;}
+
+  /* Flash Sale: remove the oversized clock on mobile; keep a clean sale banner */
+  .hero-banner{min-height:78px!important;height:78px!important;padding:10px 14px!important;margin-bottom:11px!important;border-radius:10px!important;gap:0!important;display:flex!important;align-items:center!important;overflow:hidden!important;}
+  .hero-banner>div:first-child{max-width:100%!important;width:100%!important;}
+  .hero-banner h1{font-size:17px!important;line-height:1.05!important;margin:0 0 4px!important;}
+  .hero-banner p{font-size:9px!important;line-height:1.2!important;margin:0!important;max-width:88%!important;}
+  .analog-clock-box{display:none!important;}
+
+  /* Bottom navigation stays professional and balanced */
+  .mobile-bottom-nav{grid-template-columns:repeat(4,1fr)!important;height:64px!important;padding:5px 5px calc(5px + env(safe-area-inset-bottom))!important;}
+  .mobile-bottom-nav button{font-size:10.5px!important;}
+  .mobile-bottom-nav .mb-icon{font-size:19px!important;}
+}
+
+@media(max-width:390px){
+  .brand-name{font-size:16px!important;}
+  .brand-logo{width:40px!important;height:40px!important;min-width:40px!important;}
+  .nav-links{gap:5px!important;}
+  .nav-btn-style,.auth-link-btn,#logoutNavBtn{height:36px!important;font-size:10px!important;}
+  .nav-btn-style .btn-text,#authNavBtn,#logoutNavBtn{font-size:10px!important;}
+  .hero-banner{height:74px!important;min-height:74px!important;}
+  .hero-banner h1{font-size:15px!important;}
+  .hero-banner p{font-size:8px!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -2295,6 +2366,7 @@
             const logoutNavBtn = document.getElementById('logoutNavBtn');
 
             if (currentUser) {
+                document.body.classList.add('hy-user-logged-in');
                 greeting.innerText = `Hi, ${currentUser.name}`;
                 greeting.style.display = 'inline';
                 authNavBtn.style.display = 'none';
@@ -2302,6 +2374,7 @@
                 userCart = JSON.parse(localStorage.getItem(getCartStorageKey())) || [];
                 updateCartBadge();
             } else {
+                document.body.classList.remove('hy-user-logged-in');
                 greeting.style.display = 'none';
                 authNavBtn.style.display = 'inline';
                 logoutNavBtn.style.display = 'none';
