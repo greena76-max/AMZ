@@ -1287,6 +1287,81 @@
   .checkout-box .phone-row .country-code{width:96px!important;flex-basis:96px!important;font-size:12px!important;}
   .checkout-box .phone-row #custPhone{font-size:12px!important;}
 }
+
+/* === FINAL RESPONSIVE MOBILE OVERRIDE === */
+@media (max-width:700px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden;}
+
+  /* Show ALL 3 promo items on mobile */
+  .promo-bar{width:100%;height:72px;min-height:72px;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;background:#111;}
+  .promo-item{width:100%;min-width:0;max-width:none;height:72px;min-height:72px;padding:6px 4px;gap:3px;display:flex;flex-direction:column;justify-content:center;text-align:center;border-right:1px solid rgba(255,255,255,.18);overflow:hidden;}
+  .promo-item:nth-child(1),.promo-item:nth-child(2),.promo-item:nth-child(3){display:flex;}
+  .promo-icon{font-size:16px;line-height:1;}
+  .promo-item strong{font-size:8.5px;line-height:1.15;white-space:normal;overflow:visible;text-overflow:clip;}
+  .promo-item small{font-size:7.2px;line-height:1.12;white-space:normal;overflow:visible;text-overflow:clip;margin-top:1px;}
+
+  /* Keep logo, store name and ALL account/action buttons in ONE mobile row */
+  .header-main{width:100%;}
+  .header-top{width:100%;min-height:58px;height:auto;padding:7px 6px;display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:5px;overflow:hidden;}
+  .brand{width:auto;max-width:42%;flex:1 1 auto;min-width:0;display:flex;align-items:center;justify-content:flex-start;gap:5px;overflow:hidden;}
+  .brand-logo{width:34px;height:34px;min-width:34px;padding:2px;border-radius:7px;object-fit:contain;background:#fff;}
+  .brand-fallback{width:34px;height:34px;min-width:34px;border-radius:7px;font-size:13px;}
+  .brand-name{font-size:12px!important;line-height:1.05;letter-spacing:0;white-space:nowrap;overflow:visible;text-overflow:clip;}
+  .brand-tagline{display:none!important;}
+  .nav-links{width:auto;max-width:58%;flex:0 0 auto;display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-end;gap:3px;overflow:hidden;}
+  .nav-btn-style,.auth-link-btn,#logoutNavBtn{height:31px!important;min-width:0!important;width:auto!important;padding:5px 6px!important;border-radius:6px!important;font-size:8.5px!important;line-height:1!important;white-space:nowrap!important;display:inline-flex!important;align-items:center;justify-content:center;}
+  .nav-btn-style .btn-icon,.auth-link-btn::before,#logoutNavBtn::before{display:none!important;}
+  .nav-btn-style .btn-text{display:inline!important;font-size:8.5px!important;}
+  .track-nav-btn{width:auto!important;min-width:0!important;font-size:8.5px!important;}
+  .cart-badge{font-size:7px!important;min-width:12px;height:12px;line-height:12px;padding:0 3px;margin-left:2px;}
+  .user-greeting{display:none!important;}
+  #authNavBtn{font-size:8.5px!important;}
+  #logoutNavBtn{font-size:8.5px!important;}
+
+  /* Search stays on its own row */
+  .search-row{width:100%;padding:7px 7px 8px;}
+  .search-box{width:100%;height:38px;max-width:none;}
+  .search-box input{font-size:11px;padding:7px 10px;}
+  .search-box button{height:38px;padding:0 11px;font-size:10px;}
+
+  /* Banner: don't crop the artwork */
+  .promo-slider{width:100%;height:auto;min-height:0;aspect-ratio:1200/420;margin:0 0 9px;border-radius:7px;overflow:hidden;}
+  .slider-track,.slide{width:100%;height:100%;min-width:100%;}
+  .slide img{width:100%;height:100%;display:block;object-fit:contain;object-position:center;background:#111;}
+
+  /* Product cards: two columns + working direct Add to Cart */
+  .product-grid{width:100%;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+  .card{width:100%;min-width:0;height:auto;min-height:285px;padding:7px;overflow:hidden;cursor:pointer;}
+  .card-img{width:100%;height:135px;flex:0 0 135px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .card-img img{width:100%;height:100%;object-fit:contain;display:block;}
+  .card-body{min-width:0;padding:6px 2px 2px;}
+  .card-body h4{font-size:11px;line-height:1.2;height:34px;overflow:hidden;margin:0 0 4px;}
+  .card-price{font-size:13px;}
+  .card-old-price{font-size:9px;}
+  .rating-stars{font-size:8.5px;white-space:nowrap;}
+  .card-add-cart{display:block!important;width:100%;height:31px;padding:5px 2px;margin-top:6px;font-size:10px!important;line-height:1;border:0;border-radius:5px;cursor:pointer;}
+
+  /* Modals fit mobile */
+  .tracking-overlay,.cart-overlay,.auth-overlay,.checkout-overlay,.modal-overlay{padding:7px;}
+  .tracking-box,.cart-box,.auth-box,.checkout-box,.modal-content{width:100%;max-width:390px;max-height:94vh;overflow-y:auto;}
+}
+
+@media (max-width:390px){
+  .promo-bar{height:68px;min-height:68px;}
+  .promo-item{height:68px;min-height:68px;padding:5px 2px;}
+  .promo-item strong{font-size:7.8px;}
+  .promo-item small{font-size:6.7px;}
+  .promo-icon{font-size:14px;}
+  .header-top{padding:6px 5px;gap:3px;}
+  .brand{max-width:41%;gap:4px;}
+  .brand-logo,.brand-fallback{width:31px;height:31px;min-width:31px;}
+  .brand-name{font-size:10px!important;}
+  .nav-links{max-width:59%;gap:2px;}
+  .nav-btn-style,.auth-link-btn,#logoutNavBtn{height:29px!important;padding:4px 4px!important;font-size:7.5px!important;}
+  .nav-btn-style .btn-text{font-size:7.5px!important;}
+  .card{min-height:275px;}
+  .card-img{height:125px;flex-basis:125px;}
+}
 </style>
 
 </head>
@@ -1781,7 +1856,7 @@
                             ${product.old ? `<span class="card-old-price">Rs. ${product.old}</span>` : ''}
                         </div>
                         <div class="rating-stars">★★★★★ <span>(4.5)</span></div>
-                        <button type="button" class="card-add-cart" onclick="event.stopPropagation(); openModal(product);">Add to Cart</button>
+                        <button type="button" class="card-add-cart" onclick="event.stopPropagation(); addProductToCartFromCard(${allProducts.indexOf(product)});">Add to Cart</button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -1880,6 +1955,24 @@
             selectedQty += val;
             if (selectedQty < 1) selectedQty = 1;
             document.getElementById('qtyVal').innerText = selectedQty;
+        }
+
+        function addProductToCartFromCard(index) {
+            const product = allProducts[index];
+            if (!product) return;
+            const existingItem = userCart.find(item => item.name === product.name);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                userCart.push({
+                    name: product.name,
+                    price: product.price,
+                    img: product.img1 || '',
+                    qty: 1
+                });
+            }
+            saveCart();
+            showNotification(`Added "${product.name}" to cart!`, "success", "Added to Cart");
         }
 
         function addToCart() {
