@@ -1508,6 +1508,319 @@
   .modal-action-btns button{min-height:44px!important;height:44px!important;font-size:12px!important;}
 }
 </style>
+
+
+<style id="HY-MOBILE-TOP-AND-FEEDBACK-FINAL">
+/* =========================================================
+   HY STORE — MOBILE TOP BAR + FEEDBACK PAGE FINAL FIX
+   Desktop/tablet layout is intentionally unchanged.
+   ========================================================= */
+.hy-feedback-mobile-close{display:none;}
+
+@media (max-width:700px){
+  html,body{
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:hidden!important;
+  }
+
+  /* ---------- MOBILE HEADER ---------- */
+  .header-main{
+    width:100%!important;
+    overflow:visible!important;
+  }
+
+  .header-top{
+    width:100%!important;
+    min-height:0!important;
+    height:auto!important;
+    padding:8px 7px 7px!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:7px!important;
+    align-items:center!important;
+    justify-content:stretch!important;
+    overflow:visible!important;
+  }
+
+  .brand{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    margin:0!important;
+    display:flex!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:7px!important;
+    overflow:visible!important;
+  }
+
+  .brand-logo,
+  .brand-fallback{
+    width:40px!important;
+    height:40px!important;
+    min-width:40px!important;
+    max-width:40px!important;
+    border-radius:8px!important;
+    padding:2px!important;
+  }
+
+  .brand-name{
+    font-size:16px!important;
+    line-height:1.05!important;
+    letter-spacing:0!important;
+    white-space:nowrap!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+  }
+
+  .brand-tagline{
+    display:none!important;
+  }
+
+  /* Buttons stay in one clean row; if a very small phone cannot fit,
+     the row scrolls horizontally instead of cutting/overlapping buttons. */
+  .nav-links{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    flex:none!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    gap:5px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    padding:1px 2px 3px!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  .nav-links::-webkit-scrollbar{display:none!important;}
+
+  .nav-btn-style,
+  .auth-link-btn,
+  #logoutNavBtn{
+    flex:0 0 auto!important;
+    width:auto!important;
+    min-width:max-content!important;
+    height:34px!important;
+    padding:7px 10px!important;
+    border-radius:7px!important;
+    font-size:10.5px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:4px!important;
+  }
+
+  .nav-btn-style .btn-icon,
+  #authNavBtn::before,
+  #logoutNavBtn::before{
+    display:none!important;
+  }
+
+  .nav-btn-style .btn-text{
+    display:inline!important;
+    font-size:10.5px!important;
+  }
+
+  .track-nav-btn{
+    min-width:max-content!important;
+    width:auto!important;
+    font-size:10.5px!important;
+  }
+
+  .auth-link-btn{
+    font-size:10.5px!important;
+  }
+
+  .cart-badge{
+    font-size:8px!important;
+    min-width:14px!important;
+    height:14px!important;
+    line-height:14px!important;
+    padding:0 4px!important;
+    margin-left:2px!important;
+  }
+
+  .user-greeting{
+    display:none!important;
+  }
+
+  /* Search remains below the header buttons, never beside them. */
+  .search-row{
+    width:100%!important;
+    padding:7px 8px 9px!important;
+  }
+
+  .search-box{
+    width:100%!important;
+    max-width:none!important;
+    height:40px!important;
+  }
+
+  .search-box input{
+    min-width:0!important;
+    font-size:12px!important;
+    padding:8px 11px!important;
+  }
+
+  .search-box button{
+    flex:0 0 82px!important;
+    height:40px!important;
+    padding:0 9px!important;
+    font-size:11px!important;
+  }
+
+  /* ---------- FEEDBACK AS A SEPARATE MOBILE PAGE ---------- */
+  body.mobile-feedback-active{
+    overflow:hidden!important;
+  }
+
+  .hy-feedback-section{
+    display:none!important;
+  }
+
+  .hy-feedback-section.mobile-feedback-open{
+    display:block!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:10060!important;
+    width:100vw!important;
+    max-width:none!important;
+    height:100dvh!important;
+    max-height:100dvh!important;
+    margin:0!important;
+    padding:58px 12px 85px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    border:0!important;
+    border-radius:0!important;
+    box-sizing:border-box!important;
+    background:linear-gradient(145deg,#1d1d1d,#292929)!important;
+  }
+
+  .hy-feedback-mobile-close{
+    display:flex!important;
+    position:fixed!important;
+    top:10px!important;
+    right:12px!important;
+    z-index:10070!important;
+    width:38px!important;
+    height:38px!important;
+    border:0!important;
+    border-radius:50%!important;
+    align-items:center!important;
+    justify-content:center!important;
+    background:#f85606!important;
+    color:#fff!important;
+    font-size:25px!important;
+    line-height:1!important;
+    font-weight:700!important;
+    box-shadow:0 5px 15px rgba(0,0,0,.25)!important;
+    cursor:pointer!important;
+  }
+
+  .hy-feedback-head{
+    margin-bottom:15px!important;
+    padding:0 35px!important;
+  }
+
+  .hy-feedback-head h3{
+    font-size:20px!important;
+    line-height:1.2!important;
+  }
+
+  .hy-feedback-head p{
+    font-size:11px!important;
+    line-height:1.4!important;
+  }
+
+  .hy-feedback-layout{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:14px!important;
+  }
+
+  .hy-feedback-form{
+    padding:14px!important;
+    border-radius:10px!important;
+  }
+
+  .hy-feedback-form input,
+  .hy-feedback-form textarea{
+    font-size:13px!important;
+  }
+
+  .hy-reviews-list{
+    max-height:none!important;
+    overflow:visible!important;
+  }
+
+  /* Four equal bottom buttons on mobile. */
+  .mobile-bottom-nav{
+    grid-template-columns:repeat(4,1fr)!important;
+  }
+
+  .mobile-bottom-nav button{
+    min-width:0!important;
+    font-size:10px!important;
+  }
+
+  .mobile-bottom-nav .mb-icon{
+    font-size:19px!important;
+  }
+}
+
+@media (max-width:390px){
+  .header-top{
+    padding-left:5px!important;
+    padding-right:5px!important;
+  }
+
+  .brand-logo,
+  .brand-fallback{
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    max-width:36px!important;
+  }
+
+  .brand-name{
+    font-size:14px!important;
+  }
+
+  .nav-links{
+    gap:4px!important;
+  }
+
+  .nav-btn-style,
+  .auth-link-btn,
+  #logoutNavBtn{
+    height:32px!important;
+    padding:6px 8px!important;
+    font-size:9.5px!important;
+  }
+
+  .nav-btn-style .btn-text{
+    font-size:9.5px!important;
+  }
+
+  .hy-feedback-section.mobile-feedback-open{
+    padding-left:9px!important;
+    padding-right:9px!important;
+  }
+
+  .hy-feedback-head{
+    padding:0 30px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1861,6 +2174,7 @@
 
         <!-- Feedback & Reviews -->
         <section class="hy-feedback-section" id="feedbackReviews">
+            <button type="button" class="hy-feedback-mobile-close" onclick="closeMobileFeedback()" aria-label="Close Feedback">×</button>
             <div class="hy-feedback-head">
                 <h3>⭐ Customer Feedback & Reviews</h3>
                 <p>Apna experience share karein — aapka review doosre customers ke liye bhi helpful hai.</p>
@@ -2559,9 +2873,27 @@
   <button type="button" onclick="openCartModal()" style="position:relative">
     <span class="mb-icon">🛒</span><span>Cart</span><span class="mb-cart-badge" id="mobileCartBadge">0</span>
   </button>
+  <button type="button" onclick="openMobileFeedback()">
+    <span class="mb-icon">⭐</span><span>Feedback</span>
+  </button>
 </nav>
 <script>
 (function(){
+  window.openMobileFeedback = function(){
+    const box = document.getElementById('feedbackReviews');
+    if(!box) return;
+    box.classList.add('mobile-feedback-open');
+    document.body.classList.add('mobile-feedback-active');
+    box.scrollTop = 0;
+  };
+
+  window.closeMobileFeedback = function(){
+    const box = document.getElementById('feedbackReviews');
+    if(!box) return;
+    box.classList.remove('mobile-feedback-open');
+    document.body.classList.remove('mobile-feedback-active');
+  };
+
   const oldUpdate = window.updateCartBadge;
   window.updateCartBadge = function(){
     if(typeof oldUpdate === 'function') oldUpdate();
