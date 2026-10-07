@@ -5400,7 +5400,7 @@ body.hy-info-open{overflow:hidden!important}
       if(title)title.innerText='Order #'+String(d.orderId||query);
       if(details){
         details.innerHTML=`<div style="margin-bottom:12px;line-height:1.6"><div><b>Customer:</b> ${String(d.customerName||'-')}</div><div><b>Product:</b> ${String(d.productName||'-')}</div><div><b>Amount:</b> Rs. ${String(d.price||'-')}</div><div><b>Current Status:</b> <span style="color:${cancelled?'#c0392b':'#f85606'};font-weight:800">${current}</span></div></div>
-        <div style="border-top:1px solid #eee;padding-top:10px">${HY_STATUS.slice(0,7).map((st,i)=>`<div class="tracking-step ${!cancelled&&i===idx?'is-current':''}"><span class="tracking-step-number" style="background:${!cancelled&&i<idx?'#22a06b':!cancelled&&i===idx?'#f85606':'#eee'};color:${!cancelled&&i<=idx?'#fff':'#888'}">${!cancelled&&i<idx?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${!cancelled&&i===idx?'<span class="tracking-current-pill">'+(current==='Delivered'?'Complete':'Current')+'</span>':''}</div></div>`).join('')}${cancelled?'<div class="profile-mini-cancelled" style="margin-top:10px"><span>✕</span><strong>Cancelled</strong><small>Order status</small></div>':''}</div>`;
+        <div style="border-top:1px solid #eee;padding-top:10px">${HY_STATUS.slice(0,7).map((st,i)=>`<div class="tracking-step ${!cancelled&&i===idx?'is-current':''}"><span class="tracking-step-number" style="background:${!cancelled&&(i<idx || (current==='Delivered'&&i===idx))?'#22a06b':!cancelled&&i===idx?'#f85606':'#eee'};color:${!cancelled&&i<=idx?'#fff':'#888'}">${!cancelled&&(i<idx || (current==='Delivered'&&i===idx))?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${!cancelled&&i===idx?'<span class="tracking-current-pill">'+(current==='Delivered'?'Complete':'Current')+'</span>':''}</div></div>`).join('')}${cancelled?'<div class="profile-mini-cancelled" style="margin-top:10px"><span>✕</span><strong>Cancelled</strong><small>Order status</small></div>':''}</div>`;
         if(current==='Delivered'){
           details.innerHTML+=`<div class="tracking-complete-box"><div class="tracking-complete-icon"><span style="font-size:42px">✓</span></div><div class="tracking-complete-title">Congratulations!</div><p class="tracking-complete-text">Your order has been delivered successfully.</p><span class="tracking-complete-badge">Delivered</span></div>`;
         }
@@ -5463,6 +5463,214 @@ document.addEventListener('DOMContentLoaded', function(){
   const pm=document.getElementById('paymentModal');
   if(pm) pm.addEventListener('click',function(e){ if(e.target===pm) closePaymentModal(); });
 });
+</script>
+
+
+<style id="HY-FINAL-MOBILE-SCROLL-PROFILE-FIX">
+/* ===== FINAL MOBILE PANEL + PROFILE FIX ===== */
+@media (max-width:700px){
+  /* Checkout/payment panels must be vertically scrollable on phones. */
+  .checkout-overlay,
+  .payment-overlay,
+  .profile-overlay{
+    align-items:flex-start!important;
+    justify-content:center!important;
+    padding:8px!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior:contain!important;
+    touch-action:pan-y!important;
+  }
+  .checkout-box{
+    width:100%!important;
+    max-width:390px!important;
+    max-height:calc(100dvh - 16px)!important;
+    height:auto!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior:contain!important;
+    flex:0 0 auto!important;
+  }
+  .payment-overlay{
+    display:none;
+  }
+  .payment-overlay[aria-hidden="false"]{
+    display:flex!important;
+  }
+  .payment-box{
+    width:100%!important;
+    max-width:390px!important;
+    max-height:calc(100dvh - 16px)!important;
+    height:auto!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior:contain!important;
+    flex:0 0 auto!important;
+    padding:16px 12px 20px!important;
+  }
+  .profile-box{
+    width:100%!important;
+    max-width:390px!important;
+    max-height:calc(100dvh - 16px)!important;
+    height:auto!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    overscroll-behavior:contain!important;
+  }
+  .checkout-box form,.payment-box form{padding-bottom:4px!important;}
+  .checkout-box .btn-submit-order,.payment-box button[type="submit"]{margin-bottom:4px!important;}
+}
+
+/* Delivered = completed: the 7th step also gets a check mark. */
+.profile-mini-step.is-complete .profile-mini-dot,
+.profile-mini-step.delivered-done .profile-mini-dot{
+  background:#22a06b!important;
+  color:#fff!important;
+  box-shadow:0 0 0 1px #22a06b!important;
+}
+.profile-mini-step.delivered-done .profile-mini-label{
+  color:#16804f!important;
+  font-weight:800!important;
+}
+.profile-party-fallback{font-size:30px;line-height:1;}
+</style>
+<script id="HY-FINAL-PROFILE-LIVE-FIX">
+(function(){
+  /* Fix the earlier close-function/index mismatch. */
+  const closeMap={
+    closeTrackingModal:'trackingModal',
+    closeCartModal:'cartModal',
+    closeModal:'productModal',
+    closeAuthModal:'authModal',
+    closeCheckout:'checkoutModal',
+    closeProfileModal:'profileModal',
+    closeOrderSuccessModal:'orderSuccessModal'
+  };
+  Object.keys(closeMap).forEach(function(name){
+    const fn=window[name];
+    if(typeof fn!=='function' || fn.__hyFinalCloseFix) return;
+    const id=closeMap[name];
+    function fixedClose(){
+      const r=fn.apply(this,arguments);
+      const el=document.getElementById(id);
+      if(el){
+        el.style.setProperty('display','none','important');
+        el.setAttribute('aria-hidden','true');
+      }
+      document.body.classList.remove('hy-page-open');
+      return r;
+    }
+    fixedClose.__hyFinalCloseFix=true;
+    window[name]=fixedClose;
+  });
+
+  const statusList=['Pending','Order Confirm','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
+  const statusIndex={
+    'pending':0,'order confirm':1,'order confirmed':1,'confirmed':1,
+    'designing':2,'design':2,'printing':3,'printed':3,
+    'ready for delivery':4,'ready':4,'dispatch':5,'dispatched':5,
+    'shipped':5,'out for delivery':5,'delivered':6,'complete':6,'completed':6
+  };
+  const norm=v=>String(v||'Pending').trim().toLowerCase();
+  const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+
+  async function liveOrder(o){
+    const id=o?.orderId||o?.id||o?.orderNo||o?.orderNumber;
+    if(!id || typeof apiURL==='undefined') return o;
+    try{
+      const r=await fetch(apiURL+'?action=trackOrder&orderId='+encodeURIComponent(id),{method:'GET',cache:'no-store'});
+      if(!r.ok)return o;
+      const d=await r.json();
+      if(d?.status==='success') return {...o,...d,orderId:d.orderId||id,orderStatus:d.orderStatus||d.status||o.orderStatus||o.status};
+    }catch(e){ console.warn('HY profile live status:',e); }
+    return o;
+  }
+
+  window.renderProfileOrders=function(orders){
+    const box=document.getElementById('profileOrders');
+    if(!box)return;
+    if(!Array.isArray(orders)||!orders.length){
+      box.innerHTML='<div class="profile-empty"><div style="font-size:28px;margin-bottom:5px">📦</div><strong>No orders found</strong><p>Your orders made with this email will appear here.</p></div>';
+      return;
+    }
+    const liveOrders=orders;
+    box.innerHTML=liveOrders.map((o,orderNo)=>{
+      const id=o.orderId||o.id||'-';
+      const raw=String(o.orderStatus||o.status||'Pending').trim();
+      const key=norm(raw);
+      const cancelled=['cancelled','canceled','rejected','reject'].includes(key);
+      const idx=cancelled?-1:(statusIndex[key]??0);
+      const delivered=!cancelled && idx===6;
+      const dateV=o.createdAt||o.date||o.timestamp;
+      const date=dateV?new Date(dateV).toLocaleDateString('en-PK',{day:'2-digit',month:'short',year:'numeric'}):'-';
+      const product=o.productName||o.name||'Order';
+      const total=o.total??o.price??'-';
+      const qty=o.qty??1;
+      const safeId=String(id).replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      const timeline=cancelled
+        ? '<div class="profile-mini-cancelled"><span>✕</span><strong>Cancelled</strong><small>Order status</small></div>'
+        : '<div class="profile-mini-tracking">'+statusList.map((st,i)=>{
+            const done=i<idx || delivered;
+            const current=i===idx && !delivered;
+            return `<div class="profile-mini-step ${done?'done ':''}${current?'current ':''}${delivered&&i===6?'delivered-done ':''}"><span class="profile-mini-dot">${done?'✓':(delivered&&i===6?'✓':i+1)}</span><span class="profile-mini-label">${st}${current?'<b>Current</b>':''}${delivered&&i===6?'<b>Complete</b>':''}</span></div>`;
+          }).join('')+'</div>';
+      const currentBadge=cancelled?'Cancelled':(delivered?'Delivered':raw);
+      return `<div class="profile-order-card ${orderNo===0?'is-current-order':''}>
+        <div class="profile-order-top"><strong>#${esc(id)}</strong><span class="profile-status ${cancelled?'is-cancelled':''}">${esc(currentBadge)}</span></div>
+        ${orderNo===0 && !delivered && !cancelled ? '<div style="margin-top:5px;color:#f85606;font-size:10px;font-weight:900;">CURRENT ORDER</div>' : ''}
+        <div class="profile-order-product">${esc(product)}</div>
+        <div class="profile-order-meta"><span>Qty: ${esc(qty)}</span><span>Rs. ${esc(total)}</span></div>
+        <div class="profile-order-date">${esc(date)}</div>
+        <div class="profile-status-heading">Order Tracking Status</div>
+        ${timeline}
+        ${delivered ? '<div class="profile-delivered-celebration"><img src="icon-party.png" alt="🎉" class="profile-party-icon" onerror="this.style.display=&quot;none&quot;;this.nextElementSibling.style.display=&quot;block&quot;"><div class="profile-party-fallback" aria-hidden="true" style="display:none">🎉</div><strong>Congratulations!</strong><span>Your order has been delivered successfully.</span></div>' : ''}
+        <button type="button" class="profile-track-btn" onclick="trackFromProfile('${safeId}')">Open Full Tracking</button>
+      </div>`;
+    }).join('');
+  };
+
+  window.loadMyOrders=async function(){
+    const box=document.getElementById('profileOrders');
+    if(!box)return;
+    if(!currentUser){box.innerHTML='<div class="profile-empty">Please login first.</div>';return;}
+    let orders=[];
+    try{orders=getLocalOrderHistory();}catch(e){orders=[];}
+    if(!Array.isArray(orders))orders=[];
+    if(!orders.length){
+      box.innerHTML='<div class="profile-empty"><div style="font-size:28px;margin-bottom:5px">📦</div><strong>No orders found</strong><p>Your orders made with this email will appear here.</p></div>';
+      return;
+    }
+    box.innerHTML='<div class="profile-empty">Updating current order status...</div>';
+    const live=await Promise.all(orders.map(liveOrder));
+    /* Newest/current order first. */
+    live.sort((a,b)=>new Date(b.createdAt||b.date||0)-new Date(a.createdAt||a.date||0));
+    renderProfileOrders(live);
+  };
+
+  /* Delivered step in the full tracking panel: 7th circle becomes ✓. */
+  const oldTrack=window.executeOrderTracking;
+  if(typeof oldTrack==='function' && !oldTrack.__hyDeliveredFix){
+    function trackFixed(){ return oldTrack.apply(this,arguments); }
+    trackFixed.__hyDeliveredFix=true;
+    window.executeOrderTracking=trackFixed;
+  }
+
+  /* Make payment modal reliably scrollable on phones. */
+  const pm=document.getElementById('paymentModal');
+  if(pm){
+    const obs=new MutationObserver(()=>{
+      if(pm.getAttribute('aria-hidden')==='false'){
+        pm.style.setProperty('display','flex','important');
+        pm.style.setProperty('overflow-y','auto','important');
+      }
+    });
+    obs.observe(pm,{attributes:true,attributeFilter:['aria-hidden','style']});
+  }
+})();
 </script>
 </body>
 </html>
