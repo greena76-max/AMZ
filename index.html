@@ -3061,6 +3061,37 @@ footer{
  .payment-summary-card>div,.account-line{font-size:11px;}
 }
 </style>
+
+<style id="HY-PAYMENT-MOBILE-FINAL">
+/* Keep the final payment button visible while the payment form scrolls on mobile. */
+.hy-payment-transition{position:fixed;inset:0;background:rgba(255,255,255,.97);display:none;align-items:center;justify-content:center;z-index:10060;}
+.hy-payment-transition[aria-hidden="false"]{display:flex!important;}
+.hy-payment-transition-box{width:min(270px,82vw);padding:26px 22px;border-radius:20px;background:#fff;box-shadow:0 18px 60px rgba(0,0,0,.16);text-align:center;}
+.hy-payment-transition-logo{display:block;width:auto;height:54px;max-width:190px;object-fit:contain;margin:0 auto 16px;}
+.hy-payment-spinner{width:34px;height:34px;margin:0 auto 12px;border:3px solid #eee;border-top-color:#f85606;border-radius:50%;animation:hyPaySpin .8s linear infinite;}
+.hy-payment-transition-text{font-size:13px;font-weight:800;color:#333;}
+@keyframes hyPaySpin{to{transform:rotate(360deg)}}
+@media(max-width:700px){
+  .payment-box{
+    padding:14px 12px 10px!important;
+    max-height:calc(100dvh - 16px)!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+  #paymentForm{padding-bottom:4px!important;}
+  #paymentSubmitBtn{
+    position:sticky!important;
+    bottom:0!important;
+    z-index:5!important;
+    display:block!important;
+    width:100%!important;
+    margin:10px 0 0!important;
+    box-shadow:0 -8px 16px rgba(255,255,255,.96)!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -3402,6 +3433,15 @@ footer{
                 </div>
                 <button type="submit" class="btn-submit-order" id="submitBtn">Continue to Payment</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Short transition loader before payment details -->
+    <div class="hy-payment-transition" id="hyPaymentTransition" aria-hidden="true">
+        <div class="hy-payment-transition-box">
+            <img src="brand.png" alt="HY Store Official" class="hy-payment-transition-logo">
+            <div class="hy-payment-spinner"></div>
+            <div class="hy-payment-transition-text">Preparing Payment...</div>
         </div>
     </div>
 
@@ -4153,13 +4193,42 @@ footer{
             const grand = document.getElementById('paymentGrandTotal');
             if(orderAmount) orderAmount.textContent = 'Rs. ' + subtotal.toLocaleString('en-PK');
             if(grand) grand.textContent = 'Rs. ' + (subtotal + ADVANCE_DELIVERY_CHARGES).toLocaleString('en-PK');
-            document.getElementById('paymentModal').style.display='flex';
-            document.getElementById('paymentModal').setAttribute('aria-hidden','false');
+
+            // Show the same HY brand logo for a short 3.5-second transition
+            // before opening the payment details panel.
+            const transition = document.getElementById('hyPaymentTransition');
+            const paymentModal = document.getElementById('paymentModal');
+            if(transition) {
+                transition.style.display='flex';
+                transition.setAttribute('aria-hidden','false');
+            }
+            if(paymentModal) {
+                paymentModal.style.display='none';
+                paymentModal.setAttribute('aria-hidden','true');
+            }
+
+            window.clearTimeout(window.__hyPaymentTransitionTimer);
+            window.__hyPaymentTransitionTimer = window.setTimeout(function(){
+                if(transition) {
+                    transition.style.display='none';
+                    transition.setAttribute('aria-hidden','true');
+                }
+                if(paymentModal) {
+                    paymentModal.style.display='flex';
+                    paymentModal.setAttribute('aria-hidden','false');
+                    const box=paymentModal.querySelector('.payment-box');
+                    if(box) box.scrollTop=0;
+                }
+            },3500);
         }
 
         function closePaymentModal() {
             const modal=document.getElementById('paymentModal');
+            const transition=document.getElementById('hyPaymentTransition');
+            window.clearTimeout(window.__hyPaymentTransitionTimer);
             if(modal) { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+            if(transition) { transition.style.display='none'; transition.setAttribute('aria-hidden','true'); }
+            document.body.classList.remove('hy-page-open');
         }
 
         async function copyPaymentIban() {
