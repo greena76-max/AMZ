@@ -3031,10 +3031,7 @@ footer{
                 <a class="brand" href="#" onclick="location.reload(); return false;">
                     <img class="brand-logo" src="logo.png" alt="HY Store Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
                     <div class="brand-fallback" style="display:none">HY</div>
-                    <div>
-                        <div class="brand-name"><span class="hy">HY</span> <span class="official">STORE OFFICIAL</span></div>
-                        <div class="brand-tagline">Quality Products • Better Living</div>
-                    </div>
+                    <img class="brand-image" src="brand.png" alt="HY Store Official Brand" loading="eager" decoding="async">
                 </a>
                 <div class="nav-links">
                     <a class="nav-btn-style track-nav-btn" href="#" onclick="openTrackingModal(); return false;"><span class="btn-icon">📦</span><span class="btn-text">ORDER TRACK</span></a>
@@ -3127,6 +3124,21 @@ footer{
                     </div>
                     <div class="clock-label">Pakistan Time</div>
                     <div class="clock-digital" id="pakistanClock">-- : -- : --</div>
+                </div>
+            </div>
+
+            <!-- HY STORE GIFTING CATEGORY SLIDER -->
+            <div class="hy-category-slider-wrap" aria-label="Product categories">
+                <div class="hy-category-slider" id="hyCategorySlider">
+                    <button type="button" class="hy-category-chip active" data-category="All">All</button>
+                    <button type="button" class="hy-category-chip" data-category="Gifting">Gifting</button>
+                    <button type="button" class="hy-category-chip" data-category="Magic Mug">Magic Mug</button>
+                    <button type="button" class="hy-category-chip" data-category="Magic Frame">Magic Frame</button>
+                    <button type="button" class="hy-category-chip" data-category="Mily Mug">Mily Mug</button>
+                    <button type="button" class="hy-category-chip" data-category="Personalized Gifts">Personalized Gifts</button>
+                    <button type="button" class="hy-category-chip" data-category="Customized Gifts">Customized Gifts</button>
+                    <button type="button" class="hy-category-chip" data-category="Engraved Gifts">Engraved Gifts</button>
+                    <button type="button" class="hy-category-chip" data-category="Printed Gifts">Printed Gifts</button>
                 </div>
             </div>
 
@@ -3346,29 +3358,28 @@ footer{
     <footer>
         <div class="footer-content">
             <div class="footer-col">
-                <h4>Customer Care</h4>
+                <h4>CUSTOMER CARE</h4>
                 <ul>
-                    <li>Help Center</li>
-                    <li>How to Buy</li>
-                    <li>Returns & Refunds</li>
-                    <li>Contact Us</li>
+                    <li><button type="button" onclick="openInfoPage('help')">Help Center</button></li>
+                    <li><button type="button" onclick="openInfoPage('howto')">How to Buy</button></li>
+                    <li><button type="button" onclick="openInfoPage('returns')">Returns & Refunds</button></li>
+                    <li><button type="button" onclick="openInfoPage('contact')">Contact Us</button></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>HY Store Official</h4>
+                <h4>HY STORE OFFICIAL</h4>
                 <ul>
-                    <li>About Us</li>
-                    <li>Careers</li>
-                    <li>Terms & Conditions</li>
-                    <li>Privacy Policy</li>
+                    <li><button type="button" onclick="openInfoPage('about')">About Us</button></li>
+                    <li><button type="button" onclick="openInfoPage('terms')">Terms & Conditions</button></li>
+                    <li><button type="button" onclick="openInfoPage('privacy')">Privacy Policy</button></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Secure Payments</h4>
+                <h4>PAYMENT / SUPPORT</h4>
                 <ul>
-                    <li>Cash on Delivery</li>
-                    <li>JazzCash / EasyPaisa</li>
-                    <li>Bank Transfer</li>
+                    <li><button type="button" onclick="openInfoPage('payment')">Payment Methods</button></li>
+                    <li><button type="button" onclick="openInfoPage('delivery')">Order & Delivery</button></li>
+                    <li><button type="button" onclick="openInfoPage('help')">FAQs</button></li>
                 </ul>
             </div>
         </div>
@@ -3403,7 +3414,8 @@ footer{
         </section>
 
         <div class="footer-bottom">
-            <p>&copy; 2026 hystoreofficial.com. All Rights Reserved.</p>
+            <p>&copy; 2026 HY Store Official. All Rights Reserved.</p>
+            <div class="hy-powered">Powered by HY Store Official</div>
         </div>
     </footer>
 
@@ -3595,7 +3607,7 @@ footer{
                 card.innerHTML = `
                     ${discountHTML}
                     <div class="card-img">
-                        ${product.img1 ? `<img src="${product.img1}" alt="${product.name}">` : 'No Image'}
+                        ${product.img1 ? `<img src="${product.img1}" alt="${product.name}" loading="lazy" decoding="async">` : 'No Image'}
                     </div>
                     <div class="card-body">
                         <h4>${product.name}</h4>
@@ -3856,7 +3868,7 @@ footer{
                     return;
                 }
                 title.innerText = "Order #" + escapeTrackingText(data.orderId || query);
-                const statuses = ['Pending','Order Confirmed','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
+                const statuses = ['Pending','Order Confirm','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
                 const rawStatus = String(data.orderStatus || 'Pending').trim();
                 const current = rawStatus.toLowerCase() === 'canceled' ? 'Cancelled' : rawStatus;
                 const isCancelled = current.toLowerCase() === 'cancelled';
@@ -4304,7 +4316,7 @@ footer{
                 return;
             }
 
-            const trackingStatuses = ['Pending','Order Confirmed','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
+            const trackingStatuses = ['Pending','Order Confirm','Designing','Printing','Ready for Delivery','Dispatch','Delivered'];
             const normalizeStatus = value => String(value || 'Pending').trim().toLowerCase();
             const getProfileStatusIndex = value => {
                 const v = normalizeStatus(value);
@@ -4313,7 +4325,7 @@ footer{
                 if (v === 'ready for delivery' || v === 'ready') return 4;
                 if (v === 'printing' || v === 'printed') return 3;
                 if (v === 'designing' || v === 'design') return 2;
-                if (v === 'order confirmed' || v === 'confirmed' || v === 'confirm') return 1;
+                if (v === 'order confirm' || v === 'order confirmed' || v === 'confirmed' || v === 'confirm') return 1;
                 return 0;
             };
 
@@ -4635,5 +4647,525 @@ body.hy-page-open{overflow:hidden!important;}
   window.addEventListener('load', forceTrackingClosed);
 })();
 </script>
+
+<!-- HY STORE INFORMATION PAGES -->
+<div id="hyInfoPage" class="hy-info-page" aria-hidden="true">
+  <div class="hy-info-shell">
+    <div class="hy-info-top">
+      <button type="button" class="hy-info-back" onclick="closeInfoPage()">← Back</button>
+      <div class="hy-info-brand">HY Store Official</div>
+      <button type="button" class="hy-info-close" onclick="closeInfoPage()" aria-label="Close">×</button>
+    </div>
+    <main id="hyInfoContent" class="hy-info-content"></main>
+  </div>
+</div>
+
+<style id="HY-STORE-FINAL-UPDATES">
+/* Header brand image: same height as the existing HY logo, no box/background. */
+.brand-image{
+  width:auto;
+  height:58px;
+  max-width:min(360px,42vw);
+  display:block;
+  object-fit:contain;
+  object-position:left center;
+  flex:0 1 auto;
+}
+@media(max-width:700px){
+  .brand-image{height:42px;max-width:min(240px,62vw);}
+}
+@media(max-width:390px){
+  .brand-image{height:34px;max-width:min(210px,60vw);}
+}
+
+/* Horizontal gifting categories */
+.hy-category-slider-wrap{
+  width:100%;
+  overflow:hidden;
+  margin:2px 0 13px;
+  border:1px solid #e8eaed;
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 3px 12px rgba(15,23,42,.045);
+}
+.hy-category-slider{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding:8px;
+  width:100%;
+}
+.hy-category-slider::-webkit-scrollbar{display:none}
+.hy-category-chip{
+  flex:0 0 auto;
+  border:1px solid #e0e3e7;
+  background:#fff;
+  color:#333;
+  border-radius:999px;
+  padding:8px 13px;
+  min-height:34px;
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:.2s ease;
+}
+.hy-category-chip:hover{border-color:#f85606;color:#f85606;transform:translateY(-1px)}
+.hy-category-chip.active{background:#f85606;color:#fff;border-color:#f85606;box-shadow:0 5px 12px rgba(248,86,6,.18)}
+@media(max-width:700px){
+  .hy-category-slider-wrap{margin:2px 0 10px;border-radius:8px}
+  .hy-category-slider{gap:6px;padding:7px}
+  .hy-category-chip{padding:7px 11px;min-height:32px;font-size:10.5px}
+}
+
+/* Quantity beside card action is plain text, never a badge/circle. */
+.card-add-cart .card-qty-number,.card-qty-number{
+  display:inline!important;
+  background:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  margin-left:5px;
+  font-size:12px;
+  font-weight:900;
+  color:#fff;
+}
+.card-add-cart .card-qty-number::before{content:"× ";font-weight:700;}
+
+/* Footer links */
+.footer-col ul li{margin-bottom:7px}
+.footer-col ul li button{
+  border:0;background:transparent;color:#bbb;padding:0;cursor:pointer;
+  font:inherit;text-align:left;
+}
+.footer-col ul li button:hover{color:#fff}
+.hy-powered{
+  margin-top:8px;
+  font-size:11px;
+  font-weight:700;
+  color:#9aa0a8;
+  letter-spacing:.25px;
+}
+
+/* Single clean information page */
+.hy-info-page{
+  position:fixed;
+  inset:0;
+  z-index:10050;
+  display:none;
+  background:rgba(10,15,22,.72);
+  padding:12px;
+}
+.hy-info-page.is-open{display:flex;align-items:center;justify-content:center}
+.hy-info-shell{
+  width:min(920px,100%);
+  max-height:calc(100vh - 24px);
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 25px 90px rgba(0,0,0,.28);
+  display:flex;
+  flex-direction:column;
+}
+.hy-info-top{
+  min-height:58px;
+  display:grid;
+  grid-template-columns:100px 1fr 42px;
+  align-items:center;
+  gap:10px;
+  padding:9px 12px;
+  border-bottom:1px solid #eee;
+  background:#fafafa;
+}
+.hy-info-brand{text-align:center;font-size:17px;font-weight:900;color:#222}
+.hy-info-back,.hy-info-close{
+  border:1px solid #ddd;background:#fff;color:#333;cursor:pointer;
+  border-radius:9px;font-weight:800;
+}
+.hy-info-back{height:38px;padding:0 12px}
+.hy-info-close{width:38px;height:38px;font-size:22px}
+.hy-info-back:hover,.hy-info-close:hover{border-color:#f85606;color:#f85606}
+.hy-info-content{
+  overflow:auto;
+  padding:25px;
+  color:#444;
+  line-height:1.7;
+}
+.hy-info-content h1{font-size:26px;color:#222;margin:0 0 9px}
+.hy-info-content h2{font-size:18px;color:#222;margin:22px 0 7px}
+.hy-info-content p{font-size:14px;margin:0 0 10px}
+.hy-info-content ul{padding-left:20px;margin:8px 0 14px}
+.hy-info-content li{font-size:14px;margin:5px 0}
+.hy-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.hy-info-card{
+  border:1px solid #e7e9ec;border-radius:11px;padding:15px;background:#fff;
+  box-shadow:0 3px 12px rgba(15,23,42,.045);
+}
+.hy-info-card h3{font-size:15px;color:#222;margin:0 0 5px}
+.hy-info-card p{font-size:12.5px;color:#666;margin:0}
+.hy-info-action{
+  display:inline-flex;align-items:center;justify-content:center;
+  margin:6px 6px 0 0;padding:9px 13px;border-radius:8px;
+  background:#f85606;color:#fff;text-decoration:none;font-size:12px;font-weight:800;
+}
+.hy-info-action.secondary{background:#222}
+@media(max-width:700px){
+  .hy-info-page{padding:0}
+  .hy-info-shell{max-height:100vh;height:100vh;border-radius:0}
+  .hy-info-top{grid-template-columns:78px 1fr 38px;min-height:54px;padding:7px 8px}
+  .hy-info-brand{font-size:14px}
+  .hy-info-back{height:36px;padding:0 8px;font-size:11px}
+  .hy-info-close{width:36px;height:36px}
+  .hy-info-content{padding:18px 14px 30px}
+  .hy-info-content h1{font-size:22px}
+  .hy-info-content h2{font-size:16px}
+  .hy-info-content p,.hy-info-content li{font-size:13px}
+  .hy-info-grid{grid-template-columns:1fr;gap:9px}
+}
+
+/* Reduce the Flash Sale vector/banner height on phones. */
+@media(max-width:700px){
+  .hero-banner{height:48px!important;min-height:48px!important;padding:6px 10px!important;margin-bottom:9px!important}
+}
+@media(max-width:390px){
+  .hero-banner{height:45px!important;min-height:45px!important;padding:5px 9px!important}
+}
+
+/* Prevent the main document from being moved by panel state. */
+body.hy-info-open{overflow:hidden!important}
+</style>
+
+<script>
+(function(){
+  'use strict';
+
+  const HY_STATUS = ['Pending','Order Confirm','Designing','Printing','Ready for Delivery','Dispatch','Delivered','Cancelled'];
+  const HY_STATUS_INDEX = HY_STATUS.reduce((o,s,i)=>(o[s.toLowerCase()]=i,o),{});
+
+  function hyNormalizeStatus(value){
+    const v=String(value||'Pending').trim().toLowerCase();
+    if(['cancelled','canceled','rejected','reject'].includes(v)) return 'Cancelled';
+    if(['delivered','complete','completed'].includes(v)) return 'Delivered';
+    if(['dispatch','dispatched','shipped','out for delivery'].includes(v)) return 'Dispatch';
+    if(['ready for delivery','ready'].includes(v)) return 'Ready for Delivery';
+    if(['printing','printed'].includes(v)) return 'Printing';
+    if(['designing','design'].includes(v)) return 'Designing';
+    if(['order confirm','order confirmed','confirmed','confirm'].includes(v)) return 'Order Confirm';
+    return 'Pending';
+  }
+  window.hyNormalizeStatus=hyNormalizeStatus;
+
+  /* Category matching uses the actual product fields; no fake products are created. */
+  function hyProductText(p){
+    return [p?.name,p?.cat,p?.category,p?.categories,p?.type,p?.desc].filter(Boolean).join(' ').toLowerCase();
+  }
+  function hyCategoryMatches(p,cat){
+    if(cat==='All') return true;
+    const t=hyProductText(p);
+    const aliases={
+      'Gifting':['gift','gifting'],
+      'Magic Mug':['magic mug'],
+      'Magic Frame':['magic frame'],
+      'Mily Mug':['mily mug','mily'],
+      'Personalized Gifts':['personalized','personalised'],
+      'Customized Gifts':['customized','customised'],
+      'Engraved Gifts':['engraved','engraving'],
+      'Printed Gifts':['printed','printing','print']
+    };
+    return (aliases[cat]||[cat.toLowerCase()]).some(x=>t.includes(x));
+  }
+
+  function hyApplyCategory(cat){
+    document.querySelectorAll('.hy-category-chip').forEach(b=>b.classList.toggle('active',b.dataset.category===cat));
+    const q=(document.getElementById('searchInput')?.value||'').trim().toLowerCase();
+    let products=Array.isArray(allProducts)?allProducts.slice():[];
+    if(cat!=='All') products=products.filter(p=>hyCategoryMatches(p,cat));
+    if(q) products=products.filter(p=>String(p?.name||'').toLowerCase().includes(q));
+    if(typeof window.displayProducts==='function') window.displayProducts(products);
+    const title=document.getElementById('sectionTitle');
+    if(title) title.textContent=q ? `Search Results for "${q}"` : (cat==='All'?'Just For You':cat);
+  }
+  window.hyApplyCategory=hyApplyCategory;
+
+  function hyUpdateCategoryVisibility(){
+    const buttons=document.querySelectorAll('.hy-category-chip');
+    buttons.forEach(btn=>{
+      const cat=btn.dataset.category;
+      if(cat==='All'){btn.style.display='';return;}
+      const exists=Array.isArray(allProducts) && allProducts.some(p=>hyCategoryMatches(p,cat));
+      btn.style.display=exists?'':'none';
+    });
+  }
+
+  function hyStartCategoryMotion(){
+    const sc=document.getElementById('hyCategorySlider');
+    if(!sc || sc.dataset.motionStarted) return;
+    sc.dataset.motionStarted='1';
+    let raf=0,last=0,paused=false;
+    sc.addEventListener('pointerdown',()=>paused=true,{passive:true});
+    sc.addEventListener('pointerup',()=>{paused=false},{passive:true});
+    sc.addEventListener('pointercancel',()=>{paused=false},{passive:true});
+    sc.addEventListener('mouseenter',()=>paused=true);
+    sc.addEventListener('mouseleave',()=>paused=false);
+    function tick(ts){
+      if(!last) last=ts;
+      if(!paused && sc.scrollWidth>sc.clientWidth){
+        const delta=(ts-last)*0.025;
+        sc.scrollLeft+=delta;
+        if(sc.scrollLeft >= sc.scrollWidth-sc.clientWidth-1) sc.scrollLeft=0;
+      }
+      last=ts; raf=requestAnimationFrame(tick);
+    }
+    raf=requestAnimationFrame(tick);
+  }
+
+  /* Generic clean page-style customer help panel. */
+  const infoData={
+    help:{
+      title:'Help Center',
+      intro:'Find quick help for common customer questions and services.',
+      html:`<div class="hy-info-grid">
+        <div class="hy-info-card"><h3>Order Help</h3><p>For questions about an order, keep your Order Number/Tracking ID ready and contact our Help Line.</p></div>
+        <div class="hy-info-card"><h3>Order Tracking Help</h3><p>Open Order Tracking and enter your Order Number/Tracking ID to see the latest status.</p></div>
+        <div class="hy-info-card"><h3>Login / Profile Help</h3><p>Use Login / Sign Up to access your account. Your Profile/Orders section shows orders linked to your account email.</p></div>
+        <div class="hy-info-card"><h3>Cart & Checkout Help</h3><p>Review quantities and products in Cart, then continue to Checkout and complete the required customer information.</p></div>
+        <div class="hy-info-card"><h3>Payment Help</h3><p>Use the payment option shown by the website during checkout. Cash on Delivery is currently available in this website.</p></div>
+        <div class="hy-info-card"><h3>Delivery Help</h3><p>Check Order Tracking for the latest delivery stage. No fixed delivery time is promised here.</p></div>
+        <div class="hy-info-card"><h3>Product / Customization Help</h3><p>For customized products, provide the correct name, photo, text, or design information required for your order.</p></div>
+        <div class="hy-info-card"><h3>Returns & Refunds</h3><p>For any return or refund request, please contact our Help Line for assistance with your specific order.</p></div>
+        <div class="hy-info-card"><h3>FAQs</h3><p>For order, payment, delivery, profile, or product questions, contact customer support.</p></div>
+        <div class="hy-info-card"><h3>Contact Support</h3><p>Help Line: 0320-9306672<br>Email: hybusinessprint@gmail.com</p></div>
+      </div>`
+    },
+    howto:{
+      title:'How to Buy',
+      intro:'Follow these simple steps to place and track your order.',
+      html:`<ol class="hy-info-steps">
+        <li>Browse the products.</li><li>Select the product you want.</li><li>Select the required quantity.</li><li>Click Add to Cart.</li><li>Open the Cart and review your products.</li><li>Continue to Checkout.</li><li>Enter your name, phone number and complete delivery address.</li><li>Select the available payment method.</li><li>Confirm and place the order.</li><li>Save your Order Number/Tracking ID.</li><li>Use Order Tracking to check the current order status.</li><li>You can also check your order status from your Profile/Orders section.</li>
+      </ol>`
+    },
+    returns:{
+      title:'Returns & Refunds',
+      intro:'For any return or refund request, please contact our Help Line.',
+      html:`<div class="hy-info-card"><h3>Customer Assistance</h3><p>Help Line: <strong>0320-9306672</strong></p><p>Customers can contact the Help Line for assistance regarding their specific order.</p></div>`
+    },
+    contact:{
+      title:'Contact Us',
+      intro:'HY Store Official customer support.',
+      html:`<div class="hy-info-card"><h3>HY Store Official</h3><p>Help Line: <strong>0320-9306672</strong><br>Email: <strong>hybusinessprint@gmail.com</strong></p>
+        <a class="hy-info-action" href="tel:03209306672">Call</a>
+        <a class="hy-info-action secondary" href="mailto:hybusinessprint@gmail.com">Email</a></div>`
+    },
+    about:{
+      title:'About HY Store Official',
+      intro:'HY Store Official is a gifting and customized products store focused on creating memorable gifts for every special occasion.',
+      html:`<p>We offer a variety of personalized and customized gifting products, including Magic Frames, Magic Mugs, Mily Mugs, printed gifts, and other creative gift items.</p><p>Our goal is to provide quality products, attractive designs, reliable service, and a convenient online ordering experience for our customers.</p><p><strong>HY Store Official — Make Every Gift Special.</strong></p>`
+    },
+    terms:{
+      title:'Terms & Conditions',
+      intro:'Welcome to HY Store Official. By using our website and placing an order, you agree to the following terms and conditions.',
+      html:`<h2>1. Orders</h2><p>Customers must provide correct and complete information when placing an order, including name, phone number, delivery address, and other required details.</p>
+      <h2>2. Customized Products</h2><p>For customized and personalized products such as Magic Frames, Magic Mugs, Mily Mugs, and printed gifts, customers are responsible for providing the correct name, photo, text, or design information.</p>
+      <h2>3. Order Confirmation</h2><p>An order will be processed after the required order information has been submitted and the order has been confirmed.</p>
+      <h2>4. Product Information</h2><p>We try to display accurate product information, images, prices, and descriptions. Slight differences may occur in colors or appearance due to screen settings and printing processes.</p>
+      <h2>5. Payment</h2><p>Customers must select one of the available payment methods during checkout and provide accurate payment information where required.</p>
+      <h2>6. Delivery</h2><p>Customers are responsible for providing a complete and accurate delivery address and an active contact number so that the order can be delivered successfully.</p>
+      <h2>7. Returns & Refunds</h2><p>For any return or refund request, please contact our Help Line: <strong>0320-9306672</strong>. Each request will be reviewed according to the circumstances of the order.</p>
+      <h2>8. Customer Support</h2><p>Help Line: <strong>0320-9306672</strong><br>Email: <strong>hybusinessprint@gmail.com</strong></p>
+      <h2>9. Website Use</h2><p>Customers should use the website responsibly and must not attempt to misuse, damage, or interfere with the website or its services.</p>
+      <h2>10. Changes to Terms</h2><p>HY Store Official reserves the right to update these Terms & Conditions when necessary.</p>`
+    },
+    privacy:{
+      title:'Privacy Policy',
+      intro:'This Privacy Policy explains the basic customer information used by HY Store Official for normal website and order services.',
+      html:`<h2>Information We Use</h2><p>The website may use customer information such as name, phone number, delivery address, email, and order information.</p><h2>Why It Is Used</h2><ul><li>Processing orders</li><li>Customer support</li><li>Delivery</li><li>Order tracking</li></ul><p>Information is used for these website and order-related purposes. This section does not make additional claims about encryption, certifications, cookies, third-party sharing, or legal compliance.</p>`
+    },
+    payment:{
+      title:'Payment Methods',
+      intro:'Payment options available on this website are shown during checkout.',
+      html:`<div class="hy-info-card"><h3>Cash on Delivery</h3><p>Cash on Delivery (COD) is available and is the payment option currently required by the checkout form.</p></div>`
+    },
+    delivery:{
+      title:'Order & Delivery',
+      intro:'Use Order Tracking to check your latest order status.',
+      html:`<div class="hy-info-card"><h3>Order Process</h3><p>Order placed → Order Confirm → Designing → Printing → Ready for Delivery → Dispatch → Delivered</p></div><div class="hy-info-card" style="margin-top:12px"><h3>Cancelled</h3><p>An order may also show the tracking status <strong>Cancelled</strong>. Use Order Tracking for the latest status.</p></div>`
+    }
+  };
+
+  window.openInfoPage=function(key){
+    const page=document.getElementById('hyInfoPage'), content=document.getElementById('hyInfoContent');
+    const data=infoData[key]||infoData.help;
+    if(!page||!content)return;
+    content.innerHTML=`<h1>${data.title}</h1><p>${data.intro}</p>${data.html}`;
+    page.classList.add('is-open'); page.setAttribute('aria-hidden','false');
+    document.body.classList.add('hy-info-open');
+    content.scrollTop=0;
+  };
+  window.closeInfoPage=function(){
+    const page=document.getElementById('hyInfoPage');
+    if(page){page.classList.remove('is-open');page.setAttribute('aria-hidden','true');}
+    document.body.classList.remove('hy-info-open');
+  };
+
+  /* Fix Profile -> Tracking synchronization. Profile always refreshes from the same trackOrder endpoint. */
+  async function hyFetchOrderStatus(orderId){
+    try{
+      const r=await fetch(apiURL+'?action=trackOrder&orderId='+encodeURIComponent(orderId),{method:'GET',cache:'no-store'});
+      if(!r.ok)return null;
+      const d=await r.json();
+      if(d && d.status==='success') return d;
+    }catch(e){console.warn('HY status sync:',e);}
+    return null;
+  }
+  window.hyFetchOrderStatus=hyFetchOrderStatus;
+
+  window.renderProfileOrders=async function(orders){
+    const box=document.getElementById('profileOrders'); if(!box)return;
+    if(!Array.isArray(orders)||!orders.length){
+      box.innerHTML='<div class="profile-empty"><div style="font-size:28px;margin-bottom:5px">📦</div><strong>No orders found</strong><p>Your orders made with this email will appear here.</p></div>'; return;
+    }
+    box.innerHTML='<div class="profile-empty">Updating order status...</div>';
+    const live=await Promise.all(orders.map(async o=>{
+      const id=o.orderId||o.id||o.orderNo||o.orderNumber;
+      if(!id)return o;
+      const t=await hyFetchOrderStatus(id);
+      if(!t)return o;
+      return {...o,...t,orderId:t.orderId||id,orderStatus:t.orderStatus||t.status||o.orderStatus||o.status};
+    }));
+    const statuses=HY_STATUS;
+    const esc=v=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    box.innerHTML=live.map(o=>{
+      const id=o.orderId||o.id||'-', raw=hyNormalizeStatus(o.orderStatus||o.status);
+      const idx=HY_STATUS_INDEX[raw.toLowerCase()]??0, cancelled=raw==='Cancelled';
+      const dateV=o.createdAt||o.date||o.timestamp, date=dateV?new Date(dateV).toLocaleDateString('en-PK',{day:'2-digit',month:'short',year:'numeric'}):'-';
+      const product=o.productName||o.name||'Order', total=o.total??o.price??'-', qty=o.qty??1;
+      const timeline=cancelled?`<div class="profile-mini-cancelled"><span>✕</span><strong>Cancelled</strong><small>Order status</small></div>`:
+        `<div class="profile-mini-tracking">${statuses.slice(0,7).map((st,i)=>`<div class="profile-mini-step ${i<idx?'done':''} ${i===idx?'current':''}"><span class="profile-mini-dot">${i<idx?'✓':i+1}</span><span class="profile-mini-label">${st}${i===idx?'<b>Current</b>':''}</span></div>`).join('')}</div>`;
+      return `<div class="profile-order-card"><div class="profile-order-top"><strong>#${esc(id)}</strong><span class="profile-status ${cancelled?'is-cancelled':''}">${esc(raw)}</span></div><div class="profile-order-product">${esc(product)}</div><div class="profile-order-meta"><span>Qty: ${esc(qty)}</span><span>Rs. ${esc(total)}</span></div><div class="profile-order-date">${esc(date)}</div><div class="profile-status-heading">Order Tracking Status</div>${timeline}<button type="button" class="profile-track-btn" onclick="trackFromProfile('${String(id).replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">Open Full Tracking</button></div>`;
+    }).join('');
+  };
+
+  /* Profile loader: live endpoint first, local history as fallback. */
+  window.loadMyOrders=async function(){
+    const box=document.getElementById('profileOrders'); if(!box)return;
+    if(!currentUser){box.innerHTML='<div class="profile-empty">Please login first.</div>';return;}
+    const localOrders=getLocalOrderHistory();
+    box.innerHTML='<div class="profile-empty">Loading your orders...</div>';
+    try{
+      const r=await fetch(apiURL+'?action=getUserOrders&email='+encodeURIComponent(currentUser.email),{method:'GET',cache:'no-store'});
+      if(r.ok){
+        const d=await r.json();
+        const orders=Array.isArray(d)?d:(d?.orders||d?.data||[]);
+        if(Array.isArray(orders)){await window.renderProfileOrders(orders);return;}
+      }
+    }catch(e){}
+    await window.renderProfileOrders(localOrders);
+  };
+
+  /* Faster product loading: render session cache immediately, refresh in background. */
+  const originalFetchProducts=window.fetchProducts;
+  window.fetchProducts=async function(){
+    const grid=document.getElementById('product-grid'); if(!grid)return;
+    const CACHE_KEY='hy_store_products_cache_v2', TTL=5*60*1000;
+    let cached=null;
+    try{cached=JSON.parse(sessionStorage.getItem(CACHE_KEY)||'null');}catch(e){}
+    if(cached&&Array.isArray(cached.products)&&cached.products.length){
+      allProducts=cached.products;
+      window.displayProducts(allProducts);
+    }
+    try{
+      const r=await fetch(apiURL+'?action=getProducts',{method:'GET',cache:'no-store'});
+      if(!r.ok)throw new Error('Products API HTTP '+r.status);
+      const raw=await r.json();
+      let data=Array.isArray(raw)?raw:(raw?.products||raw?.data||raw?.items||raw?.result||[]);
+      if(typeof data==='string'){try{data=JSON.parse(data)}catch(e){}}
+      if(!Array.isArray(data))data=[];
+      allProducts=data.filter(Boolean);
+      try{sessionStorage.setItem(CACHE_KEY,JSON.stringify({time:Date.now(),products:allProducts}));}catch(e){}
+      window.displayProducts(allProducts);
+      hyUpdateCategoryVisibility();
+    }catch(e){
+      console.error('HY products:',e);
+      if(!cached?.products?.length){
+        grid.innerHTML='<div class="loading-container"><div class="loading-text" style="color:#d93025;">Products could not be loaded.</div></div>';
+        showNotification('Products could not be loaded. Please check your internet connection.','error');
+      }
+    }
+  };
+
+  /* Exact tracking UI/status source. */
+  window.executeOrderTracking=async function(){
+    const query=(document.getElementById('trackInput')?.value||'').trim().toUpperCase();
+    const panel=document.getElementById('trackingResultPanel'), title=document.getElementById('trackOrderTitle'), details=document.getElementById('trackOrderDetails'), btn=document.getElementById('trackBtn');
+    if(!query){showNotification('Please enter your Order ID.','warning','Order ID Required');return;}
+    if(btn){btn.disabled=true;btn.innerText='Checking...';}
+    if(panel)panel.style.display='block';
+    if(title)title.innerText='Checking Order #'+query;
+    if(details)details.innerHTML='<p style="margin:0;color:#666">Please wait...</p>';
+    try{
+      const r=await fetch(apiURL+'?action=trackOrder&orderId='+encodeURIComponent(query),{method:'GET',cache:'no-store'});
+      if(!r.ok)throw new Error('Network error');
+      const d=await r.json();
+      if(d.status!=='success'){if(title)title.innerText='Order Not Found';if(details)details.innerHTML='<p style="margin:0;color:#c0392b">No order was found with ID <strong>'+query.replace(/[&<>"']/g,'')+'</strong>.</p>';return;}
+      const current=hyNormalizeStatus(d.orderStatus||d.status);
+      const cancelled=current==='Cancelled', idx=HY_STATUS_INDEX[current.toLowerCase()]??0;
+      if(title)title.innerText='Order #'+String(d.orderId||query);
+      if(details){
+        details.innerHTML=`<div style="margin-bottom:12px;line-height:1.6"><div><b>Customer:</b> ${String(d.customerName||'-')}</div><div><b>Product:</b> ${String(d.productName||'-')}</div><div><b>Amount:</b> Rs. ${String(d.price||'-')}</div><div><b>Current Status:</b> <span style="color:${cancelled?'#c0392b':'#f85606'};font-weight:800">${current}</span></div></div>
+        <div style="border-top:1px solid #eee;padding-top:10px">${HY_STATUS.slice(0,7).map((st,i)=>`<div class="tracking-step ${!cancelled&&i===idx?'is-current':''}"><span class="tracking-step-number" style="background:${!cancelled&&i<idx?'#22a06b':!cancelled&&i===idx?'#f85606':'#eee'};color:${!cancelled&&i<=idx?'#fff':'#888'}">${!cancelled&&i<idx?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${!cancelled&&i===idx?'<span class="tracking-current-pill">'+(current==='Delivered'?'Complete':'Current')+'</span>':''}</div></div>`).join('')}${cancelled?'<div class="profile-mini-cancelled" style="margin-top:10px"><span>✕</span><strong>Cancelled</strong><small>Order status</small></div>':''}</div>`;
+        if(current==='Delivered'){
+          details.innerHTML+=`<div class="tracking-complete-box"><div class="tracking-complete-icon"><span style="font-size:42px">✓</span></div><div class="tracking-complete-title">Congratulations!</div><p class="tracking-complete-text">Your order has been delivered successfully.</p><span class="tracking-complete-badge">Delivered</span></div>`;
+        }
+      }
+    }catch(e){
+      console.error('HY tracking:',e);
+      if(title)title.innerText='Unable to Check Order';
+      if(details)details.innerHTML='<p style="margin:0;color:#c0392b">Please check your connection and try again.</p>';
+    }finally{
+      if(btn){btn.disabled=false;btn.innerText='Track Order';}
+    }
+  };
+
+  /* Ensure category controls and automatic refresh/sync. */
+  document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.hy-category-chip').forEach(btn=>btn.addEventListener('click',()=>hyApplyCategory(btn.dataset.category)));
+    hyUpdateCategoryVisibility();
+    hyStartCategoryMotion();
+  });
+
+  /* Live profile status refresh while the profile is open. */
+  let syncTimer=null;
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){if(syncTimer)clearInterval(syncTimer);syncTimer=null;}else if(currentUser&&document.getElementById('profileModal')?.style.display!=='none'){window.loadMyOrders();}});
+  const originalOpenProfile=window.openProfileModal;
+  window.openProfileModal=function(){
+    const r=originalOpenProfile.apply(this,arguments);
+    if(currentUser){
+      if(syncTimer)clearInterval(syncTimer);
+      syncTimer=setInterval(()=>{if(document.getElementById('profileModal')?.style.display!=='none')window.loadMyOrders();},30000);
+    }
+    return r;
+  };
+  const originalCloseProfile=window.closeProfileModal;
+  window.closeProfileModal=function(){
+    if(syncTimer)clearInterval(syncTimer);syncTimer=null;
+    return originalCloseProfile.apply(this,arguments);
+  };
+
+  /* No tracking panel on refresh. */
+  window.addEventListener('pageshow',()=>{
+    const m=document.getElementById('trackingModal');
+    if(m){m.classList.remove('hy-tracking-open');m.style.display='none';m.setAttribute('aria-hidden','true');}
+    const page=document.getElementById('hyInfoPage');
+    if(page){page.classList.remove('is-open');page.setAttribute('aria-hidden','true');}
+    document.body.classList.remove('hy-page-open','hy-info-open');
+  });
+})();
+</script>
+
 </body>
 </html>
