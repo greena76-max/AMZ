@@ -3016,6 +3016,46 @@ footer{
 }
 </style>
 
+
+<style id="HY-PAYMENT-CAPTCHA-UPDATES">
+/* Checkout CAPTCHA */
+.captcha-box{margin:12px 0 4px;padding:13px;border:1px solid #e3e3e3;border-radius:10px;background:#fafafa;}
+.captcha-heading{font-size:12px;font-weight:900;color:#333;margin-bottom:8px;}
+.captcha-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.captcha-question{flex:1;background:#fff;border:1px dashed #cfcfcf;border-radius:7px;padding:10px;font-weight:900;letter-spacing:1px;text-align:center;color:#222;}
+.captcha-refresh{border:1px solid #ddd;background:#fff;color:#f85606;border-radius:7px;width:40px;height:40px;font-size:20px;font-weight:900;cursor:pointer;}
+.captcha-box>input{width:100%;padding:10px;border:1px solid #ccc;border-radius:7px;outline:none;font-size:14px;}
+.captcha-box>input:focus{border-color:#f85606;}
+.captcha-message{display:block;margin-top:6px;color:#777;font-size:11px;}
+.captcha-message.ok{color:#16804f;font-weight:800;}
+.cod-note{line-height:1.45!important;}
+
+/* Advance payment modal */
+.payment-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:14px;z-index:10030;overflow:auto;}
+.payment-box{width:100%;max-width:520px;background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 70px rgba(0,0,0,.35);position:relative;max-height:94vh;overflow:auto;}
+.payment-close{position:absolute;right:14px;top:10px;border:0;background:transparent;color:#777;font-size:28px;cursor:pointer;line-height:1;}
+.payment-header-icon{width:52px;height:52px;border-radius:14px;background:#fff2eb;color:#f85606;display:flex;align-items:center;justify-content:center;font-size:25px;font-weight:900;margin-bottom:10px;}
+.payment-box h3{margin:0 34px 7px 0;color:#f85606;font-size:21px;}
+.payment-intro{margin:0 0 14px;color:#555;font-size:13px;line-height:1.55;}
+.payment-summary-card,.account-details-card{border:1px solid #eee;border-radius:12px;padding:12px;margin-bottom:12px;background:#fafafa;}
+.payment-summary-card>div,.account-line{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 0;font-size:12px;}
+.payment-summary-card span,.account-line span{color:#777;}
+.payment-summary-card strong,.account-line strong{color:#222;text-align:right;}
+.payment-total-row{border-top:1px solid #ddd;margin-top:4px;padding-top:10px!important;font-size:13px!important;}
+.payment-total-row strong{color:#f85606;font-size:16px;}
+.account-title{font-weight:900;color:#222;margin-bottom:5px;}
+.iban-line{align-items:center!important;}
+.iban-line strong{word-break:break-all;font-size:11px;}
+.iban-line button{border:0;background:#f85606;color:#fff;border-radius:6px;padding:6px 9px;font-size:11px;font-weight:800;cursor:pointer;}
+.payment-file-preview{font-size:11px;color:#16804f;margin:-4px 0 7px;}
+.brand{justify-content:flex-start!important;}
+.brand-image{margin-left:0!important;}
+.hy-loader-mark{width:58px;height:58px;border-radius:10px;background:#f85606;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;}
+@media(max-width:700px){
+ .payment-box{padding:18px;max-width:96%;} .payment-box h3{font-size:18px;}
+ .payment-summary-card>div,.account-line{font-size:11px;}
+}
+</style>
 </head>
 <body>
 
@@ -3029,8 +3069,6 @@ footer{
         <div class="header-main">
             <div class="header-top">
                 <a class="brand" href="#" onclick="location.reload(); return false;">
-                    <img class="brand-logo" src="logo.png" alt="HY Store Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-                    <div class="brand-fallback" style="display:none">HY</div>
                     <img class="brand-image" src="brand.png" alt="HY Store Official Brand" loading="eager" decoding="async">
                 </a>
                 <div class="nav-links">
@@ -3147,8 +3185,7 @@ footer{
                 <!-- Animated HY Loading State -->
                 <div class="loading-container">
                     <div class="hy-loader">
-                        <img src="logo.png" alt="HY Store Logo"
-                             onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback'); this.parentElement.insertAdjacentHTML('beforeend','<span>HY</span>');">
+                        <div class="hy-loader-mark">HY</div>
                     </div>
                     <div class="loading-text">Loading Products...</div>
                 </div>
@@ -3347,9 +3384,71 @@ footer{
                         <input type="checkbox" id="codConfirm" required>
                         <span>Cash on Delivery (COD) — I confirm that I want to place this order with Cash on Delivery.</span>
                     </label>
-                    <div class="cod-note">Order will not be placed unless Cash on Delivery is selected.</div>
+                    <div class="cod-note"><strong>Advance delivery charges: PKR 250</strong> — payable in advance. The remaining order amount will be payable by Cash on Delivery.</div>
                 </div>
-                <button type="submit" class="btn-submit-order" id="submitBtn">Confirm Order</button>
+                <div class="captcha-box" aria-label="CAPTCHA verification">
+                    <div class="captcha-heading">Security Verification</div>
+                    <div class="captcha-row">
+                        <span id="captchaQuestion" class="captcha-question">-- + -- = ?</span>
+                        <button type="button" class="captcha-refresh" onclick="generateCaptcha()" aria-label="Refresh CAPTCHA">↻</button>
+                    </div>
+                    <input type="text" id="captchaAnswer" inputmode="numeric" autocomplete="off" placeholder="Enter the answer" required>
+                    <small id="captchaMessage" class="captcha-message">Complete the verification before continuing.</small>
+                </div>
+                <button type="submit" class="btn-submit-order" id="submitBtn">Continue to Payment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Advance Delivery Charges Payment Modal -->
+    <div class="payment-overlay" id="paymentModal" aria-hidden="true">
+        <div class="payment-box">
+            <button type="button" class="payment-close" onclick="closePaymentModal()" aria-label="Close">&times;</button>
+            <div class="payment-header-icon">₹</div>
+            <h3>Set PKR 250 Advance Delivery Charges</h3>
+            <p class="payment-intro">To confirm your order, a fixed <strong>PKR 250 delivery charge</strong> is required in advance. The remaining order amount will be payable by Cash on Delivery.</p>
+
+            <div class="payment-summary-card">
+                <div><span>Order Amount</span><strong id="paymentOrderAmount">Rs. 0</strong></div>
+                <div><span>Advance Delivery Charges</span><strong>Rs. 250</strong></div>
+                <div class="payment-total-row"><span>Total Order Value</span><strong id="paymentGrandTotal">Rs. 250</strong></div>
+            </div>
+
+            <div class="account-details-card">
+                <div class="account-title">Payment Account</div>
+                <div class="account-line"><span>Account Title</span><strong>MUHAMMAD IBRAHIM</strong></div>
+                <div class="account-line"><span>Mobile</span><strong>03478306672</strong></div>
+                <div class="account-line iban-line"><span>IBAN</span><strong id="paymentIban">PK10JCMA0310923478306672</strong><button type="button" onclick="copyPaymentIban()">Copy</button></div>
+            </div>
+
+            <form id="paymentForm" onsubmit="submitPaymentAndOrder(event)">
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <select id="paymentMethod" class="address-select" required>
+                        <option value="" selected disabled>Select Payment Method</option>
+                        <option value="Easypaisa">Easypaisa</option>
+                        <option value="JazzCash">JazzCash</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Sender Account Name</label>
+                    <input type="text" id="senderAccountName" required placeholder="Name on the account used for payment">
+                </div>
+                <div class="form-group">
+                    <label>Transaction ID / Reference</label>
+                    <input type="text" id="transactionId" required placeholder="Enter transaction ID or reference">
+                </div>
+                <div class="form-group">
+                    <label>Transaction History / Payment Details</label>
+                    <textarea id="transactionHistory" rows="3" required placeholder="Enter payment details or transaction history"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Upload Payment Screenshot</label>
+                    <input type="file" id="paymentScreenshot" accept="image/*" required>
+                    <small class="field-hint">Upload a clear screenshot showing the PKR 250 payment.</small>
+                </div>
+                <div id="paymentFilePreview" class="payment-file-preview"></div>
+                <button type="submit" class="btn-submit-order" id="paymentSubmitBtn">Submit Payment & Confirm Order</button>
             </form>
         </div>
     </div>
@@ -4018,19 +4117,83 @@ footer{
             document.getElementById('checkoutModal').style.display = 'none';
         }
 
+        let captchaExpectedAnswer = null;
+        let pendingOrderPayload = null;
+        const ADVANCE_DELIVERY_CHARGES = 250;
+
+        function generateCaptcha() {
+            const a = Math.floor(Math.random()*9)+1;
+            const b = Math.floor(Math.random()*9)+1;
+            captchaExpectedAnswer = a + b;
+            const q = document.getElementById('captchaQuestion');
+            const input = document.getElementById('captchaAnswer');
+            const msg = document.getElementById('captchaMessage');
+            if(q) q.textContent = `${a} + ${b} = ?`;
+            if(input) { input.value=''; input.focus(); }
+            if(msg) { msg.textContent='Complete the verification before continuing.'; msg.classList.remove('ok'); }
+        }
+
+        function verifyCaptcha() {
+            const input = document.getElementById('captchaAnswer');
+            const msg = document.getElementById('captchaMessage');
+            const value = Number((input?.value || '').trim());
+            const ok = captchaExpectedAnswer !== null && value === captchaExpectedAnswer;
+            if(msg) {
+                msg.textContent = ok ? 'Verification successful ✓' : 'Incorrect verification. Please try again.';
+                msg.classList.toggle('ok', ok);
+            }
+            return ok;
+        }
+
+        function openPaymentModal(payload) {
+            pendingOrderPayload = payload;
+            const subtotal = Number(payload?.subtotal || 0);
+            const orderAmount = document.getElementById('paymentOrderAmount');
+            const grand = document.getElementById('paymentGrandTotal');
+            if(orderAmount) orderAmount.textContent = 'Rs. ' + subtotal.toLocaleString('en-PK');
+            if(grand) grand.textContent = 'Rs. ' + (subtotal + ADVANCE_DELIVERY_CHARGES).toLocaleString('en-PK');
+            document.getElementById('paymentModal').style.display='flex';
+            document.getElementById('paymentModal').setAttribute('aria-hidden','false');
+        }
+
+        function closePaymentModal() {
+            const modal=document.getElementById('paymentModal');
+            if(modal) { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+        }
+
+        async function copyPaymentIban() {
+            const iban=document.getElementById('paymentIban')?.textContent.trim() || '';
+            try { await navigator.clipboard.writeText(iban); showNotification('IBAN copied successfully.','success'); }
+            catch(e){
+                const ta=document.createElement('textarea'); ta.value=iban; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showNotification('IBAN copied successfully.','success');
+            }
+        }
+
+        function readPaymentScreenshot() {
+            return new Promise((resolve,reject)=>{
+                const input=document.getElementById('paymentScreenshot');
+                const file=input?.files?.[0];
+                if(!file) return reject(new Error('Please upload the payment screenshot.'));
+                if(file.size > 2.5 * 1024 * 1024) return reject(new Error('Payment screenshot must be 2.5 MB or smaller.'));
+                const reader=new FileReader();
+                reader.onload=()=>resolve({name:file.name,type:file.type,size:file.size,dataUrl:String(reader.result)});
+                reader.onerror=()=>reject(new Error('Could not read the payment screenshot.'));
+                reader.readAsDataURL(file);
+            });
+        }
+
         async function submitOrder(event) {
-    const cod = document.getElementById('codConfirm');
-    if (cod && !cod.checked) {
-        event.preventDefault();
-        cod.focus();
-        alert('Please select Cash on Delivery before placing your order.');
-        return false;
-    }
             event.preventDefault();
-            const btn = document.getElementById('submitBtn');
-            btn.innerText = "Placing Order...";
-            btn.disabled = true;
-            let createdOrderId = '';
+            const cod = document.getElementById('codConfirm');
+            if (cod && !cod.checked) {
+                cod.focus();
+                alert('Please select Cash on Delivery before continuing.');
+                return false;
+            }
+            if (!verifyCaptcha()) {
+                document.getElementById('captchaAnswer')?.focus();
+                return false;
+            }
 
             const custName = document.getElementById('custName').value.trim();
             const countryCode = document.getElementById('countryCode').value;
@@ -4041,98 +4204,151 @@ footer{
             if (mobileNumber.startsWith('0')) mobileNumber = mobileNumber.substring(1);
             if (!mobileNumber || mobileNumber.length < 7) {
                 showNotification('Please enter a valid mobile number.', 'error');
-                btn.innerText = 'Confirm Order';
-                btn.disabled = false;
-                return;
+                return false;
             }
             const custPhone = countryCode + mobileNumber;
             const custAddress = 'District: ' + custDistrict + ', City: ' + custCity + ', Address: ' + exactAddress;
 
-            try {
-                if (checkoutModeType === 'direct') {
-                    const orderData = {
-                        action: "order",
-                        name: currentProduct.name,
-                        price: currentProduct.price,
-                        qty: selectedQty,
-                        total: currentProduct.price * selectedQty,
-                        custName, custPhone, custAddress,
-                        userEmail: currentUser ? currentUser.email : ''
-                    };
-                    const response = await fetch(apiURL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(orderData)
-                    });
-                    const result = await response.json();
-                    if (result.status !== 'success') throw new Error(result.message || 'Order submission failed');
-                    createdOrderId = result.orderId || '';
-                    saveLocalOrderHistory({
-                        orderId: createdOrderId,
-                        productName: currentProduct.name,
-                        price: currentProduct.price,
-                        qty: selectedQty,
-                        total: currentProduct.price * selectedQty,
-                        customerName: custName,
-                        phone: custPhone,
-                        address: custAddress,
-                        email: currentUser ? currentUser.email : '',
-                        orderStatus: 'Pending',
-                        createdAt: new Date().toISOString()
-                    });
-                } else {
-                    let subtotal = userCart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-                    let itemsSummary = userCart.map(i => `${i.name} (x${i.qty})`).join(', ');
-                    
-                    const orderData = {
-                        action: "order",
-                        name: `[Cart Order]: ${itemsSummary}`,
-                        price: subtotal,
-                        qty: 1,
-                        total: subtotal,
-                        custName, custPhone, custAddress,
-                        userEmail: currentUser ? currentUser.email : ''
-                    };
-                    const response = await fetch(apiURL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify(orderData)
-                    });
-                    const result = await response.json();
-                    if (result.status !== 'success') throw new Error(result.message || 'Order submission failed');
-                    createdOrderId = result.orderId || '';
-                    saveLocalOrderHistory({
-                        orderId: createdOrderId,
-                        productName: `[Cart Order]: ${itemsSummary}`,
-                        price: subtotal,
-                        qty: 1,
-                        total: subtotal,
-                        customerName: custName,
-                        phone: custPhone,
-                        address: custAddress,
-                        email: currentUser ? currentUser.email : '',
-                        orderStatus: 'Pending',
-                        createdAt: new Date().toISOString()
-                    });
+            let subtotal = 0;
+            let orderName = '';
+            let orderQty = 1;
+            let orderPrice = 0;
+            let productSnapshot = null;
 
-                    userCart = [];
-                    saveCart();
-                }
-
-                closeCheckout();
-                document.getElementById('orderForm').reset();
-                if (createdOrderId) {
-                    showOrderSuccessModal(createdOrderId);
-                } else {
-                    showNotification("Your order has been placed successfully!", "success", "Order Confirmed");
-                }
-            } catch (error) {
-                console.error("Order error:", error);
-                showNotification(error.message || "Order submission failed. Try again.", "error");
-            } finally {
-                btn.innerText = "Confirm Order";
-                btn.disabled = false;
+            if (checkoutModeType === 'direct') {
+                subtotal = Number(currentProduct?.price || 0) * Number(selectedQty || 1);
+                orderName = currentProduct?.name || 'Order';
+                orderQty = Number(selectedQty || 1);
+                orderPrice = Number(currentProduct?.price || 0);
+                productSnapshot = currentProduct;
+            } else {
+                subtotal = userCart.reduce((sum, item) => sum + (Number(item.price || 0) * Number(item.qty || 1)), 0);
+                orderName = '[Cart Order]: ' + userCart.map(i => `${i.name} (x${i.qty})`).join(', ');
+                orderQty = 1;
+                orderPrice = subtotal;
+                productSnapshot = userCart.slice();
             }
+
+            if (!subtotal || subtotal < 0) {
+                showNotification('Unable to calculate the order amount. Please try again.', 'error');
+                return false;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Opening Payment...';
+            btn.disabled = true;
+
+            pendingOrderPayload = {
+                action: 'order',
+                name: orderName,
+                price: orderPrice,
+                qty: orderQty,
+                total: subtotal,
+                subtotal,
+                deliveryCharges: ADVANCE_DELIVERY_CHARGES,
+                grandTotal: subtotal + ADVANCE_DELIVERY_CHARGES,
+                custName,
+                custPhone,
+                custAddress,
+                userEmail: currentUser ? currentUser.email : '',
+                paymentStatus: 'Pending',
+                paymentMethod: '',
+                senderAccountName: '',
+                transactionId: '',
+                transactionHistory: '',
+                paymentScreenshot: '',
+                productSnapshot
+            };
+
+            closeCheckout();
+            openPaymentModal(pendingOrderPayload);
+            btn.innerText = 'Continue to Payment';
+            btn.disabled = false;
+            return false;
+        }
+
+        async function submitPaymentAndOrder(event) {
+            event.preventDefault();
+            if (!pendingOrderPayload) {
+                showNotification('Your order session has expired. Please start the order again.', 'error');
+                closePaymentModal();
+                return;
+            }
+
+            const method = document.getElementById('paymentMethod').value;
+            const sender = document.getElementById('senderAccountName').value.trim();
+            const transactionId = document.getElementById('transactionId').value.trim();
+            const transactionHistory = document.getElementById('transactionHistory').value.trim();
+            const submitBtn = document.getElementById('paymentSubmitBtn');
+
+            if (!method || !sender || !transactionId || !transactionHistory) {
+                showNotification('Please complete all payment details.', 'error');
+                return false;
+            }
+
+            submitBtn.disabled=true;
+            submitBtn.innerText='Verifying Payment Details...';
+
+            try {
+                const screenshot = await readPaymentScreenshot();
+                const orderData = {
+                    ...pendingOrderPayload,
+                    paymentStatus: 'Payment Submitted',
+                    paymentMethod: method,
+                    senderAccountName: sender,
+                    transactionId,
+                    transactionHistory,
+                    paymentScreenshot: screenshot.dataUrl,
+                    paymentScreenshotName: screenshot.name,
+                    paymentScreenshotType: screenshot.type
+                };
+
+                const response = await fetch(apiURL, {
+                    method:'POST',
+                    headers:{'Content-Type':'text/plain;charset=utf-8'},
+                    body:JSON.stringify(orderData)
+                });
+                const result=await response.json();
+                if(result.status!=='success') throw new Error(result.message || 'Order submission failed');
+
+                const createdOrderId=result.orderId || '';
+                saveLocalOrderHistory({
+                    orderId:createdOrderId,
+                    productName:orderData.name,
+                    price:orderData.price,
+                    qty:orderData.qty,
+                    total:orderData.total,
+                    deliveryCharges:ADVANCE_DELIVERY_CHARGES,
+                    grandTotal:orderData.grandTotal,
+                    customerName:orderData.custName,
+                    phone:orderData.custPhone,
+                    address:orderData.custAddress,
+                    email:orderData.userEmail,
+                    orderStatus:'Pending',
+                    paymentStatus:'Payment Submitted',
+                    paymentMethod:method,
+                    senderAccountName:sender,
+                    transactionId,
+                    transactionHistory,
+                    createdAt:new Date().toISOString()
+                });
+
+                if(checkoutModeType==='cart') { userCart=[]; saveCart(); }
+                closePaymentModal();
+                document.getElementById('paymentForm').reset();
+                document.getElementById('paymentFilePreview').textContent='';
+                pendingOrderPayload=null;
+
+                if(createdOrderId) showOrderSuccessModal(createdOrderId);
+                else showNotification('Payment details submitted and your order has been received.','success','Order Received');
+            } catch(error) {
+                console.error('Payment/order error:',error);
+                showNotification(error.message || 'Payment submission failed. Please try again.','error');
+            } finally {
+                submitBtn.disabled=false;
+                submitBtn.innerText='Submit Payment & Confirm Order';
+            }
+            return false;
         }
 
         function showOrderSuccessModal(orderId) {
@@ -5167,5 +5383,19 @@ body.hy-info-open{overflow:hidden!important}
 })();
 </script>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  generateCaptcha();
+  const pf=document.getElementById('paymentScreenshot');
+  if(pf) pf.addEventListener('change', function(){
+    const f=this.files && this.files[0];
+    const box=document.getElementById('paymentFilePreview');
+    if(box) box.textContent=f ? ('Selected: '+f.name) : '';
+  });
+  const pm=document.getElementById('paymentModal');
+  if(pm) pm.addEventListener('click',function(e){ if(e.target===pm) closePaymentModal(); });
+});
+</script>
 </body>
 </html>
