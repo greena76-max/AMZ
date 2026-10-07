@@ -1340,6 +1340,11 @@
 
 /* Keep the congratulations asset clean and professional. */
 .tracking-complete-icon-img{display:block!important;object-fit:contain!important;border:0!important;outline:0!important;}
+.profile-delivered-celebration{margin:10px 0 4px;padding:10px 12px;border:1px solid #d8efdf;border-radius:10px;background:#f6fff8;display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.profile-party-icon{width:34px;height:34px;object-fit:contain;display:block;}
+.profile-delivered-celebration strong{font-size:12px;color:#16804f;}
+.profile-delivered-celebration span{width:100%;font-size:10px;color:#667085;margin-left:43px;margin-top:-6px;}
+
 
 @media (max-width:700px){
   .checkout-overlay{padding:8px!important;align-items:center!important;}
@@ -3978,12 +3983,12 @@ footer{
                     <div><b>Current Status:</b> <span style="color:${statusColor};font-weight:800">${escapeTrackingText(statusLabel)}</span></div>
                   </div>
                   <div style="border-top:1px solid #eee;padding-top:10px">
-                    ${statuses.map((st,i)=>`<div class="tracking-step ${!isCancelled && i===currentIndex?'is-current':''}"><span class="tracking-step-number" style="background:${!isCancelled && i<currentIndex?'#22a06b':!isCancelled && i===currentIndex?'#f85606':'#eee'};color:${!isCancelled && i<=currentIndex?'#fff':'#888'}">${!isCancelled && i<currentIndex?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${!isCancelled && i===currentIndex?'<span class="tracking-current-pill">'+(current === 'Delivered' ? 'Complete' : 'Current')+'</span>':''}</div></div>`).join('')}
+                    ${statuses.map((st,i)=>`<div class="tracking-step ${!isCancelled && i===currentIndex?'is-current':''}"><span class="tracking-step-number" style="background:${!isCancelled && (i<currentIndex || (current === 'Delivered' && i===currentIndex))?'#22a06b':!isCancelled && i===currentIndex?'#f85606':'#eee'};color:${!isCancelled && i<=currentIndex?'#fff':'#888'}">${!isCancelled && (i<currentIndex || (current === 'Delivered' && i===currentIndex))?'✓':i+1}</span><div class="tracking-step-content"><span class="tracking-step-name">${st}</span>${!isCancelled && i===currentIndex?'<span class="tracking-current-pill">'+(current === 'Delivered' ? 'Complete' : 'Current')+'</span>':''}</div></div>`).join('')}
                     ${isCancelled ? `<div class="tracking-step is-current" style="margin-top:12px;"><span class="tracking-step-number" style="background:#c0392b;color:#fff;box-shadow:0 0 0 3px #fde5e5;">✕</span><div class="tracking-step-content"><span class="tracking-step-name" style="color:#c0392b;font-weight:800;">Cancelled</span><span class="tracking-current-pill" style="background:#fff1f1;color:#c0392b;border-color:#f2b8b8;">Order Cancelled</span></div></div>` : ''}
                   </div>
                   ${current === 'Delivered' ? `
                     <div class="tracking-complete-box">
-                      <div class="tracking-complete-icon"><img src="icon-party.png" alt="Congratulations" class="tracking-complete-icon-img" onerror="this.style.display='none';this.parentElement.textContent='🎉';"></div>
+                      <div class="tracking-complete-icon"><img src="icon-party.png" alt="Congratulations" class="tracking-complete-icon-img" onerror="this.remove();this.parentElement.textContent='🎉';"></div>
                       <div class="tracking-complete-title">Congratulations!</div>
                       <p class="tracking-complete-text">Congratulations! Your order has been delivered successfully. We hope you enjoy your purchase. Thank you for shopping with us!</p>
                       <span class="tracking-complete-badge">✓ Order Complete</span>
@@ -4624,7 +4629,7 @@ footer{
                   ? `<div class="profile-mini-cancelled"><span>✕</span><strong>${escapeProfileText(displayStatus)}</strong><small>Order status</small></div>`
                   : `<div class="profile-mini-tracking">
                       ${trackingStatuses.map((st,i)=>`<div class="profile-mini-step ${i < currentIndex ? 'done' : ''} ${i === currentIndex ? 'current' : ''}">
-                        <span class="profile-mini-dot">${i < currentIndex ? '✓' : (i+1)}</span>
+                        <span class="profile-mini-dot">${i < currentIndex || (currentIndex === 6 && i === 6) ? '✓' : (i+1)}</span>
                         <span class="profile-mini-label">${st}${i === currentIndex ? '<b>Current</b>' : ''}</span>
                       </div>`).join('')}
                     </div>`;
@@ -4643,6 +4648,7 @@ footer{
                     <div class="profile-order-date">${escapeProfileText(date)}</div>
                     <div class="profile-status-heading">Order Tracking Status</div>
                     ${miniTimeline}
+                    ${currentIndex === 6 && !isCancelled ? `<div class="profile-delivered-celebration"><img src="icon-party.png" alt="Congratulations" class="profile-party-icon" onerror="this.remove();this.parentElement.insertAdjacentText('afterbegin','🎉')"><strong>Congratulations!</strong><span>Your order has been delivered successfully.</span></div>` : ''}
                     <button type="button" class="profile-track-btn" onclick="trackFromProfile('${safeId}')">Open Full Tracking</button>
                   </div>`;
             }).join('');
