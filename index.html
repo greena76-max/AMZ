@@ -3439,10 +3439,6 @@ footer{
                     <input type="text" id="transactionId" required placeholder="Enter transaction ID or reference">
                 </div>
                 <div class="form-group">
-                    <label>Transaction History / Payment Details</label>
-                    <textarea id="transactionHistory" rows="3" required placeholder="Enter payment details or transaction history"></textarea>
-                </div>
-                <div class="form-group">
                     <label>Upload Payment Screenshot</label>
                     <input type="file" id="paymentScreenshot" accept="image/*" required>
                     <small class="field-hint">Upload a clear screenshot showing the PKR 250 payment.</small>
@@ -4251,11 +4247,9 @@ footer{
                 custPhone,
                 custAddress,
                 userEmail: currentUser ? currentUser.email : '',
-                paymentStatus: 'Pending',
                 paymentMethod: '',
                 senderAccountName: '',
                 transactionId: '',
-                transactionHistory: '',
                 paymentScreenshot: '',
                 productSnapshot
             };
@@ -4269,6 +4263,7 @@ footer{
 
         async function submitPaymentAndOrder(event) {
             event.preventDefault();
+
             if (!pendingOrderPayload) {
                 showNotification('Your order session has expired. Please start the order again.', 'error');
                 closePaymentModal();
@@ -4278,76 +4273,142 @@ footer{
             const method = document.getElementById('paymentMethod').value;
             const sender = document.getElementById('senderAccountName').value.trim();
             const transactionId = document.getElementById('transactionId').value.trim();
-            const transactionHistory = document.getElementById('transactionHistory').value.trim();
             const submitBtn = document.getElementById('paymentSubmitBtn');
 
-            if (!method || !sender || !transactionId || !transactionHistory) {
+            // Payment form now contains only the confirmed 4 fields:
+            // Payment Method, Sender Account Name, Transaction ID / Reference,
+            // Payment Screenshot.
+            if (!method || !sender || !transactionId) {
                 showNotification('Please complete all payment details.', 'error');
                 return false;
             }
 
-            submitBtn.disabled=true;
-            submitBtn.innerText='Verifying Payment Details...';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Submitting Order...';
 
             try {
+                // Read screenshot first so the order is not created if the
+                // required payment proof is missing or cannot be read.
                 const screenshot = await readPaymentScreenshot();
-                const orderData = {
+
+                // ---------------------------------------------------------
+                // STEP 1: Create the order in ORDER sheet.
+                // Payment columns are left empty here. The order ID returned
+                // by Apps Script is then used for the payment update.
+                // ---------------------------------------------------------
+                const orderPayload = {
                     ...pendingOrderPayload,
-                    paymentStatus: 'Payment Submitted',
+                    action: 'order',
+                    paymentMethod: '',
+                    senderAccountName: '',
+                    transactionId: '',
+                    paymentScreenshot: ''
+                };
+
+                const orderResponse = await fetch(apiURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(orderPayload)
+                });
+
+                if (!orderResponse.ok) {
+                    throw new Error('Order server error.');
+                }
+
+                const orderResult = await orderResponse.json();
+
+                if (orderResult.status !== 'success' || !orderResult.orderId) {
+                    throw new Error(orderResult.message || 'Order submission failed.');
+                }
+
+                const createdOrderId = orderResult.orderId;
+
+                // ---------------------------------------------------------
+                // STEP 2: Save payment details against the newly created
+                // order. Apps Script action "payment" stores the screenshot
+                // in Google Drive and saves its URL in Payment Screenshot.
+                // ---------------------------------------------------------
+                submitBtn.innerText = 'Saving Payment...';
+
+                const paymentData = {
+                    action: 'payment',
+                    orderId: createdOrderId,
+                    deliveryCharges: ADVANCE_DELIVERY_CHARGES,
+                    grandTotal: pendingOrderPayload.grandTotal,
                     paymentMethod: method,
                     senderAccountName: sender,
-                    transactionId,
-                    transactionHistory,
+                    transactionId: transactionId,
                     paymentScreenshot: screenshot.dataUrl,
                     paymentScreenshotName: screenshot.name,
                     paymentScreenshotType: screenshot.type
                 };
 
-                const response = await fetch(apiURL, {
-                    method:'POST',
-                    headers:{'Content-Type':'text/plain;charset=utf-8'},
-                    body:JSON.stringify(orderData)
+                const paymentResponse = await fetch(apiURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(paymentData)
                 });
-                const result=await response.json();
-                if(result.status!=='success') throw new Error(result.message || 'Order submission failed');
 
-                const createdOrderId=result.orderId || '';
+                if (!paymentResponse.ok) {
+                    throw new Error('Payment server error.');
+                }
+
+                const paymentResult = await paymentResponse.json();
+
+                if (paymentResult.status !== 'success') {
+                    throw new Error(paymentResult.message || 'Payment details could not be saved.');
+                }
+
+                // Save the completed order locally for the customer's profile.
                 saveLocalOrderHistory({
-                    orderId:createdOrderId,
-                    productName:orderData.name,
-                    price:orderData.price,
-                    qty:orderData.qty,
-                    total:orderData.total,
-                    deliveryCharges:ADVANCE_DELIVERY_CHARGES,
-                    grandTotal:orderData.grandTotal,
-                    customerName:orderData.custName,
-                    phone:orderData.custPhone,
-                    address:orderData.custAddress,
-                    email:orderData.userEmail,
-                    orderStatus:'Pending',
-                    paymentStatus:'Payment Submitted',
-                    paymentMethod:method,
-                    senderAccountName:sender,
-                    transactionId,
-                    transactionHistory,
-                    createdAt:new Date().toISOString()
+                    orderId: createdOrderId,
+                    productName: pendingOrderPayload.name,
+                    price: pendingOrderPayload.price,
+                    qty: pendingOrderPayload.qty,
+                    total: pendingOrderPayload.total,
+                    deliveryCharges: ADVANCE_DELIVERY_CHARGES,
+                    grandTotal: pendingOrderPayload.grandTotal,
+                    customerName: pendingOrderPayload.custName,
+                    phone: pendingOrderPayload.custPhone,
+                    address: pendingOrderPayload.custAddress,
+                    email: pendingOrderPayload.userEmail,
+                    orderStatus: 'Pending',
+                    paymentMethod: method,
+                    senderAccountName: sender,
+                    transactionId: transactionId,
+                    createdAt: new Date().toISOString()
                 });
 
-                if(checkoutModeType==='cart') { userCart=[]; saveCart(); }
-                closePaymentModal();
-                document.getElementById('paymentForm').reset();
-                document.getElementById('paymentFilePreview').textContent='';
-                pendingOrderPayload=null;
+                if (checkoutModeType === 'cart') {
+                    userCart = [];
+                    saveCart();
+                }
 
-                if(createdOrderId) showOrderSuccessModal(createdOrderId);
-                else showNotification('Payment details submitted and your order has been received.','success','Order Received');
-            } catch(error) {
-                console.error('Payment/order error:',error);
-                showNotification(error.message || 'Payment submission failed. Please try again.','error');
+                closePaymentModal();
+
+                const paymentForm = document.getElementById('paymentForm');
+                if (paymentForm) paymentForm.reset();
+
+                const preview = document.getElementById('paymentFilePreview');
+                if (preview) preview.textContent = '';
+
+                pendingOrderPayload = null;
+
+                // Only show the tracking ID after BOTH order + payment
+                // have been successfully saved.
+                showOrderSuccessModal(createdOrderId);
+
+            } catch (error) {
+                console.error('Payment/order error:', error);
+                showNotification(
+                    error.message || 'Payment submission failed. Please try again.',
+                    'error'
+                );
             } finally {
-                submitBtn.disabled=false;
-                submitBtn.innerText='Submit Payment & Confirm Order';
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Submit Payment & Confirm Order';
             }
+
             return false;
         }
 
