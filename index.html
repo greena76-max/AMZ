@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="brand.png?v=20261008">
+    <link rel="shortcut icon" type="image/png" href="brand.png?v=20261008">
+    <link rel="apple-touch-icon" href="brand.png?v=20261008">
     <title>HY Store Official - Online Shopping Dashboard</title>
     <style>
         * {
@@ -3061,6 +3064,69 @@ footer{
  .payment-summary-card>div,.account-line{font-size:11px;}
 }
 </style>
+
+<style id="HY-FINAL-MOBILE-POLISH-20261008">
+/* ===== Final mobile polish ===== */
+.hy-payment-transition{
+  position:fixed;inset:0;z-index:110000;display:none;
+  align-items:center;justify-content:center;flex-direction:column;
+  gap:13px;background:rgba(255,255,255,.97);
+}
+.hy-payment-transition.is-showing{display:flex;animation:hyFadeIn .22s ease both;}
+.hy-zig-loader{width:150px;height:52px;display:flex;align-items:center;justify-content:center;gap:5px;}
+.hy-zig-loader span{display:block;width:7px;height:25px;border-radius:7px;background:#f85606;transform:skewX(-18deg);animation:hyZig 1s ease-in-out infinite;}
+.hy-zig-loader span:nth-child(2){animation-delay:.08s}.hy-zig-loader span:nth-child(3){animation-delay:.16s}.hy-zig-loader span:nth-child(4){animation-delay:.24s}.hy-zig-loader span:nth-child(5){animation-delay:.32s}.hy-zig-loader span:nth-child(6){animation-delay:.40s}.hy-zig-loader span:nth-child(7){animation-delay:.48s}
+.hy-transition-title{font-size:17px;font-weight:900;color:#222;letter-spacing:.2px}
+.hy-transition-sub{font-size:12px;color:#888}
+@keyframes hyZig{0%,100%{height:18px;transform:skewX(-18deg) translateY(0)}50%{height:42px;transform:skewX(-18deg) translateY(-3px)}}
+@keyframes hyFadeIn{from{opacity:0}to{opacity:1}}
+
+/* Payment form: always keep the final action reachable on phones */
+.payment-overlay{padding:8px!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;}
+.payment-box{width:min(520px,calc(100vw - 16px))!important;max-height:calc(100dvh - 16px)!important;overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;padding:16px 13px 78px!important;}
+#paymentForm{padding-bottom:0!important;}
+#paymentSubmitBtn{position:sticky!important;bottom:8px!important;z-index:8!important;width:100%!important;display:flex!important;align-items:center!important;justify-content:center!important;min-height:45px!important;margin-top:12px!important;box-shadow:0 7px 20px rgba(248,86,6,.24)!important;}
+
+/* Login: no logo; cleaner animated top accent */
+.auth-box{position:relative!important;overflow:hidden!important;}
+.auth-box:before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:repeating-linear-gradient(135deg,#f85606 0 10px,transparent 10px 18px,#222 18px 28px,transparent 28px 36px);background-size:72px 72px;animation:hyAuthZig 1.2s linear infinite;}
+@keyframes hyAuthZig{to{background-position:72px 0}}
+
+/* Footer/info links open with a smooth full-panel transition */
+.hy-info-page{opacity:0;visibility:hidden;transform:scale(.985);transition:opacity .24s ease,transform .24s ease,visibility 0s linear .24s!important;}
+.hy-info-page.is-open{opacity:1;visibility:visible;transform:scale(1);transition:opacity .24s ease,transform .24s ease,visibility 0s linear 0s!important;}
+.hy-info-shell{transform:translateY(14px) scale(.985);opacity:0;transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .22s ease!important;}
+.hy-info-page.is-open .hy-info-shell{transform:translateY(0) scale(1);opacity:1;}
+.hy-info-content h1{animation:hyInfoTitle .35s ease both;}
+.hy-info-content h2,.hy-info-content p,.hy-info-content li,.hy-info-card{animation:hyInfoItem .34s ease both;}
+.hy-info-content h2:nth-of-type(2){animation-delay:.03s}.hy-info-content h2:nth-of-type(3){animation-delay:.06s}
+@keyframes hyInfoTitle{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
+@keyframes hyInfoItem{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hy-info-back,.hy-info-close{transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease!important;}
+.hy-info-back:hover,.hy-info-close:hover{transform:translateY(-1px);box-shadow:0 5px 15px rgba(0,0,0,.08);}
+
+/* Whole site phone sizing/scroll safety */
+@media(max-width:700px){
+  html,body{width:100%;max-width:100%;overflow-x:hidden!important;}
+  .header-top{padding:8px 10px!important;gap:8px!important;min-height:66px!important;}
+  .brand-image{max-width:150px!important;width:auto!important;height:46px!important;object-fit:contain!important;}
+  .nav-links{gap:5px!important;}
+  .nav-btn-style,.auth-link-btn{height:36px!important;padding:7px 9px!important;font-size:11px!important;}
+  .checkout-overlay,.payment-overlay,.profile-overlay,.auth-overlay,.tracking-overlay,.cart-overlay,.modal-overlay{overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior:contain!important;touch-action:pan-y!important;}
+  .checkout-box,.auth-box,.tracking-box,.cart-box,.profile-box,.modal-content{max-width:calc(100vw - 16px)!important;}
+  .payment-box{font-size:12px!important;}
+  .payment-box input,.payment-box select,.payment-box button{font-size:12px!important;}
+  .payment-summary-card,.account-details-card{padding:9px!important;margin-bottom:9px!important;}
+  .payment-summary-card>div,.account-line{padding:5px 0!important;gap:7px!important;}
+  .payment-intro{font-size:11.5px!important;margin-bottom:9px!important;}
+  .payment-header-icon{width:42px!important;height:42px!important;margin-bottom:7px!important;font-size:20px!important;}
+  .payment-box h3{font-size:17px!important;margin-bottom:5px!important;}
+  .footer-col button{font-size:12px!important;padding:5px 0!important;}
+  .hy-info-page{padding:0!important;}
+  .hy-info-shell{width:100%!important;height:100dvh!important;max-height:100dvh!important;border-radius:0!important;}
+  .hy-info-content{padding:16px 12px 30px!important;-webkit-overflow-scrolling:touch!important;}
+}
+</style>
 </head>
 <body>
 
@@ -3403,6 +3469,15 @@ footer{
                 <button type="submit" class="btn-submit-order" id="submitBtn">Continue to Payment</button>
             </form>
         </div>
+    </div>
+
+    <!-- Checkout to Payment 5-second transition -->
+    <div class="hy-payment-transition" id="hyPaymentTransition" aria-hidden="true">
+        <div class="hy-zig-loader" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hy-transition-title">Preparing Payment</div>
+        <div class="hy-transition-sub">Please wait a moment...</div>
     </div>
 
     <!-- Advance Delivery Charges Payment Modal -->
@@ -4160,6 +4235,7 @@ footer{
         function closePaymentModal() {
             const modal=document.getElementById('paymentModal');
             if(modal) { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+            document.body.classList.remove('hy-page-open');
         }
 
         async function copyPaymentIban() {
@@ -4260,7 +4336,19 @@ footer{
             };
 
             closeCheckout();
-            openPaymentModal(pendingOrderPayload);
+            // Show a clean 5-second transition before the payment panel. No logo is used here.
+            const transition = document.getElementById('hyPaymentTransition');
+            if (transition) {
+                transition.classList.add('is-showing');
+                transition.setAttribute('aria-hidden','false');
+            }
+            setTimeout(() => {
+                if (transition) {
+                    transition.classList.remove('is-showing');
+                    transition.setAttribute('aria-hidden','true');
+                }
+                openPaymentModal(pendingOrderPayload);
+            }, 5000);
             btn.innerText = 'Continue to Payment';
             btn.disabled = false;
             return false;
