@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- HY STORE — SEO + Browser Identity -->
+    <link rel="icon" type="image/png" sizes="48x48" href="logo.png?v=20261008">
     <link rel="icon" type="image/png" href="brand.png?v=20261008">
-    <link rel="shortcut icon" type="image/png" href="brand.png?v=20261008">
-    <link rel="apple-touch-icon" href="brand.png?v=20261008">
-    <title>HY Store Official - Online Shopping Dashboard</title>
+    <link rel="shortcut icon" type="image/png" href="logo.png?v=20261008">
+    <link rel="apple-touch-icon" href="logo.png?v=20261008">
+    <meta name="theme-color" content="#111111">
+    <meta name="description" content="HY STORE Official — personalized gifts, Magic Mugs, Magic Frames, Mily Mugs and customized gifts in Pakistan.">
+    <meta property="og:title" content="HY STORE | Official Online Store">
+    <meta property="og:description" content="Personalized and customized gifts for every special occasion.">
+    <meta property="og:image" content="https://hystoreofficial.com/logo.png">
+    <meta property="og:url" content="https://hystoreofficial.com/">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://hystoreofficial.com/">
+    <title>HY STORE | Official Online Store</title>
     <style>
         * {
             margin: 0;
@@ -3151,6 +3161,17 @@ footer{
   .hy-info-shell{height:100dvh!important;}
 }
 </style>
+<style id="HY-POLISH-SEO-IMAGES">
+  html{scroll-behavior:smooth;}
+  body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .header{backdrop-filter:saturate(130%) blur(8px);}
+  .nav-btn-style,.auth-link-btn{transition:background .2s ease,color .2s ease,transform .2s ease,opacity .2s ease;}
+  .nav-btn-style:focus-visible,.auth-link-btn:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid #f85606;outline-offset:2px;}
+  .card{transition:transform .22s ease,box-shadow .22s ease;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.10);}
+  .card-img img,.modal-gallery img,.cart-item-img{background:#f7f7f7;}
+  .image-fallback{display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-height:120px;background:linear-gradient(135deg,#f7f7f7,#ededed);color:#888;font-size:12px;font-weight:700;}
+</style>
 </head>
 <body>
 
@@ -3793,6 +3814,25 @@ footer{
             }
         }
 
+        // Convert common Google Drive image links to browser-friendly image URLs.
+        function normalizeImageUrl(url) {
+            if (!url) return '';
+            let u = String(url).trim();
+            const fileMatch = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([A-Za-z0-9_-]+)/);
+            if (fileMatch && fileMatch[1]) return 'https://drive.google.com/uc?export=view&id=' + fileMatch[1];
+            const idMatch = u.match(/[?&]id=([A-Za-z0-9_-]+)/);
+            if (/drive\.google\.com/.test(u) && idMatch) return 'https://drive.google.com/uc?export=view&id=' + idMatch[1];
+            return u;
+        }
+
+        function imageWithFallback(urls, alt, className='') {
+            const clean = (urls || []).map(normalizeImageUrl).filter(Boolean);
+            if (!clean.length) return '<div class="image-fallback">Image unavailable</div>';
+            const first = clean[0];
+            const rest = JSON.stringify(clean.slice(1)).replace(/"/g, '&quot;');
+            return `<img class="${className}" src="${first}" alt="${alt || ''}" loading="lazy" decoding="async" data-fallbacks="${rest}" onerror="this.dataset.failed='1';const a=JSON.parse(this.dataset.fallbacks||'[]');if(a.length){this.src=a.shift();this.dataset.fallbacks=JSON.stringify(a)}else{this.onerror=null;this.outerHTML='<div class=\"image-fallback\">Image unavailable</div>';}" onload="this.dataset.failed='0'">`;
+        }
+
         function displayProducts(products) {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = "";
@@ -3809,7 +3849,7 @@ footer{
                 card.innerHTML = `
                     ${discountHTML}
                     <div class="card-img">
-                        ${product.img1 ? `<img src="${product.img1}" alt="${product.name}" loading="lazy" decoding="async">` : 'No Image'}
+                        ${imageWithFallback([product.img1, product.img2, product.img3], product.name)}
                     </div>
                     <div class="card-body">
                         <h4>${product.name}</h4>
@@ -3909,7 +3949,7 @@ footer{
             images.forEach((imgUrl, index) => {
                 const thumb = document.createElement('div');
                 thumb.className = `thumb ${index === 0 ? 'active' : ''}`;
-                thumb.innerHTML = `<img src="${imgUrl}" alt="Thumb">`;
+                thumb.innerHTML = `<img src="${normalizeImageUrl(imgUrl)}" alt="Thumb" loading="lazy" decoding="async">`;
                 thumb.onclick = () => {
                     document.getElementById('activeImg').src = imgUrl;
                     document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
