@@ -4336,17 +4336,32 @@ footer{
             };
 
             closeCheckout();
-            // Open the professional payment panel directly.
-            // The previous long loading transition has been removed so the payment form cannot get stuck.
+
+            // Smooth 5-second transition from Order Details to Payment.
+            // The payment panel opens only after the animation completes.
             const transition = document.getElementById('hyPaymentTransition');
+
             if (transition) {
-                transition.classList.remove('is-showing');
-                transition.setAttribute('aria-hidden','true');
-                transition.style.display = 'none';
+                transition.classList.add('is-showing');
+                transition.setAttribute('aria-hidden','false');
+                transition.style.display = 'flex';
+
+                window.setTimeout(() => {
+                    transition.classList.remove('is-showing');
+                    transition.setAttribute('aria-hidden','true');
+                    transition.style.display = 'none';
+
+                    openPaymentModal(pendingOrderPayload);
+                    btn.innerText = 'Continue to Payment';
+                    btn.disabled = false;
+                }, 5000);
+            } else {
+                // Safe fallback if the transition element is ever unavailable.
+                openPaymentModal(pendingOrderPayload);
+                btn.innerText = 'Continue to Payment';
+                btn.disabled = false;
             }
-            openPaymentModal(pendingOrderPayload);
-            btn.innerText = 'Continue to Payment';
-            btn.disabled = false;
+
             return false;
         }
 
