@@ -3287,9 +3287,9 @@ footer{
     <!-- Order Success / Tracking ID Modal -->
     <div class="order-success-overlay" id="orderSuccessModal">
         <div class="order-success-box">
-            <div class="order-success-icon">✓</div>
-            <h3 class="order-success-title">Order Confirmed!</h3>
-            <p class="order-success-text">Your order has been placed successfully. Save your Tracking ID to check your order status anytime.</p>
+            <div class="order-success-icon"><span>✓</span></div>
+            <h3 class="order-success-title">Order Created</h3>
+            <p class="order-success-text">Your order has been created successfully. Your Order ID is ready below. Copy it and use it anytime for Order Tracking.</p>
             <div class="order-id-copy-row">
                 <input id="newOrderTrackingId" type="text" readonly value="">
                 <button type="button" class="copy-order-id-btn" onclick="copyOrderId()">Copy</button>
@@ -4336,19 +4336,15 @@ footer{
             };
 
             closeCheckout();
-            // Show a clean 5-second transition before the payment panel. No logo is used here.
+            // Open the professional payment panel directly.
+            // The previous long loading transition has been removed so the payment form cannot get stuck.
             const transition = document.getElementById('hyPaymentTransition');
             if (transition) {
-                transition.classList.add('is-showing');
-                transition.setAttribute('aria-hidden','false');
+                transition.classList.remove('is-showing');
+                transition.setAttribute('aria-hidden','true');
+                transition.style.display = 'none';
             }
-            setTimeout(() => {
-                if (transition) {
-                    transition.classList.remove('is-showing');
-                    transition.setAttribute('aria-hidden','true');
-                }
-                openPaymentModal(pendingOrderPayload);
-            }, 5000);
+            openPaymentModal(pendingOrderPayload);
             btn.innerText = 'Continue to Payment';
             btn.disabled = false;
             return false;
@@ -5975,3 +5971,85 @@ document.addEventListener('DOMContentLoaded', function(){
   50%{transform:translateX(4%) rotate(3deg);}
 }
 </style>
+
+<style id="HY-FINAL-PAYMENT-SUCCESS-PRO">
+/* Final professional payment panel + order-created card */
+.payment-box{
+  border:1px solid rgba(248,86,6,.14)!important;
+  box-shadow:0 24px 80px rgba(0,0,0,.30),0 0 0 1px rgba(255,255,255,.8) inset!important;
+}
+.payment-header-icon{
+  background:linear-gradient(135deg,#fff1e9,#ffe5d7)!important;
+  border:1px solid rgba(248,86,6,.12)!important;
+  box-shadow:0 7px 20px rgba(248,86,6,.10)!important;
+}
+.payment-box input:focus,.payment-box select:focus{
+  border-color:#f85606!important;
+  box-shadow:0 0 0 3px rgba(248,86,6,.10)!important;
+}
+.order-success-box{
+  max-width:440px!important;
+  padding:28px 22px 22px!important;
+  border:1px solid rgba(248,86,6,.12)!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.34)!important;
+  animation:hyOrderCreatedIn .38s cubic-bezier(.18,.85,.25,1) both!important;
+}
+.order-success-icon{
+  background:linear-gradient(135deg,#effff6,#dffff0)!important;
+  box-shadow:0 10px 28px rgba(34,160,107,.16)!important;
+  animation:hySuccessPop .55s cubic-bezier(.18,.85,.25,1) both!important;
+}
+.order-success-icon span{display:block;animation:hyCheckIn .45s .12s ease both;}
+.order-success-title{font-size:24px!important;letter-spacing:-.2px!important;color:#16804f!important;}
+.order-success-text{font-size:13px!important;line-height:1.6!important;}
+.order-id-copy-row{
+  display:flex!important;gap:8px!important;align-items:center!important;
+  padding:7px!important;background:#f8f8f8!important;border:1px solid #e8e8e8!important;
+  border-radius:12px!important;
+}
+.order-id-copy-row input{
+  flex:1!important;border:0!important;background:transparent!important;
+  font-weight:900!important;color:#222!important;text-align:center!important;
+  outline:none!important;min-width:0!important;font-size:15px!important;
+}
+.copy-order-id-btn{
+  min-width:76px!important;padding:10px 13px!important;border-radius:9px!important;
+  background:#f85606!important;box-shadow:0 7px 18px rgba(248,86,6,.22)!important;
+  transition:transform .18s ease,box-shadow .18s ease!important;
+}
+.copy-order-id-btn:hover{transform:translateY(-1px)!important;box-shadow:0 10px 22px rgba(248,86,6,.28)!important;}
+.order-success-note{margin-top:10px!important;}
+.order-success-close{transition:transform .18s ease,box-shadow .18s ease!important;}
+.order-success-close:hover{transform:translateY(-1px)!important;box-shadow:0 8px 20px rgba(0,0,0,.16)!important;}
+@keyframes hyOrderCreatedIn{from{opacity:0;transform:translateY(18px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes hySuccessPop{0%{transform:scale(.65);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes hyCheckIn{from{opacity:0;transform:scale(.4) rotate(-20deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@media(max-width:700px){
+  .payment-overlay{align-items:flex-start!important;padding:8px!important;}
+  .payment-box{width:calc(100vw - 16px)!important;max-width:390px!important;max-height:calc(100dvh - 16px)!important;padding:15px 12px 72px!important;}
+  .payment-box form{padding-bottom:2px!important;}
+  #paymentSubmitBtn{position:sticky!important;bottom:0!important;}
+  .order-success-box{max-width:calc(100vw - 24px)!important;padding:22px 14px 16px!important;}
+  .order-success-title{font-size:21px!important;}
+  .order-id-copy-row input{font-size:13px!important;}
+  .copy-order-id-btn{min-width:68px!important;padding:9px 9px!important;}
+}
+</style>
+<script id="HY-FINAL-PAYMENT-OPEN-FIX">
+(function(){
+  // Never allow the old transition overlay to block the real payment form.
+  const t=document.getElementById('hyPaymentTransition');
+  if(t){t.classList.remove('is-showing');t.setAttribute('aria-hidden','true');t.style.display='none';}
+  const pm=document.getElementById('paymentModal');
+  if(pm){
+    const keep=function(){
+      if(pm.getAttribute('aria-hidden')==='false'){
+        pm.style.setProperty('display','flex','important');
+        pm.style.setProperty('overflow-y','auto','important');
+        pm.style.setProperty('visibility','visible','important');
+      }
+    };
+    new MutationObserver(keep).observe(pm,{attributes:true,attributeFilter:['aria-hidden','style','class']});
+  }
+})();
+</script>
