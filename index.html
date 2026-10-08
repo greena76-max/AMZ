@@ -6053,3 +6053,25 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 })();
 </script>
+
+<style id="HY-NO-PAYMENT-LOADER-FINAL">
+/* FINAL: payment opens immediately; never show the old transition loader */
+#hyPaymentTransition,
+#hyPaymentTransition.is-showing{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+}
+</style>
+<script id="HY-NO-PAYMENT-LOADER-JS">
+(function(){
+  const t=document.getElementById('hyPaymentTransition');
+  if(t){
+    t.classList.remove('is-showing');
+    t.setAttribute('aria-hidden','true');
+    t.style.setProperty('display','none','important');
+    t.style.setProperty('visibility','hidden','important');
+  }
+})();
+</script>
