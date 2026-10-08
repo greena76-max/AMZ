@@ -110,13 +110,15 @@
         .nav-links a {text-decoration:none;cursor:pointer}
         .nav-btn-style {
             display:inline-flex;align-items:center;justify-content:center;gap:7px;
-            background:#fff;color:#222!important;border:1px solid #ddd;
+            background:transparent!important;color:#fff!important;border:1px solid transparent!important;
             padding:9px 15px;border-radius:8px;font-weight:800!important;font-size:13px!important;
             height:40px;transition:.2s;white-space:nowrap;
         }
-        .nav-btn-style:hover{border-color:#f85606;color:#f85606!important;transform:translateY(-1px)}
-        .track-nav-btn{background:#f85606!important;border-color:#f85606!important;color:#fff!important}
-        .track-nav-btn:hover{background:#ff6b22!important;color:#fff!important}
+        .nav-btn-style:hover{background:rgba(255,255,255,.08)!important;color:#fff!important;border-color:transparent!important;transform:translateY(-1px)}
+        .track-nav-btn{background:transparent!important;border-color:transparent!important;color:#fff!important}
+        .track-nav-btn:hover{background:rgba(255,255,255,.08)!important;color:#fff!important}
+        .track-nav-btn .btn-icon{display:none!important}
+        .nav-btn-style .btn-icon{color:#fff!important}
         .cart-badge{background:#f85606;color:#fff;font-size:11px;padding:2px 6px;border-radius:20px;font-weight:900}
         .auth-link-btn{background:#f85606;color:#fff!important;padding:9px 14px;border-radius:8px;font-weight:800!important;font-size:13px!important;height:40px;display:inline-flex;align-items:center;white-space:nowrap}
         .auth-link-btn:hover{background:#e04a05}
@@ -6118,6 +6120,31 @@ document.addEventListener('DOMContentLoaded', function(){
   opacity:0!important;
   pointer-events:none!important;
 }
+
+/* Final header navigation polish */
+.nav-links .nav-btn-style:not(.track-nav-btn){
+  background:transparent!important;
+  border-color:transparent!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+.nav-links .nav-btn-style:not(.track-nav-btn):hover{
+  background:rgba(255,255,255,.08)!important;
+  color:#fff!important;
+  border-color:transparent!important;
+}
+.nav-links .track-nav-btn{
+  background:transparent!important;
+  border-color:transparent!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+.nav-links .track-nav-btn:hover{
+  background:rgba(255,255,255,.08)!important;
+  color:#fff!important;
+}
+.nav-links .track-nav-btn .btn-icon{display:none!important;}
+.nav-links .nav-btn-style .btn-text{color:#fff!important;}
 </style>
 <script id="HY-NO-PAYMENT-LOADER-JS">
 (function(){
