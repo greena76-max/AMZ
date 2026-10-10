@@ -3372,22 +3372,19 @@ button:active{transform:translateY(1px) scale(.99);}
                     <div class="slide">
                         <img src="banner1.jpg" alt="Banner 1" onerror="this.style.display='none';">
                         <div class="slide-caption">
-                            <h2>Mega Seasonal Sale</h2>
-                            <p>Up to 70% Off on Electronics & Gadgets</p>
+                            
                         </div>
                     </div>
                     <div class="slide">
                         <img src="banner2.jpg" alt="Banner 2" onerror="this.src='banner1.jpg';">
                         <div class="slide-caption">
-                            <h2>Smart Wearables Collection</h2>
-                            <p>Track your fitness in style with latest smartwatches</p>
+                            
                         </div>
                     </div>
                     <div class="slide">
                         <img src="banner3.jpg" alt="Banner 3" onerror="this.src='banner1.jpg';">
                         <div class="slide-caption">
-                            <h2>Immersive Sound Experience</h2>
-                            <p>Wireless Earbuds & Professional Microphones</p>
+                            
                         </div>
                     </div>
                 </div>
@@ -4662,13 +4659,18 @@ button:active{transform:translateY(1px) scale(.99);}
                     openPaymentModal(pendingOrderPayload);
                     btn.innerText = 'Continue to Payment';
                     btn.disabled = false;
-                }, 5000);
+                }, 4000);
             } else {
-                // Safe fallback if the transition element is ever unavailable.
-                closeCheckout();
-                openPaymentModal(pendingOrderPayload);
-                btn.innerText = 'Continue to Payment';
-                btn.disabled = false;
+                // Keep checkout in place and show a 4-second branded loading transition before payment.
+                const fallbackTransition = document.getElementById('hyPaymentTransition');
+                if (fallbackTransition) showHyTransition('Preparing Payment', 'Your order details are verified. Payment opens in a moment...');
+                window.setTimeout(() => {
+                    if (fallbackTransition) hideHyTransition();
+                    closeCheckout();
+                    openPaymentModal(pendingOrderPayload);
+                    btn.innerText = 'Continue to Payment';
+                    btn.disabled = false;
+                }, 4000);
             }
 
             return false;
@@ -6656,11 +6658,30 @@ document.addEventListener('DOMContentLoaded', function(){
   };
   // The last renderer in this file is the active one. Add actions only to cancelled cards.
   const originalRenderer=window.renderProfileOrders;
-  if(originalRenderer){window.renderProfileOrders=function(orders){originalRenderer(orders);const box=document.getElementById('profileOrders');if(!box)return;box.querySelectorAll('.profile-order-card').forEach(card=>{const status=card.querySelector('.profile-status');const idText=card.querySelector('.profile-order-top strong')?.textContent||'';const id=idText.replace(/^#/,'').trim();if(status&&/cancelled|canceled|rejected/i.test(status.textContent||'')&&id&&!card.querySelector('.profile-recovery-actions')){const actions=document.createElement('div');actions.className='profile-recovery-actions';actions.innerHTML='<button type="button" class="profile-recover-btn">↻ Recover Order</button><button type="button" class="profile-delete-btn">✕ Delete</button>';actions.querySelector('.profile-recover-btn').addEventListener('click',()=>window.recoverCancelledOrder(id));actions.querySelector('.profile-delete-btn').addEventListener('click',()=>window.deleteCancelledOrder(id));card.appendChild(actions);}});};}
+  if(originalRenderer){window.renderProfileOrders=function(orders){originalRenderer(orders);const box=document.getElementById('profileOrders');if(!box)return;box.querySelectorAll('.profile-order-card').forEach(card=>{const status=card.querySelector('.profile-status');const idText=card.querySelector('.profile-order-top strong')?.textContent||'';const id=idText.replace(/^#/,'').trim();if(status&&/cancelled|canceled|rejected/i.test(status.textContent||'')&&id&&!card.querySelector('.profile-recovery-actions')){const actions=document.createElement('div');actions.className='profile-recovery-actions';actions.innerHTML='<button type="button" class="profile-delete-btn">✕ Delete Order</button>';actions.querySelector('.profile-delete-btn').addEventListener('click',()=>window.deleteCancelledOrder(id));card.appendChild(actions);}});};}
   // Ensure initial login mode hides sign-up-only fields.
   document.addEventListener('DOMContentLoaded',()=>setSignupFields(false));
 })();
 </script>
+
+
+<style id="HY-USER-REQUESTED-FINAL-POLISH-20261010">
+/* Keep banner images clean: remove all promotional text overlays. */
+.promo-slider .slide-caption{display:none!important;visibility:hidden!important;}
+.promo-slider .slide{position:relative!important;}
+.promo-slider .slide>img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;}
+/* Center the store logo at the top, with navigation beneath it. */
+.header .header-top{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:14px!important;}
+.header .brand{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;margin:0 auto!important;}
+.header .brand-image{display:block!important;margin:0 auto!important;object-fit:contain!important;}
+.header .nav-links{width:100%!important;justify-content:center!important;}
+/* Only the Delete button remains on cancelled orders; make it clearly clickable. */
+.profile-recovery-actions{display:flex!important;gap:10px!important;margin-top:12px!important;}
+.profile-recover-btn{display:none!important;}
+.profile-delete-btn{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:40px!important;padding:10px 16px!important;border:0!important;border-radius:10px!important;background:linear-gradient(135deg,#ef4444,#c81e4b)!important;color:#fff!important;font-weight:800!important;box-shadow:0 5px 15px rgba(220,38,38,.2)!important;cursor:pointer!important;}
+.profile-delete-btn:active{transform:scale(.98)!important;}
+@media(max-width:700px){.header .header-top{gap:10px!important}.header .brand-image{max-height:54px!important;max-width:min(220px,75vw)!important}.header .nav-links{gap:5px!important;flex-wrap:wrap!important}}
+</style>
 
 </body>
 </html>
