@@ -3311,27 +3311,6 @@ button:active{transform:translateY(1px) scale(.99);}
 @media(max-width:480px){.hy-scan-frame{min-height:165px;width:min(100%,230px)}.hy-scan-frame img{max-width:210px;max-height:220px}.hy-scan-card{padding:12px!important;}}
 </style>
 
-
-<style id="HY-UNIVERSAL-BUTTON-VISIBILITY-FIX">
-/* Strong contrast fix: prevent white text on white/light controls throughout the store. */
-button, input[type="button"], input[type="submit"], input[type="reset"], [role="button"], .btn, .button {
-  color:#ffffff !important; background-color:#e83e97 !important; border:1px solid #c92d7c !important;
-  text-shadow:none !important; opacity:1 !important; visibility:visible !important;
-}
-button *, [role="button"] *, .btn *, .button * { color:inherit !important; }
-button:hover, input[type="button"]:hover, input[type="submit"]:hover, [role="button"]:hover, .btn:hover, .button:hover {
-  background-color:#c92d7c !important; color:#ffffff !important;
-}
-button:disabled, input[type="submit"]:disabled { background:#f3a7ce !important; color:#ffffff !important; opacity:.8 !important; }
-/* Keep text-entry fields readable, not pink-filled. */
-input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]), textarea, select { color:#333333; }
-/* Keep the light-pink header and ensure its navigation controls contrast strongly. */
-.header-main { background:#fce7f3 !important; color:#49313d !important; }
-.header-main .nav-btn-style, .header-main .track-nav-btn, .header-main .auth-link-btn, .header-main #authNavBtn, .header-main #logoutNavBtn {
- background:#db2777 !important; color:#fff !important; border:1px solid #be185d !important;
-}
-.header-main .nav-btn-style *, .header-main .track-nav-btn *, .header-main .auth-link-btn *, .header-main #authNavBtn *, .header-main #logoutNavBtn * { color:#fff !important; }
-</style>
 </head>
 <body>
 
@@ -6820,18 +6799,6 @@ document.addEventListener('DOMContentLoaded', function(){
         .user-greeting { color:#49313d !important; }
         .brand-logo { background:#FFF7FB !important; border:1px solid #F9A8D4; box-shadow:0 3px 12px rgba(219,39,119,.12); }
         @media (max-width:700px) { .header-main { background:#FCE7F3 !important; } }
-</style>
-
-<style id="HY-BUTTON-CONTRAST-FIX-20261010">
-/* Make header/navigation controls clearly visible against the light-pink header. */
-.header-main{background:#FCE7F3!important;color:#49313d!important;}
-.nav-btn-style,.track-nav-btn{background:#DB2777!important;color:#FFFFFF!important;border:1px solid #BE185D!important;box-shadow:0 2px 6px rgba(190,24,93,.16)!important;}
-.nav-btn-style .btn-icon,.nav-btn-style .btn-text,.track-nav-btn .btn-icon,.track-nav-btn .btn-text{color:#FFFFFF!important;}
-.nav-btn-style:hover,.track-nav-btn:hover{background:#BE185D!important;color:#FFFFFF!important;transform:translateY(-1px);}
-.auth-link-btn,#authNavBtn{background:#DB2777!important;color:#FFFFFF!important;border:1px solid #BE185D!important;box-shadow:0 2px 7px rgba(190,24,93,.2)!important;}
-.auth-link-btn:hover,#authNavBtn:hover{background:#BE185D!important;color:#FFFFFF!important;}
-/* Generic white/light buttons retain readable dark text and a visible border. */
-button:not(.nav-btn-style):not(.track-nav-btn):not(.auth-link-btn):not(.search-box button):not(.card-add-cart):not(.copy-order-id-btn):not(.order-success-close){border-color:#E5A2C4;}
 </style>
 </body>
 </html>
