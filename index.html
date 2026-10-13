@@ -72,7 +72,7 @@
         </button>
 
         <!-- Brand Logo -->
-        <a href="#" class="flex items-center gap-2 focus:outline-none">
+        <a href="#" onclick="switchPage('home')" class="flex items-center gap-2 focus:outline-none">
           <div class="w-9 h-9 md:w-10 md:h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center text-lg font-bold shadow-md shadow-brand-500/20">
             HY
           </div>
@@ -94,10 +94,10 @@
         <!-- Header Action Buttons -->
         <div class="flex items-center gap-2 sm:gap-3">
           
-          <a href="#track-section" class="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+          <button onclick="switchPage('track')" class="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
             <i class="fa-solid fa-truck-fast text-brand-600"></i>
             <span>Track Order</span>
-          </a>
+          </button>
 
           <button id="openAccountBtn" onclick="openAuthModal()" class="flex items-center gap-2 p-2 sm:px-3 sm:py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors text-xs font-semibold">
             <div class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-brand-600">
@@ -128,14 +128,15 @@
 
     </div>
 
+    <!-- Desktop Navigation Links Bar with Active Red Highlights -->
     <nav class="hidden md:block border-t border-slate-100 bg-slate-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ul class="flex items-center justify-center gap-8 py-2.5 text-sm font-medium text-slate-700">
-          <li><button onclick="filterCat('All')" class="font-semibold text-brand-600 hover:text-brand-700 py-1">All Products</button></li>
-          <li><button onclick="filterCat('Mugs')" class="hover:text-brand-600 py-1">Mugs & Drinkware</button></li>
-          <li><button onclick="filterCat('Decor')" class="hover:text-brand-600 py-1">Home Decor</button></li>
-          <li><button onclick="filterCat('Photo')" class="hover:text-brand-600 py-1">Photo Keepsakes</button></li>
-          <li><a href="#track-section" class="hover:text-brand-600 py-1 flex items-center gap-1.5 text-brand-600 font-semibold"><i class="fa-solid fa-location-dot"></i> Live Tracking</a></li>
+          <li><button onclick="filterCat('All', this)" class="cat-nav-btn font-semibold text-brand-600 py-1 transition-all">All Products</button></li>
+          <li><button onclick="filterCat('Mugs', this)" class="cat-nav-btn hover:text-brand-600 py-1 transition-all">Mugs & Drinkware</button></li>
+          <li><button onclick="filterCat('Decor', this)" class="cat-nav-btn hover:text-brand-600 py-1 transition-all">Home Decor</button></li>
+          <li><button onclick="filterCat('Photo', this)" class="cat-nav-btn hover:text-brand-600 py-1 transition-all">Photo Keepsakes</button></li>
+          <li><button onclick="switchPage('track')" class="hover:text-brand-600 py-1 flex items-center gap-1.5 text-brand-600 font-semibold"><i class="fa-solid fa-location-dot"></i> Live Tracking</button></li>
         </ul>
       </div>
     </nav>
@@ -155,80 +156,92 @@
     </div>
 
     <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
-      <button onclick="filterCat('All'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">All Products</button>
-      <button onclick="filterCat('Mugs'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Mugs & Drinkware</button>
-      <button onclick="filterCat('Decor'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Home Decor</button>
-      <button onclick="filterCat('Photo'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Photo Keepsakes</button>
+      <button onclick="switchPage('home'); filterCat('All', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">All Products</button>
+      <button onclick="switchPage('home'); filterCat('Mugs', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Mugs & Drinkware</button>
+      <button onclick="switchPage('home'); filterCat('Decor', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Home Decor</button>
+      <button onclick="switchPage('home'); filterCat('Photo', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Photo Keepsakes</button>
+      <button onclick="switchPage('track'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 font-bold"><i class="fa-solid fa-location-dot"></i> Live Tracking</button>
     </div>
   </aside>
 
-  <!-- Main Content Container -->
+  <!-- Main Content Container with Multi-Page Virtual Switching -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
 
-    <!-- Hero Promotional Banner -->
-    <section class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-slate-900 via-brand-900 to-brand-800 text-white shadow-xl">
-      <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&q=80&w=1200');"></div>
-      <div class="relative z-10 p-6 sm:p-10 md:p-12 max-w-2xl">
-        <span class="inline-block bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Custom Personalisation</span>
-        <h1 class="font-serif-title text-2xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3">
-          Turn Special Moments Into Lasting Gifts
-        </h1>
-        <p class="text-slate-200 text-xs sm:text-base mb-6 max-w-lg">
-          Add custom photos, romantic messages, and names to handcrafted gifts tailored just for your loved ones.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a href="#products-section" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-xs sm:text-sm flex items-center gap-2">
-            <span>Explore Products</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Professional Order Tracking System Section (Courier Company Style) -->
-    <section id="track-section" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 shadow-sm">
-      <div class="max-w-3xl mx-auto text-center">
-        <div class="inline-flex items-center justify-center w-12 h-12 bg-brand-50 text-brand-600 rounded-full mb-3 text-xl">
-          <i class="fa-solid fa-truck-fast"></i>
-        </div>
-        <h2 class="font-serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-1">Live Shipment Tracking</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your HY Order ID to track real-time delivery status.</p>
-
-        <div class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
-          <div class="relative flex-1">
-            <input type="text" id="orderIdInput" placeholder="E.g. HY-1024"
-                   class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 uppercase">
+    <!-- HOME PAGE SECTION -->
+    <div id="pageHome" class="space-y-8">
+      <!-- Hero Promotional Banner -->
+      <section class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-slate-900 via-brand-900 to-brand-800 text-white shadow-xl">
+        <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&q=80&w=1200');"></div>
+        <div class="relative z-10 p-6 sm:p-10 md:p-12 max-w-2xl">
+          <span class="inline-block bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Custom Personalisation</span>
+          <h1 class="font-serif-title text-2xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3">
+            Turn Special Moments Into Lasting Gifts
+          </h1>
+          <p class="text-slate-200 text-xs sm:text-base mb-6 max-w-lg">
+            Add custom photos, romantic messages, and names to handcrafted gifts tailored just for your loved ones.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="scrollToProducts()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-xs sm:text-sm flex items-center gap-2">
+              <span>Explore Products</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
-          <button onclick="trackOrder()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-md">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span>Track Order</span>
-          </button>
         </div>
+      </section>
 
-        <div id="trackResult" class="hidden mt-6 text-left border border-slate-200 rounded-2xl p-5 bg-slate-50 shadow-inner"></div>
-      </div>
-    </section>
-
-    <!-- Products Catalog Section -->
-    <section id="products-section" class="space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-        <div>
-          <h2 class="font-serif-title text-2xl font-bold text-slate-900">Trending Featured Products</h2>
-          <p class="text-xs sm:text-sm text-slate-500">Explore our latest collection of custom gifts.</p>
-        </div>
-      </div>
-
-      <!-- Products Grid -->
-      <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-        <!-- Progress Bar Loading Animation -->
-        <div class="col-span-full py-16 flex flex-col items-center justify-center">
-          <div class="w-full max-w-md bg-slate-200 h-4 rounded-full overflow-hidden p-0.5 border border-slate-300 mb-3 shadow-inner">
-            <div class="bg-brand-600 h-full rounded-full animate-progress"></div>
+      <!-- Products Catalog Section -->
+      <section id="products-section" class="space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+          <div>
+            <h2 class="font-serif-title text-2xl font-bold text-slate-900">Trending Featured Products</h2>
+            <p class="text-xs sm:text-sm text-slate-500">Explore our latest collection of custom gifts.</p>
           </div>
-          <p class="text-sm font-bold text-slate-700 animate-pulse">Loading products...</p>
         </div>
+
+        <!-- Products Grid -->
+        <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+          <div class="col-span-full py-16 flex flex-col items-center justify-center">
+            <div class="w-full max-w-md bg-slate-200 h-4 rounded-full overflow-hidden p-0.5 border border-slate-300 mb-3 shadow-inner">
+              <div class="bg-brand-600 h-full rounded-full animate-progress"></div>
+            </div>
+            <p class="text-sm font-bold text-slate-700 animate-pulse">Loading products...</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- TRACK ORDER PAGE SECTION (Standalone View) -->
+    <div id="pageTrack" class="hidden space-y-6">
+      <div class="mb-4">
+        <button onclick="switchPage('home')" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-xl transition-all">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Home Page</span>
+        </button>
       </div>
-    </section>
+
+      <section class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm max-w-3xl mx-auto">
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-14 h-14 bg-brand-50 text-brand-600 rounded-full mb-3 text-2xl">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <h2 class="font-serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-1">Live Shipment Tracking</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your HY Order ID to track real-time delivery status.</p>
+
+          <div class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+            <div class="relative flex-1">
+              <input type="text" id="orderIdInput" placeholder="E.g. HY-1024"
+                     class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 uppercase">
+            </div>
+            <button onclick="trackOrder()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-md">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Track Order</span>
+            </button>
+          </div>
+
+          <div id="trackResult" class="hidden mt-6 text-left border border-slate-200 rounded-2xl p-5 bg-slate-50 shadow-inner"></div>
+        </div>
+      </section>
+    </div>
 
   </main>
 
@@ -255,12 +268,12 @@
     </div>
   </div>
 
-  <!-- Auth Modal (Login / Signup) -->
+  <!-- Auth Modal (Login / Signup with Eye Toggle, Captcha & Google Sign-In) -->
   <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl">&times;</button>
       
-      <div class="text-center mb-5">
+      <div class="text-center mb-4">
         <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mx-auto mb-2">
           <i class="fa-regular fa-user"></i>
         </div>
@@ -271,8 +284,29 @@
       <div id="authFormFields" class="space-y-3 text-xs">
         <input type="text" id="authName" placeholder="Full Name (Required for Sign Up)" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none" style="display:none;">
         <input type="email" id="authEmail" placeholder="Email Address" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none">
-        <input type="password" id="authPassword" placeholder="Password" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none">
-        <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs">Login to Account</button>
+        
+        <!-- Password with Eye Toggle Icon -->
+        <div class="relative">
+          <input type="password" id="authPassword" placeholder="Password (Min 6 chars)" class="w-full px-3 py-2.5 pr-10 border border-slate-300 rounded-lg outline-none">
+          <button type="button" onclick="togglePasswordVisibility()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700">
+            <i id="eyeIcon" class="fa-regular fa-eye"></i>
+          </button>
+        </div>
+
+        <!-- Math Captcha Verification -->
+        <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-200 flex items-center justify-between">
+          <span id="captchaQuestion" class="font-bold text-slate-700">Solve: 3 + 4 = ?</span>
+          <input type="number" id="captchaAnswer" placeholder="Ans" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded text-center outline-none">
+        </div>
+
+        <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md">Login to Account</button>
+        
+        <!-- Google Sign In Button Option -->
+        <button onclick="handleGoogleSignIn()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-2.5 rounded-xl border border-slate-300 transition-all text-xs flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-brands fa-google text-red-500"></i>
+          <span>Sign in with Google</span>
+        </button>
+
         <p class="text-center mt-3 cursor-pointer text-brand-600 font-semibold" onclick="toggleAuthMode()" id="authSwitchText">Don't have an account? Create one</p>
       </div>
     </div>
@@ -311,6 +345,21 @@
     </div>
   </div>
 
+  <!-- Professional Logout Confirmation Modal -->
+  <div id="logoutModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
+      <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-2xl mx-auto">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </div>
+      <h3 class="font-serif-title font-bold text-lg text-slate-900">Sign Out Confirmation</h3>
+      <p class="text-xs text-slate-500">Are you sure you want to sign out from your account?</p>
+      <div class="flex gap-2 pt-2">
+        <button onclick="closeLogoutModal()" class="flex-1 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl text-xs transition-all">Cancel</button>
+        <button onclick="confirmSignOut()" class="flex-1 py-2.5 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl text-xs transition-all">Yes, Sign Out</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Professional Toast Message Notification Container -->
   <div id="customToast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs font-semibold px-5 py-3.5 rounded-xl shadow-2xl border border-slate-800 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
     <i id="toastIcon" class="fa-solid fa-circle-info text-brand-500 text-base"></i>
@@ -328,11 +377,44 @@
     let cart = [];
     let currentUser = JSON.parse(localStorage.getItem('hy_user')) || null;
     let isSignupMode = false;
+    let captchaNum1 = 3;
+    let captchaNum2 = 4;
 
     window.onload = function() {
       fetchProducts();
       updateUserUI();
+      generateCaptcha();
     };
+
+    function generateCaptcha() {
+      captchaNum1 = Math.floor(Math.random() * 8) + 1;
+      captchaNum2 = Math.floor(Math.random() * 8) + 1;
+      document.getElementById('captchaQuestion').innerText = `Solve: ${captchaNum1} + ${captchaNum2} = ?`;
+      document.getElementById('captchaAnswer').value = '';
+    }
+
+    // Page Switching (Home vs Track Order)
+    function switchPage(page) {
+      const homePage = document.getElementById('pageHome');
+      const trackPage = document.getElementById('pageTrack');
+
+      if (page === 'track') {
+        homePage.classList.add('hidden');
+        trackPage.classList.remove('hidden');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else {
+        trackPage.classList.add('hidden');
+        homePage.classList.remove('hidden');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      }
+    }
+
+    function scrollToProducts() {
+      switchPage('home');
+      setTimeout(() => {
+        document.getElementById('products-section').scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
 
     function showToast(msg, iconClass = 'fa-circle-info text-brand-500') {
       const toast = document.getElementById('customToast');
@@ -403,7 +485,19 @@
       }).join('');
     }
 
-    function filterCat(cat) {
+    // Category Filter with Active Red Highlights
+    function filterCat(cat, btnElement) {
+      switchPage('home');
+      
+      document.querySelectorAll('.cat-nav-btn').forEach(btn => {
+        btn.classList.remove('font-semibold', 'text-brand-600');
+        btn.classList.add('hover:text-brand-600');
+      });
+      if (btnElement) {
+        btnElement.classList.add('font-semibold', 'text-brand-600');
+        btnElement.classList.remove('hover:text-brand-600');
+      }
+
       if (cat === 'All') {
         displayProducts(allProducts);
       } else {
@@ -413,6 +507,7 @@
     }
 
     function filterProducts() {
+      switchPage('home');
       const q1 = document.getElementById('desktopSearchInput').value.toLowerCase();
       const q2 = document.getElementById('mobileSearchInput').value.toLowerCase();
       const query = q1 || q2;
@@ -457,19 +552,27 @@
 
     function openAuthModal() {
       if (currentUser) {
-        if (confirm('Would you like to sign out from ' + currentUser.email + '?')) {
-          localStorage.removeItem('hy_user');
-          currentUser = null;
-          updateUserUI();
-          showToast('Signed out successfully.', 'fa-circle-check text-emerald-400');
-        }
+        document.getElementById('logoutModal').classList.remove('hidden');
         return;
       }
+      generateCaptcha();
       document.getElementById('authModal').classList.remove('hidden');
     }
 
     function closeAuthModal() {
       document.getElementById('authModal').classList.add('hidden');
+    }
+
+    function closeLogoutModal() {
+      document.getElementById('logoutModal').classList.add('hidden');
+    }
+
+    function confirmSignOut() {
+      localStorage.removeItem('hy_user');
+      currentUser = null;
+      updateUserUI();
+      closeLogoutModal();
+      showToast('You have been successfully signed out.', 'fa-circle-check text-emerald-400');
     }
 
     function toggleAuthMode() {
@@ -478,15 +581,36 @@
       document.getElementById('authName').style.display = isSignupMode ? 'block' : 'none';
       document.getElementById('authSubmitBtn').innerText = isSignupMode ? 'Sign Up' : 'Login to Account';
       document.getElementById('authSwitchText').innerText = isSignupMode ? 'Already have an account? Login' : "Don't have an account? Create one";
+      generateCaptcha();
+    }
+
+    // Password Eye Visibility Toggle
+    function togglePasswordVisibility() {
+      const pwdInput = document.getElementById('authPassword');
+      const eyeIcon = document.getElementById('eyeIcon');
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        eyeIcon.className = 'fa-regular fa-eye-slash';
+      } else {
+        pwdInput.type = 'password';
+        eyeIcon.className = 'fa-regular fa-eye';
+      }
     }
 
     function submitAuth() {
       const email = document.getElementById('authEmail').value.trim();
       const password = document.getElementById('authPassword').value.trim();
       const name = document.getElementById('authName').value.trim();
+      const userCaptcha = parseInt(document.getElementById('captchaAnswer').value);
 
       if (!email || !password || (isSignupMode && !name)) {
         showToast('Please fill in all required fields.', 'fa-triangle-exclamation text-amber-400');
+        return;
+      }
+
+      if (userCaptcha !== (captchaNum1 + captchaNum2)) {
+        showToast('Incorrect Captcha answer! Please try again.', 'fa-triangle-exclamation text-brand-500');
+        generateCaptcha();
         return;
       }
 
@@ -505,9 +629,26 @@
           closeAuthModal();
         } else {
           showToast(data.message || 'Authentication failed.', 'fa-circle-xmark text-brand-500');
+          generateCaptcha();
         }
       })
-      .catch(err => showToast('Connection error. Please try again.', 'fa-wifi text-brand-500'));
+      .catch(err => {
+        showToast('Connection error. Please try again.', 'fa-wifi text-brand-500');
+        generateCaptcha();
+      });
+    }
+
+    function handleGoogleSignIn() {
+      let gEmail = prompt("Enter your Google Account Email:");
+      if (!gEmail) return;
+      let gName = prompt("Enter your Google Account Name:");
+      if (!gName) gName = "Google User";
+
+      currentUser = { email: gEmail, name: gName };
+      localStorage.setItem('hy_user', JSON.stringify(currentUser));
+      updateUserUI();
+      closeAuthModal();
+      showToast('Successfully signed in with Google!', 'fa-circle-check text-emerald-400');
     }
 
     function proceedCheckout() {
@@ -601,7 +742,6 @@
             let o = data.order;
             let statusLower = (o.status || '').toLowerCase();
             
-            // Determine courier progress bar percentage & active steps
             let widthPct = 25;
             let s1 = true, s2 = false, s3 = false, s4 = false;
 
