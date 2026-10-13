@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HY Store - Personalized Gifts & E-Commerce</title>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* CSS Styles */
+    :root {
+      --primary: #d9232d;
+      --primary-dark: #b01820;
+      --dark: #222222;
+      --light-bg: #f8f9fa;
+      --gray: #666666;
+      --border: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    /* Top Announcement Bar */
+    .promo-bar {
+      background-color: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* Header & Navigation */
+    header {
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 1000;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 5%;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 500px;
+      display: flex;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 2px solid var(--border);
+      border-right: none;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+    }
+
+    .search-box button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .cart-btn {
+      position: relative;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 0.75rem;
+    }
+
+    nav {
+      background: #fafafa;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      padding: 10px 0;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* Tracking Section */
+    .tracking-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 25px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .tracking-card h2 {
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .tracking-form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      max-width: 500px;
+      margin: 15px auto 0;
+    }
+
+    .tracking-form input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .track-result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px dashed var(--primary);
+      display: none;
+    }
+
+    /* Products Grid */
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      background: #fff;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+
+    .product-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 15px;
+    }
+
+    .product-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-weight: bold;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .add-to-cart {
+      width: 100%;
+      background: var(--dark);
+      color: white;
+      border: none;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .add-to-cart:hover {
+      background: var(--primary);
+    }
+
+    /* Cart Modal */
+    .cart-modal {
+      position: fixed;
+      top: 0;
+      right: -400px;
+      width: 380px;
+      height: 100%;
+      background: white;
+      box-shadow: -3px 0 10px rgba(0,0,0,0.2);
+      transition: right 0.3s ease;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-modal.active {
+      right: 0;
+    }
+
+    .cart-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cart-body {
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .cart-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .close-cart {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Promo Bar -->
+  <div class="promo-bar">
+    🎁 Save 25% on All Personalized Gifts! Code: HYSTORE25
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="main-header">
+      <a href="#" class="logo">HY STORE</a>
+      <div class="search-box">
+        <input type="text" placeholder="Search personalized mugs, pillows, gifts...">
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+      <div class="header-actions">
+        <button class="action-btn"><i class="fa-regular fa-user"></i> Sign In</button>
+        <button class="action-btn cart-btn" id="openCartBtn">
+          <i class="fa-solid fa-bag-shopping"></i> Cart
+          <span class="cart-badge" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#">Bestsellers</a></li>
+        <li><a href="#">Gifts for Her</a></li>
+        <li><a href="#">Gifts for Him</a></li>
+        <li><a href="#">Photo Gifts</a></li>
+        <li><a href="#">Occasions</a></li>
+        <li><a href="#track-section">Track Order</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    
+    <!-- Order Tracking Section -->
+    <section class="tracking-card" id="track-section">
+      <h2><i class="fa-solid fa-truck-fast"></i> Track Your Order</h2>
+      <p>Enter your Order ID below to get real-time delivery status updates.</p>
+      <div class="tracking-form">
+        <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g. HY-1002)">
+        <button class="btn-primary" onclick="trackOrder()">Track</button>
+      </div>
+      <div class="track-result" id="trackResult"></div>
+    </section>
+
+    <!-- Products Section -->
+    <section>
+      <h2 class="section-title">Trending Personalised Gifts</h2>
+      <div class="products-grid">
+        
+        <div class="product-card">
+          <img src="https://via.placeholder.com/250x220?text=Custom+Photo+Mug" class="product-img" alt="Mug">
+          <div class="product-info">
+            <div class="product-title">Personalized Name & Photo Mug</div>
+            <div class="product-price">$14.99</div>
+            <button class="add-to-cart" onclick="addToCart('Personalized Mug', 14.99)">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="https://via.placeholder.com/250x220?text=Custom+Photo+Block" class="product-img" alt="Photo Block">
+          <div class="product-info">
+            <div class="product-title">Charming Hearts Photo Glass Block</div>
+            <div class="product-price">$22.49</div>
+            <button class="add-to-cart" onclick="addToCart('Photo Glass Block', 22.49)">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="https://via.placeholder.com/250x220?text=Wooden+Heart+Sign" class="product-img" alt="Wood Sign">
+          <div class="product-info">
+            <div class="product-title">Custom Photo Wood Heart Sign</div>
+            <div class="product-price">$19.99</div>
+            <button class="add-to-cart" onclick="addToCart('Wood Heart Sign', 19.99)">Add to Cart</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <img src="https://via.placeholder.com/250x220?text=Custom+Teddy+Bear" class="product-img" alt="Teddy Bear">
+          <div class="product-info">
+            <div class="product-title">Photo Message Plush Teddy Bear</div>
+            <div class="product-price">$24.99</div>
+            <button class="add-to-cart" onclick="addToCart('Plush Teddy Bear', 24.99)">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- Sliding Cart Drawer -->
+  <div class="cart-modal" id="cartModal">
+    <div class="cart-header">
+      <h3>Your Shopping Bag</h3>
+      <button class="close-cart" id="closeCartBtn">&times;</button>
+    </div>
+    <div class="cart-body" id="cartItems">
+      <p style="text-align: center; color: #888;">Your cart is currently empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
+        <span>Total:</span>
+        <span id="cartTotal">$0.00</span>
+      </div>
+      <button class="btn-primary" style="width: 100%;">Proceed to Checkout</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 HY Store. All Rights Reserved. Inspired by Gifts.com</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Cart Functionality
+    let cart = [];
+    const cartModal = document.getElementById('cartModal');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+
+    openCartBtn.addEventListener('click', () => cartModal.classList.add('active'));
+    closeCartBtn.addEventListener('click', () => cartModal.classList.remove('active'));
+
+    function addToCart(title, price) {
+      cart.push({ title, price });
+      updateCartUI();
+      cartModal.classList.add('active');
+    }
+
+    function updateCartUI() {
+      document.getElementById('cartCount').innerText = cart.length;
+      const cartItems = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align: center; color: #888;">Your cart is empty.</p>';
+        cartTotal.innerText = '$0.00';
+        return;
+      }
+
+      let total = 0;
+      cartItems.innerHTML = cart.map(item => {
+        total += item.price;
+        return `
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
+            <span>${item.title}</span>
+            <b>$${item.price.toFixed(2)}</b>
+          </div>
+        `;
+      }).join('');
+
+      cartTotal.innerText = '$' + total.toFixed(2);
+    }
+
+    // Demo Order Tracking Function
+    function trackOrder() {
+      const orderId = document.getElementById('orderIdInput').value.trim();
+      const trackResult = document.getElementById('trackResult');
+
+      if (!orderId) {
+        alert('Please enter a valid Order ID.');
+        return;
+      }
+
+      trackResult.style.display = 'block';
+
+      // Sample mock logic
+      if (orderId.toUpperCase() === 'HY-1002') {
+        trackResult.innerHTML = `
+          <h4 style="color: green;"><i class="fa-solid fa-circle-check"></i> Order Found</h4>
+          <p><strong>Order ID:</strong> HY-1002</p>
+          <p><strong>Status:</strong> Dispatched (Out for Delivery)</p>
+          <p><strong>Estimated Delivery:</strong> Tomorrow by 5:00 PM</p>
+        `;
+      } else {
+        trackResult.innerHTML = `
+          <h4>Order Status: HY-1001</h4>
+          <p><strong>Status:</strong> Processing & Personalization in progress</p>
+          <p><strong>Estimated Delivery:</strong> Within 3-4 business days</p>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
