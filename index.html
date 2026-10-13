@@ -1,516 +1,912 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full bg-slate-50">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HY Store - Personalized Gifts & E-Commerce</title>
-  <!-- FontAwesome Icons -->
+  <title>HY Store | Personalised Gifts & Keepsakes</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fdf2f2',
+              100: '#fde8e8',
+              500: '#e02424',
+              600: '#d9232d',
+              700: '#b01820',
+              800: '#9b1c1c',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts (Inter & Playfair Display for Elegance) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* CSS Styles */
-    :root {
-      --primary: #d9232d;
-      --primary-dark: #b01820;
-      --dark: #222222;
-      --light-bg: #f8f9fa;
-      --gray: #666666;
-      --border: #e2e8f0;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
     body {
-      background-color: #ffffff;
-      color: var(--dark);
-      line-height: 1.6;
+      font-family: 'Inter', sans-serif;
+      -webkit-tap-highlight-color: transparent;
     }
-
-    /* Top Announcement Bar */
-    .promo-bar {
-      background-color: var(--primary);
-      color: #fff;
-      text-align: center;
-      padding: 8px 15px;
-      font-size: 0.9rem;
-      font-weight: 600;
+    .font-serif-title {
+      font-family: 'Playfair Display', serif;
     }
-
-    /* Header & Navigation */
-    header {
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: #fff;
-      z-index: 1000;
+    /* Custom Scrollbar for Drawer */
+    ::-webkit-scrollbar {
+      width: 5px;
     }
-
-    .main-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 5%;
-      gap: 20px;
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
     }
-
-    .logo {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--primary);
-      text-decoration: none;
-    }
-
-    .search-box {
-      flex: 1;
-      max-width: 500px;
-      display: flex;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px 15px;
-      border: 2px solid var(--border);
-      border-right: none;
-      border-radius: 4px 0 0 4px;
-      outline: none;
-    }
-
-    .search-box button {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .action-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--dark);
-      font-weight: 600;
-    }
-
-    .cart-btn {
-      position: relative;
-    }
-
-    .cart-badge {
-      position: absolute;
-      top: -8px;
-      right: -10px;
-      background: var(--primary);
-      color: white;
-      border-radius: 50%;
-      padding: 2px 6px;
-      font-size: 0.75rem;
-    }
-
-    nav {
-      background: #fafafa;
-      border-top: 1px solid var(--border);
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      justify-content: center;
-      padding: 10px 0;
-      gap: 30px;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--primary);
-    }
-
-    /* Container */
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-
-    /* Tracking Section */
-    .tracking-card {
-      background: var(--light-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 25px;
-      margin-bottom: 40px;
-      text-align: center;
-    }
-
-    .tracking-card h2 {
-      margin-bottom: 10px;
-      color: var(--dark);
-    }
-
-    .tracking-form {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      max-width: 500px;
-      margin: 15px auto 0;
-    }
-
-    .tracking-form input {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      outline: none;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-    }
-
-    .track-result {
-      margin-top: 20px;
-      padding: 15px;
-      background: #fff;
-      border-radius: 4px;
-      border: 1px dashed var(--primary);
-      display: none;
-    }
-
-    /* Products Grid */
-    .section-title {
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-      color: var(--dark);
-    }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 25px;
-    }
-
-    .product-card {
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      background: #fff;
-    }
-
-    .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    }
-
-    .product-img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-
-    .product-info {
-      padding: 15px;
-    }
-
-    .product-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .product-price {
-      font-weight: bold;
-      color: var(--primary);
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-    }
-
-    .add-to-cart {
-      width: 100%;
-      background: var(--dark);
-      color: white;
-      border: none;
-      padding: 8px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .add-to-cart:hover {
-      background: var(--primary);
-    }
-
-    /* Cart Modal */
-    .cart-modal {
-      position: fixed;
-      top: 0;
-      right: -400px;
-      width: 380px;
-      height: 100%;
-      background: white;
-      box-shadow: -3px 0 10px rgba(0,0,0,0.2);
-      transition: right 0.3s ease;
-      z-index: 2000;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .cart-modal.active {
-      right: 0;
-    }
-
-    .cart-header {
-      padding: 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .cart-body {
-      padding: 20px;
-      flex: 1;
-      overflow-y: auto;
-    }
-
-    .cart-footer {
-      padding: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .close-cart {
-      background: none;
-      border: none;
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-      margin-top: 50px;
+    ::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
     }
   </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen text-slate-800 antialiased pb-16 md:pb-0">
 
-  <!-- Promo Bar -->
-  <div class="promo-bar">
-    🎁 Save 25% on All Personalized Gifts! Code: HYSTORE25
+  <!-- Top Promo Banner -->
+  <div class="bg-brand-600 text-white text-xs md:text-sm py-2 px-4 text-center font-medium shadow-sm flex justify-between items-center max-w-full overflow-hidden">
+    <div class="mx-auto flex items-center gap-2 truncate">
+      <span class="bg-white text-brand-700 font-bold px-2 py-0.5 rounded text-[10px] uppercase tracking-wide">Limited Time</span>
+      <span class="truncate">🎁 Save 25% on All Personalised Gifts! Use Code: <strong class="underline tracking-wider">HYSTORE25</strong></span>
+    </div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <div class="main-header">
-      <a href="#" class="logo">HY STORE</a>
-      <div class="search-box">
-        <input type="text" placeholder="Search personalized mugs, pillows, gifts...">
-        <button><i class="fa-solid fa-magnifying-glass"></i></button>
-      </div>
-      <div class="header-actions">
-        <button class="action-btn"><i class="fa-regular fa-user"></i> Sign In</button>
-        <button class="action-btn cart-btn" id="openCartBtn">
-          <i class="fa-solid fa-bag-shopping"></i> Cart
-          <span class="cart-badge" id="cartCount">0</span>
+  <!-- Main Header -->
+  <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20 gap-2 md:gap-4">
+        
+        <!-- Mobile Hamburger Button -->
+        <button id="mobileMenuBtn" aria-label="Open Mobile Menu" class="md:hidden p-2.5 rounded-lg text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors focus:outline-none">
+          <i class="fa-solid fa-bars text-xl"></i>
         </button>
+
+        <!-- Brand Logo -->
+        <a href="#" class="flex items-center gap-2 focus:outline-none">
+          <div class="w-9 h-9 md:w-10 md:h-10 bg-brand-600 text-white rounded-xl flex items-center justify-center text-lg font-bold shadow-md shadow-brand-500/20">
+            HY
+          </div>
+          <div class="flex flex-col">
+            <span class="font-serif-title font-extrabold text-xl md:text-2xl text-slate-900 leading-none tracking-tight">HY STORE</span>
+            <span class="text-[10px] text-brand-600 font-semibold tracking-widest uppercase">Gifts & Keepsakes</span>
+          </div>
+        </a>
+
+        <!-- Desktop Search Bar -->
+        <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+          <input type="text" id="desktopSearchInput" placeholder="Search mugs, photo blocks, keychains, teddy bears..." 
+                 class="w-full pl-4 pr-10 py-2.5 bg-slate-100 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition-all">
+          <button id="desktopSearchBtn" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center hover:bg-brand-700 transition-colors">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Header Action Buttons -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <!-- Track Order Quick Button -->
+          <a href="#track-section" class="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+            <i class="fa-solid fa-truck-fast text-brand-600"></i>
+            <span>Track Order</span>
+          </a>
+
+          <!-- Account Sign In Button -->
+          <button id="openAccountBtn" class="flex items-center gap-2 p-2 sm:px-3 sm:py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors text-xs font-semibold">
+            <i class="fa-regular fa-user text-lg sm:text-base"></i>
+            <span class="hidden sm:inline">Sign In</span>
+          </button>
+
+          <!-- Shopping Cart Button -->
+          <button id="openCartBtn" class="relative p-2 sm:px-3 sm:py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 rounded-xl flex items-center gap-2 transition-all font-semibold text-xs border border-brand-200">
+            <div class="relative">
+              <i class="fa-solid fa-bag-shopping text-lg"></i>
+              <span id="cartBadge" class="absolute -top-2 -right-2 bg-brand-600 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-sm">0</span>
+            </div>
+            <span class="hidden sm:inline font-bold">Cart</span>
+          </button>
+
+        </div>
       </div>
+
+      <!-- Mobile Search Bar (Visible on mobile screens) -->
+      <div class="pb-3 md:hidden">
+        <div class="relative">
+          <input type="text" id="mobileSearchInput" placeholder="Search gifts for him, her, kids..." 
+                 class="w-full pl-10 pr-4 py-2 bg-slate-100 border border-slate-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition-all">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        </div>
+      </div>
+
     </div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#">Bestsellers</a></li>
-        <li><a href="#">Gifts for Her</a></li>
-        <li><a href="#">Gifts for Him</a></li>
-        <li><a href="#">Photo Gifts</a></li>
-        <li><a href="#">Occasions</a></li>
-        <li><a href="#track-section">Track Order</a></li>
-      </ul>
+
+    <!-- Desktop Navigation Links Bar -->
+    <nav class="hidden md:block border-t border-slate-100 bg-slate-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <ul class="flex items-center justify-center gap-8 py-2.5 text-sm font-medium text-slate-700">
+          <li><button onclick="filterCategory('all')" class="nav-cat-btn font-semibold text-brand-600 hover:text-brand-700 py-1 border-b-2 border-brand-600">All Products</button></li>
+          <li><button onclick="filterCategory('her')" class="nav-cat-btn hover:text-brand-600 py-1 border-b-2 border-transparent transition-all">Gifts for Her</button></li>
+          <li><button onclick="filterCategory('him')" class="nav-cat-btn hover:text-brand-600 py-1 border-b-2 border-transparent transition-all">Gifts for Him</button></li>
+          <li><button onclick="filterCategory('photo')" class="nav-cat-btn hover:text-brand-600 py-1 border-b-2 border-transparent transition-all">Photo Keepsakes</button></li>
+          <li><button onclick="filterCategory('mugs')" class="nav-cat-btn hover:text-brand-600 py-1 border-b-2 border-transparent transition-all">Mugs & Drinkware</button></li>
+          <li><a href="#track-section" class="hover:text-brand-600 py-1 flex items-center gap-1.5 text-brand-600 font-semibold"><i class="fa-solid fa-location-dot"></i> Live Tracking</a></li>
+        </ul>
+      </div>
     </nav>
   </header>
 
-  <div class="container">
+  <!-- Mobile Side Navigation Drawer Overlay & Content -->
+  <div id="mobileDrawerBackdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden transition-opacity"></div>
+  <aside id="mobileDrawer" class="fixed top-0 left-0 bottom-0 w-4/5 max-w-xs bg-white z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
+    <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-brand-600 text-white rounded-lg flex items-center justify-center font-bold text-sm">HY</div>
+        <span class="font-serif-title font-bold text-slate-900 text-lg">HY Store Menu</span>
+      </div>
+      <button id="closeMobileDrawerBtn" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+      <div class="px-3 pb-2 text-xs font-bold text-slate-400 uppercase tracking-wider">Categories</div>
+      <button onclick="filterCategory('all'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition-colors">
+        <i class="fa-solid fa-grip text-brand-500 w-5"></i> All Products
+      </button>
+      <button onclick="filterCategory('her'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition-colors">
+        <i class="fa-solid fa-person-dress text-pink-500 w-5"></i> Gifts for Her
+      </button>
+      <button onclick="filterCategory('him'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition-colors">
+        <i class="fa-solid fa-person text-blue-500 w-5"></i> Gifts for Him
+      </button>
+      <button onclick="filterCategory('photo'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition-colors">
+        <i class="fa-solid fa-camera text-emerald-500 w-5"></i> Photo Keepsakes
+      </button>
+      <button onclick="filterCategory('mugs'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition-colors">
+        <i class="fa-solid fa-mug-hot text-amber-500 w-5"></i> Mugs & Drinkware
+      </button>
+
+      <div class="pt-4 border-t border-slate-100 my-2"></div>
+      <div class="px-3 pb-2 text-xs font-bold text-slate-400 uppercase tracking-wider">Quick Actions</div>
+      <a href="#track-section" onclick="closeMobileMenu();" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+        <i class="fa-solid fa-truck-fast text-brand-600 w-5"></i> Track Your Order
+      </a>
+      <button onclick="openAccountModal(); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-slate-100 transition-colors">
+        <i class="fa-regular fa-user text-slate-600 w-5"></i> Customer Account
+      </button>
+    </div>
+
+    <div class="p-4 border-t border-slate-100 bg-slate-50 text-xs text-slate-500 text-center">
+      Need help? <a href="https://wa.me/923001234567" target="_blank" class="text-brand-600 font-semibold underline">Contact Support</a>
+    </div>
+  </aside>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+
+    <!-- Hero Promotional Banner Carousel/Card -->
+    <section class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-slate-900 via-brand-900 to-brand-800 text-white shadow-xl">
+      <div class="absolute inset-0 bg-cover bg-center opacity-20" style="background-image: url('https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&q=80&w=1200');"></div>
+      <div class="relative z-10 p-6 sm:p-10 md:p-12 max-w-2xl">
+        <span class="inline-block bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">Custom Personalisation</span>
+        <h1 class="font-serif-title text-2xl sm:text-4xl md:text-5xl font-bold leading-tight mb-3">
+          Turn Special Moments Into Lasting Gifts
+        </h1>
+        <p class="text-slate-200 text-xs sm:text-base mb-6 max-w-lg">
+          Add custom photos, romantic messages, and names to handcrafted mugs, photo glass blocks, and plush keepsakes.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href="#products-section" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg hover:shadow-brand-600/30 transition-all text-xs sm:text-sm flex items-center gap-2">
+            <span>Explore Custom Gifts</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="#track-section" class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-semibold px-5 py-3 rounded-xl transition-all text-xs sm:text-sm border border-white/20">
+            Track Existing Order
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Order Tracking System Section -->
+    <section id="track-section" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 shadow-sm">
+      <div class="max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center justify-center w-12 h-12 bg-brand-50 text-brand-600 rounded-full mb-3 text-xl">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <h2 class="font-serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-1">Live Order Tracking System</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your Order Reference ID (e.g., <code class="bg-slate-100 px-1.5 py-0.5 rounded text-brand-600 font-mono font-bold">HY-1002</code> or <code class="bg-slate-100 px-1.5 py-0.5 rounded text-brand-600 font-mono font-bold">HY-1001</code>) to track your delivery status in real-time.</p>
+
+        <form id="trackingForm" onsubmit="handleTrackOrder(event)" class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
+          <div class="relative flex-1">
+            <input type="text" id="orderIdInput" placeholder="Enter Order ID (HY-1002)" required
+                   class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition-all uppercase placeholder:normal-case">
+          </div>
+          <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-md shadow-brand-600/20 active:scale-95">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Track Status</span>
+          </button>
+        </form>
+
+        <!-- Tracking Results Card -->
+        <div id="trackingResultBox" class="hidden mt-6 text-left border border-slate-200 rounded-2xl p-5 bg-slate-50 shadow-inner">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-2">
+            <div>
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tracking Reference</span>
+              <h3 id="resOrderId" class="text-lg font-extrabold text-slate-800">HY-1002</h3>
+            </div>
+            <div id="resBadge" class="self-start sm:self-auto px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span id="resStatusText">Out for Delivery</span>
+            </div>
+          </div>
+
+          <!-- Multi-step Visual Progress Bar -->
+          <div class="py-6">
+            <div class="relative flex items-center justify-between max-w-md mx-auto">
+              <!-- Connecting Line -->
+              <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 -translate-y-1/2 -z-0"></div>
+              <div id="progressLine" class="absolute top-1/2 left-0 h-1 bg-brand-600 -translate-y-1/2 -z-0 transition-all duration-500" style="width: 75%;"></div>
+
+              <!-- Steps -->
+              <div class="step-item text-center z-10">
+                <div id="step1" class="w-8 h-8 mx-auto rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shadow">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="text-[10px] sm:text-xs font-semibold text-slate-700 mt-1 block">Placed</span>
+              </div>
+              <div class="step-item text-center z-10">
+                <div id="step2" class="w-8 h-8 mx-auto rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shadow">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+                <span class="text-[10px] sm:text-xs font-semibold text-slate-700 mt-1 block">Printing</span>
+              </div>
+              <div class="step-item text-center z-10">
+                <div id="step3" class="w-8 h-8 mx-auto rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shadow">
+                  <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <span class="text-[10px] sm:text-xs font-semibold text-slate-700 mt-1 block">Dispatched</span>
+              </div>
+              <div class="step-item text-center z-10">
+                <div id="step4" class="w-8 h-8 mx-auto rounded-full bg-slate-200 text-slate-500 text-xs font-bold flex items-center justify-center">
+                  <i class="fa-solid fa-house-chimney"></i>
+                </div>
+                <span class="text-[10px] sm:text-xs font-medium text-slate-400 mt-1 block">Delivered</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Details Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-slate-200 text-xs sm:text-sm">
+            <div class="bg-white p-3 rounded-xl border border-slate-100">
+              <span class="text-slate-400 block text-[11px]">Customer & Destination:</span>
+              <strong id="resCustomerName" class="text-slate-800">Muhammad Ali - Lahore, PK</strong>
+            </div>
+            <div class="bg-white p-3 rounded-xl border border-slate-100">
+              <span class="text-slate-400 block text-[11px]">Estimated Delivery:</span>
+              <strong id="resEstDate" class="text-brand-600">Expected Today by 6:00 PM</strong>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Products Catalog Section -->
+    <section id="products-section" class="space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+        <div>
+          <h2 class="font-serif-title text-2xl font-bold text-slate-900">Personalised Keepsakes</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Select a product to add custom photos and special text messages.</p>
+        </div>
+
+        <!-- Filter Chips for Mobile/Desktop -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+          <button onclick="filterCategory('all')" class="cat-chip active px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-600 text-white whitespace-nowrap shadow-sm transition-all">All</button>
+          <button onclick="filterCategory('her')" class="cat-chip px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition-all">For Her</button>
+          <button onclick="filterCategory('him')" class="cat-chip px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition-all">For Him</button>
+          <button onclick="filterCategory('photo')" class="cat-chip px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition-all">Photo Keepsakes</button>
+          <button onclick="filterCategory('mugs')" class="cat-chip px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 whitespace-nowrap transition-all">Mugs</button>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+        <!-- Products generated dynamically via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Mobile Fixed Bottom Action Bar -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-20 px-4 py-2 flex justify-around items-center shadow-lg">
+    <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-slate-600 hover:text-brand-600 focus:outline-none">
+      <i class="fa-solid fa-house text-lg"></i>
+      <span class="text-[10px] font-semibold mt-0.5">Home</span>
+    </button>
+    <a href="#products-section" class="flex flex-col items-center text-slate-600 hover:text-brand-600">
+      <i class="fa-solid fa-gift text-lg"></i>
+      <span class="text-[10px] font-semibold mt-0.5">Gifts</span>
+    </a>
+    <a href="#track-section" class="flex flex-col items-center text-slate-600 hover:text-brand-600">
+      <i class="fa-solid fa-truck-fast text-lg"></i>
+      <span class="text-[10px] font-semibold mt-0.5">Track</span>
+    </a>
+    <button id="mobileCartTrigger" class="flex flex-col items-center text-brand-600 relative">
+      <div class="relative">
+        <i class="fa-solid fa-bag-shopping text-lg"></i>
+        <span id="mobileCartBadge" class="absolute -top-1 -right-2 bg-brand-600 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">0</span>
+      </div>
+      <span class="text-[10px] font-bold mt-0.5">Cart</span>
+    </button>
+  </div>
+
+  <!-- Cart Drawer Overlay & Content -->
+  <div id="cartDrawerBackdrop" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden transition-opacity"></div>
+  <aside id="cartDrawer" class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     
-    <!-- Order Tracking Section -->
-    <section class="tracking-card" id="track-section">
-      <h2><i class="fa-solid fa-truck-fast"></i> Track Your Order</h2>
-      <p>Enter your Order ID below to get real-time delivery status updates.</p>
-      <div class="tracking-form">
-        <input type="text" id="orderIdInput" placeholder="Enter Order ID (e.g. HY-1002)">
-        <button class="btn-primary" onclick="trackOrder()">Track</button>
+    <!-- Cart Header -->
+    <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+      <div class="flex items-center gap-2">
+        <i class="fa-solid fa-bag-shopping text-brand-600 text-lg"></i>
+        <h3 class="font-serif-title font-bold text-slate-900 text-lg">Your Gift Bag</h3>
       </div>
-      <div class="track-result" id="trackResult"></div>
-    </section>
+      <button id="closeCartBtn" class="p-2 text-slate-400 hover:text-slate-700 rounded-lg">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+    </div>
 
-    <!-- Products Section -->
-    <section>
-      <h2 class="section-title">Trending Personalised Gifts</h2>
-      <div class="products-grid">
+    <!-- Cart Items Container -->
+    <div id="cartItemsList" class="flex-1 overflow-y-auto p-4 space-y-4">
+      <!-- Dynamic cart items will render here -->
+    </div>
+
+    <!-- Cart Footer / Checkout Form -->
+    <div id="cartFooter" class="p-4 border-t border-slate-200 bg-slate-50 space-y-3">
+      <div class="space-y-1.5 text-xs text-slate-600">
+        <div class="flex justify-between">
+          <span>Subtotal:</span>
+          <span id="cartSubtotal" class="font-semibold text-slate-800">$0.00</span>
+        </div>
+        <div class="flex justify-between text-emerald-600 font-semibold">
+          <span>Promo Discount (25% OFF):</span>
+          <span id="cartDiscount">-$0.00</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Standard Delivery:</span>
+          <span class="font-semibold text-slate-800">FREE</span>
+        </div>
+        <div class="flex justify-between text-sm font-extrabold text-slate-900 pt-2 border-t border-slate-200">
+          <span>Estimated Total:</span>
+          <span id="cartGrandTotal" class="text-brand-600 text-base">$0.00</span>
+        </div>
+      </div>
+
+      <!-- Quick Checkout Options -->
+      <button onclick="showCheckoutFields()" id="checkoutStepBtn" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all shadow-md shadow-brand-600/20 text-sm flex items-center justify-center gap-2">
+        <span>Proceed to Checkout</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <!-- Checkout Input Fields (Hidden by default) -->
+      <div id="checkoutFormBox" class="hidden space-y-3 pt-3 border-t border-slate-200">
+        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Delivery Information</h4>
+        <input type="text" id="custName" placeholder="Full Name" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-1 focus:ring-brand-500 outline-none">
+        <input type="tel" id="custPhone" placeholder="Mobile / WhatsApp Number" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-1 focus:ring-brand-500 outline-none">
+        <textarea id="custAddress" placeholder="Delivery Address" rows="2" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs focus:ring-1 focus:ring-brand-500 outline-none"></textarea>
         
-        <div class="product-card">
-          <img src="https://via.placeholder.com/250x220?text=Custom+Photo+Mug" class="product-img" alt="Mug">
-          <div class="product-info">
-            <div class="product-title">Personalized Name & Photo Mug</div>
-            <div class="product-price">$14.99</div>
-            <button class="add-to-cart" onclick="addToCart('Personalized Mug', 14.99)">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <img src="https://via.placeholder.com/250x220?text=Custom+Photo+Block" class="product-img" alt="Photo Block">
-          <div class="product-info">
-            <div class="product-title">Charming Hearts Photo Glass Block</div>
-            <div class="product-price">$22.49</div>
-            <button class="add-to-cart" onclick="addToCart('Photo Glass Block', 22.49)">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <img src="https://via.placeholder.com/250x220?text=Wooden+Heart+Sign" class="product-img" alt="Wood Sign">
-          <div class="product-info">
-            <div class="product-title">Custom Photo Wood Heart Sign</div>
-            <div class="product-price">$19.99</div>
-            <button class="add-to-cart" onclick="addToCart('Wood Heart Sign', 19.99)">Add to Cart</button>
-          </div>
-        </div>
-
-        <div class="product-card">
-          <img src="https://via.placeholder.com/250x220?text=Custom+Teddy+Bear" class="product-img" alt="Teddy Bear">
-          <div class="product-info">
-            <div class="product-title">Photo Message Plush Teddy Bear</div>
-            <div class="product-price">$24.99</div>
-            <button class="add-to-cart" onclick="addToCart('Plush Teddy Bear', 24.99)">Add to Cart</button>
-          </div>
-        </div>
-
+        <button onclick="placeOrderWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition-all shadow-md text-xs flex items-center justify-center gap-2">
+          <i class="fa-brands fa-whatsapp text-base"></i>
+          <span>Confirm & Order via WhatsApp</span>
+        </button>
       </div>
-    </section>
-  </div>
 
-  <!-- Sliding Cart Drawer -->
-  <div class="cart-modal" id="cartModal">
-    <div class="cart-header">
-      <h3>Your Shopping Bag</h3>
-      <button class="close-cart" id="closeCartBtn">&times;</button>
     </div>
-    <div class="cart-body" id="cartItems">
-      <p style="text-align: center; color: #888;">Your cart is currently empty.</p>
-    </div>
-    <div class="cart-footer">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold;">
-        <span>Total:</span>
-        <span id="cartTotal">$0.00</span>
+  </aside>
+
+  <!-- Product Customization / Personalize Modal -->
+  <div id="customModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+      <div class="p-4 bg-brand-600 text-white flex justify-between items-center">
+        <h3 class="font-serif-title font-bold text-base sm:text-lg flex items-center gap-2">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Personalise Your Gift
+        </h3>
+        <button onclick="closeCustomModal()" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
       </div>
-      <button class="btn-primary" style="width: 100%;">Proceed to Checkout</button>
+
+      <div class="p-5 overflow-y-auto space-y-4">
+        <!-- Preview Box -->
+        <div class="relative bg-slate-100 rounded-xl p-4 text-center border border-slate-200 flex flex-col items-center">
+          <img id="modalProductImg" src="" alt="Product Preview" class="w-36 h-36 object-cover rounded-lg shadow-md mb-2">
+          <span id="modalProductTitle" class="font-bold text-slate-800 text-sm"></span>
+          <span id="modalProductPrice" class="text-brand-600 font-extrabold text-sm"></span>
+
+          <!-- Real-time Text Overlay Preview -->
+          <div id="liveTextPreview" class="mt-3 px-3 py-1.5 bg-white/90 border border-brand-200 rounded-lg text-brand-700 font-semibold text-xs shadow-sm max-w-full truncate">
+            "Your Custom Message Here"
+          </div>
+        </div>
+
+        <!-- Inputs -->
+        <div class="space-y-3 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Enter Name or Personalised Text:</label>
+            <input type="text" id="customTextInput" oninput="updateLiveTextPreview(this.value)" placeholder="e.g. Happy Anniversary Sarah!" 
+                   class="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Upload Photo (Optional Preview):</label>
+            <input type="file" id="customPhotoInput" accept="image/*" onchange="handlePhotoUpload(event)"
+                   class="w-full text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100">
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-200 bg-slate-50 flex gap-3">
+        <button onclick="closeCustomModal()" class="flex-1 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-xl font-bold text-xs transition-colors">Cancel</button>
+        <button onclick="confirmAddToCart()" class="flex-1 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold text-xs shadow-md transition-colors">Add To Cart</button>
+      </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2026 HY Store. All Rights Reserved. Inspired by Gifts.com</p>
-  </footer>
+  <!-- Sign In / Account Modal -->
+  <div id="accountModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
+      <button onclick="closeAccountModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+      
+      <div class="text-center mb-5">
+        <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mx-auto mb-2">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <h3 class="font-serif-title font-bold text-xl text-slate-900">Welcome Back</h3>
+        <p class="text-xs text-slate-500">Sign in to view order history and saved items.</p>
+      </div>
 
-  <!-- JavaScript -->
+      <form onsubmit="handleSignIn(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Email Address</label>
+          <input type="email" placeholder="you@example.com" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Password</label>
+          <input type="password" placeholder="••••••••" required class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
+        </div>
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs">
+          Sign In
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="fixed bottom-20 md:bottom-6 right-4 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-xl border border-slate-800 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMsg">Item added to cart!</span>
+  </div>
+
   <script>
-    // Cart Functionality
+    /* ==========================================
+       SAMPLE PRODUCTS DATA CATALOG
+    ========================================== */
+    const PRODUCTS = [
+      {
+        id: 1,
+        title: "Personalised Name & Photo Ceramic Mug",
+        category: "mugs",
+        price: 14.99,
+        originalPrice: 19.99,
+        rating: 4.9,
+        reviews: 128,
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=500"
+      },
+      {
+        id: 2,
+        title: "Romantic Glass Heart Photo Block",
+        category: "photo",
+        price: 24.49,
+        originalPrice: 32.99,
+        rating: 4.8,
+        reviews: 95,
+        image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=500"
+      },
+      {
+        id: 3,
+        title: "Custom Wooden Engraved Keepsake Box",
+        category: "him",
+        price: 29.99,
+        originalPrice: 39.99,
+        rating: 5.0,
+        reviews: 64,
+        image: "https://images.unsplash.com/photo-1549465220-1a8b9238cd34?auto=format&fit=crop&q=80&w=500"
+      },
+      {
+        id: 4,
+        title: "Personalised Photo Message Plush Teddy Bear",
+        category: "her",
+        price: 22.99,
+        originalPrice: 28.99,
+        rating: 4.7,
+        reviews: 110,
+        image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?auto=format&fit=crop&q=80&w=500"
+      },
+      {
+        id: 5,
+        title: "Custom Photo Canvas Wall Frame",
+        category: "photo",
+        price: 34.99,
+        originalPrice: 45.00,
+        rating: 4.9,
+        reviews: 210,
+        image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&q=80&w=500"
+      },
+      {
+        id: 6,
+        title: "Customised Stainless Steel Travel Tumbler",
+        category: "mugs",
+        price: 18.99,
+        originalPrice: 24.99,
+        rating: 4.8,
+        reviews: 82,
+        image: "https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&q=80&w=500"
+      }
+    ];
+
+    /* MOCK TRACKING DATABASE */
+    const MOCK_ORDERS = {
+      "HY-1002": {
+        customer: "Muhammad Ali - Lahore, PK",
+        status: "Out for Delivery",
+        step: 3,
+        estDate: "Expected Today by 6:00 PM",
+        badgeColor: "bg-emerald-100 text-emerald-800"
+      },
+      "HY-1001": {
+        customer: "Fatima Khan - Karachi, PK",
+        status: "Personalisation & Printing In Progress",
+        step: 2,
+        estDate: "Expected in 2 Days",
+        badgeColor: "bg-amber-100 text-amber-800"
+      }
+    };
+
+    // State Variables
     let cart = [];
-    const cartModal = document.getElementById('cartModal');
-    const openCartBtn = document.getElementById('openCartBtn');
-    const closeCartBtn = document.getElementById('closeCartBtn');
+    let selectedProductForCustom = null;
 
-    openCartBtn.addEventListener('click', () => cartModal.classList.add('active'));
-    closeCartBtn.addEventListener('click', () => cartModal.classList.remove('active'));
+    // Render Products Grid
+    function renderProducts(itemsToRender) {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
 
-    function addToCart(title, price) {
-      cart.push({ title, price });
-      updateCartUI();
-      cartModal.classList.add('active');
+      if (itemsToRender.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full text-center py-12 text-slate-400">
+            <i class="fa-solid fa-gift text-4xl mb-2"></i>
+            <p class="text-sm font-semibold">No personalized gifts found matching your search.</p>
+          </div>
+        `;
+        return;
+      }
+
+      itemsToRender.forEach(product => {
+        const card = document.createElement('div');
+        card.className = "bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between group";
+        
+        card.innerHTML = `
+          <div>
+            <div class="relative overflow-hidden aspect-square bg-slate-100">
+              <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+              <span class="absolute top-2 left-2 bg-brand-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md shadow">
+                25% OFF
+              </span>
+            </div>
+            <div class="p-3 sm:p-4">
+              <div class="flex items-center gap-1 text-amber-400 text-[11px] font-semibold mb-1">
+                <i class="fa-solid fa-star"></i>
+                <span class="text-slate-700">${product.rating}</span>
+                <span class="text-slate-400">(${product.reviews})</span>
+              </div>
+              <h3 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-2 leading-snug">${product.title}</h3>
+            </div>
+          </div>
+
+          <div class="p-3 sm:p-4 pt-0">
+            <div class="flex items-baseline gap-2 mb-3">
+              <span class="text-brand-600 font-extrabold text-sm sm:text-base">$${product.price.toFixed(2)}</span>
+              <span class="text-slate-400 line-through text-xs">$${product.originalPrice.toFixed(2)}</span>
+            </div>
+            <button onclick="openCustomModal(${product.id})" class="w-full bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 active:scale-95">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Personalise</span>
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
     }
+
+    // Search & Filter Logic
+    function filterCategory(category) {
+      // Update chip styling
+      document.querySelectorAll('.cat-chip').forEach(btn => {
+        btn.classList.remove('bg-brand-600', 'text-white');
+        btn.classList.add('bg-slate-100', 'text-slate-700');
+      });
+
+      if (category === 'all') {
+        renderProducts(PRODUCTS);
+      } else {
+        const filtered = PRODUCTS.filter(p => p.category === category);
+        renderProducts(filtered);
+      }
+    }
+
+    // Live Dynamic Search Listener
+    function setupSearchListeners() {
+      const handleSearch = (query) => {
+        const q = query.toLowerCase().trim();
+        const results = PRODUCTS.filter(p => p.title.toLowerCase().includes(q));
+        renderProducts(results);
+      };
+
+      document.getElementById('desktopSearchInput').addEventListener('input', (e) => handleSearch(e.target.value));
+      document.getElementById('mobileSearchInput').addEventListener('input', (e) => handleSearch(e.target.value));
+    }
+
+    // Open Personalize Modal
+    function openCustomModal(productId) {
+      selectedProductForCustom = PRODUCTS.find(p => p.id === productId);
+      if (!selectedProductForCustom) return;
+
+      document.getElementById('modalProductImg').src = selectedProductForCustom.image;
+      document.getElementById('modalProductTitle').innerText = selectedProductForCustom.title;
+      document.getElementById('modalProductPrice').innerText = '$' + selectedProductForCustom.price.toFixed(2);
+      document.getElementById('customTextInput').value = '';
+      document.getElementById('liveTextPreview').innerText = '"Your Custom Message Here"';
+
+      document.getElementById('customModal').classList.remove('hidden');
+    }
+
+    function closeCustomModal() {
+      document.getElementById('customModal').classList.add('hidden');
+    }
+
+    function updateLiveTextPreview(val) {
+      document.getElementById('liveTextPreview').innerText = val.trim() ? `"${val}"` : '"Your Custom Message Here"';
+    }
+
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('modalProductImg').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function confirmAddToCart() {
+      const customText = document.getElementById('customTextInput').value.trim() || 'Default Gift Personalisation';
+      
+      const cartItem = {
+        ...selectedProductForCustom,
+        cartId: Date.now(),
+        customText: customText
+      };
+
+      cart.push(cartItem);
+      updateCartUI();
+      closeCustomModal();
+      openCartDrawer();
+      showToast('Item personalised & added to cart!');
+    }
+
+    // Cart Drawer Management
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartDrawerBackdrop = document.getElementById('cartDrawerBackdrop');
+
+    function openCartDrawer() {
+      cartDrawer.classList.remove('translate-x-full');
+      cartDrawerBackdrop.classList.remove('hidden');
+    }
+
+    function closeCartDrawer() {
+      cartDrawer.classList.add('translate-x-full');
+      cartDrawerBackdrop.classList.add('hidden');
+    }
+
+    document.getElementById('openCartBtn').addEventListener('click', openCartDrawer);
+    document.getElementById('mobileCartTrigger').addEventListener('click', openCartDrawer);
+    document.getElementById('closeCartBtn').addEventListener('click', closeCartDrawer);
+    cartDrawerBackdrop.addEventListener('click', closeCartDrawer);
 
     function updateCartUI() {
-      document.getElementById('cartCount').innerText = cart.length;
-      const cartItems = document.getElementById('cartItems');
-      const cartTotal = document.getElementById('cartTotal');
+      const badge = document.getElementById('cartBadge');
+      const mobileBadge = document.getElementById('mobileCartBadge');
+      const list = document.getElementById('cartItemsList');
+
+      badge.innerText = cart.length;
+      mobileBadge.innerText = cart.length;
 
       if (cart.length === 0) {
-        cartItems.innerHTML = '<p style="text-align: center; color: #888;">Your cart is empty.</p>';
-        cartTotal.innerText = '$0.00';
-        return;
-      }
-
-      let total = 0;
-      cartItems.innerHTML = cart.map(item => {
-        total += item.price;
-        return `
-          <div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:5px;">
-            <span>${item.title}</span>
-            <b>$${item.price.toFixed(2)}</b>
+        list.innerHTML = `
+          <div class="text-center py-12 text-slate-400 space-y-2">
+            <i class="fa-solid fa-bag-shopping text-4xl"></i>
+            <p class="text-sm font-semibold">Your shopping bag is empty.</p>
           </div>
         `;
-      }).join('');
-
-      cartTotal.innerText = '$' + total.toFixed(2);
-    }
-
-    // Demo Order Tracking Function
-    function trackOrder() {
-      const orderId = document.getElementById('orderIdInput').value.trim();
-      const trackResult = document.getElementById('trackResult');
-
-      if (!orderId) {
-        alert('Please enter a valid Order ID.');
+        document.getElementById('cartSubtotal').innerText = '$0.00';
+        document.getElementById('cartDiscount').innerText = '-$0.00';
+        document.getElementById('cartGrandTotal').innerText = '$0.00';
         return;
       }
 
-      trackResult.style.display = 'block';
+      let subtotal = 0;
+      list.innerHTML = '';
 
-      // Sample mock logic
-      if (orderId.toUpperCase() === 'HY-1002') {
-        trackResult.innerHTML = `
-          <h4 style="color: green;"><i class="fa-solid fa-circle-check"></i> Order Found</h4>
-          <p><strong>Order ID:</strong> HY-1002</p>
-          <p><strong>Status:</strong> Dispatched (Out for Delivery)</p>
-          <p><strong>Estimated Delivery:</strong> Tomorrow by 5:00 PM</p>
+      cart.forEach((item, index) => {
+        subtotal += item.price;
+        const div = document.createElement('div');
+        div.className = "flex gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200 relative";
+        div.innerHTML = `
+          <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg">
+          <div class="flex-1 pr-6">
+            <h4 class="font-bold text-xs text-slate-800 line-clamp-1">${item.title}</h4>
+            <span class="text-[11px] text-brand-600 font-medium block">Custom: "${item.customText}"</span>
+            <span class="text-xs font-extrabold text-slate-900 mt-1 block">$${item.price.toFixed(2)}</span>
+          </div>
+          <button onclick="removeFromCart(${index})" class="absolute top-2 right-2 text-slate-400 hover:text-brand-600 text-xs">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
         `;
+        list.appendChild(div);
+      });
+
+      const discount = subtotal * 0.25;
+      const total = subtotal - discount;
+
+      document.getElementById('cartSubtotal').innerText = '$' + subtotal.toFixed(2);
+      document.getElementById('cartDiscount').innerText = '-$' + discount.toFixed(2);
+      document.getElementById('cartGrandTotal').innerText = '$' + total.toFixed(2);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+      showToast('Item removed');
+    }
+
+    function showCheckoutFields() {
+      if (cart.length === 0) {
+        alert('Please add at least one gift item to your cart first!');
+        return;
+      }
+      document.getElementById('checkoutFormBox').classList.remove('hidden');
+      document.getElementById('checkoutStepBtn').classList.add('hidden');
+    }
+
+    // WhatsApp Order Dispatch Simulation
+    function placeOrderWhatsApp() {
+      const name = document.getElementById('custName').value.trim();
+      const phone = document.getElementById('custPhone').value.trim();
+      const address = document.getElementById('custAddress').value.trim();
+
+      if (!name || !phone || !address) {
+        alert('Please fill out your Name, Phone, and Delivery Address!');
+        return;
+      }
+
+      let orderText = `*NEW ORDER - HY STORE*%0A`;
+      orderText += `*Customer:* ${name}%0A`;
+      orderText += `*Phone:* ${phone}%0A`;
+      orderText += `*Address:* ${address}%0A%0A`;
+      orderText += `*Items Ordered:*%0A`;
+
+      cart.forEach((item, idx) => {
+        orderText += `${idx + 1}. ${item.title} - $${item.price.toFixed(2)} (Custom: "${item.customText}")%0A`;
+      });
+
+      orderText += `%0A*Total Bill:* ${document.getElementById('cartGrandTotal').innerText}`;
+
+      window.open(`https://wa.me/923001234567?text=${orderText}`, '_blank');
+      
+      cart = [];
+      updateCartUI();
+      closeCartDrawer();
+      showToast('Order sent via WhatsApp!');
+    }
+
+    // Order Tracking Logic
+    function handleTrackOrder(e) {
+      e.preventDefault();
+      const orderId = document.getElementById('orderIdInput').value.trim().toUpperCase();
+      const resultBox = document.getElementById('trackingResultBox');
+
+      if (MOCK_ORDERS[orderId]) {
+        const order = MOCK_ORDERS[orderId];
+        document.getElementById('resOrderId').innerText = orderId;
+        document.getElementById('resStatusText').innerText = order.status;
+        document.getElementById('resCustomerName').innerText = order.customer;
+        document.getElementById('resEstDate').innerText = order.estDate;
+
+        // Progress step bar
+        const line = document.getElementById('progressLine');
+        line.style.width = (order.step * 33) + '%';
+
+        resultBox.classList.remove('hidden');
       } else {
-        trackResult.innerHTML = `
-          <h4>Order Status: HY-1001</h4>
-          <p><strong>Status:</strong> Processing & Personalization in progress</p>
-          <p><strong>Estimated Delivery:</strong> Within 3-4 business days</p>
-        `;
+        // Fallback demo for any other ID
+        document.getElementById('resOrderId').innerText = orderId;
+        document.getElementById('resStatusText').innerText = "Order Received & In Personalisation Queue";
+        document.getElementById('resCustomerName').innerText = "Verified Order - Priority Express";
+        document.getElementById('resEstDate').innerText = "Estimated 2-3 Business Days";
+        document.getElementById('progressLine').style.width = '33%';
+
+        resultBox.classList.remove('hidden');
       }
     }
+
+    // Mobile Navigation Drawer Toggle
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileDrawerBackdrop = document.getElementById('mobileDrawerBackdrop');
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      mobileDrawer.classList.remove('-translate-x-full');
+      mobileDrawerBackdrop.classList.remove('hidden');
+    });
+
+    function closeMobileMenu() {
+      mobileDrawer.classList.add('-translate-x-full');
+      mobileDrawerBackdrop.classList.add('hidden');
+    }
+
+    document.getElementById('closeMobileDrawerBtn').addEventListener('click', closeMobileMenu);
+    mobileDrawerBackdrop.addEventListener('click', closeMobileMenu);
+
+    // Toast Notification System
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // Account Modal Functions
+    function openAccountModal() {
+      document.getElementById('accountModal').classList.remove('hidden');
+    }
+    function closeAccountModal() {
+      document.getElementById('accountModal').classList.add('hidden');
+    }
+    document.getElementById('openAccountBtn').addEventListener('click', openAccountModal);
+
+    function handleSignIn(e) {
+      e.preventDefault();
+      closeAccountModal();
+      showToast('Successfully signed in!');
+    }
+
+    // App Initialization
+    window.onload = function() {
+      renderProducts(PRODUCTS);
+      setupSearchListeners();
+    };
   </script>
 </body>
 </html>
