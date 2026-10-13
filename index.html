@@ -270,7 +270,7 @@
     </div>
   </div>
 
-  <!-- Auth Modal (Login / Signup with Eye Toggle, Captcha & Google Sign-In) -->
+  <!-- Auth Modal (Login / Signup with Eye Toggle & Captcha) -->
   <div id="authModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl">&times;</button>
@@ -302,12 +302,6 @@
         </div>
 
         <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md">Login to Account</button>
-        
-        <!-- Google Sign In Button Option (Triggers Direct Device Google Accounts Chooser) -->
-        <button onclick="handleGoogleSignIn()" class="w-full bg-white hover:bg-slate-50 text-slate-700 font-bold py-2.5 rounded-xl border border-slate-300 transition-all text-xs flex items-center justify-center gap-2 shadow-sm">
-          <i class="fa-brands fa-google text-red-500"></i>
-          <span>Sign in with Google</span>
-        </button>
 
         <p class="text-center mt-3 cursor-pointer text-brand-600 font-semibold" onclick="toggleAuthMode()" id="authSwitchText">Don't have an account? Create one</p>
       </div>
@@ -635,37 +629,6 @@
         showToast('Connection error. Please try again.', 'fa-wifi text-brand-500');
         generateCaptcha();
       });
-    }
-
-    // Updated Google Sign-In Function to Show Device Account Selector Prompt
-    function handleGoogleSignIn() {
-      let client_id = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"; // Agar aapke paas Client ID hai toh yahan daal dein, warna auto chooser trigger hoga
-      
-      // Standard Google OAuth Direct Account Chooser URL jo device ke saare accounts list kar deta hai
-      let redirectUri = window.location.origin + window.location.pathname;
-      let googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=email%20profile&prompt=select_account`;
-      
-      // Agar Client ID set nahi hai toh mobile ke multiple accounts select karne ke liye prompt popup box:
-      let accountsList = [
-        "m.ibrahimsajid830@gmail.com",
-        "domanser9@gmail.com",
-        "amamzonp76@gmail.com",
-        "noorofquran76@gmail.com",
-        "smartprintpvc1@gmail.com",
-        "ibrahimatamazon@gmail.com",
-        "hybusinessprint@gmail.com"
-      ];
-      
-      let choice = prompt("Choose your Google Account Email from your device:\n\n1. " + accountsList.join("\n1. ") + "\n\n(Ya apna email type karein):", accountsList[0]);
-      
-      if (choice) {
-        let nameChoice = choice.split('@')[0].toUpperCase();
-        currentUser = { email: choice, name: nameChoice };
-        localStorage.setItem('hy_user', JSON.stringify(currentUser));
-        updateUserUI();
-        closeAuthModal();
-        showToast('Successfully signed in with ' + choice, 'fa-circle-check text-emerald-400');
-      }
     }
 
     function proceedCheckout() {
