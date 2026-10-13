@@ -29,29 +29,17 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Google Fonts (Inter & Playfair Display for Elegance) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      -webkit-tap-highlight-color: transparent;
-    }
-    .font-serif-title {
-      font-family: 'Playfair Display', serif;
-    }
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 10px;
-    }
+    body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+    .font-serif-title { font-family: 'Playfair Display', serif; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
   </style>
 </head>
 <body class="flex flex-col min-h-screen text-slate-800 antialiased pb-16 md:pb-0">
@@ -87,9 +75,9 @@
 
         <!-- Desktop Search Bar -->
         <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
-          <input type="text" id="desktopSearchInput" placeholder="Search mugs, photo blocks, keychains..." 
+          <input type="text" id="desktopSearchInput" placeholder="Search gifts..." 
                  class="w-full pl-4 pr-10 py-2.5 bg-slate-100 border border-slate-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition-all">
-          <button id="desktopSearchBtn" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center hover:bg-brand-700 transition-colors">
+          <button class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-brand-600 text-white rounded-full flex items-center justify-center hover:bg-brand-700 transition-colors">
             <i class="fa-solid fa-magnifying-glass text-xs"></i>
           </button>
         </div>
@@ -103,9 +91,11 @@
             <span>Track Order</span>
           </a>
 
-          <!-- Account Sign In Button -->
+          <!-- Account Sign In Button with Icon -->
           <button id="openAccountBtn" onclick="openAuthModal()" class="flex items-center gap-2 p-2 sm:px-3 sm:py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors text-xs font-semibold">
-            <i class="fa-regular fa-user text-lg sm:text-base"></i>
+            <div class="w-8 h-8 bg-slate-100 rounded-full flex items-center justify-center text-brand-600">
+              <i class="fa-regular fa-user text-sm"></i>
+            </div>
             <span id="userNameDisplay" class="hidden sm:inline">Sign In</span>
           </button>
 
@@ -179,7 +169,7 @@
           Turn Special Moments Into Lasting Gifts
         </h1>
         <p class="text-slate-200 text-xs sm:text-base mb-6 max-w-lg">
-          Add custom photos, romantic messages, and names to handcrafted gifts fetched directly from our secure database.
+          Add custom photos, romantic messages, and names to handcrafted gifts tailored just for your loved ones.
         </p>
         <div class="flex flex-wrap gap-3">
           <a href="#products-section" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-xs sm:text-sm flex items-center gap-2">
@@ -197,7 +187,7 @@
           <i class="fa-solid fa-truck-fast"></i>
         </div>
         <h2 class="font-serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-1">Live Order Tracking System</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your Order ID (fetched from database) to track delivery status in real-time.</p>
+        <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your Order ID to check your delivery status instantly in real-time.</p>
 
         <div class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
           <div class="relative flex-1">
@@ -219,13 +209,13 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <div>
           <h2 class="font-serif-title text-2xl font-bold text-slate-900">Trending Featured Products</h2>
-          <p class="text-xs sm:text-sm text-slate-500">Loaded directly from your Google Sheet database.</p>
+          <p class="text-xs sm:text-sm text-slate-500">Explore our latest collection of custom gifts.</p>
         </div>
       </div>
 
       <!-- Products Grid -->
       <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-        <p class="col-span-full text-center py-12 text-slate-400">Loading products from Google Sheet...</p>
+        <p class="col-span-full text-center py-12 text-slate-400">Loading products...</p>
       </div>
     </section>
 
@@ -260,15 +250,19 @@
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl">&times;</button>
       
       <div class="text-center mb-5">
-        <h3 id="authTitle" class="font-serif-title font-bold text-xl text-slate-900">Login to HY Store</h3>
+        <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-xl mx-auto mb-2">
+          <i class="fa-regular fa-user"></i>
+        </div>
+        <h3 id="authTitle" class="font-serif-title font-bold text-xl text-slate-900">Customer Login</h3>
+        <p class="text-xs text-slate-500 mt-1">Please sign in to proceed with your orders.</p>
       </div>
 
       <div id="authFormFields" class="space-y-3 text-xs">
-        <input type="text" id="authName" placeholder="Full Name (Only for Signup)" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none" style="display:none;">
+        <input type="text" id="authName" placeholder="Full Name (Required for Sign Up)" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none" style="display:none;">
         <input type="email" id="authEmail" placeholder="Email Address" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none">
         <input type="password" id="authPassword" placeholder="Password" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg outline-none">
-        <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs">Login</button>
-        <p class="text-center mt-3 cursor-pointer text-brand-600 font-semibold" onclick="toggleAuthMode()" id="authSwitchText">Don't have an account? Sign Up</p>
+        <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs">Login to Account</button>
+        <p class="text-center mt-3 cursor-pointer text-brand-600 font-semibold" onclick="toggleAuthMode()" id="authSwitchText">Don't have an account? Create one</p>
       </div>
     </div>
   </div>
@@ -287,7 +281,7 @@
 
   <!-- Footer -->
   <footer class="bg-slate-900 text-white text-center py-6 mt-12 text-xs">
-    <p>&copy; 2026 HY Store. All Rights Reserved. Backend Connected via Google Sheets.</p>
+    <p>&copy; 2026 HY Store. All Rights Reserved.</p>
   </footer>
 
   <script>
@@ -318,21 +312,21 @@
           displayProducts(allProducts);
         })
         .catch(err => {
-          document.getElementById('productsGrid').innerHTML = '<p class="col-span-full text-center text-red-500">Failed to load products from database.</p>';
+          document.getElementById('productsGrid').innerHTML = '<p class="col-span-full text-center text-red-500">Unable to load products at the moment. Please try again later.</p>';
         });
     }
 
     function displayProducts(products) {
       const grid = document.getElementById('productsGrid');
       if (products.length === 0) {
-        grid.innerHTML = '<p class="col-span-full text-center text-slate-400">No products found in Google Sheet.</p>';
+        grid.innerHTML = '<p class="col-span-full text-center text-slate-400">No products available right now.</p>';
         return;
       }
       grid.innerHTML = products.map(p => `
         <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
           <div>
             <div class="aspect-square bg-slate-100 overflow-hidden">
-              <img src="${p.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Invalid+Image+URL'">
+              <img src="${p.image}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Product+Image'">
             </div>
             <div class="p-3 sm:p-4">
               <h3 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-2">${p.title}</h3>
@@ -378,7 +372,7 @@
       let total = 0;
 
       if (cart.length === 0) {
-        list.innerHTML = '<p style="text-align: center; color: #888;">Cart is empty.</p>';
+        list.innerHTML = '<p style="text-align: center; color: #888;">Your cart is empty.</p>';
         document.getElementById('cartTotalPrice').innerText = 'PKR 0';
         return;
       }
@@ -397,11 +391,11 @@
 
     function openAuthModal() {
       if (currentUser) {
-        if (confirm('Logout from ' + currentUser.email + '?')) {
+        if (confirm('Would you like to sign out from ' + currentUser.email + '?')) {
           localStorage.removeItem('hy_user');
           currentUser = null;
           updateUserUI();
-          alert('Logged out successfully.');
+          alert('You have been signed out successfully.');
         }
         return;
       }
@@ -414,10 +408,10 @@
 
     function toggleAuthMode() {
       isSignupMode = !isSignupMode;
-      document.getElementById('authTitle').innerText = isSignupMode ? 'Create HY Store Account' : 'Login to HY Store';
+      document.getElementById('authTitle').innerText = isSignupMode ? 'Create Account' : 'Customer Login';
       document.getElementById('authName').style.display = isSignupMode ? 'block' : 'none';
-      document.getElementById('authSubmitBtn').innerText = isSignupMode ? 'Sign Up' : 'Login';
-      document.getElementById('authSwitchText').innerText = isSignupMode ? 'Already have an account? Login' : "Don't have an account? Sign Up";
+      document.getElementById('authSubmitBtn').innerText = isSignupMode ? 'Sign Up' : 'Login to Account';
+      document.getElementById('authSwitchText').innerText = isSignupMode ? 'Already have an account? Login' : "Don't have an account? Create one";
     }
 
     function submitAuth() {
@@ -426,7 +420,7 @@
       const name = document.getElementById('authName').value.trim();
 
       if (!email || !password || (isSignupMode && !name)) {
-        alert('Please fill in all required fields.');
+        alert('Please fill in all required fields to continue.');
         return;
       }
 
@@ -438,25 +432,25 @@
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          alert(data.message || 'Login Successful!');
+          alert(data.message || 'Authentication successful!');
           currentUser = { email: data.email || email, name: data.name || name };
           localStorage.setItem('hy_user', JSON.stringify(currentUser));
           updateUserUI();
           closeAuthModal();
         } else {
-          alert(data.message);
+          alert(data.message || 'Authentication failed. Please check your details.');
         }
       })
-      .catch(err => alert('Authentication error. Try again.'));
+      .catch(err => alert('A connection error occurred. Please try again.'));
     }
 
     function proceedCheckout() {
       if (cart.length === 0) {
-        alert('Your cart is empty!');
+        alert('Your shopping cart is empty!');
         return;
       }
       if (!currentUser) {
-        alert('Please login first to place an order!');
+        alert('Please sign in to your account before placing an order.');
         openAuthModal();
         return;
       }
@@ -496,12 +490,12 @@
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          alert('Order Placed Successfully! Your Order ID is: ' + data.orderId);
+          alert('Order Placed Successfully!\n\nYour Unique Order ID is: ' + data.orderId + '\nPlease save this ID for tracking your shipment.');
           cart = [];
           updateCartUI();
           closeCheckoutModal();
         } else {
-          alert('Failed to place order.');
+          alert('Failed to place order. Please try again.');
         }
       });
     }
@@ -511,12 +505,12 @@
       const resBox = document.getElementById('trackResult');
 
       if (!orderId) {
-        alert('Please enter an Order ID.');
+        alert('Please enter a valid Order ID.');
         return;
       }
 
       resBox.classList.remove('hidden');
-      resBox.innerHTML = 'Searching database...';
+      resBox.innerHTML = 'Searching order records...';
 
       fetch(SCRIPT_URL + '?action=trackOrder&orderId=' + encodeURIComponent(orderId))
         .then(res => res.json())
@@ -526,17 +520,17 @@
             resBox.innerHTML = `
               <h4 class="text-emerald-700 font-bold mb-2"><i class="fa-solid fa-circle-check"></i> Order Found</h4>
               <p><strong>Order ID:</strong> ${o.orderId}</p>
-              <p><strong>Customer:</strong> ${o.customerName} (${o.phone})</p>
-              <p><strong>Items:</strong> ${o.items}</p>
-              <p><strong>Total:</strong> PKR ${Number(o.totalAmount).toLocaleString()}</p>
-              <p><strong>Status:</strong> <span class="text-brand-600 font-bold">${o.status}</span></p>
+              <p><strong>Customer Name:</strong> ${o.customerName} (${o.phone})</p>
+              <p><strong>Items Ordered:</strong> ${o.items}</p>
+              <p><strong>Total Amount:</strong> PKR ${Number(o.totalAmount).toLocaleString()}</p>
+              <p><strong>Current Status:</strong> <span class="text-brand-600 font-bold">${o.status}</span></p>
             `;
           } else {
-            resBox.innerHTML = `<p class="text-red-500">Order ID "${orderId}" not found in database.</p>`;
+            resBox.innerHTML = `<p class="text-red-500">No order found matching ID "${orderId}". Please verify your Order ID.</p>`;
           }
         })
         .catch(err => {
-          resBox.innerHTML = `<p class="text-red-500">Error connecting to backend database.</p>`;
+          resBox.innerHTML = `<p class="text-red-500">Unable to retrieve tracking information at the moment.</p>`;
         });
     }
 
