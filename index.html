@@ -185,14 +185,14 @@
       </div>
     </section>
 
-    <!-- Interactive Order Tracking System Section -->
+    <!-- Professional Order Tracking System Section (Courier Company Style) -->
     <section id="track-section" class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-8 shadow-sm">
       <div class="max-w-3xl mx-auto text-center">
         <div class="inline-flex items-center justify-center w-12 h-12 bg-brand-50 text-brand-600 rounded-full mb-3 text-xl">
           <i class="fa-solid fa-truck-fast"></i>
         </div>
-        <h2 class="font-serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-1">Live Order Tracking System</h2>
-        <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your Order ID to check your delivery status instantly in real-time.</p>
+        <h2 class="font-serif-title text-xl sm:text-2xl font-bold text-slate-900 mb-1">Live Shipment Tracking</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mb-6">Enter your HY Order ID to track real-time delivery status.</p>
 
         <div class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto">
           <div class="relative flex-1">
@@ -201,7 +201,7 @@
           </div>
           <button onclick="trackOrder()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-md">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <span>Track Status</span>
+            <span>Track Order</span>
           </button>
         </div>
 
@@ -290,6 +290,33 @@
     </div>
   </div>
 
+  <!-- Order Success Confirmation Modal with One-Click Copy -->
+  <div id="orderSuccessModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl text-center space-y-4">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 class="font-serif-title font-bold text-2xl text-slate-900">Order Placed Successfully!</h3>
+      <p class="text-xs text-slate-500">Thank you for shopping with HY Store. Please save your unique Order ID to track shipment status.</p>
+      
+      <div class="bg-slate-100 border border-slate-200 p-3 rounded-xl flex items-center justify-between">
+        <span id="createdOrderId" class="font-mono text-lg font-extrabold text-brand-600">HY-XXXX</span>
+        <button onclick="copyOrderId()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-all">
+          <i class="fa-regular fa-copy"></i>
+          <span id="copyBtnText">Copy ID</span>
+        </button>
+      </div>
+
+      <button onclick="closeOrderSuccessModal()" class="w-full bg-slate-900 hover:bg-brand-600 text-white font-bold py-3 rounded-xl text-xs transition-all">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- Professional Toast Message Notification Container -->
+  <div id="customToast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs font-semibold px-5 py-3.5 rounded-xl shadow-2xl border border-slate-800 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
+    <i id="toastIcon" class="fa-solid fa-circle-info text-brand-500 text-base"></i>
+    <span id="toastMsg">Notification message</span>
+  </div>
+
   <!-- Footer -->
   <footer class="bg-slate-900 text-white text-center py-6 mt-12 text-xs">
     <p>&copy; 2026 HY Store. All Rights Reserved.</p>
@@ -307,7 +334,16 @@
       updateUserUI();
     };
 
-    // Google Drive Link Transformer
+    function showToast(msg, iconClass = 'fa-circle-info text-brand-500') {
+      const toast = document.getElementById('customToast');
+      document.getElementById('toastMsg').innerText = msg;
+      document.getElementById('toastIcon').className = `fa-solid ${iconClass} text-base`;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
     function formatImageUrl(url) {
       if (!url) return 'https://via.placeholder.com/250x200?text=Product+Image';
       let str = url.toString().trim();
@@ -393,6 +429,7 @@
       cart.push({ title, price });
       updateCartUI();
       toggleCart();
+      showToast('Item added to shopping bag!', 'fa-circle-check text-emerald-400');
     }
 
     function updateCartUI() {
@@ -424,7 +461,7 @@
           localStorage.removeItem('hy_user');
           currentUser = null;
           updateUserUI();
-          alert('You have been signed out successfully.');
+          showToast('Signed out successfully.', 'fa-circle-check text-emerald-400');
         }
         return;
       }
@@ -449,7 +486,7 @@
       const name = document.getElementById('authName').value.trim();
 
       if (!email || !password || (isSignupMode && !name)) {
-        alert('Please fill in all required fields to continue.');
+        showToast('Please fill in all required fields.', 'fa-triangle-exclamation text-amber-400');
         return;
       }
 
@@ -461,25 +498,25 @@
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          alert(data.message || 'Authentication successful!');
+          showToast(data.message || 'Authentication successful!', 'fa-circle-check text-emerald-400');
           currentUser = { email: data.email || email, name: data.name || name };
           localStorage.setItem('hy_user', JSON.stringify(currentUser));
           updateUserUI();
           closeAuthModal();
         } else {
-          alert(data.message || 'Authentication failed. Please check your details.');
+          showToast(data.message || 'Authentication failed.', 'fa-circle-xmark text-brand-500');
         }
       })
-      .catch(err => alert('A connection error occurred. Please try again.'));
+      .catch(err => showToast('Connection error. Please try again.', 'fa-wifi text-brand-500'));
     }
 
     function proceedCheckout() {
       if (cart.length === 0) {
-        alert('Your shopping cart is empty!');
+        showToast('Your shopping cart is empty!', 'fa-cart-shopping text-brand-500');
         return;
       }
       if (!currentUser) {
-        alert('Please sign in to your account before placing an order.');
+        showToast('Please sign in to your account before placing an order.', 'fa-user-lock text-brand-500');
         openAuthModal();
         return;
       }
@@ -497,7 +534,7 @@
       const address = document.getElementById('chkAddress').value.trim();
 
       if (!name || !phone || !address) {
-        alert('Please provide complete shipping details.');
+        showToast('Please fill complete shipping details.', 'fa-triangle-exclamation text-amber-400');
         return;
       }
 
@@ -519,47 +556,134 @@
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          alert('Order Placed Successfully!\n\nYour Unique Order ID is: ' + data.orderId + '\nPlease save this ID for tracking your shipment.');
           cart = [];
           updateCartUI();
           closeCheckoutModal();
+          
+          document.getElementById('createdOrderId').innerText = data.orderId;
+          document.getElementById('orderSuccessModal').classList.remove('hidden');
         } else {
-          alert('Failed to place order. Please try again.');
+          showToast('Failed to place order. Please try again.', 'fa-circle-xmark text-brand-500');
         }
       });
     }
 
+    function copyOrderId() {
+      const idText = document.getElementById('createdOrderId').innerText;
+      navigator.clipboard.writeText(idText);
+      document.getElementById('copyBtnText').innerText = 'Copied!';
+      setTimeout(() => {
+        document.getElementById('copyBtnText').innerText = 'Copy ID';
+      }, 2000);
+    }
+
+    function closeOrderSuccessModal() {
+      document.getElementById('orderSuccessModal').classList.add('hidden');
+    }
+
+    // Professional Courier Style Live Tracking Box
     function trackOrder() {
       const orderId = document.getElementById('orderIdInput').value.trim();
       const resBox = document.getElementById('trackResult');
 
       if (!orderId) {
-        alert('Please enter a valid Order ID.');
+        showToast('Please enter a valid Order ID.', 'fa-circle-info text-amber-400');
         return;
       }
 
       resBox.classList.remove('hidden');
-      resBox.innerHTML = 'Searching order records...';
+      resBox.innerHTML = '<p class="text-center font-semibold text-slate-600 py-4"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-2"></i> Fetching live shipment details...</p>';
 
       fetch(SCRIPT_URL + '?action=trackOrder&orderId=' + encodeURIComponent(orderId))
         .then(res => res.json())
         .then(data => {
           if (data.success) {
             let o = data.order;
+            let statusLower = (o.status || '').toLowerCase();
+            
+            // Determine courier progress bar percentage & active steps
+            let widthPct = 25;
+            let s1 = true, s2 = false, s3 = false, s4 = false;
+
+            if (statusLower.includes('processing') || statusLower.includes('personalization')) {
+              widthPct = 25;
+              s1 = true;
+            } else if (statusLower.includes('dispatched') || statusLower.includes('shipped') || statusLower.includes('transit')) {
+              widthPct = 50;
+              s1 = true; s2 = true;
+            } else if (statusLower.includes('out for delivery')) {
+              widthPct = 75;
+              s1 = true; s2 = true; s3 = true;
+            } else if (statusLower.includes('delivered')) {
+              widthPct = 100;
+              s1 = true; s2 = true; s3 = true; s4 = true;
+            }
+
             resBox.innerHTML = `
-              <h4 class="text-emerald-700 font-bold mb-2"><i class="fa-solid fa-circle-check"></i> Order Found</h4>
-              <p><strong>Order ID:</strong> ${o.orderId}</p>
-              <p><strong>Customer Name:</strong> ${o.customerName} (${o.phone})</p>
-              <p><strong>Items Ordered:</strong> ${o.items}</p>
-              <p><strong>Total Amount:</strong> PKR ${Number(o.totalAmount).toLocaleString()}</p>
-              <p><strong>Current Status:</strong> <span class="text-brand-600 font-bold">${o.status}</span></p>
+              <div class="border-b border-slate-200 pb-4 mb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                  <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Tracking Reference</span>
+                  <h4 class="text-lg font-extrabold text-slate-900">${o.orderId}</h4>
+                </div>
+                <div class="px-3 py-1 bg-brand-50 border border-brand-200 text-brand-700 rounded-full text-xs font-bold flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
+                  <span>${o.status}</span>
+                </div>
+              </div>
+
+              <!-- Courier Progress Timeline Line -->
+              <div class="py-6 px-2">
+                <div class="relative flex items-center justify-between max-w-md mx-auto">
+                  <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 -translate-y-1/2 -z-0"></div>
+                  <div class="absolute top-1/2 left-0 h-1 bg-brand-600 -translate-y-1/2 -z-0 transition-all duration-500" style="width: ${widthPct}%;"></div>
+
+                  <div class="text-center z-10">
+                    <div class="w-8 h-8 mx-auto rounded-full ${s1 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
+                      <i class="fa-solid fa-check"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700 mt-1 block">Placed</span>
+                  </div>
+                  <div class="text-center z-10">
+                    <div class="w-8 h-8 mx-auto rounded-full ${s2 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
+                      <i class="fa-solid fa-box-open"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700 mt-1 block">Dispatched</span>
+                  </div>
+                  <div class="text-center z-10">
+                    <div class="w-8 h-8 mx-auto rounded-full ${s3 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
+                      <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700 mt-1 block">On The Way</span>
+                  </div>
+                  <div class="text-center z-10">
+                    <div class="w-8 h-8 mx-auto rounded-full ${s4 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
+                      <i class="fa-solid fa-house-chimney"></i>
+                    </div>
+                    <span class="text-[10px] font-semibold text-slate-700 mt-1 block">Delivered</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Customer & Items Summary Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-slate-200 text-xs">
+                <div class="bg-white p-3 rounded-xl border border-slate-100 space-y-1">
+                  <span class="text-slate-400 block text-[10px]">Recipient Details:</span>
+                  <strong class="text-slate-800 block">${o.customerName}</strong>
+                  <span class="text-slate-500 block">${o.phone}</span>
+                </div>
+                <div class="bg-white p-3 rounded-xl border border-slate-100 space-y-1">
+                  <span class="text-slate-400 block text-[10px]">Order Summary:</span>
+                  <strong class="text-slate-800 block truncate">${o.items}</strong>
+                  <span class="text-brand-600 font-extrabold block">Total: PKR ${Number(o.totalAmount).toLocaleString()}</span>
+                </div>
+              </div>
             `;
           } else {
-            resBox.innerHTML = `<p class="text-red-500">No order found matching ID "${orderId}". Please verify your Order ID.</p>`;
+            resBox.innerHTML = `<p class="text-center text-red-500 font-semibold py-4"><i class="fa-solid fa-circle-xmark mr-1"></i> No shipment found with Order ID "${orderId}". Please verify your ID.</p>`;
           }
         })
         .catch(err => {
-          resBox.innerHTML = `<p class="text-red-500">Unable to retrieve tracking information at the moment.</p>`;
+          resBox.innerHTML = `<p class="text-center text-red-500 font-semibold py-4">Unable to retrieve tracking information right now.</p>`;
         });
     }
 
