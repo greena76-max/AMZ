@@ -22,40 +22,123 @@
 </head>
 <body class="min-h-screen flex flex-col text-slate-800">
 
+  <!-- Login Overlay Modal -->
+  <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-14 h-14 bg-brand-600 rounded-2xl flex items-center justify-center font-bold text-white text-2xl mx-auto shadow-lg shadow-brand-600/30">HY</div>
+        <h2 class="text-xl font-extrabold text-slate-900">HY STORE OFFICIAL</h2>
+        <p class="text-xs text-slate-500">Staff Portal Login - Enter credentials to continue.</p>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
+          <div class="relative">
+            <input type="text" id="loginUser" required placeholder="Enter username" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+            <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Password</label>
+          <div class="relative">
+            <input type="password" id="loginPass" required placeholder="Enter password" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+
+        <p id="loginError" class="text-xs text-red-500 font-semibold text-center hidden">Invalid username or password!</p>
+
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20">
+          Login to Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- Dashboard Top Bar -->
   <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 bg-brand-600 rounded-xl flex items-center justify-center font-bold text-white text-lg">HY</div>
+        <div class="w-9 h-9 sm:w-10 sm:h-10 bg-brand-600 rounded-xl flex items-center justify-center font-extrabold text-white text-sm sm:text-base shrink-0 shadow-md">HY</div>
         <div>
-          <h1 class="font-bold text-base leading-tight">Staff Portal</h1>
-          <p class="text-[10px] text-slate-400">Order Management System</p>
+          <h1 class="font-extrabold text-xs sm:text-sm tracking-wide uppercase text-slate-100">HY STORE OFFICIAL</h1>
+          <p class="text-[9px] sm:text-[10px] text-slate-400 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Staff Order Portal
+          </p>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <button onclick="copyStaffPortalLink()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all border border-slate-700">
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button onclick="copyStaffPortalLink()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] sm:text-xs font-bold px-2.5 py-2 rounded-lg flex items-center gap-1 transition-all border border-slate-700">
           <i class="fa-regular fa-copy text-brand-500"></i>
-          <span id="copyLinkText">Copy Portal Link</span>
+          <span class="hidden xs:inline" id="copyLinkText">Copy Link</span>
         </button>
-        <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-2 transition-all">
+        <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-[11px] sm:text-xs font-bold p-2 sm:px-3 sm:py-2 rounded-lg flex items-center gap-1.5 transition-all" title="Refresh">
           <i class="fa-solid fa-rotate"></i>
-          <span>Refresh</span>
+          <span class="hidden sm:inline">Refresh</span>
+        </button>
+        <button onclick="handleLogout()" class="bg-slate-800 hover:bg-red-600 text-slate-300 hover:text-white text-[11px] sm:text-xs font-bold p-2 sm:px-3 sm:py-2 rounded-lg flex items-center gap-1.5 transition-all border border-slate-700" title="Logout">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+
+    <!-- Summary Statistics Cards -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base shrink-0">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase font-bold text-slate-400">Total Orders</p>
+          <h3 id="statTotalOrders" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-base shrink-0">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase font-bold text-slate-400">Pending</p>
+          <h3 id="statPending" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-base shrink-0">
+          <i class="fa-solid fa-truck-fast"></i>
+        </div>
+        <div>
+          <p class="text-[10px] uppercase font-bold text-slate-400">Delivered</p>
+          <h3 id="statDelivered" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm col-span-2 sm:col-span-1 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-base shrink-0">
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+        <div class="overflow-hidden">
+          <p class="text-[10px] uppercase font-bold text-slate-400">Total Revenue</p>
+          <h3 id="statRevenue" class="text-sm sm:text-base font-extrabold text-brand-600 truncate">PKR 0</h3>
+        </div>
+      </div>
+    </div>
 
     <!-- Search & Filter Controls -->
-    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+    <div class="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
       <div class="relative w-full sm:w-80">
-        <input type="text" id="staffSearch" oninput="filterStaffTable()" placeholder="Search Order ID, Name, Phone..." class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500">
+        <input type="text" id="staffSearch" oninput="filterStaffTable()" placeholder="Search Order ID, Name, Phone..." class="w-full pl-9 pr-4 py-2.5 sm:py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
       </div>
       <div class="flex items-center gap-2 w-full sm:w-auto">
-        <select id="statusFilter" onchange="filterStaffTable()" class="bg-slate-50 border border-slate-200 text-xs font-semibold rounded-xl px-3 py-2 outline-none w-full sm:w-auto">
+        <select id="statusFilter" onchange="filterStaffTable()" class="bg-slate-50 border border-slate-200 text-xs font-semibold rounded-xl px-3 py-2.5 sm:py-2 outline-none w-full sm:w-auto">
           <option value="ALL">All Statuses</option>
           <option value="Pending">Pending</option>
           <option value="Processing">Processing</option>
@@ -69,16 +152,16 @@
 
     <!-- Orders Table Container -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
+      <div class="overflow-x-auto -webkit-overflow-scrolling-touch">
+        <table class="w-full text-left border-collapse min-w-[700px]">
           <thead>
             <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] font-extrabold tracking-wider border-b border-slate-200">
-              <th class="py-3.5 px-4">Order ID</th>
-              <th class="py-3.5 px-4">Customer Info</th>
-              <th class="py-3.5 px-4">Items / Details</th>
-              <th class="py-3.5 px-4">Total Amount</th>
-              <th class="py-3.5 px-4">Current Status</th>
-              <th class="py-3.5 px-4 text-center">Action</th>
+              <th class="py-3 px-3 sm:px-4">Order ID</th>
+              <th class="py-3 px-3 sm:px-4">Customer Info</th>
+              <th class="py-3 px-3 sm:px-4">Items / Details</th>
+              <th class="py-3 px-3 sm:px-4">Total Amount</th>
+              <th class="py-3 px-3 sm:px-4">Current Status</th>
+              <th class="py-3 px-3 sm:px-4 text-center">Action</th>
             </tr>
           </thead>
           <tbody id="ordersTableBody" class="text-xs divide-y divide-slate-100">
@@ -121,15 +204,42 @@
   </div>
 
   <script>
-    // Updated Apps Script URL
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhLtDB4ZrzrhBJPTtP23V2GoPNZCsRLSPRuejUUGy-6H3hX9_V5tiYC5gnc9ygZ1DNmg/exec";
     
     let staffOrders = [];
     let currentUpdatingOrderId = null;
 
     window.onload = function() {
-      fetchStaffOrders();
+      const isLogged = sessionStorage.getItem('hy_staff_logged');
+      if(isLogged === 'true') {
+        document.getElementById('loginModal').classList.add('hidden');
+        fetchStaffOrders();
+      } else {
+        document.getElementById('loginModal').classList.remove('hidden');
+      }
     };
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+      const errEl = document.getElementById('loginError');
+
+      if(user === 'M.ibrahim' && pass === '034711') {
+        sessionStorage.setItem('hy_staff_logged', 'true');
+        document.getElementById('loginModal').classList.add('hidden');
+        errEl.classList.add('hidden');
+        fetchStaffOrders();
+        showToast('Successfully logged in!');
+      } else {
+        errEl.classList.remove('hidden');
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('hy_staff_logged');
+      window.location.reload();
+    }
 
     function showToast(msg) {
       const toast = document.getElementById('customToast');
@@ -143,10 +253,11 @@
     function copyStaffPortalLink() {
       const portalUrl = "https://hystoreofficial.com/staff.html";
       navigator.clipboard.writeText(portalUrl);
-      document.getElementById('copyLinkText').innerText = 'Copied!';
+      const btnText = document.getElementById('copyLinkText');
+      if(btnText) btnText.innerText = 'Copied!';
       showToast('Staff dashboard link copied!');
       setTimeout(() => {
-        document.getElementById('copyLinkText').innerText = 'Copy Portal Link';
+        if(btnText) btnText.innerText = 'Copy Link';
       }, 2000);
     }
 
@@ -159,6 +270,7 @@
         .then(data => {
           if(data.success) {
             staffOrders = data.orders || [];
+            updateDashboardStats(staffOrders);
             renderOrdersTable(staffOrders);
           } else {
             tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-500">Failed to load orders.</td></tr>`;
@@ -167,6 +279,27 @@
         .catch(err => {
           tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-500">Network Error. Check Apps Script URL.</td></tr>`;
         });
+    }
+
+    function updateDashboardStats(orders) {
+      const totalOrders = orders.length;
+      let pendingCount = 0;
+      let deliveredCount = 0;
+      let totalRevenue = 0;
+
+      orders.forEach(o => {
+        const st = (o.status || 'Pending').toLowerCase();
+        if(st === 'pending') pendingCount++;
+        if(st === 'delivered') deliveredCount++;
+        if(st !== 'cancelled') {
+          totalRevenue += Number(o.totalAmount || 0);
+        }
+      });
+
+      document.getElementById('statTotalOrders').innerText = totalOrders;
+      document.getElementById('statPending').innerText = pendingCount;
+      document.getElementById('statDelivered').innerText = deliveredCount;
+      document.getElementById('statRevenue').innerText = 'PKR ' + totalRevenue.toLocaleString();
     }
 
     function renderOrdersTable(orders) {
@@ -187,24 +320,24 @@
 
         return `
           <tr class="hover:bg-slate-50 transition-colors">
-            <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+            <td class="py-3 px-3 sm:px-4 font-mono font-bold text-slate-900 whitespace-nowrap">
               ${o.orderId}
-              <button onclick="copyOrderDetails('${orderSummaryText.replace(/'/g, "\\'")}')" class="ml-1 text-slate-400 hover:text-brand-600" title="Copy Order Details">
-                <i class="fa-regular fa-copy text-[10px]"></i>
+              <button onclick="copyOrderDetails('${orderSummaryText.replace(/'/g, "\\'")}')" class="ml-1 text-slate-400 hover:text-brand-600 p-1" title="Copy Order Details">
+                <i class="fa-regular fa-copy text-[11px]"></i>
               </button>
             </td>
-            <td class="py-3.5 px-4">
+            <td class="py-3 px-3 sm:px-4">
               <strong class="block text-slate-800">${o.customerName}</strong>
               <span class="text-[11px] text-slate-500 block">${o.phone}</span>
-              <span class="text-[10px] text-slate-400 block max-w-xs truncate">${o.address}</span>
+              <span class="text-[10px] text-slate-400 block max-w-[200px] truncate">${o.address}</span>
             </td>
-            <td class="py-3.5 px-4 text-slate-700 max-w-xs truncate">${o.items}</td>
-            <td class="py-3.5 px-4 font-extrabold text-brand-600">PKR ${Number(o.totalAmount).toLocaleString()}</td>
-            <td class="py-3.5 px-4">
+            <td class="py-3 px-3 sm:px-4 text-slate-700 max-w-[200px] truncate">${o.items}</td>
+            <td class="py-3 px-3 sm:px-4 font-extrabold text-brand-600 whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</td>
+            <td class="py-3 px-3 sm:px-4 whitespace-nowrap">
               <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeClass}">${o.status || 'Pending'}</span>
             </td>
-            <td class="py-3.5 px-4 text-center">
-              <button onclick="openStatusModal('${o.orderId}', '${o.status}')" class="bg-slate-900 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all">
+            <td class="py-3 px-3 sm:px-4 text-center whitespace-nowrap">
+              <button onclick="openStatusModal('${o.orderId}', '${o.status}')" class="bg-slate-900 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">
                 Update
               </button>
             </td>
