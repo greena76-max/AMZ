@@ -232,7 +232,7 @@
               <input type="text" id="orderIdInput" placeholder="E.g. HY-1024"
                      class="w-full px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-brand-500 uppercase">
             </div>
-            <button onclick="trackOrder()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-md">
+            <button id="trackBtn" onclick="trackOrder()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-md disabled:opacity-70">
               <i class="fa-solid fa-magnifying-glass"></i>
               <span>Track Order</span>
             </button>
@@ -245,7 +245,7 @@
 
   </main>
 
-  <!-- Cart Drawer (With Quantity Control Buttons) -->
+  <!-- Cart Drawer -->
   <div id="cartModal" class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
       <div class="flex items-center gap-2">
@@ -264,7 +264,9 @@
         <span>Total:</span>
         <span id="cartTotalPrice" class="text-brand-600 text-base">PKR 0</span>
       </div>
-      <button onclick="proceedCheckout()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all shadow-md text-sm">Proceed to Checkout</button>
+      <button id="proceedCheckoutBtn" onclick="proceedCheckout()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all shadow-md text-sm flex items-center justify-center gap-2 disabled:opacity-70">
+        <span>Proceed to Checkout</span>
+      </button>
     </div>
   </div>
 
@@ -297,7 +299,9 @@
           <input type="number" id="captchaAnswer" placeholder="Ans" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded text-center outline-none">
         </div>
 
-        <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md">Login to Account</button>
+        <button id="authSubmitBtn" onclick="submitAuth()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md flex items-center justify-center gap-2 disabled:opacity-70">
+          <span>Login to Account</span>
+        </button>
 
         <p class="text-center mt-3 cursor-pointer text-brand-600 font-semibold" onclick="toggleAuthMode()" id="authSwitchText">Don't have an account? Create one</p>
       </div>
@@ -318,7 +322,7 @@
           <input type="text" id="chkPhone" placeholder="Phone Number (e.g. 03001234567)" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
         </div>
 
-        <!-- Address Expandable / Collapsible Details Section -->
+        <!-- Address Expandable Details Section -->
         <details open class="border border-slate-200 rounded-xl p-3 bg-slate-50 group">
           <summary class="font-bold text-xs text-slate-800 cursor-pointer flex justify-between items-center outline-none">
             <span><i class="fa-solid fa-location-dot text-brand-600 mr-1.5"></i> Shipping Address Details</span>
@@ -326,7 +330,6 @@
           </summary>
 
           <div class="space-y-2.5 pt-3">
-            <!-- Country Dropdown -->
             <div>
               <label class="block text-[10px] font-bold text-slate-500 mb-1">Country</label>
               <select id="chkCountry" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs font-semibold outline-none focus:border-brand-500">
@@ -338,7 +341,6 @@
               </select>
             </div>
 
-            <!-- District Dropdown -->
             <div>
               <label class="block text-[10px] font-bold text-slate-500 mb-1">District / Province</label>
               <select id="chkDistrict" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
@@ -358,13 +360,11 @@
               </select>
             </div>
 
-            <!-- City Field -->
             <div>
               <label class="block text-[10px] font-bold text-slate-500 mb-1">City</label>
               <input type="text" id="chkCity" placeholder="City Name (e.g. Mandi Bahauddin / Lahore)" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
             </div>
 
-            <!-- Specific Street Address -->
             <div>
               <label class="block text-[10px] font-bold text-slate-500 mb-1">Complete Street / Area Address</label>
               <textarea id="chkAddress" placeholder="House/Shop No, Street, Landmark, Area" rows="2" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500"></textarea>
@@ -372,7 +372,7 @@
           </div>
         </details>
 
-        <!-- Payment Method Selection (Cash on Delivery Option) -->
+        <!-- Payment Method Selection -->
         <div class="border border-slate-200 rounded-xl p-3 bg-slate-50 space-y-2">
           <label class="block text-[11px] font-bold text-slate-700 uppercase">Payment Method</label>
           <div class="flex items-center gap-2.5 p-2 bg-white border border-emerald-300 rounded-lg shadow-sm">
@@ -385,8 +385,8 @@
         </div>
       </div>
 
-      <button onclick="submitOrderToSheet()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all shadow-md text-xs">
-        Place Order Now
+      <button id="placeOrderBtn" onclick="submitOrderToSheet()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all shadow-md text-xs flex items-center justify-center gap-2 disabled:opacity-70">
+        <span>Place Order Now</span>
       </button>
     </div>
   </div>
@@ -412,7 +412,7 @@
     </div>
   </div>
 
-  <!-- Professional Logout Confirmation Modal -->
+  <!-- Logout Confirmation Modal -->
   <div id="logoutModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
       <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-full flex items-center justify-center text-2xl mx-auto">
@@ -506,7 +506,7 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0zYFH2fUnIKtSF3i29XhtI23xQR3DFfAwNru_JarkEVFYgaDz4rrm2aT2OsasY1rsPg/exec";
     let allProducts = [];
-    let cart = []; // Stored as objects: { title, price, quantity }
+    let cart = [];
     let currentUser = JSON.parse(localStorage.getItem('hy_user')) || null;
     let isSignupMode = false;
     let captchaNum1 = 3;
@@ -517,6 +517,21 @@
       updateUserUI();
       generateCaptcha();
     };
+
+    // Helper Function to Set Button Loading State
+    function setBtnLoading(btnId, isLoading, text, iconClass = '') {
+      const btn = document.getElementById(btnId);
+      if (!btn) return;
+
+      if (isLoading) {
+        btn.disabled = true;
+        btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin text-sm"></i> <span>Processing...</span>`;
+      } else {
+        btn.disabled = false;
+        let iconHtml = iconClass ? `<i class="${iconClass}"></i>` : '';
+        btn.innerHTML = `${iconHtml} <span>${text}</span>`;
+      }
+    }
 
     function generateCaptcha() {
       captchaNum1 = Math.floor(Math.random() * 8) + 1;
@@ -595,7 +610,7 @@
         grid.innerHTML = '<p class="col-span-full text-center text-slate-400 py-8">No products available right now.</p>';
         return;
       }
-      grid.innerHTML = products.map(p => {
+      grid.innerHTML = products.map((p, idx) => {
         let imgUrl = formatImageUrl(p.image);
         return `
           <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
@@ -609,7 +624,9 @@
             </div>
             <div class="p-3 sm:p-4 pt-0">
               <div class="text-brand-600 font-extrabold text-sm sm:text-base mb-3">PKR ${Number(p.price).toLocaleString()}</div>
-              <button onclick="addToCart('${p.title.replace(/'/g, "\\'")}', ${p.price})" class="w-full bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold py-2.5 rounded-xl transition-all">Add to Cart</button>
+              <button id="addCartBtn_${idx}" onclick="addToCart('${p.title.replace(/'/g, "\\'")}', ${p.price}, ${idx})" class="w-full bg-slate-900 hover:bg-brand-600 text-white text-xs font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5">
+                <span>Add to Cart</span>
+              </button>
             </div>
           </div>
         `;
@@ -650,17 +667,22 @@
       modal.classList.toggle('translate-x-full');
     }
 
-    // CART QUANTITY logic
-    function addToCart(title, price) {
-      let existing = cart.find(item => item.title === title);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ title, price, quantity: 1 });
-      }
-      updateCartUI();
-      toggleCart();
-      showToast('Item added to shopping bag!', 'fa-circle-check text-emerald-400');
+    function addToCart(title, price, btnIdx) {
+      const btnId = `addCartBtn_${btnIdx}`;
+      setBtnLoading(btnId, true, '');
+      
+      setTimeout(() => {
+        let existing = cart.find(item => item.title === title);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ title, price, quantity: 1 });
+        }
+        updateCartUI();
+        setBtnLoading(btnId, false, 'Add to Cart');
+        toggleCart();
+        showToast('Item added to shopping bag!', 'fa-circle-check text-emerald-400');
+      }, 300);
     }
 
     function changeQuantity(index, delta) {
@@ -700,7 +722,6 @@
               <span class="text-brand-600 font-extrabold text-[11px]">PKR ${item.price.toLocaleString()}</span>
             </div>
             
-            <!-- Quantity Control (+ / -) -->
             <div class="flex items-center gap-2">
               <div class="flex items-center bg-white border border-slate-300 rounded-lg overflow-hidden shadow-sm">
                 <button onclick="changeQuantity(${index}, -1)" class="w-7 h-7 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold transition-colors">-</button>
@@ -708,7 +729,6 @@
                 <button onclick="changeQuantity(${index}, 1)" class="w-7 h-7 flex items-center justify-center text-slate-600 hover:bg-slate-100 font-bold transition-colors">+</button>
               </div>
 
-              <!-- Delete Button -->
               <button onclick="removeItem(${index})" class="text-slate-400 hover:text-red-600 p-1 transition-colors" title="Remove Item">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
@@ -747,9 +767,10 @@
 
     function toggleAuthMode() {
       isSignupMode = !isSignupMode;
+      const btnText = isSignupMode ? 'Sign Up' : 'Login to Account';
       document.getElementById('authTitle').innerText = isSignupMode ? 'Create Account' : 'Customer Login';
       document.getElementById('authName').style.display = isSignupMode ? 'block' : 'none';
-      document.getElementById('authSubmitBtn').innerText = isSignupMode ? 'Sign Up' : 'Login to Account';
+      setBtnLoading('authSubmitBtn', false, btnText);
       document.getElementById('authSwitchText').innerText = isSignupMode ? 'Already have an account? Login' : "Don't have an account? Create one";
       generateCaptcha();
     }
@@ -771,6 +792,7 @@
       const password = document.getElementById('authPassword').value.trim();
       const name = document.getElementById('authName').value.trim();
       const userCaptcha = parseInt(document.getElementById('captchaAnswer').value);
+      const defaultText = isSignupMode ? 'Sign Up' : 'Login to Account';
 
       if (!email || !password || (isSignupMode && !name)) {
         showToast('Please fill in all required fields.', 'fa-triangle-exclamation text-amber-400');
@@ -783,6 +805,8 @@
         return;
       }
 
+      setBtnLoading('authSubmitBtn', true, defaultText);
+
       const action = isSignupMode ? 'signup' : 'login';
       fetch(SCRIPT_URL, {
         method: 'POST',
@@ -790,6 +814,7 @@
       })
       .then(res => res.json())
       .then(data => {
+        setBtnLoading('authSubmitBtn', false, defaultText);
         if (data.success) {
           showToast(data.message || 'Authentication successful!', 'fa-circle-check text-emerald-400');
           currentUser = { email: data.email || email, name: data.name || name };
@@ -802,6 +827,7 @@
         }
       })
       .catch(err => {
+        setBtnLoading('authSubmitBtn', false, defaultText);
         showToast('Connection error. Please try again.', 'fa-wifi text-brand-500');
         generateCaptcha();
       });
@@ -838,6 +864,8 @@
         return;
       }
 
+      setBtnLoading('placeOrderBtn', true, 'Place Order Now');
+
       let fullAddress = `${address}, City: ${city}, District: ${district || 'N/A'}, Country: ${country}`;
       let itemsStr = cart.map(i => `${i.title} x${i.quantity} (PKR ${i.price * i.quantity})`).join(', ');
       let totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
@@ -856,6 +884,7 @@
       })
       .then(res => res.json())
       .then(data => {
+        setBtnLoading('placeOrderBtn', false, 'Place Order Now');
         if (data.success) {
           cart = [];
           updateCartUI();
@@ -866,6 +895,10 @@
         } else {
           showToast('Failed to place order. Please try again.', 'fa-circle-xmark text-brand-500');
         }
+      })
+      .catch(err => {
+        setBtnLoading('placeOrderBtn', false, 'Place Order Now');
+        showToast('Connection error. Please try again.', 'fa-wifi text-brand-500');
       });
     }
 
@@ -891,12 +924,14 @@
         return;
       }
 
+      setBtnLoading('trackBtn', true, 'Track Order', 'fa-solid fa-magnifying-glass');
       resBox.classList.remove('hidden');
       resBox.innerHTML = '<p class="text-center font-semibold text-slate-600 py-4"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-2"></i> Fetching live shipment details...</p>';
 
       fetch(SCRIPT_URL + '?action=trackOrder&orderId=' + encodeURIComponent(orderId))
         .then(res => res.json())
         .then(data => {
+          setBtnLoading('trackBtn', false, 'Track Order', 'fa-solid fa-magnifying-glass');
           if (data.success) {
             let o = data.order;
             let statusLower = (o.status || '').toLowerCase();
@@ -980,6 +1015,7 @@
           }
         })
         .catch(err => {
+          setBtnLoading('trackBtn', false, 'Track Order', 'fa-solid fa-magnifying-glass');
           resBox.innerHTML = `<p class="text-center text-red-500 font-semibold py-4">Unable to retrieve tracking information right now.</p>`;
         });
     }
