@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HY Store | Staff Order Management Dashboard</title>
+  <title>HY Store | Official Staff & Order Tracking Portal</title>
+  
+  <!-- FAVICON / BROWSER TAB LOGO FIX -->
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="shortcut icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -18,7 +24,9 @@
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>body { font-family: 'Inter', sans-serif; }</style>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-800">
 
@@ -60,8 +68,8 @@
     </div>
   </div>
 
-  <!-- Dashboard Top Bar -->
-  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30">
+  <!-- Dashboard Top Bar Header -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       <div class="flex items-center gap-3">
         <!-- Store Logo Image (Header) -->
@@ -71,7 +79,7 @@
         <div>
           <h1 class="font-extrabold text-xs sm:text-sm tracking-wide uppercase text-slate-100">HY STORE OFFICIAL</h1>
           <p class="text-[9px] sm:text-[10px] text-slate-400 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Staff Order Portal
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span> Live Management Dashboard
           </p>
         </div>
       </div>
@@ -80,7 +88,7 @@
           <i class="fa-regular fa-copy text-brand-500"></i>
           <span class="hidden xs:inline" id="copyLinkText">Copy Link</span>
         </button>
-        <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-[11px] sm:text-xs font-bold p-2 sm:px-3 sm:py-2 rounded-lg flex items-center gap-1.5 transition-all" title="Refresh">
+        <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-[11px] sm:text-xs font-bold p-2 sm:px-3 sm:py-2 rounded-lg flex items-center gap-1.5 transition-all shadow-md shadow-brand-600/20" title="Refresh">
           <i class="fa-solid fa-rotate"></i>
           <span class="hidden sm:inline">Refresh</span>
         </button>
@@ -91,49 +99,57 @@
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6">
+  <!-- Main Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-5">
 
-    <!-- Summary Statistics Cards -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base shrink-0">
-          <i class="fa-solid fa-cart-shopping"></i>
+    <!-- RED BACKGROUND STATS CARDS SECTION WITH PREMIUM WEB LOOK -->
+    <div class="bg-gradient-to-r from-red-600 via-brand-600 to-red-800 p-3 sm:p-5 rounded-3xl shadow-xl border border-red-500/30">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        
+        <!-- Total Orders Card -->
+        <div class="bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-white/40 shadow-sm flex items-center gap-3 transition-transform hover:-translate-y-0.5">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base shrink-0 shadow-inner">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Total Orders</p>
+            <h3 id="statTotalOrders" class="text-base sm:text-xl font-extrabold text-slate-900">0</h3>
+          </div>
         </div>
-        <div>
-          <p class="text-[10px] uppercase font-bold text-slate-400">Total Orders</p>
-          <h3 id="statTotalOrders" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3>
-        </div>
-      </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-base shrink-0">
-          <i class="fa-solid fa-clock"></i>
+        <!-- Pending Card -->
+        <div class="bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-white/40 shadow-sm flex items-center gap-3 transition-transform hover:-translate-y-0.5">
+          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-base shrink-0 shadow-inner">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Pending</p>
+            <h3 id="statPending" class="text-base sm:text-xl font-extrabold text-slate-900">0</h3>
+          </div>
         </div>
-        <div>
-          <p class="text-[10px] uppercase font-bold text-slate-400">Pending</p>
-          <h3 id="statPending" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3>
-        </div>
-      </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-base shrink-0">
-          <i class="fa-solid fa-truck-fast"></i>
+        <!-- Delivered Card (Green Active Highlight) -->
+        <div class="bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-emerald-200 shadow-sm flex items-center gap-3 transition-transform hover:-translate-y-0.5">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-base shrink-0 shadow-inner">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div>
+            <p class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-600">Delivered</p>
+            <h3 id="statDelivered" class="text-base sm:text-xl font-extrabold text-emerald-700">0</h3>
+          </div>
         </div>
-        <div>
-          <p class="text-[10px] uppercase font-bold text-slate-400">Delivered</p>
-          <h3 id="statDelivered" class="text-base sm:text-lg font-extrabold text-slate-900">0</h3>
-        </div>
-      </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm col-span-2 sm:col-span-1 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-base shrink-0">
-          <i class="fa-solid fa-wallet"></i>
+        <!-- Total Revenue Card -->
+        <div class="bg-white/95 backdrop-blur-md p-3.5 sm:p-4 rounded-2xl border border-white/40 shadow-sm col-span-2 sm:col-span-1 flex items-center gap-3 transition-transform hover:-translate-y-0.5">
+          <div class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center font-bold text-base shrink-0 shadow-inner">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div class="overflow-hidden">
+            <p class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Total Revenue</p>
+            <h3 id="statRevenue" class="text-xs sm:text-base font-extrabold text-brand-600 truncate">PKR 0</h3>
+          </div>
         </div>
-        <div class="overflow-hidden">
-          <p class="text-[10px] uppercase font-bold text-slate-400">Total Revenue</p>
-          <h3 id="statRevenue" class="text-sm sm:text-base font-extrabold text-brand-600 truncate">PKR 0</h3>
-        </div>
+
       </div>
     </div>
 
@@ -199,7 +215,7 @@
         <option value="Cancelled">Cancelled</option>
       </select>
 
-      <button onclick="saveStatusUpdate()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs">Save Status Change</button>
+      <button onclick="saveStatusUpdate()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs shadow-md">Save Status Change</button>
     </div>
   </div>
 
@@ -316,8 +332,9 @@
       }
 
       tbody.innerHTML = orders.map(o => {
+        // DELIVERED STATUS GREEN COLOR BINDING
         let badgeClass = "bg-slate-100 text-slate-700";
-        if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
+        if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800 border border-emerald-300 font-extrabold";
         else if(o.status === "Dispatched" || o.status === "Out for Delivery") badgeClass = "bg-blue-100 text-blue-800";
         else if(o.status === "Processing") badgeClass = "bg-amber-100 text-amber-800";
         else if(o.status === "Cancelled") badgeClass = "bg-red-100 text-red-800";
@@ -340,7 +357,7 @@
             <td class="py-3 px-3 sm:px-4 text-slate-700 max-w-[200px] truncate">${o.items}</td>
             <td class="py-3 px-3 sm:px-4 font-extrabold text-brand-600 whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</td>
             <td class="py-3 px-3 sm:px-4 whitespace-nowrap">
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeClass}">${o.status || 'Pending'}</span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wide ${badgeClass}">${o.status || 'Pending'}</span>
             </td>
             <td class="py-3 px-3 sm:px-4 text-center whitespace-nowrap">
               <button onclick="openStatusModal('${o.orderId}', '${o.status}')" class="bg-slate-900 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">
