@@ -32,10 +32,16 @@
           <p class="text-[10px] text-slate-400">Order Management System</p>
         </div>
       </div>
-      <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-2 transition-all">
-        <i class="fa-solid fa-rotate"></i>
-        <span>Refresh Orders</span>
-      </button>
+      <div class="flex items-center gap-2">
+        <button onclick="copyStaffPortalLink()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all border border-slate-700">
+          <i class="fa-regular fa-copy text-brand-500"></i>
+          <span id="copyLinkText">Copy Portal Link</span>
+        </button>
+        <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-2 transition-all">
+          <i class="fa-solid fa-rotate"></i>
+          <span>Refresh</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -108,14 +114,41 @@
     </div>
   </div>
 
+  <!-- Toast Notification -->
+  <div id="customToast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl border border-slate-800 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toastMsg">Link copied!</span>
+  </div>
+
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0zYFH2fUnIKtSF3i29XhtI23xQR3DFfAwNru_JarkEVFYgaDz4rrm2aT2OsasY1rsPg/exec";
+    // Updated Apps Script URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhLtDB4ZrzrhBJPTtP23V2GoPNZCsRLSPRuejUUGy-6H3hX9_V5tiYC5gnc9ygZ1DNmg/exec";
+    
     let staffOrders = [];
     let currentUpdatingOrderId = null;
 
     window.onload = function() {
       fetchStaffOrders();
     };
+
+    function showToast(msg) {
+      const toast = document.getElementById('customToast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    function copyStaffPortalLink() {
+      const portalUrl = "https://hystoreofficial.com/staff.html";
+      navigator.clipboard.writeText(portalUrl);
+      document.getElementById('copyLinkText').innerText = 'Copied!';
+      showToast('Staff dashboard link copied!');
+      setTimeout(() => {
+        document.getElementById('copyLinkText').innerText = 'Copy Portal Link';
+      }, 2000);
+    }
 
     function fetchStaffOrders() {
       const tbody = document.getElementById('ordersTableBody');
@@ -150,9 +183,16 @@
         else if(o.status === "Processing") badgeClass = "bg-amber-100 text-amber-800";
         else if(o.status === "Cancelled") badgeClass = "bg-red-100 text-red-800";
 
+        let orderSummaryText = `${o.orderId} - ${o.customerName} - ${o.phone} - ${o.items} - PKR ${Number(o.totalAmount).toLocaleString()}`;
+
         return `
           <tr class="hover:bg-slate-50 transition-colors">
-            <td class="py-3.5 px-4 font-mono font-bold text-slate-900">${o.orderId}</td>
+            <td class="py-3.5 px-4 font-mono font-bold text-slate-900">
+              ${o.orderId}
+              <button onclick="copyOrderDetails('${orderSummaryText.replace(/'/g, "\\'")}')" class="ml-1 text-slate-400 hover:text-brand-600" title="Copy Order Details">
+                <i class="fa-regular fa-copy text-[10px]"></i>
+              </button>
+            </td>
             <td class="py-3.5 px-4">
               <strong class="block text-slate-800">${o.customerName}</strong>
               <span class="text-[11px] text-slate-500 block">${o.phone}</span>
@@ -171,6 +211,11 @@
           </tr>
         `;
       }).join('');
+    }
+
+    function copyOrderDetails(text) {
+      navigator.clipboard.writeText(text);
+      showToast('Order details copied to clipboard!');
     }
 
     function filterStaffTable() {
@@ -198,20 +243,21 @@
     }
 
     function saveStatusUpdate() {
-      const newStatus = document.getElementById('newStatusSelect').value;
+      const statusVal = document.getElementById('newStatusSelect').value;
 
       fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({
           action: 'updateOrderStatus',
           orderId: currentUpdatingOrderId,
-          status: newStatus
+          status: statusVal
         })
       })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
           closeStatusModal();
+          showToast('Order status updated successfully!');
           fetchStaffOrders();
         } else {
           alert('Failed to update status.');
