@@ -432,7 +432,7 @@
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Customer Details</label>
           <input type="text" id="chkName" placeholder="Full Name" class="w-full mb-2 px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
-          <input type="text" id="chkPhone" placeholder="Phone Number (e.g. 03001234567)" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
+          <input type="text" id="chkPhone" placeholder="Phone Number (e.g. 03001234567)" maxlength="13" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
         </div>
 
         <details open class="border border-slate-200 rounded-xl p-3 bg-slate-50 group">
@@ -1292,7 +1292,7 @@
 
     function submitOrderToSheet() {
       const name = document.getElementById('chkName').value.trim();
-      const phone = document.getElementById('chkPhone').value.trim();
+      let phone = document.getElementById('chkPhone').value.trim();
       const country = document.getElementById('chkCountry').value;
       const district = document.getElementById('chkDistrict').value;
       const city = document.getElementById('chkCity').value.trim();
@@ -1301,6 +1301,16 @@
       if (!name || !phone || !address || !city) {
         showToast('Please fill complete name, phone, city & street address.', 'fa-triangle-exclamation text-amber-400');
         return;
+      }
+
+      if (country === 'Pakistan') {
+        if (!phone.startsWith('+92') && !phone.startsWith('0')) {
+          showToast('Please enter a valid Pakistani phone number.', 'fa-triangle-exclamation text-amber-400');
+          return;
+        }
+        if (phone.startsWith('0')) {
+          phone = '+92' + phone.substring(1);
+        }
       }
 
       setBtnLoading('placeOrderBtn', true, 'Place Order Now');
