@@ -17,16 +17,12 @@
     }
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Barcode+128&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .font-serif-title { font-family: 'Playfair Display', serif; }
-    .slip-font-arial { 
-      font-family: Arial, Helvetica, sans-serif !important; 
-      font-weight: bold !important; 
-    }
+    .barcode-font { font-family: 'Libre Barcode 128', cursive; font-size: 42px; line-height: 1; }
     
-    /* A4 Printing: Exactly 1 Single Delivery Slip on Top Left Side */
+    /* A4 Printing Layout Exact to AMZ Prints Style */
     @media print {
       body * { visibility: hidden; }
       #deliverySlipModal, #deliverySlipModal * { visibility: visible; }
@@ -38,11 +34,10 @@
         height: 100% !important;
         background: #ffffff !important;
         display: block !important;
-        padding: 5mm !important;
+        padding: 10mm !important;
       }
-      .delivery-slip-box {
-        width: 100mm !important;
-        min-height: 150mm !important;
+      .exact-delivery-card {
+        width: 140mm !important;
         border: 2px solid #000000 !important;
         background: #ffffff !important;
         color: #000000 !important;
@@ -265,93 +260,97 @@
     </div>
   </div>
 
-  <!-- DELIVERY SLIP MODAL (With Barcode & QR Code, Arial Bold Text) -->
+  <!-- EXACT AMZ-STYLE DELIVERY SLIP MODAL (HY STORE BRANDING) -->
   <div id="deliverySlipModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-start justify-start p-4 overflow-y-auto">
-    <div class="delivery-slip-box slip-font-arial bg-white text-black w-full max-w-[100mm] min-h-[150mm] p-5 rounded-xl border-2 border-black shadow-2xl relative flex flex-col justify-between">
-      <button onclick="closeDeliverySlipModal()" class="no-print absolute top-2 right-2 text-black hover:text-red-600 text-2xl font-black">&times;</button>
-      
-      <div class="space-y-3">
-        <!-- Header -->
-        <div class="text-center space-y-1 border-b-2 border-black pb-2">
-          <div class="flex items-center justify-between">
-            <div class="w-10 h-10 bg-white rounded-lg p-0.5 flex items-center justify-center border border-black">
-              <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
-            </div>
-            <div class="text-right">
-              <h2 class="font-black text-xs tracking-wider text-black">HY STORE OFFICIAL</h2>
-              <p class="text-[8px] font-black text-black">COURIER & DELIVERY SLIP</p>
-            </div>
-          </div>
-        </div>
+    <div class="exact-delivery-card bg-white text-black w-full max-w-[145mm] p-6 border-2 border-black shadow-2xl relative font-sans">
+      <button onclick="closeDeliverySlipModal()" class="no-print absolute top-3 right-3 text-black hover:text-red-600 text-2xl font-black">&times;</button>
 
-        <!-- Barcode & QR Code Section -->
-        <div class="flex justify-between items-center bg-slate-100 p-2.5 rounded-lg border border-black">
-          <div class="text-center space-y-1">
-            <!-- Simulated Barcode Graphic -->
-            <div id="slipBarcode" class="font-mono tracking-widest text-[16px] font-black bg-white px-2 py-1 border border-black">||| | |||| || |</div>
-            <span id="slipBarcodeText" class="text-[9px] font-black block">HY-8094</span>
-          </div>
-          <div class="text-center">
-            <!-- QR Code generated via public API -->
-            <img id="slipQrCode" src="" alt="QR" class="w-16 h-16 object-contain bg-white p-0.5 border border-black">
-            <span class="text-[7px] font-black block mt-0.5">SCAN ORDER</span>
-          </div>
+      <!-- Slip Header -->
+      <div class="flex justify-between items-start border-b-2 border-black pb-3 mb-3">
+        <div>
+          <h1 class="text-xl font-black text-black tracking-tight leading-none">HY STORE OFFICIAL</h1>
+          <p class="text-xs text-black mt-1">King Road, Mandi Bahauddin</p>
+          <p class="text-xs text-black">hystoreofficial.com</p>
         </div>
-
-        <!-- Shipping & Recipient Details -->
-        <div class="text-[10px] font-black text-black space-y-1.5 border-b-2 border-black pb-2">
-          <div class="flex justify-between">
-            <span class="font-black text-black">Order ID:</span>
-            <span id="slipOrderId" class="font-black text-black">HY-XXXX</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-black text-black">Date:</span>
-            <span id="slipDate" class="font-black text-black">2026-10-16</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-black text-black">Recipient:</span>
-            <span id="slipCustomerName" class="font-black text-black truncate max-w-[130px]">Name</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-black text-black">Phone:</span>
-            <span id="slipPhone" class="font-black text-black">N/A</span>
-          </div>
-          <div>
-            <span class="font-black text-black block mb-0.5">Shipping Address:</span>
-            <p id="slipAddress" class="font-bold text-[9px] text-black bg-slate-50 p-1.5 rounded border border-black">Address here</p>
-          </div>
-          <div class="flex justify-between">
-            <span class="font-black text-black">Payment Status:</span>
-            <span id="slipPaymentState" class="font-black text-black underline">Pending</span>
-          </div>
-        </div>
-
-        <!-- Items Ordered -->
-        <div class="space-y-1 border-b-2 border-black pb-2 text-[10px]">
-          <p class="text-[9px] text-black uppercase tracking-widest font-black">PACKAGE CONTENTS (ITEMS):</p>
-          <div id="slipItemsList" class="space-y-1 text-black font-bold"></div>
-        </div>
-
-        <!-- Total COD Amount -->
-        <div class="space-y-1 text-[10px] font-black text-black pt-1">
-          <div class="flex justify-between">
-            <span class="font-black text-black">Delivery Charges:</span>
-            <span class="font-black text-black">FREE</span>
-          </div>
-          <div class="flex justify-between font-black text-sm border-t-2 border-black pt-1 text-black bg-yellow-100 px-2 py-1">
-            <span class="font-black">COD AMOUNT:</span>
-            <span id="slipTotalAmount" class="font-black text-black">PKR 0</span>
-          </div>
+        <div class="text-right">
+          <span class="text-xs font-black uppercase tracking-wider text-black block">DELIVERY SLIP</span>
+          <h2 id="slipOrderId" class="text-2xl font-black text-black leading-tight">HY-8094</h2>
+          <p class="text-[10px] text-black font-semibold mt-1">Date: <span id="slipDate">16 Oct 2026</span></p>
+          <p class="text-[10px] text-black font-semibold">Delivery: <span id="slipDeliveryDate">16 Oct 2026</span></p>
         </div>
       </div>
 
-      <!-- Footer & Action -->
-      <div class="space-y-3 pt-3 text-center">
-        <div class="text-[8px] font-black text-black border-t-2 border-black pt-1">
-          <p class="font-black">If undelivered, return to HY Store, King Road, Mandi Bahauddin.</p>
-          <p class="text-[7px] font-black text-black">Helpline: 0320-9306672 | hystoreofficial.com</p>
+      <!-- Deliver To & Order Info Columns -->
+      <div class="grid grid-cols-2 gap-4 border-b-2 border-black pb-3 mb-3">
+        <!-- Deliver To -->
+        <div class="border-r border-black pr-3">
+          <h3 class="text-xs font-black uppercase tracking-wider text-black border-b border-black pb-1 mb-2">DELIVER TO</h3>
+          <p id="slipCustomerName" class="text-sm font-black text-black">Customer Name</p>
+          <p id="slipAddress" class="text-xs text-black leading-tight mt-1">King Road, Sohawa Bolani, Mandi Bahauddin</p>
+          <p id="slipPhone" class="text-xs font-bold text-black mt-1">03209306672</p>
         </div>
-        <button onclick="window.print()" class="no-print w-full bg-black text-white font-black py-2.5 rounded-xl text-xs transition-all shadow-md">
+
+        <!-- Order Info -->
+        <div>
+          <h3 class="text-xs font-black uppercase tracking-wider text-black border-b border-black pb-1 mb-2">ORDER INFO</h3>
+          <p class="text-xs text-black">Status: <strong id="slipStatus" class="font-black">Ready</strong></p>
+          <p class="text-xs text-black">Tracking: <strong id="slipTracking" class="font-black">TRK-9770</strong></p>
+          <p class="text-xs text-black">Total: <strong id="slipTotal" class="font-black">Rs 0.00</strong></p>
+          <p class="text-xs text-black">Paid: <strong id="slipPaid" class="font-black">Rs 0.00</strong></p>
+          <p class="text-xs text-black">Balance: <strong id="slipBalance" class="font-black">Rs 1,600.00</strong></p>
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <div class="mb-4">
+        <table class="w-full border-collapse border-2 border-black text-xs">
+          <thead>
+            <tr class="bg-black text-white font-black text-left">
+              <th class="p-2 border-r border-black w-8 text-center">#</th>
+              <th class="p-2 border-r border-black">Item</th>
+              <th class="p-2 w-12 text-center">Qty</th>
+            </tr>
+          </thead>
+          <tbody id="slipItemsTableBody" class="divide-y border-b-2 border-black text-black font-semibold">
+            <tr>
+              <td class="p-2 border-r border-black text-center">1</td>
+              <td class="p-2 border-r border-black">Customized LED Photo Frame x1</td>
+              <td class="p-2 text-center font-bold">1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Barcode & QR Code Center Section -->
+      <div class="flex items-center justify-center gap-6 my-4 border-b-2 border-black pb-4">
+        <div class="text-center">
+          <div id="slipBarcode" class="barcode-font tracking-widest text-black">HY-8094</div>
+          <span id="slipBarcodeText" class="text-xs font-black tracking-widest text-black block -mt-2">HY-8094</span>
+        </div>
+        <div class="text-center border-l border-black pl-6">
+          <img id="slipQrCode" src="" alt="QR Code" class="w-16 h-16 object-contain bg-white p-0.5 border border-black mx-auto">
+          <span class="text-[8px] font-black block mt-1">SCAN ORDER</span>
+        </div>
+      </div>
+
+      <!-- Received By & Authorized Signatures -->
+      <div class="grid grid-cols-2 gap-8 text-center text-xs font-black pt-2 mb-2">
+        <div class="border-t border-black pt-1">
+          <span>RECEIVED BY</span>
+        </div>
+        <div class="border-t border-black pt-1">
+          <span>AUTHORIZED</span>
+        </div>
+      </div>
+
+      <!-- Footer Document Tagline -->
+      <div class="text-center text-[10px] font-bold text-black pt-2 border-t border-black">
+        <p>HY Store Printing Services - Professional Delivery Document</p>
+      </div>
+
+      <!-- Print Action Button (Hidden on Print) -->
+      <div class="no-print pt-4 text-center">
+        <button onclick="window.print()" class="bg-black text-white font-black px-8 py-3 rounded-xl text-xs transition-all shadow-lg flex items-center justify-center gap-2 mx-auto">
           <i class="fa-solid fa-print"></i> Print Delivery Slip
         </button>
       </div>
@@ -596,23 +595,45 @@
       });
     }
 
-    // Delivery Slip Generator with Barcode & QR Code (Arial Bold)
+    // AMZ Prints Reference Style Delivery Slip Generator
     function printDeliverySlip(orderId) {
       const o = staffOrders.find(item => item.orderId === orderId);
       if(!o) return;
 
       document.getElementById('slipOrderId').innerText = o.orderId;
       document.getElementById('slipBarcodeText').innerText = o.orderId;
+      document.getElementById('slipBarcode').innerText = o.orderId;
       document.getElementById('slipDate').innerText = new Date().toLocaleDateString();
+      document.getElementById('slipDeliveryDate').innerText = new Date().toLocaleDateString();
       document.getElementById('slipCustomerName').innerText = o.customerName || 'Customer';
       document.getElementById('slipPhone').innerText = o.phone || 'N/A';
       document.getElementById('slipAddress').innerText = o.address || 'N/A';
-      document.getElementById('slipPaymentState').innerText = o.paymentState || 'Pending';
-      document.getElementById('slipTotalAmount').innerText = 'PKR ' + Number(o.totalAmount).toLocaleString();
-      document.getElementById('slipItemsList').innerHTML = `<div class="font-bold"><span>${o.items}</span></div>`;
+      document.getElementById('slipStatus').innerText = o.status || 'Ready';
+      document.getElementById('slipTracking').innerText = 'TRK-' + (o.orderId.replace('HY-', ''));
+      
+      let totAmt = Number(o.totalAmount || 0);
+      let payState = o.paymentState || 'Pending';
+      let paidAmt = payState === 'Paid' ? totAmt : (payState === 'Partial Paid' ? Math.round(totAmt / 2) : 0);
+      let balanceAmt = totAmt - paidAmt;
 
-      // Generate QR Code via public API based on Order ID
-      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=` + encodeURIComponent(`HY-Store Order: ${o.orderId}, Customer: ${o.customerName}, Total: PKR ${o.totalAmount}`);
+      document.getElementById('slipTotal').innerText = 'Rs ' + totAmt.toLocaleString('en-US', {minimumFractionDigits: 2});
+      document.getElementById('slipPaid').innerText = 'Rs ' + paidAmt.toLocaleString('en-US', {minimumFractionDigits: 2});
+      document.getElementById('slipBalance').innerText = 'Rs ' + balanceAmt.toLocaleString('en-US', {minimumFractionDigits: 2});
+
+      // Split items by comma if multiple items ordered
+      let itemsList = (o.items || '').split(',');
+      let rowsHtml = itemsList.map((itemStr, idx) => `
+        <tr>
+          <td class="p-2 border-r border-black text-center">${idx + 1}</td>
+          <td class="p-2 border-r border-black uppercase font-bold">${itemStr.trim()}</td>
+          <td class="p-2 text-center font-black">1</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('slipItemsTableBody').innerHTML = rowsHtml;
+
+      // QR Code Generation
+      const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=` + encodeURIComponent(`HY Store Order: ${o.orderId}, Recipient: ${o.customerName}, Balance: Rs ${balanceAmt}`);
       document.getElementById('slipQrCode').src = qrApiUrl;
 
       document.getElementById('deliverySlipModal').classList.remove('hidden');
