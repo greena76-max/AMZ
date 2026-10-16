@@ -60,31 +60,31 @@
 <body class="flex flex-col min-h-screen text-slate-800 antialiased pb-16 md:pb-0">
 
   <!-- Top Promo Banner -->
-  <div class="bg-brand-600 text-white text-[11px] sm:text-xs md:text-sm py-2 px-3 text-center font-medium shadow-sm flex justify-between items-center max-w-full overflow-hidden">
-    <div class="mx-auto flex items-center gap-2 truncate">
-      <span class="bg-white text-brand-700 font-bold px-1.5 py-0.5 rounded text-[9px] uppercase tracking-wide">Limited</span>
+  <div class="bg-brand-600 text-white text-[10px] sm:text-xs md:text-sm py-2 px-2 text-center font-medium shadow-sm flex justify-between items-center max-w-full overflow-hidden">
+    <div class="mx-auto flex items-center gap-1.5 truncate">
+      <span class="bg-white text-brand-700 font-bold px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] uppercase tracking-wide">Limited</span>
       <span class="truncate">🎁 Free Delivery across Pakistan on PKR 3,000+! Code: <strong>HYSTORE</strong></span>
     </div>
   </div>
 
   <!-- Main Header -->
   <header class="sticky top-0 z-30 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-16 md:h-20 gap-2 md:gap-4">
+    <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-14 sm:h-16 md:h-20 gap-1.5 sm:gap-4">
         
         <!-- Mobile Hamburger Button -->
-        <button id="mobileMenuBtn" aria-label="Open Mobile Menu" class="md:hidden p-2 rounded-lg text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors focus:outline-none">
-          <i class="fa-solid fa-bars text-xl"></i>
+        <button id="mobileMenuBtn" aria-label="Open Mobile Menu" class="md:hidden p-1.5 rounded-lg text-slate-600 hover:text-brand-600 hover:bg-slate-100 transition-colors focus:outline-none">
+          <i class="fa-solid fa-bars text-lg sm:text-xl"></i>
         </button>
 
         <!-- Brand Logo with logo.png -->
-        <a href="#" onclick="switchPage('home')" class="flex items-center gap-2.5 focus:outline-none">
-          <div class="w-10 h-10 md:w-11 md:h-11 bg-white rounded-xl flex items-center justify-center shadow-sm border border-slate-200 overflow-hidden p-1">
+        <a href="#" onclick="switchPage('home')" class="flex items-center gap-2 focus:outline-none shrink-0">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 bg-white rounded-xl flex items-center justify-center shadow-sm border border-slate-200 overflow-hidden p-0.5">
             <img src="logo.png" alt="HY Store Logo" class="w-full h-full object-contain" onerror="this.src='https://via.placeholder.com/40?text=HY'">
           </div>
           <div class="flex flex-col">
-            <span class="font-serif-title font-extrabold text-lg sm:text-xl md:text-2xl text-slate-900 leading-none tracking-tight">HY STORE</span>
-            <span class="text-[9px] sm:text-[10px] text-brand-600 font-semibold tracking-widest uppercase">Gifts & Keepsakes</span>
+            <span class="font-serif-title font-extrabold text-sm sm:text-xl md:text-2xl text-slate-900 leading-none tracking-tight">HY STORE</span>
+            <span class="text-[8px] sm:text-[10px] text-brand-600 font-semibold tracking-widest uppercase">Gifts & Keepsakes</span>
           </div>
         </a>
 
@@ -98,27 +98,21 @@
         </div>
 
         <!-- Header Action Buttons -->
-        <div class="flex items-center gap-1.5 sm:gap-3">
+        <div class="flex items-center gap-1 sm:gap-3 shrink-0">
           
           <button onclick="switchPage('track')" class="hidden sm:flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
             <i class="fa-solid fa-truck-fast text-brand-600"></i>
             <span>Track</span>
           </button>
 
-          <!-- My Orders Button -->
-          <button id="myOrdersHeaderBtn" onclick="openMyOrdersPage()" class="hidden items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 text-xs font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 rounded-lg transition-colors border border-brand-200">
-            <i class="fa-solid fa-box-archive text-brand-600"></i>
-            <span>My Orders</span>
-          </button>
-
-          <button id="openAccountBtn" onclick="openAuthModal()" class="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors text-xs font-semibold">
-            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-slate-100 rounded-full flex items-center justify-center text-brand-600">
+          <button id="openAccountBtn" onclick="openAuthModal()" class="flex items-center gap-1 p-1.5 sm:px-3 sm:py-2 text-slate-700 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition-colors text-xs font-semibold">
+            <div class="w-7 h-7 sm:w-8 sm:h-8 bg-slate-100 rounded-full flex items-center justify-center text-brand-600 shrink-0">
               <i class="fa-regular fa-user text-xs sm:text-sm"></i>
             </div>
             <span id="userNameDisplay" class="hidden sm:inline">Sign In</span>
           </button>
 
-          <button id="openCartBtn" onclick="toggleCart()" class="relative p-2 sm:px-3 sm:py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 rounded-xl flex items-center gap-2 transition-all font-semibold text-xs border border-brand-200">
+          <button id="openCartBtn" onclick="toggleCart()" class="relative p-2 sm:px-3 sm:py-2 bg-brand-50 hover:bg-brand-100 text-brand-700 rounded-xl flex items-center gap-1.5 sm:gap-2 transition-all font-semibold text-xs border border-brand-200">
             <div class="relative">
               <i class="fa-solid fa-bag-shopping text-base sm:text-lg"></i>
               <span id="cartBadge" class="absolute -top-2 -right-2 bg-brand-600 text-white text-[9px] font-bold rounded-full w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center shadow-sm">0</span>
@@ -130,7 +124,7 @@
       </div>
 
       <!-- Mobile Search Bar -->
-      <div class="pb-3 md:hidden">
+      <div class="pb-2.5 md:hidden">
         <div class="relative">
           <input type="text" id="mobileSearchInput" placeholder="Search gifts..." oninput="filterProducts()"
                  class="w-full pl-9 pr-4 py-2 bg-slate-100 border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white transition-all">
@@ -174,13 +168,20 @@
       <button onclick="switchPage('home'); filterCat('Mugs', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Mugs & Drinkware</button>
       <button onclick="switchPage('home'); filterCat('Decor', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Home Decor</button>
       <button onclick="switchPage('home'); filterCat('Photo', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Photo Keepsakes</button>
-      <button id="mobileMyOrdersMenuBtn" onclick="openMyOrdersPage(); closeMobileMenu();" class="hidden w-full items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 font-bold"><i class="fa-solid fa-box-archive"></i> My Orders & Invoices</button>
-      <button onclick="switchPage('track'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 font-bold"><i class="fa-solid fa-location-dot"></i> Live Tracking</button>
+      
+      <!-- My Orders Button only inside Menu Drawer -->
+      <button id="mobileMyOrdersMenuBtn" onclick="openMyOrdersPage(); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 font-bold">
+        <i class="fa-solid fa-box-archive"></i> My Orders & Invoices
+      </button>
+
+      <button onclick="switchPage('track'); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 font-bold">
+        <i class="fa-solid fa-location-dot"></i> Live Tracking
+      </button>
     </div>
   </aside>
 
   <!-- Main Content Container -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-6 lg:px-8 py-3 sm:py-6 space-y-6 sm:space-y-8">
 
     <!-- HOME PAGE SECTION -->
     <div id="pageHome" class="space-y-6 sm:space-y-8">
@@ -359,6 +360,34 @@
 
   </main>
 
+  <!-- Product Detail Popup Modal -->
+  <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
+      
+      <div class="aspect-square bg-slate-100 rounded-xl overflow-hidden shadow-inner">
+        <img id="modalProdImg" src="" class="w-full h-full object-cover">
+      </div>
+
+      <div class="space-y-1.5">
+        <h3 id="modalProdTitle" class="font-serif-title font-bold text-lg text-slate-900">Product Title</h3>
+        <p id="modalProdDesc" class="text-xs text-slate-500 leading-relaxed">Product description goes here.</p>
+        <div id="modalProdPrice" class="text-brand-600 font-extrabold text-lg pt-1">PKR 0</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <button id="modalAddCartBtn" onclick="addCurrentProductToCart()" class="w-full bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Add to Cart</span>
+        </button>
+        <button id="modalBuyNowBtn" onclick="buyCurrentProductNow()" class="w-full bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Buy Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Cart Drawer -->
   <div id="cartModal" class="fixed top-0 right-0 bottom-0 w-full sm:w-[420px] bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl">
     <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
@@ -432,7 +461,7 @@
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase mb-1">Customer Details</label>
           <input type="text" id="chkName" placeholder="Full Name" class="w-full mb-2 px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
-          <input type="text" id="chkPhone" placeholder="Phone Number (e.g. 03001234567)" maxlength="13" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
+          <input type="text" id="chkPhone" placeholder="03001234567 (11 digits)" maxlength="12" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg text-xs outline-none focus:border-brand-500">
         </div>
 
         <details open class="border border-slate-200 rounded-xl p-3 bg-slate-50 group">
@@ -613,6 +642,7 @@
     let isSignupMode = false;
     let captchaNum1 = 3;
     let captchaNum2 = 4;
+    let selectedProduct = null;
 
     window.onload = function() {
       fetchProducts();
@@ -691,29 +721,10 @@
     }
 
     function updateUserUI() {
-      const myOrdersBtn = document.getElementById('myOrdersHeaderBtn');
-      const mobileMyOrdersBtn = document.getElementById('mobileMyOrdersMenuBtn');
-
       if (currentUser) {
         document.getElementById('userNameDisplay').innerText = currentUser.name.split(' ')[0];
-        if (myOrdersBtn) {
-          myOrdersBtn.classList.remove('hidden');
-          myOrdersBtn.classList.add('flex');
-        }
-        if (mobileMyOrdersBtn) {
-          mobileMyOrdersBtn.classList.remove('hidden');
-          mobileMyOrdersBtn.classList.add('flex');
-        }
       } else {
         document.getElementById('userNameDisplay').innerText = 'Sign In';
-        if (myOrdersBtn) {
-          myOrdersBtn.classList.remove('flex');
-          myOrdersBtn.classList.add('hidden');
-        }
-        if (mobileMyOrdersBtn) {
-          mobileMyOrdersBtn.classList.remove('flex');
-          mobileMyOrdersBtn.classList.add('hidden');
-        }
       }
     }
 
@@ -1064,25 +1075,65 @@
         let imgUrl = formatImageUrl(p.image);
         let productDesc = p.description || p.dis || '';
         return `
-          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+          <div onclick='openProductDetail(${idx})' class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between cursor-pointer group">
             <div>
               <div class="aspect-square bg-slate-100 overflow-hidden">
-                <img src="${imgUrl}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Image+Not+Found'">
+                <img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://via.placeholder.com/250x200?text=Image+Not+Found'">
               </div>
-              <div class="p-2.5 sm:p-4 space-y-1">
-                <h3 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-2">${p.title}</h3>
-                <p class="text-[11px] text-slate-500 line-clamp-2">${productDesc}</p>
+              <div class="p-2 sm:p-4 space-y-1">
+                <h3 class="font-bold text-slate-800 text-[11px] sm:text-sm line-clamp-2 group-hover:text-brand-600 transition-colors">${p.title}</h3>
+                <p class="text-[10px] sm:text-[11px] text-slate-500 line-clamp-2">${productDesc}</p>
               </div>
             </div>
-            <div class="p-2.5 sm:p-4 pt-0">
-              <div class="text-brand-600 font-extrabold text-xs sm:text-base mb-2 sm:mb-3">PKR ${Number(p.price).toLocaleString()}</div>
-              <button id="addCartBtn_${idx}" onclick="addToCart('${p.title.replace(/'/g, "\\'")}', ${p.price}, ${idx})" class="w-full bg-slate-900 hover:bg-brand-600 text-white text-[11px] sm:text-xs font-bold py-2 sm:py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5">
-                <span>Add to Cart</span>
-              </button>
+            <div class="p-2 sm:p-4 pt-0">
+              <div class="text-brand-600 font-extrabold text-xs sm:text-base">PKR ${Number(p.price).toLocaleString()}</div>
             </div>
           </div>
         `;
       }).join('');
+    }
+
+    function openProductDetail(idx) {
+      selectedProduct = allProducts[idx];
+      if (!selectedProduct) return;
+
+      document.getElementById('modalProdImg').src = formatImageUrl(selectedProduct.image);
+      document.getElementById('modalProdTitle').innerText = selectedProduct.title;
+      document.getElementById('modalProdDesc').innerText = selectedProduct.description || selectedProduct.dis || 'No description available.';
+      document.getElementById('modalProdPrice').innerText = 'PKR ' + Number(selectedProduct.price).toLocaleString();
+
+      document.getElementById('productDetailModal').classList.remove('hidden');
+    }
+
+    function closeProductDetailModal() {
+      document.getElementById('productDetailModal').classList.add('hidden');
+    }
+
+    function addCurrentProductToCart() {
+      if (!selectedProduct) return;
+      let existing = cart.find(item => item.title === selectedProduct.title);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ title: selectedProduct.title, price: Number(selectedProduct.price), quantity: 1 });
+      }
+      updateCartUI();
+      closeProductDetailModal();
+      toggleCart();
+      showToast('Item added to shopping bag!', 'fa-circle-check text-emerald-400');
+    }
+
+    function buyCurrentProductNow() {
+      if (!selectedProduct) return;
+      let existing = cart.find(item => item.title === selectedProduct.title);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ title: selectedProduct.title, price: Number(selectedProduct.price), quantity: 1 });
+      }
+      updateCartUI();
+      closeProductDetailModal();
+      proceedCheckout();
     }
 
     function filterCat(cat, btnElement) {
@@ -1118,24 +1169,6 @@
       if (modal) {
         modal.classList.toggle('translate-x-full');
       }
-    }
-
-    function addToCart(title, price, btnIdx) {
-      const btnId = `addCartBtn_${btnIdx}`;
-      setBtnLoading(btnId, true, '');
-      
-      setTimeout(() => {
-        let existing = cart.find(item => item.title === title);
-        if (existing) {
-          existing.quantity += 1;
-        } else {
-          cart.push({ title, price, quantity: 1 });
-        }
-        updateCartUI();
-        setBtnLoading(btnId, false, 'Add to Cart');
-        toggleCart();
-        showToast('Item added to shopping bag!', 'fa-circle-check text-emerald-400');
-      }, 200);
     }
 
     function changeQuantity(index, delta) {
@@ -1371,7 +1404,6 @@
       switchPage('myOrders');
     }
 
-    // Fixed & Robust Order Tracking Function
     function trackOrder() {
       const orderIdInput = document.getElementById('orderIdInput').value.trim().toUpperCase();
       const resBox = document.getElementById('trackResult');
@@ -1385,7 +1417,6 @@
       resBox.classList.remove('hidden');
       resBox.innerHTML = '<p class="text-center font-semibold text-slate-600 py-4"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-2"></i> Fetching live shipment details...</p>';
 
-      // First check local storage for instant robust tracking
       let localOrders = JSON.parse(localStorage.getItem('hy_local_orders') || '[]');
       let foundOrder = localOrders.find(o => o.orderId.toUpperCase() === orderIdInput);
 
@@ -1397,7 +1428,6 @@
         return;
       }
 
-      // If not in local storage, fetch from Google Apps Script
       fetch(SCRIPT_URL + '?action=trackOrder&orderId=' + encodeURIComponent(orderIdInput))
         .then(res => res.json())
         .then(data => {
