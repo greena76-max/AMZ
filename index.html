@@ -605,7 +605,7 @@
   </footer>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbysWu5xYmRnCCSeqRqf1lPYGogJfm38uxQTy4fzaG2eAH5kbGzOq4Xt_axdLWxXhw-Wyw/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyG9PjgN164fEd2SED1WXy3g9c62bRdFH1AvlzdaPYPzYKAiPaFAX9ROr2ELzXH8bvNgw/exec";
     let allProducts = [];
     let cart = [];
     let currentUser = JSON.parse(localStorage.getItem('hy_user')) || null;
@@ -1062,7 +1062,6 @@
       }
       grid.innerHTML = products.map((p, idx) => {
         let imgUrl = formatImageUrl(p.image);
-        // Column F description key mapping (supports both 'description' and 'dis')
         let productDesc = p.description || p.dis || '';
         return `
           <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
@@ -1116,7 +1115,9 @@
 
     function toggleCart() {
       const modal = document.getElementById('cartModal');
-      modal.classList.toggle('translate-x-full');
+      if (modal) {
+        modal.classList.toggle('translate-x-full');
+      }
     }
 
     function addToCart(title, price, btnIdx) {
@@ -1134,7 +1135,7 @@
         setBtnLoading(btnId, false, 'Add to Cart');
         toggleCart();
         showToast('Item added to shopping bag!', 'fa-circle-check text-emerald-400');
-      }, 300);
+      }, 200);
     }
 
     function changeQuantity(index, delta) {
