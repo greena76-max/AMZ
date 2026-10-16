@@ -2,8 +2,8 @@
 <html lang="en" class="h-full bg-slate-100">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HY Store | Staff Order Management Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HY Store | Staff, Invoices & POS Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,8 +17,20 @@
     }
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>body { font-family: 'Inter', sans-serif; }</style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-serif-title { font-family: 'Playfair Display', serif; }
+    .pos-font { font-family: 'Courier Prime', monospace; }
+    
+    /* POS Receipt Printing Styles (80mm Width x 140mm) */
+    @media print {
+      body * { visibility: hidden; }
+      #posReceiptModal, #posReceiptModal * { visibility: visible; }
+      #posReceiptModal { position: absolute; left: 0; top: 0; width: 80mm; background: #000 !important; color: #fff !important; }
+      .no-print { display: none !important; }
+    }
+  </style>
 </head>
 <body class="min-h-screen flex flex-col text-slate-800">
 
@@ -26,19 +38,18 @@
   <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
       <div class="text-center space-y-2">
-        <!-- Store Logo Image (Login Screen) -->
         <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto shadow-lg border border-slate-100 flex items-center justify-center bg-white p-1">
           <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" alt="HY Store Logo" class="w-full h-full object-contain">
         </div>
         <h2 class="text-xl font-extrabold text-slate-900">HY STORE OFFICIAL</h2>
-        <p class="text-xs text-slate-500">Staff Portal Login - Enter credentials to continue.</p>
+        <p class="text-xs text-slate-500">Staff & Admin Portal Login - Enter credentials.</p>
       </div>
 
       <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
           <div class="relative">
-            <input type="text" id="loginUser" required placeholder="Enter username" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+            <input type="text" id="loginUser" required placeholder="Enter username (e.g. Usman, Admin)" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
             <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
           </div>
         </div>
@@ -56,6 +67,13 @@
         <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20">
           Login to Dashboard
         </button>
+
+        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-[10px] text-slate-500 space-y-1">
+          <p class="font-bold text-slate-700">Configured Logins:</p>
+          <p>• Usman / 114477</p>
+          <p>• Admin / Admin</p>
+          <p>• M.ibrahim / 034711</p>
+        </div>
       </form>
     </div>
   </div>
@@ -64,18 +82,18 @@
   <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2">
       <div class="flex items-center gap-3">
-        <!-- Store Logo Image (Header) -->
         <div class="w-10 h-10 rounded-xl overflow-hidden bg-white p-0.5 shrink-0 shadow-md flex items-center justify-center">
           <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" alt="HY Store Logo" class="w-full h-full object-contain">
         </div>
         <div>
           <h1 class="font-extrabold text-xs sm:text-sm tracking-wide uppercase text-slate-100">HY STORE OFFICIAL</h1>
           <p class="text-[9px] sm:text-[10px] text-slate-400 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Staff Order Portal
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Staff, Invoices & POS Portal
           </p>
         </div>
       </div>
       <div class="flex items-center gap-1.5 sm:gap-2">
+        <span id="loggedInUserBadge" class="hidden sm:inline bg-slate-800 text-brand-500 font-bold text-xs px-2.5 py-1 rounded-lg border border-slate-700">Staff</span>
         <button onclick="copyStaffPortalLink()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-[11px] sm:text-xs font-bold px-2.5 py-2 rounded-lg flex items-center gap-1 transition-all border border-slate-700">
           <i class="fa-regular fa-copy text-brand-500"></i>
           <span class="hidden xs:inline" id="copyLinkText">Copy Link</span>
@@ -159,20 +177,21 @@
     <!-- Orders Table Container -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="overflow-x-auto -webkit-overflow-scrolling-touch">
-        <table class="w-full text-left border-collapse min-w-[700px]">
+        <table class="w-full text-left border-collapse min-w-[850px]">
           <thead>
             <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] font-extrabold tracking-wider border-b border-slate-200">
-              <th class="py-3 px-3 sm:px-4">Order ID</th>
-              <th class="py-3 px-3 sm:px-4">Customer Info</th>
-              <th class="py-3 px-3 sm:px-4">Items / Details</th>
-              <th class="py-3 px-3 sm:px-4">Total Amount</th>
-              <th class="py-3 px-3 sm:px-4">Current Status</th>
-              <th class="py-3 px-3 sm:px-4 text-center">Action</th>
+              <th class="py-3 px-3">Order ID</th>
+              <th class="py-3 px-3">Customer Info</th>
+              <th class="py-3 px-3">Items / Details</th>
+              <th class="py-3 px-3">Total Amount</th>
+              <th class="py-3 px-3">Status</th>
+              <th class="py-3 px-3 text-center">Payment</th>
+              <th class="py-3 px-3 text-center">Actions / Invoices / POS</th>
             </tr>
           </thead>
           <tbody id="ordersTableBody" class="text-xs divide-y divide-slate-100">
             <tr>
-              <td colspan="6" class="text-center py-12 text-slate-400 font-medium">
+              <td colspan="7" class="text-center py-12 text-slate-400 font-medium">
                 <i class="fa-solid fa-spinner animate-spin text-brand-600 text-xl mb-2 block"></i>
                 Loading order data...
               </td>
@@ -183,23 +202,126 @@
     </div>
   </main>
 
-  <!-- Status Update Modal -->
-  <div id="statusModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl relative space-y-4">
-      <button onclick="closeStatusModal()" class="absolute top-4 right-4 text-slate-400 text-xl">&times;</button>
-      <h3 class="font-bold text-slate-900 text-base">Update Order Status</h3>
-      <p class="text-xs text-slate-500">Updating status for: <strong id="modalTargetOrderId" class="text-brand-600">HY-XXXX</strong></p>
+  <!-- Edit Order & Status Modal -->
+  <div id="editOrderModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeEditModal()" class="absolute top-4 right-4 text-slate-400 text-xl">&times;</button>
+      <h3 class="font-bold text-slate-900 text-base">Edit Order & Payment Status</h3>
+      <p class="text-xs text-slate-500">Editing Order ID: <strong id="editTargetOrderId" class="text-brand-600">HY-XXXX</strong></p>
       
-      <select id="newStatusSelect" class="w-full p-3 bg-slate-50 border border-slate-300 rounded-xl text-xs font-semibold outline-none">
-        <option value="Pending">Pending</option>
-        <option value="Processing">Processing / Personalization</option>
-        <option value="Dispatched">Dispatched</option>
-        <option value="Out for Delivery">Out for Delivery</option>
-        <option value="Delivered">Delivered</option>
-        <option value="Cancelled">Cancelled</option>
-      </select>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Customer Name</label>
+          <input type="text" id="editCustomerName" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Items Description</label>
+          <input type="text" id="editItems" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Total Amount (PKR)</label>
+          <input type="number" id="editAmount" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Order Status</label>
+            <select id="editStatus" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-semibold outline-none">
+              <option value="Pending">Pending</option>
+              <option value="Processing">Processing</option>
+              <option value="Dispatched">Dispatched</option>
+              <option value="Out for Delivery">Out for Delivery</option>
+              <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Payment State</label>
+            <select id="editPaymentState" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold outline-none text-brand-600">
+              <option value="Pending">Pending Invoice</option>
+              <option value="Partial Paid">Partial Paid</option>
+              <option value="Paid">Paid</option>
+            </select>
+          </div>
+        </div>
 
-      <button onclick="saveStatusUpdate()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs">Save Status Change</button>
+        <button onclick="saveOrderEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs shadow-md mt-2">
+          Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 80mm x 140mm BLACK POS THERMAL SLIP MODAL -->
+  <div id="posReceiptModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-black text-white w-full max-w-[80mm] min-h-[140mm] p-5 rounded-2xl shadow-2xl relative pos-font flex flex-col justify-between border border-neutral-800">
+      <button onclick="closePosModal()" class="no-print absolute top-3 right-3 text-neutral-400 hover:text-white text-lg">&times;</button>
+      
+      <div class="space-y-3">
+        <!-- POS Header with Logo -->
+        <div class="text-center space-y-1 border-b border-neutral-800 pb-3">
+          <div class="w-12 h-12 bg-white rounded-xl p-1 mx-auto flex items-center justify-center shadow">
+            <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
+          </div>
+          <h2 class="font-bold text-sm tracking-widest text-white">HY STORE OFFICIAL</h2>
+          <p class="text-[9px] text-neutral-400">Personalised Gifts & Keepsakes</p>
+          <p class="text-[8px] text-neutral-500">King Road, Mandi Bahauddin | Ph: 0320-9306672</p>
+        </div>
+
+        <!-- POS Order Meta -->
+        <div class="text-[10px] space-y-1 border-b border-neutral-800 pb-3">
+          <div class="flex justify-between">
+            <span class="text-neutral-400">Order ID:</span>
+            <span id="posOrderId" class="font-bold text-red-400">HY-XXXX</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-neutral-400">Date:</span>
+            <span id="posDate">2026-10-16</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-neutral-400">Customer:</span>
+            <span id="posCustomerName" class="truncate max-w-[120px]">Name</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-neutral-400">Phone:</span>
+            <span id="posPhone">N/A</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-neutral-400">Payment:</span>
+            <span id="posPaymentState" class="font-bold text-amber-400">Pending</span>
+          </div>
+        </div>
+
+        <!-- POS Items -->
+        <div class="space-y-2 border-b border-neutral-800 pb-3 text-[10px]">
+          <p class="text-[9px] text-neutral-400 uppercase tracking-widest font-bold">Items Ordered:</p>
+          <div id="posItemsList" class="space-y-1 text-slate-200">
+            <!-- Dynamic Items -->
+          </div>
+        </div>
+
+        <!-- POS Totals -->
+        <div class="space-y-1 text-[10px] pt-1">
+          <div class="flex justify-between">
+            <span class="text-neutral-400">Shipping:</span>
+            <span>FREE</span>
+          </div>
+          <div class="flex justify-between font-bold text-sm border-t border-neutral-800 pt-2 text-white">
+            <span>TOTAL:</span>
+            <span id="posTotalAmount" class="text-red-500">PKR 0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- POS Footer -->
+      <div class="space-y-3 pt-4 text-center">
+        <div class="text-[9px] text-neutral-400 border-t border-neutral-800 pt-2">
+          <p>Thank you for shopping with HY Store!</p>
+          <p class="text-[8px] text-neutral-600">hystoreofficial.com</p>
+        </div>
+        <button onclick="window.print()" class="no-print w-full bg-white hover:bg-neutral-200 text-black font-bold py-2.5 rounded-xl text-xs transition-all shadow">
+          <i class="fa-solid fa-print mr-1"></i> Print 80mm POS Slip
+        </button>
+      </div>
     </div>
   </div>
 
@@ -213,12 +335,14 @@
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhLtDB4ZrzrhBJPTtP23V2GoPNZCsRLSPRuejUUGy-6H3hX9_V5tiYC5gnc9ygZ1DNmg/exec";
     
     let staffOrders = [];
-    let currentUpdatingOrderId = null;
+    let currentEditingOrderId = null;
 
     window.onload = function() {
       const isLogged = sessionStorage.getItem('hy_staff_logged');
+      const loggedUser = sessionStorage.getItem('hy_logged_user_name');
       if(isLogged === 'true') {
         document.getElementById('loginModal').classList.add('hidden');
+        if(loggedUser) document.getElementById('loggedInUserBadge').innerText = loggedUser;
         fetchStaffOrders();
       } else {
         document.getElementById('loginModal').classList.remove('hidden');
@@ -231,12 +355,29 @@
       const pass = document.getElementById('loginPass').value.trim();
       const errEl = document.getElementById('loginError');
 
-      if(user === 'M.ibrahim' && pass === '034711') {
+      // 3 configured logins: Usman, Admin, M.ibrahim
+      let isValid = false;
+      let displayName = '';
+
+      if(user === 'Usman' && pass === '114477') {
+        isValid = true;
+        displayName = 'Usman (Staff)';
+      } else if(user === 'Admin' && pass === 'Admin') {
+        isValid = true;
+        displayName = 'Administrator';
+      } else if(user === 'M.ibrahim' && pass === '034711') {
+        isValid = true;
+        displayName = 'M. Ibrahim';
+      }
+
+      if(isValid) {
         sessionStorage.setItem('hy_staff_logged', 'true');
+        sessionStorage.setItem('hy_logged_user_name', displayName);
         document.getElementById('loginModal').classList.add('hidden');
         errEl.classList.add('hidden');
+        document.getElementById('loggedInUserBadge').innerText = displayName;
         fetchStaffOrders();
-        showToast('Successfully logged in!');
+        showToast('Successfully logged in as ' + displayName + '!');
       } else {
         errEl.classList.remove('hidden');
       }
@@ -244,6 +385,7 @@
 
     function handleLogout() {
       sessionStorage.removeItem('hy_staff_logged');
+      sessionStorage.removeItem('hy_logged_user_name');
       window.location.reload();
     }
 
@@ -269,7 +411,7 @@
 
     function fetchStaffOrders() {
       const tbody = document.getElementById('ordersTableBody');
-      tbody.innerHTML = `<tr><td colspan="6" class="text-center py-12 text-slate-400 font-medium"><i class="fa-solid fa-spinner animate-spin text-brand-600 text-xl mb-2 block"></i> Fetching live orders...</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="7" class="text-center py-12 text-slate-400 font-medium"><i class="fa-solid fa-spinner animate-spin text-brand-600 text-xl mb-2 block"></i> Fetching live orders...</td></tr>`;
 
       fetch(SCRIPT_URL + '?action=getStaffOrders')
         .then(res => res.json())
@@ -279,11 +421,11 @@
             updateDashboardStats(staffOrders);
             renderOrdersTable(staffOrders);
           } else {
-            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-500">Failed to load orders.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-red-500">Failed to load orders.</td></tr>`;
           }
         })
         .catch(err => {
-          tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-red-500">Network Error. Check Apps Script URL.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-red-500">Network Error. Check Apps Script URL.</td></tr>`;
         });
     }
 
@@ -311,7 +453,7 @@
     function renderOrdersTable(orders) {
       const tbody = document.getElementById('ordersTableBody');
       if (!orders || orders.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400">No orders found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">No orders found.</td></tr>`;
         return;
       }
 
@@ -322,39 +464,43 @@
         else if(o.status === "Processing") badgeClass = "bg-amber-100 text-amber-800";
         else if(o.status === "Cancelled") badgeClass = "bg-red-100 text-red-800";
 
-        let orderSummaryText = `${o.orderId} - ${o.customerName} - ${o.phone} - ${o.items} - PKR ${Number(o.totalAmount).toLocaleString()}`;
+        let paymentState = o.paymentState || 'Pending';
+        let payBadge = "bg-amber-50 text-amber-700 border-amber-200";
+        if(paymentState === 'Paid') payBadge = "bg-emerald-50 text-emerald-700 border-emerald-200";
+        else if(paymentState === 'Partial Paid') payBadge = "bg-blue-50 text-blue-700 border-blue-200";
 
         return `
           <tr class="hover:bg-slate-50 transition-colors">
-            <td class="py-3 px-3 sm:px-4 font-mono font-bold text-slate-900 whitespace-nowrap">
+            <td class="py-3 px-3 font-mono font-bold text-slate-900 whitespace-nowrap">
               ${o.orderId}
-              <button onclick="copyOrderDetails('${orderSummaryText.replace(/'/g, "\\'")}')" class="ml-1 text-slate-400 hover:text-brand-600 p-1" title="Copy Order Details">
-                <i class="fa-regular fa-copy text-[11px]"></i>
-              </button>
             </td>
-            <td class="py-3 px-3 sm:px-4">
+            <td class="py-3 px-3">
               <strong class="block text-slate-800">${o.customerName}</strong>
               <span class="text-[11px] text-slate-500 block">${o.phone}</span>
-              <span class="text-[10px] text-slate-400 block max-w-[200px] truncate">${o.address}</span>
+              <span class="text-[10px] text-slate-400 block max-w-[180px] truncate">${o.address}</span>
             </td>
-            <td class="py-3 px-3 sm:px-4 text-slate-700 max-w-[200px] truncate">${o.items}</td>
-            <td class="py-3 px-3 sm:px-4 font-extrabold text-brand-600 whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</td>
-            <td class="py-3 px-3 sm:px-4 whitespace-nowrap">
+            <td class="py-3 px-3 text-slate-700 max-w-[180px] truncate">${o.items}</td>
+            <td class="py-3 px-3 font-extrabold text-brand-600 whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</td>
+            <td class="py-3 px-3 whitespace-nowrap">
               <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeClass}">${o.status || 'Pending'}</span>
             </td>
-            <td class="py-3 px-3 sm:px-4 text-center whitespace-nowrap">
-              <button onclick="openStatusModal('${o.orderId}', '${o.status}')" class="bg-slate-900 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">
-                Update
+            <td class="py-3 px-3 text-center whitespace-nowrap">
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${payBadge}">${paymentState}</span>
+            </td>
+            <td class="py-3 px-3 text-center whitespace-nowrap space-x-1">
+              <button onclick="openEditModal('${o.orderId}')" class="bg-slate-900 hover:bg-slate-800 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm" title="Edit Order & Payment">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
+              </button>
+              <button onclick="printPosSlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm" title="Print 80mm POS Slip">
+                <i class="fa-solid fa-receipt"></i> POS
+              </button>
+              <button onclick="printInvoice('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm" title="Print Invoice">
+                <i class="fa-solid fa-file-invoice"></i> Invoice
               </button>
             </td>
           </tr>
         `;
       }).join('');
-    }
-
-    function copyOrderDetails(text) {
-      navigator.clipboard.writeText(text);
-      showToast('Order details copied to clipboard!');
     }
 
     function filterStaffTable() {
@@ -370,38 +516,193 @@
       renderOrdersTable(filtered);
     }
 
-    function openStatusModal(orderId, currentStatus) {
-      currentUpdatingOrderId = orderId;
-      document.getElementById('modalTargetOrderId').innerText = orderId;
-      document.getElementById('newStatusSelect').value = currentStatus || 'Pending';
-      document.getElementById('statusModal').classList.remove('hidden');
+    function openEditModal(orderId) {
+      const o = staffOrders.find(item => item.orderId === orderId);
+      if(!o) return;
+      currentEditingOrderId = orderId;
+      document.getElementById('editTargetOrderId').innerText = orderId;
+      document.getElementById('editCustomerName').value = o.customerName || '';
+      document.getElementById('editItems').value = o.items || '';
+      document.getElementById('editAmount').value = o.totalAmount || 0;
+      document.getElementById('editStatus').value = o.status || 'Pending';
+      document.getElementById('editPaymentState').value = o.paymentState || 'Pending';
+      document.getElementById('editOrderModal').classList.remove('hidden');
     }
 
-    function closeStatusModal() {
-      document.getElementById('statusModal').classList.add('hidden');
+    function closeEditModal() {
+      document.getElementById('editOrderModal').classList.add('hidden');
     }
 
-    function saveStatusUpdate() {
-      const statusVal = document.getElementById('newStatusSelect').value;
+    function saveOrderEdits() {
+      const customerName = document.getElementById('editCustomerName').value.trim();
+      const items = document.getElementById('editItems').value.trim();
+      const totalAmount = document.getElementById('editAmount').value.trim();
+      const status = document.getElementById('editStatus').value;
+      const paymentState = document.getElementById('editPaymentState').value;
 
       fetch(SCRIPT_URL, {
         method: 'POST',
         body: JSON.stringify({
-          action: 'updateOrderStatus',
-          orderId: currentUpdatingOrderId,
-          status: statusVal
+          action: 'updateOrderDetails',
+          orderId: currentEditingOrderId,
+          customerName: customerName,
+          items: items,
+          totalAmount: totalAmount,
+          status: status,
+          paymentState: paymentState
         })
       })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          closeStatusModal();
-          showToast('Order status updated successfully!');
+          closeEditModal();
+          showToast('Order and payment updated successfully!');
           fetchStaffOrders();
         } else {
-          alert('Failed to update status.');
+          alert('Failed to update order.');
         }
       });
+    }
+
+    // POS Thermal Slip (80mm x 140mm)
+    function printPosSlip(orderId) {
+      const o = staffOrders.find(item => item.orderId === orderId);
+      if(!o) return;
+
+      document.getElementById('posOrderId').innerText = o.orderId;
+      document.getElementById('posDate').innerText = new Date().toLocaleDateString();
+      document.getElementById('posCustomerName').innerText = o.customerName || 'Customer';
+      document.getElementById('posPhone').innerText = o.phone || 'N/A';
+      document.getElementById('posPaymentState').innerText = o.paymentState || 'Pending';
+      document.getElementById('posTotalAmount').innerText = 'PKR ' + Number(o.totalAmount).toLocaleString();
+      document.getElementById('posItemsList').innerHTML = `<div class="flex justify-between"><span>${o.items}</span></div>`;
+
+      document.getElementById('posReceiptModal').classList.remove('hidden');
+    }
+
+    function closePosModal() {
+      document.getElementById('posReceiptModal').classList.add('hidden');
+    }
+
+    // Professional Branded Invoice Generator
+    function printInvoice(orderId) {
+      const o = staffOrders.find(item => item.orderId === orderId);
+      if(!o) return;
+
+      const invoiceWindow = window.open('', '_blank');
+      invoiceWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <title>Invoice - ${o.orderId} | HY Store</title>
+          <script src="https://cdn.tailwindcss.com"><\/script>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+          <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+          <style>
+            body { font-family: 'Inter', sans-serif; }
+            .font-serif-title { font-family: 'Playfair Display', serif; }
+            @media print {
+              body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body class="bg-slate-100 text-slate-800 p-6 md:p-12 antialiased">
+          <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-[#d9232d] text-white px-8 py-6 flex justify-between items-center shadow-inner">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-white rounded-xl shadow-md p-1.5 flex items-center justify-center">
+                  <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
+                </div>
+                <div>
+                  <h1 class="font-serif-title text-2xl font-extrabold tracking-tight">HY STORE</h1>
+                  <span class="text-[9px] font-bold uppercase tracking-widest text-red-200">Gifts & Keepsakes</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-extrabold px-3.5 py-1.5 bg-white text-[#d9232d] rounded-full uppercase tracking-wider shadow">Official Invoice</span>
+                <p class="text-xs text-red-100 mt-2 font-mono">Date: ${new Date().toLocaleDateString()}</p>
+              </div>
+            </div>
+
+            <div class="p-8 space-y-6">
+              <div class="grid grid-cols-2 gap-4 text-xs bg-red-50/50 p-4 rounded-xl border border-red-100">
+                <div>
+                  <span class="text-red-700 uppercase font-bold text-[10px] block mb-1">Billed To:</span>
+                  <strong class="text-slate-900 text-sm block">${o.customerName || 'Customer'}</strong>
+                  <span class="text-slate-600 block"><i class="fa-solid fa-phone mr-1 text-[#d9232d]"></i> ${o.phone || 'N/A'}</span>
+                  <span class="text-slate-600 block mt-1"><i class="fa-solid fa-location-dot mr-1 text-[#d9232d]"></i> ${o.address || 'N/A'}</span>
+                </div>
+                <div class="text-right space-y-1">
+                  <span class="text-red-700 uppercase font-bold text-[10px] block mb-1">Order Details:</span>
+                  <span class="font-mono font-bold text-slate-900 text-sm block">ID: ${o.orderId}</span>
+                  <span class="text-slate-600 block">Status: <strong class="text-emerald-600">${o.status || 'Confirmed'}</strong></span>
+                  <span class="text-slate-600 block">Payment: <strong class="text-[#d9232d]">${o.paymentState || 'Pending'}</strong></span>
+                </div>
+              </div>
+
+              <div class="space-y-3">
+                <h3 class="font-bold text-xs text-slate-700 uppercase tracking-wider">Itemized Breakdown</h3>
+                <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                  <table class="w-full text-left text-xs">
+                    <thead class="bg-[#d9232d] text-white uppercase font-bold text-[10px]">
+                      <tr>
+                        <th class="p-3.5">Description</th>
+                        <th class="p-3.5 text-right w-40">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 bg-white">
+                      <tr>
+                        <td class="p-4 font-medium text-slate-800">${o.items}</td>
+                        <td class="p-4 text-right font-extrabold text-slate-950 whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="flex justify-end pt-2">
+                <div class="w-72 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
+                  <div class="flex justify-between text-slate-600">
+                    <span>Subtotal:</span>
+                    <span class="font-semibold text-slate-900 whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</span>
+                  </div>
+                  <div class="flex justify-between text-slate-600">
+                    <span>Shipping:</span>
+                    <span class="text-emerald-600 font-bold">FREE</span>
+                  </div>
+                  <div class="flex justify-between font-extrabold text-sm border-t border-slate-200 pt-2 text-slate-900">
+                    <span>Grand Total:</span>
+                    <span class="text-[#d9232d] whitespace-nowrap">PKR ${Number(o.totalAmount).toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-between items-end pt-4 border-t border-slate-200 text-xs">
+                <div class="text-slate-400 text-[10px]">
+                  <p>Computer generated official invoice.</p>
+                  <p class="font-mono text-[#d9232d]">hystoreofficial.com | +92 320 9306672</p>
+                </div>
+                <div class="text-center space-y-2">
+                  <div class="border-b border-slate-400 w-36 pb-1">
+                    <span class="font-serif-title font-bold text-[#d9232d] text-[11px]">HY Store Auth.</span>
+                  </div>
+                  <span class="text-[9px] text-slate-500 uppercase tracking-widest block font-semibold">Authorized Signature</span>
+                </div>
+              </div>
+
+              <div class="no-print pt-4 text-center">
+                <button onclick="window.print()" class="bg-[#d9232d] hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl text-xs transition-all shadow-md">
+                  <i class="fa-solid fa-print mr-1.5"></i> Print / Save Invoice as PDF
+                </button>
+              </div>
+            </div>
+          </div>
+        </body>
+        </html>
+      `);
+      invoiceWindow.document.close();
     }
   </script>
 </body>
