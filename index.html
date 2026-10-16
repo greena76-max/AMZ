@@ -605,7 +605,7 @@
   </footer>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0zYFH2fUnIKtSF3i29XhtI23xQR3DFfAwNru_JarkEVFYgaDz4rrm2aT2OsasY1rsPg/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbysWu5xYmRnCCSeqRqf1lPYGogJfm38uxQTy4fzaG2eAH5kbGzOq4Xt_axdLWxXhw-Wyw/exec";
     let allProducts = [];
     let cart = [];
     let currentUser = JSON.parse(localStorage.getItem('hy_user')) || null;
@@ -1062,14 +1062,17 @@
       }
       grid.innerHTML = products.map((p, idx) => {
         let imgUrl = formatImageUrl(p.image);
+        // Column F description key mapping (supports both 'description' and 'dis')
+        let productDesc = p.description || p.dis || '';
         return `
           <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>
               <div class="aspect-square bg-slate-100 overflow-hidden">
                 <img src="${imgUrl}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Image+Not+Found'">
               </div>
-              <div class="p-2.5 sm:p-4">
+              <div class="p-2.5 sm:p-4 space-y-1">
                 <h3 class="font-bold text-slate-800 text-xs sm:text-sm line-clamp-2">${p.title}</h3>
+                <p class="text-[11px] text-slate-500 line-clamp-2">${productDesc}</p>
               </div>
             </div>
             <div class="p-2.5 sm:p-4 pt-0">
