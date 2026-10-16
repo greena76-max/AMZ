@@ -290,7 +290,7 @@
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4 max-h-[95vh] overflow-y-auto">
       <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl">&times;</button>
       <h3 id="productModalTitle" class="font-bold text-lg text-slate-900">Add New Product</h3>
-      <p class="text-xs text-slate-500">Provide product details and image link. Data will automatically sync with Google Sheet.</p>
+      <p class="text-xs text-slate-500">Either paste Image URL OR Upload photo from your device (mutually exclusive).</p>
       
       <div class="space-y-3 text-xs">
         <input type="hidden" id="prodEditIndex" value="">
@@ -316,9 +316,26 @@
           </div>
         </div>
 
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Image URL (Google Drive or Direct Link)</label>
-          <input type="text" id="prodImage" placeholder="Paste direct image link or Google Drive view link" class="w-full px-3 py-2.5 border border-slate-300 rounded-xl outline-none focus:border-brand-500 font-mono text-[11px]">
+        <!-- IMAGE INPUT METHOD SELECTION -->
+        <div class="space-y-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+          <label class="block font-bold text-slate-700 text-[11px] uppercase">Product Image Source (Choose One)</label>
+          
+          <div>
+            <label class="block text-[10px] font-semibold text-slate-500 mb-1">Option 1: Paste Image URL</label>
+            <input type="text" id="prodImage" oninput="handleUrlInput()" placeholder="https://... or Google Drive link" class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none font-mono text-[11px] bg-white">
+          </div>
+
+          <div class="text-center font-bold text-slate-400 text-[10px]">- OR -</div>
+
+          <div>
+            <label class="block text-[10px] font-semibold text-slate-500 mb-1">Option 2: Upload Photo from Device</label>
+            <input type="file" id="prodFile" accept="image/*" onchange="handleFileUpload(event)" class="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer">
+          </div>
+          
+          <div id="imagePreviewContainer" class="hidden pt-2">
+            <span class="text-[10px] font-bold text-emerald-600 block mb-1"><i class="fa-solid fa-circle-check"></i> Image loaded successfully:</span>
+            <img id="prodImagePreview" src="" class="w-20 h-20 object-cover rounded-lg border border-slate-300 mx-auto">
+          </div>
         </div>
 
         <div>
@@ -427,6 +444,7 @@
     let staffOrders = [];
     let staffProducts = [];
     let currentEditingOrderId = null;
+    let finalImageValue = ""; // Stores either URL or Base64 uploaded string
 
     window.onload = function() {
       const isLogged = sessionStorage.getItem('hy_staff_logged');
@@ -725,6 +743,55 @@
       renderProductsCatalog(filtered);
     }
 
+    // Mutually Exclusive Image Source Logic
+    function handleUrlInput() {
+      const urlVal = document.getElementById('prodImage').value.trim();
+      const fileInput = document.getElementById('prodFile');
+      const previewContainer = document.getElementById('imagePreviewContainer');
+      const previewImg = document.getElementById('prodImagePreview');
+
+      if (urlVal.length > 0) {
+        fileInput.value = "";
+        fileInput.disabled = true;
+        fileInput.classList.add('opacity-50');
+        finalImageValue = urlVal;
+
+        previewImg.src = formatImageUrl(urlVal);
+        previewContainer.classList.remove('hidden');
+      } else {
+        fileInput.disabled = false;
+        fileInput.classList.remove('opacity-50');
+        finalImageValue = "";
+        previewContainer.classList.add('hidden');
+      }
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      const urlInput = document.getElementById('prodImage');
+      const previewContainer = document.getElementById('imagePreviewContainer');
+      const previewImg = document.getElementById('prodImagePreview');
+
+      if (file) {
+        urlInput.value = "";
+        urlInput.disabled = true;
+        urlInput.classList.add('opacity-50');
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          finalImageValue = e.target.result; // Base64 Data URL
+          previewImg.src = finalImageValue;
+          previewContainer.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      } else {
+        urlInput.disabled = false;
+        urlInput.classList.remove('opacity-50');
+        finalImageValue = "";
+        previewContainer.classList.add('hidden');
+      }
+    }
+
     function openAddProductModal() {
       document.getElementById('productModalTitle').innerText = 'Add New Product';
       document.getElementById('prodEditIndex').value = '';
@@ -732,7 +799,14 @@
       document.getElementById('prodPrice').value = '';
       document.getElementById('prodCategory').value = 'Mugs';
       document.getElementById('prodImage').value = '';
+      document.getElementById('prodImage').disabled = false;
+      document.getElementById('prodImage').classList.remove('opacity-50');
+      document.getElementById('prodFile').value = '';
+      document.getElementById('prodFile').disabled = false;
+      document.getElementById('prodFile').classList.remove('opacity-50');
       document.getElementById('prodDesc').value = '';
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
+      finalImageValue = "";
       document.getElementById('productModal').classList.remove('hidden');
     }
 
@@ -744,7 +818,28 @@
       document.getElementById('prodTitle').value = p.title || '';
       document.getElementById('prodPrice').value = p.price || '';
       document.getElementById('prodCategory').value = p.category || 'Mugs';
-      document.getElementById('prodImage').value = p.image || '';
+      
+      const imgVal = p.image || '';
+      finalImageValue = imgVal;
+      
+      if (imgVal.startsWith('data:image') || !imgVal.includes('http')) {
+        document.getElementById('prodImage').value = '';
+        document.getElementById('prodImage').disabled = true;
+        document.getElementById('prodImage').classList.add('opacity-50');
+      } else {
+        document.getElementById('prodImage').value = imgVal;
+        document.getElementById('prodFile').value = '';
+        document.getElementById('prodFile').disabled = true;
+        document.getElementById('prodFile').classList.add('opacity-50');
+      }
+
+      if (imgVal) {
+        document.getElementById('prodImagePreview').src = formatImageUrl(imgVal);
+        document.getElementById('imagePreviewContainer').classList.remove('hidden');
+      } else {
+        document.getElementById('imagePreviewContainer').classList.add('hidden');
+      }
+
       document.getElementById('prodDesc').value = p.description || p.dis || '';
       document.getElementById('productModal').classList.remove('hidden');
     }
@@ -757,12 +852,11 @@
       const title = document.getElementById('prodTitle').value.trim();
       const price = document.getElementById('prodPrice').value.trim();
       const category = document.getElementById('prodCategory').value;
-      const image = document.getElementById('prodImage').value.trim();
       const description = document.getElementById('prodDesc').value.trim();
       const editIdx = document.getElementById('prodEditIndex').value;
 
-      if(!title || !price || !image) {
-        showToast('Please fill title, price & image link.');
+      if(!title || !price || !finalImageValue) {
+        showToast('Please provide product title, price & image (URL or Upload).');
         return;
       }
 
@@ -776,7 +870,7 @@
           title: title,
           price: price,
           category: category,
-          image: image,
+          image: finalImageValue,
           description: description
         })
       })
