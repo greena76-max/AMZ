@@ -23,7 +23,7 @@
     .font-serif-title { font-family: 'Playfair Display', serif; }
     .pos-font { font-family: 'Courier Prime', monospace; }
     
-    /* A4 Printing: 2 POS Slips on Top Left Side */
+    /* A4 Printing: Exactly 1 Single POS Slip on Top Left Side */
     @media print {
       body * { visibility: hidden; }
       #posReceiptModal, #posReceiptModal * { visibility: visible; }
@@ -34,20 +34,17 @@
         width: 100% !important;
         height: 100% !important;
         background: #ffffff !important;
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: flex-start !important;
-        align-items: flex-start !important;
-        gap: 15mm !important;
-        padding: 10mm !important;
+        display: block !important;
+        padding: 5mm !important;
       }
       .pos-slip-box {
         width: 80mm !important;
         min-height: 140mm !important;
-        border: 1px dashed #94a3b8 !important;
+        border: 1px dashed #000000 !important;
         background: #ffffff !important;
         color: #000000 !important;
         box-shadow: none !important;
+        margin: 0 !important;
       }
       .no-print { display: none !important; }
     }
@@ -55,7 +52,7 @@
 </head>
 <body class="min-h-screen flex flex-col text-slate-800">
 
-  <!-- Login Overlay Modal -->
+  <!-- Login Overlay Modal (Passwords Removed for Security) -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
       <div class="text-center space-y-2">
@@ -70,7 +67,7 @@
         <div>
           <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
           <div class="relative">
-            <input type="text" id="loginUser" required placeholder="Enter username (e.g. Usman, Admin)" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+            <input type="text" id="loginUser" required placeholder="Enter username" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
             <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
           </div>
         </div>
@@ -88,13 +85,6 @@
         <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20">
           Login to Dashboard
         </button>
-
-        <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 text-[10px] text-slate-500 space-y-1">
-          <p class="font-bold text-slate-700">Configured Logins:</p>
-          <p>• Usman / 114477</p>
-          <p>• Admin / Admin</p>
-          <p>• M.ibrahim / 034711</p>
-        </div>
       </form>
     </div>
   </div>
@@ -272,135 +262,73 @@
     </div>
   </div>
 
-  <!-- 80mm x 140mm WHITE POS THERMAL SLIP MODAL (2 Slips side-by-side on A4 print) -->
-  <div id="posReceiptModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white text-slate-900 w-full max-w-4xl p-6 rounded-2xl shadow-2xl relative pos-font flex flex-col md:flex-row justify-center items-center gap-6 border border-slate-200">
-      <button onclick="closePosModal()" class="no-print absolute top-3 right-3 text-slate-400 hover:text-slate-900 text-2xl font-bold">&times;</button>
+  <!-- 80mm x 140mm POS THERMAL SLIP MODAL (Bold Pure Black Text - Single Top Left Slip) -->
+  <div id="posReceiptModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-start justify-start p-4 overflow-y-auto">
+    <div class="pos-slip-box bg-white text-black w-full max-w-[80mm] min-h-[140mm] p-4 rounded-xl border-2 border-black shadow-2xl relative pos-font flex flex-col justify-between">
+      <button onclick="closePosModal()" class="no-print absolute top-2 right-2 text-black hover:text-red-600 text-2xl font-black">&times;</button>
       
-      <!-- Slip 1 -->
-      <div class="pos-slip-box bg-white text-slate-900 w-full max-w-[80mm] min-h-[140mm] p-4 rounded-xl border border-slate-300 shadow-md flex flex-col justify-between">
-        <div class="space-y-2">
-          <div class="text-center space-y-1 border-b border-slate-200 pb-2">
-            <div class="w-10 h-10 bg-white rounded-lg p-0.5 mx-auto flex items-center justify-center border border-slate-100 shadow-sm">
-              <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
-            </div>
-            <h2 class="font-bold text-xs tracking-wider text-slate-900">HY STORE OFFICIAL</h2>
-            <p class="text-[8px] text-slate-500">Personalised Gifts & Keepsakes</p>
-            <p class="text-[8px] text-slate-500">King Road, Mandi Bahauddin | Ph: 0320-9306672</p>
+      <div class="space-y-3">
+        <!-- POS Header -->
+        <div class="text-center space-y-1 border-b-2 border-black pb-2">
+          <div class="w-12 h-12 bg-white rounded-lg p-0.5 mx-auto flex items-center justify-center border border-black shadow-sm">
+            <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
           </div>
+          <h2 class="font-black text-sm tracking-wider text-black">HY STORE OFFICIAL</h2>
+          <p class="text-[9px] font-bold text-black">Personalised Gifts & Keepsakes</p>
+          <p class="text-[8px] font-bold text-black">King Road, Mandi Bahauddin | Ph: 0320-9306672</p>
+        </div>
 
-          <div class="text-[9px] space-y-1 border-b border-slate-200 pb-2">
-            <div class="flex justify-between">
-              <span class="text-slate-500">Order ID:</span>
-              <span id="posOrderId" class="font-bold text-[#d9232d]">HY-XXXX</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Date:</span>
-              <span id="posDate">2026-10-16</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Customer:</span>
-              <span id="posCustomerName" class="truncate max-w-[110px] font-semibold">Name</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Phone:</span>
-              <span id="posPhone">N/A</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Payment:</span>
-              <span id="posPaymentState" class="font-bold text-amber-600">Pending</span>
-            </div>
+        <!-- POS Meta Details (All Black Bold) -->
+        <div class="text-[10px] font-bold text-black space-y-1.5 border-b-2 border-black pb-2">
+          <div class="flex justify-between">
+            <span class="font-bold text-black">Order ID:</span>
+            <span id="posOrderId" class="font-black text-black">HY-XXXX</span>
           </div>
-
-          <div class="space-y-1 border-b border-slate-200 pb-2 text-[9px]">
-            <p class="text-[8px] text-slate-400 uppercase tracking-widest font-bold">Items Ordered:</p>
-            <div id="posItemsList" class="space-y-1 text-slate-800 font-medium"></div>
+          <div class="flex justify-between">
+            <span class="font-bold text-black">Date:</span>
+            <span id="posDate" class="font-bold text-black">2026-10-16</span>
           </div>
-
-          <div class="space-y-1 text-[9px] pt-1">
-            <div class="flex justify-between">
-              <span class="text-slate-500">Shipping:</span>
-              <span>FREE</span>
-            </div>
-            <div class="flex justify-between font-extrabold text-xs border-t border-slate-200 pt-1 text-slate-900">
-              <span>TOTAL:</span>
-              <span id="posTotalAmount" class="text-[#d9232d]">PKR 0</span>
-            </div>
+          <div class="flex justify-between">
+            <span class="font-bold text-black">Customer:</span>
+            <span id="posCustomerName" class="font-black text-black truncate max-w-[110px]">Name</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-bold text-black">Phone:</span>
+            <span id="posPhone" class="font-bold text-black">N/A</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="font-bold text-black">Payment:</span>
+            <span id="posPaymentState" class="font-black text-black">Pending</span>
           </div>
         </div>
 
-        <div class="space-y-2 pt-2 text-center">
-          <div class="text-[8px] text-slate-400 border-t border-slate-200 pt-1">
-            <p>Thank you for shopping with HY Store!</p>
-            <p class="text-[7px] text-slate-400">hystoreofficial.com</p>
+        <!-- Items Ordered -->
+        <div class="space-y-1 border-b-2 border-black pb-2 text-[10px]">
+          <p class="text-[9px] text-black uppercase tracking-widest font-black">ITEMS ORDERED:</p>
+          <div id="posItemsList" class="space-y-1 text-black font-bold"></div>
+        </div>
+
+        <!-- Totals -->
+        <div class="space-y-1 text-[10px] font-bold text-black pt-1">
+          <div class="flex justify-between">
+            <span class="font-bold text-black">Shipping:</span>
+            <span class="font-bold text-black">FREE</span>
+          </div>
+          <div class="flex justify-between font-black text-xs border-t-2 border-black pt-1 text-black">
+            <span class="font-black">TOTAL:</span>
+            <span id="posTotalAmount" class="font-black text-black">PKR 0</span>
           </div>
         </div>
       </div>
 
-      <!-- Slip 2 (Duplicate for A4 side-by-side printing) -->
-      <div class="pos-slip-box bg-white text-slate-900 w-full max-w-[80mm] min-h-[140mm] p-4 rounded-xl border border-slate-300 shadow-md flex flex-col justify-between">
-        <div class="space-y-2">
-          <div class="text-center space-y-1 border-b border-slate-200 pb-2">
-            <div class="w-10 h-10 bg-white rounded-lg p-0.5 mx-auto flex items-center justify-center border border-slate-100 shadow-sm">
-              <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
-            </div>
-            <h2 class="font-bold text-xs tracking-wider text-slate-900">HY STORE OFFICIAL</h2>
-            <p class="text-[8px] text-slate-500">Personalised Gifts & Keepsakes</p>
-            <p class="text-[8px] text-slate-500">King Road, Mandi Bahauddin | Ph: 0320-9306672</p>
-          </div>
-
-          <div class="text-[9px] space-y-1 border-b border-slate-200 pb-2">
-            <div class="flex justify-between">
-              <span class="text-slate-500">Order ID:</span>
-              <span class="posOrderIdCopy font-bold text-[#d9232d]">HY-XXXX</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Date:</span>
-              <span class="posDateCopy">2026-10-16</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Customer:</span>
-              <span class="posCustomerNameCopy truncate max-w-[110px] font-semibold">Name</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Phone:</span>
-              <span class="posPhoneCopy">N/A</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Payment:</span>
-              <span class="posPaymentStateCopy font-bold text-amber-600">Pending</span>
-            </div>
-          </div>
-
-          <div class="space-y-1 border-b border-slate-200 pb-2 text-[9px]">
-            <p class="text-[8px] text-slate-400 uppercase tracking-widest font-bold">Items Ordered:</p>
-            <div class="posItemsListCopy space-y-1 text-slate-800 font-medium"></div>
-          </div>
-
-          <div class="space-y-1 text-[9px] pt-1">
-            <div class="flex justify-between">
-              <span class="text-slate-500">Shipping:</span>
-              <span>FREE</span>
-            </div>
-            <div class="flex justify-between font-extrabold text-xs border-t border-slate-200 pt-1 text-slate-900">
-              <span>TOTAL:</span>
-              <span class="posTotalAmountCopy text-[#d9232d]">PKR 0</span>
-            </div>
-          </div>
+      <!-- Footer & Action -->
+      <div class="space-y-3 pt-3 text-center">
+        <div class="text-[8px] font-bold text-black border-t-2 border-black pt-1">
+          <p class="font-bold">Thank you for shopping with HY Store!</p>
+          <p class="text-[7px] font-bold text-black">hystoreofficial.com</p>
         </div>
-
-        <div class="space-y-2 pt-2 text-center">
-          <div class="text-[8px] text-slate-400 border-t border-slate-200 pt-1">
-            <p>Thank you for shopping with HY Store!</p>
-            <p class="text-[7px] text-slate-400">hystoreofficial.com</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Print Action Button (Hidden on Print) -->
-      <div class="no-print absolute bottom-4 left-1/2 -translate-x-1/2 w-full max-w-xs">
-        <button onclick="window.print()" class="w-full bg-[#d9232d] hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl text-xs transition-all shadow-lg flex items-center justify-center gap-2">
-          <i class="fa-solid fa-print"></i> Print 2 POS Slips on A4 Page
+        <button onclick="window.print()" class="no-print w-full bg-black text-white font-black py-2.5 rounded-xl text-xs transition-all shadow-md">
+          <i class="fa-solid fa-print"></i> Print POS Slip
         </button>
       </div>
     </div>
@@ -644,12 +572,11 @@
       });
     }
 
-    // White POS Thermal Slip (80mm x 140mm) - 2 Slips on A4
+    // POS Thermal Slip Generator (Bold Pure Black Text - Single Top-Left A4 Position)
     function printPosSlip(orderId) {
       const o = staffOrders.find(item => item.orderId === orderId);
       if(!o) return;
 
-      // Populate Slip 1
       document.getElementById('posOrderId').innerText = o.orderId;
       document.getElementById('posDate').innerText = new Date().toLocaleDateString();
       document.getElementById('posCustomerName').innerText = o.customerName || 'Customer';
@@ -657,15 +584,6 @@
       document.getElementById('posPaymentState').innerText = o.paymentState || 'Pending';
       document.getElementById('posTotalAmount').innerText = 'PKR ' + Number(o.totalAmount).toLocaleString();
       document.getElementById('posItemsList').innerHTML = `<div class="flex justify-between"><span>${o.items}</span></div>`;
-
-      // Populate Slip 2 (Copy)
-      document.querySelectorAll('.posOrderIdCopy').forEach(el => el.innerText = o.orderId);
-      document.querySelectorAll('.posDateCopy').forEach(el => el.innerText = new Date().toLocaleDateString());
-      document.querySelectorAll('.posCustomerNameCopy').forEach(el => el.innerText = o.customerName || 'Customer');
-      document.querySelectorAll('.posPhoneCopy').forEach(el => el.innerText = o.phone || 'N/A');
-      document.querySelectorAll('.posPaymentStateCopy').forEach(el => el.innerText = o.paymentState || 'Pending');
-      document.querySelectorAll('.posTotalAmountCopy').forEach(el => el.innerText = 'PKR ' + Number(o.totalAmount).toLocaleString());
-      document.querySelectorAll('.posItemsListCopy').forEach(el => el.innerHTML = `<div class="flex justify-between"><span>${o.items}</span></div>`);
 
       document.getElementById('posReceiptModal').classList.remove('hidden');
     }
