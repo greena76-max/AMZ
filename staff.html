@@ -42,7 +42,7 @@
 </head>
 <body class="min-h-screen flex flex-col text-slate-800 bg-slate-50 pb-12 sm:pb-0">
 
-  <!-- Login Modal -->
+  <!-- Dashboard Login Modal -->
   <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
       <div class="text-center space-y-2">
@@ -50,7 +50,7 @@
           <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" alt="HY Store Logo" class="w-full h-full object-contain">
         </div>
         <h2 class="text-xl font-extrabold text-slate-900">HY STORE OFFICIAL</h2>
-        <p class="text-xs text-slate-500">Staff Portal Login - Enter credentials.</p>
+        <p class="text-xs text-slate-500">Staff Dashboard Login</p>
       </div>
 
       <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
@@ -75,6 +75,32 @@
         <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20">
           Login to Dashboard
         </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Product Page Password Security Lock Modal -->
+  <div id="productLockModal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-5 text-center">
+      <div class="w-14 h-14 bg-red-50 text-brand-600 rounded-2xl mx-auto flex items-center justify-center text-xl shadow-inner border border-brand-100">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div>
+        <h3 class="font-black text-slate-900 text-base">Product Catalog Locked</h3>
+        <p class="text-xs text-slate-500 mt-1">Enter authorized product access password to manage catalog.</p>
+      </div>
+
+      <form onsubmit="handleProductUnlock(event)" class="space-y-3 text-left">
+        <div>
+          <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Product Page Password</label>
+          <input type="password" id="productUnlockInput" required placeholder="Enter password (123hyi)" class="w-full px-3.5 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-bold text-slate-800">
+        </div>
+        <p id="productLockError" class="text-[11px] text-red-500 font-semibold text-center hidden">Incorrect Password! Try again.</p>
+
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button type="button" onclick="switchStaffTab('orders')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs transition-all">Cancel</button>
+          <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl text-xs transition-all shadow-md">Unlock</button>
+        </div>
       </form>
     </div>
   </div>
@@ -110,7 +136,7 @@
             <i class="fa-solid fa-boxes-stacked"></i> Orders
           </button>
           <button onclick="switchStaffTab('products')" id="tabBtnProducts" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700">
-            <i class="fa-solid fa-bag-shopping"></i> Products
+            <i class="fa-solid fa-lock text-amber-400 text-[10px] mr-0.5"></i> Products
           </button>
         </div>
 
@@ -222,7 +248,7 @@
           </table>
         </div>
 
-        <!-- Mobile Card View (With Edit, Slip & Invoice Buttons) -->
+        <!-- Mobile Card View -->
         <div id="ordersMobileCards" class="md:hidden divide-y divide-slate-100 p-2 space-y-2.5">
           <p class="text-center py-8 text-slate-400 text-xs"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-1"></i> Loading orders...</p>
         </div>
@@ -230,11 +256,14 @@
       </div>
     </div>
 
-    <!-- PRODUCTS SECTION -->
+    <!-- PRODUCTS SECTION (PROTECTED BY PASSWORD) -->
     <div id="sectionProducts" class="space-y-4 hidden">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
         <div>
-          <h2 class="font-extrabold text-base sm:text-lg text-slate-900">Manage Catalog Products</h2>
+          <h2 class="font-extrabold text-base sm:text-lg text-slate-900 flex items-center gap-2">
+            <span>Manage Catalog Products</span>
+            <span class="bg-emerald-50 text-emerald-700 text-[10px] px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-lock-open mr-1"></i> Unlocked</span>
+          </h2>
           <p class="text-xs text-slate-500">Add, edit, or delete items directly synced with Google Sheets.</p>
         </div>
         <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-md">
@@ -449,7 +478,7 @@
     </div>
   </div>
 
-  <!-- Product Modal -->
+  <!-- Product Modal (Updated with Print Checkbox) -->
   <div id="productModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-5 shadow-2xl relative space-y-3 max-h-[95vh] overflow-y-auto">
       <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
@@ -477,6 +506,18 @@
               <option value="Accessories">Accessories</option>
             </select>
           </div>
+        </div>
+
+        <!-- Print Checkbox Option Added Here -->
+        <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center justify-between">
+          <div>
+            <strong class="block font-bold text-slate-800">Print Option Status</strong>
+            <span class="text-[10px] text-slate-500">Check if product includes custom printing on website.</span>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="prodPrintCheck" class="sr-only peer">
+            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
+          </label>
         </div>
 
         <div class="space-y-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
@@ -618,7 +659,6 @@
           document.getElementById('loggedInUserBadgeMobile').innerText = loggedUser.split(' ')[0];
         }
         fetchStaffOrders();
-        fetchStaffProducts();
       } else {
         document.getElementById('loginModal').classList.remove('hidden');
       }
@@ -652,7 +692,6 @@
         document.getElementById('loggedInUserBadge').innerText = displayName;
         document.getElementById('loggedInUserBadgeMobile').innerText = displayName;
         fetchStaffOrders();
-        fetchStaffProducts();
         showToast('Logged in as ' + displayName + '!');
       } else {
         errEl.classList.remove('hidden');
@@ -662,6 +701,7 @@
     function handleLogout() {
       sessionStorage.removeItem('hy_staff_logged');
       sessionStorage.removeItem('hy_logged_user_name');
+      sessionStorage.removeItem('hy_product_unlocked');
       window.location.reload();
     }
 
@@ -679,18 +719,52 @@
       const secProducts = document.getElementById('sectionProducts');
       const btnOrders = document.getElementById('tabBtnOrders');
       const btnProducts = document.getElementById('tabBtnProducts');
+      const productLockModal = document.getElementById('productLockModal');
 
       if(tab === 'orders') {
         secOrders.classList.remove('hidden');
         secProducts.classList.add('hidden');
+        productLockModal.classList.add('hidden');
         btnOrders.className = "flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm";
         btnProducts.className = "flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700";
       } else {
+        if(sessionStorage.getItem('hy_product_unlocked') === 'true') {
+          secOrders.classList.add('hidden');
+          secProducts.classList.remove('hidden');
+          productLockModal.classList.add('hidden');
+          btnProducts.className = "flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm";
+          btnOrders.className = "flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700";
+          fetchStaffProducts();
+        } else {
+          productLockModal.classList.remove('hidden');
+        }
+      }
+    }
+
+    function handleProductUnlock(e) {
+      e.preventDefault();
+      const inputPass = document.getElementById('productUnlockInput').value.trim();
+      const errEl = document.getElementById('productLockError');
+
+      if(inputPass === '123hyi') {
+        sessionStorage.setItem('hy_product_unlocked', 'true');
+        document.getElementById('productLockModal').classList.add('hidden');
+        errEl.classList.add('hidden');
+        document.getElementById('productUnlockInput').value = '';
+        
+        const secOrders = document.getElementById('sectionOrders');
+        const secProducts = document.getElementById('sectionProducts');
+        const btnOrders = document.getElementById('tabBtnOrders');
+        const btnProducts = document.getElementById('tabBtnProducts');
+
         secOrders.classList.add('hidden');
         secProducts.classList.remove('hidden');
         btnProducts.className = "flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm";
         btnOrders.className = "flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700";
         fetchStaffProducts();
+        showToast('Product Catalog Unlocked!');
+      } else {
+        errEl.classList.remove('hidden');
       }
     }
 
@@ -750,7 +824,6 @@
         return;
       }
 
-      // Desktop Table Rows
       tbody.innerHTML = orders.map(o => {
         let badgeClass = "bg-slate-100 text-slate-700";
         if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
@@ -791,7 +864,6 @@
         `;
       }).join('');
 
-      // Mobile Cards Layout
       cardsBox.innerHTML = orders.map(o => {
         let badgeClass = "bg-slate-100 text-slate-700";
         if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
@@ -1002,6 +1074,7 @@
         let titleVal = p.title || 'No Title';
         let priceVal = Number(p.price || 0);
         let catVal = p.category || 'General';
+        let printTypeVal = p.printType === 'With Print' ? '<span class="text-emerald-600 font-bold"><i class="fa-solid fa-check mr-1"></i>With Print</span>' : '<span class="text-slate-400">Non-Print</span>';
 
         return `
           <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group relative">
@@ -1013,7 +1086,10 @@
                 </button>
               </div>
               <div class="p-2.5 space-y-0.5">
-                <span class="text-[8px] font-extrabold text-brand-600 uppercase tracking-widest block truncate">${catVal}</span>
+                <div class="flex justify-between items-center text-[8px] font-extrabold uppercase tracking-widest">
+                  <span class="text-brand-600 truncate">${catVal}</span>
+                  <span>${printTypeVal}</span>
+                </div>
                 <h4 class="font-bold text-slate-900 text-xs line-clamp-1">${titleVal}</h4>
               </div>
             </div>
@@ -1135,6 +1211,7 @@
       document.getElementById('prodTitle').value = '';
       document.getElementById('prodPrice').value = '';
       document.getElementById('prodCategory').value = 'Mugs & Drinkware';
+      document.getElementById('prodPrintCheck').checked = false;
       document.getElementById('prodImage').value = '';
       document.getElementById('prodImage').disabled = false;
       document.getElementById('prodImage').classList.remove('opacity-50');
@@ -1158,6 +1235,7 @@
       document.getElementById('prodTitle').value = p.title || '';
       document.getElementById('prodPrice').value = p.price || '';
       document.getElementById('prodCategory').value = p.category || 'Home Decor';
+      document.getElementById('prodPrintCheck').checked = (p.printType === 'With Print');
       
       const imgVal = p.image || '';
       finalImageValue = imgVal;
@@ -1202,6 +1280,7 @@
           title: '',
           price: '',
           category: '',
+          printType: '',
           image: '',
           description: ''
         })
@@ -1225,6 +1304,7 @@
       const title = document.getElementById('prodTitle').value.trim();
       const price = document.getElementById('prodPrice').value.trim();
       const category = document.getElementById('prodCategory').value;
+      const printType = document.getElementById('prodPrintCheck').checked ? 'With Print' : 'Non-Print';
       const description = document.getElementById('prodDesc').value.trim();
       const editIdx = document.getElementById('prodEditIndex').value;
 
@@ -1248,6 +1328,7 @@
           title: title,
           price: price,
           category: category,
+          printType: printType,
           image: finalImageValue,
           description: description
         })
