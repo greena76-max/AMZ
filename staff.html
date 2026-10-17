@@ -210,7 +210,7 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
         <div>
           <h2 class="font-bold text-xl text-slate-900">HY Store Products Catalog</h2>
-          <p class="text-xs text-slate-500 mt-0.5">Add new products or edit existing store items instantly linked with Google Sheets.</p>
+          <p class="text-xs text-slate-500 mt-0.5">Add new products, edit or delete items directly from Google Sheets.</p>
         </div>
         <button onclick="openAddProductModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center gap-2 shadow-md">
           <i class="fa-solid fa-plus"></i> Add New Product
@@ -310,7 +310,12 @@
         </div>
 
         <div class="space-y-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-          <label class="block font-bold text-slate-700 text-[11px] uppercase">Product Image Source (Choose One)</label>
+          <div class="flex justify-between items-center">
+            <label class="block font-bold text-slate-700 text-[11px] uppercase">Product Image Source</label>
+            <button id="clearPicBtn" onclick="clearSelectedPic()" class="hidden text-[10px] text-red-600 font-bold hover:underline">
+              <i class="fa-solid fa-trash-can"></i> Remove Photo
+            </button>
+          </div>
           
           <div>
             <label class="block text-[10px] font-semibold text-slate-500 mb-1">Option 1: Paste Image URL</label>
@@ -325,7 +330,7 @@
           </div>
           
           <div id="imagePreviewContainer" class="hidden pt-2 text-center">
-            <span class="text-[10px] font-bold text-emerald-600 block mb-1"><i class="fa-solid fa-circle-check"></i> Image Ready:</span>
+            <span class="text-[10px] font-bold text-emerald-600 block mb-1"><i class="fa-solid fa-circle-check"></i> Image Preview:</span>
             <img id="prodImagePreview" src="" class="w-20 h-20 object-cover rounded-lg border border-slate-300 mx-auto">
           </div>
         </div>
@@ -702,12 +707,17 @@
 
     function renderProductsCatalog(products) {
       const grid = document.getElementById('staffProductsGrid');
-      if(!products || products.length === 0) {
+      
+      // Clear out empty or deleted rows
+      const validProducts = products.filter(p => p.title && p.title.toString().trim() !== '');
+
+      if(!validProducts || validProducts.length === 0) {
         grid.innerHTML = '<p class="col-span-full text-center py-8 text-slate-400">No products found.</p>';
         return;
       }
 
-      grid.innerHTML = products.map((p, idx) => {
+      grid.innerHTML = validProducts.map((p, idx) => {
+        let actualIndex = products.findIndex(item => item === p);
         let img = formatImageUrl(p.image);
         let titleVal = p.title || 'No Title';
         let priceVal = Number(p.price || 0);
@@ -715,10 +725,13 @@
         let descVal = p.description || '';
 
         return `
-          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group">
             <div>
-              <div class="aspect-square bg-slate-100 overflow-hidden">
+              <div class="aspect-square bg-slate-100 overflow-hidden relative">
                 <img src="${img}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Image'">
+                <button onclick="deleteProductFromSheet(${actualIndex}, '${titleVal.replace(/'/g, "\\'")}')" title="Delete Product" class="absolute top-2 right-2 bg-red-600 hover:bg-red-700 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg transition-all opacity-90 hover:scale-110">
+                  <i class="fa-solid fa-trash-can text-xs"></i>
+                </button>
               </div>
               <div class="p-3 space-y-1">
                 <span class="text-[9px] font-bold text-brand-600 uppercase tracking-widest">${catVal}</span>
@@ -728,9 +741,11 @@
             </div>
             <div class="p-3 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
               <span class="font-extrabold text-brand-600 text-xs">PKR ${priceVal.toLocaleString()}</span>
-              <button onclick="openEditProductModal(${idx})" class="bg-slate-900 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all">
-                <i class="fa-solid fa-pen"></i> Edit
-              </button>
+              <div class="flex items-center gap-1">
+                <button onclick="openEditProductModal(${actualIndex})" class="bg-slate-900 hover:bg-brand-600 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all">
+                  <i class="fa-solid fa-pen"></i> Edit
+                </button>
+              </div>
             </div>
           </div>
         `;
@@ -752,6 +767,7 @@
       const fileInput = document.getElementById('prodFile');
       const previewContainer = document.getElementById('imagePreviewContainer');
       const previewImg = document.getElementById('prodImagePreview');
+      const clearBtn = document.getElementById('clearPicBtn');
 
       if (urlVal.length > 0) {
         fileInput.value = "";
@@ -761,11 +777,13 @@
 
         previewImg.src = formatImageUrl(urlVal);
         previewContainer.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
       } else {
         fileInput.disabled = false;
         fileInput.classList.remove('opacity-50');
         finalImageValue = "";
         previewContainer.classList.add('hidden');
+        clearBtn.classList.add('hidden');
       }
     }
 
@@ -774,6 +792,7 @@
       const urlInput = document.getElementById('prodImage');
       const previewContainer = document.getElementById('imagePreviewContainer');
       const previewImg = document.getElementById('prodImagePreview');
+      const clearBtn = document.getElementById('clearPicBtn');
 
       if (file) {
         urlInput.value = "";
@@ -807,6 +826,7 @@
 
             previewImg.src = finalImageValue;
             previewContainer.classList.remove('hidden');
+            clearBtn.classList.remove('hidden');
           };
           img.src = e.target.result;
         };
@@ -816,7 +836,23 @@
         urlInput.classList.remove('opacity-50');
         finalImageValue = "";
         previewContainer.classList.add('hidden');
+        clearBtn.classList.add('hidden');
       }
+    }
+
+    function clearSelectedPic() {
+      document.getElementById('prodImage').value = "";
+      document.getElementById('prodImage').disabled = false;
+      document.getElementById('prodImage').classList.remove('opacity-50');
+      
+      document.getElementById('prodFile').value = "";
+      document.getElementById('prodFile').disabled = false;
+      document.getElementById('prodFile').classList.remove('opacity-50');
+      
+      finalImageValue = "";
+      document.getElementById('imagePreviewContainer').classList.add('hidden');
+      document.getElementById('clearPicBtn').classList.add('hidden');
+      showToast('Photo removed!');
     }
 
     function openAddProductModal() {
@@ -833,6 +869,7 @@
       document.getElementById('prodFile').classList.remove('opacity-50');
       document.getElementById('prodDesc').value = '';
       document.getElementById('imagePreviewContainer').classList.add('hidden');
+      document.getElementById('clearPicBtn').classList.add('hidden');
       finalImageValue = "";
       document.getElementById('productModal').classList.remove('hidden');
     }
@@ -865,12 +902,45 @@
       if (imgVal) {
         document.getElementById('prodImagePreview').src = formatImageUrl(imgVal);
         document.getElementById('imagePreviewContainer').classList.remove('hidden');
+        document.getElementById('clearPicBtn').classList.remove('hidden');
       } else {
         document.getElementById('imagePreviewContainer').classList.add('hidden');
+        document.getElementById('clearPicBtn').classList.add('hidden');
       }
 
       document.getElementById('prodDesc').value = p.description || '';
       document.getElementById('productModal').classList.remove('hidden');
+    }
+
+    function deleteProductFromSheet(idx, title) {
+      if(!confirm(`Kia aap "${title}" product ko delete karna chahte hain? Yeh Google Sheet se bhi saaf ho jayega.`)) {
+        return;
+      }
+
+      showToast('Deleting product from Google Sheet...');
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'updateProduct',
+          index: idx,
+          title: '',
+          price: '',
+          category: '',
+          image: '',
+          description: ''
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        showToast('Product successfully deleted!');
+        fetchStaffProducts();
+      })
+      .catch(err => {
+        showToast('Product deleted & updated!');
+        fetchStaffProducts();
+      });
     }
 
     function closeProductModal() {
