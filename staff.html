@@ -236,7 +236,7 @@
 
   </main>
 
-  <!-- Edit Order & Status Modal -->
+  <!-- Edit Order Modal -->
   <div id="editOrderModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto">
       <button onclick="closeEditModal()" class="absolute top-4 right-4 text-slate-400 text-xl">&times;</button>
@@ -290,7 +290,7 @@
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4 max-h-[95vh] overflow-y-auto">
       <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl">&times;</button>
       <h3 id="productModalTitle" class="font-bold text-lg text-slate-900">Add New Product</h3>
-      <p class="text-xs text-slate-500">Either paste Image URL OR Upload photo from your device (mutually exclusive).</p>
+      <p class="text-xs text-slate-500">Paste Image URL OR Upload photo (Mutually exclusive & auto-compressed).</p>
       
       <div class="space-y-3 text-xs">
         <input type="hidden" id="prodEditIndex" value="">
@@ -316,7 +316,7 @@
           </div>
         </div>
 
-        <!-- IMAGE INPUT METHOD SELECTION -->
+        <!-- IMAGE INPUT SELECTION -->
         <div class="space-y-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
           <label class="block font-bold text-slate-700 text-[11px] uppercase">Product Image Source (Choose One)</label>
           
@@ -332,8 +332,8 @@
             <input type="file" id="prodFile" accept="image/*" onchange="handleFileUpload(event)" class="w-full text-xs text-slate-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer">
           </div>
           
-          <div id="imagePreviewContainer" class="hidden pt-2">
-            <span class="text-[10px] font-bold text-emerald-600 block mb-1"><i class="fa-solid fa-circle-check"></i> Image loaded successfully:</span>
+          <div id="imagePreviewContainer" class="hidden pt-2 text-center">
+            <span class="text-[10px] font-bold text-emerald-600 block mb-1"><i class="fa-solid fa-circle-check"></i> Image Ready:</span>
             <img id="prodImagePreview" src="" class="w-20 h-20 object-cover rounded-lg border border-slate-300 mx-auto">
           </div>
         </div>
@@ -439,12 +439,13 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhLtDB4ZrzrhBJPTtP23V2GoPNZCsRLSPRuejUUGy-6H3hX9_V5tiYC5gnc9ygZ1DNmg/exec";
+    // UPDATE THIS URL IF YOU CREATED A NEW DEPLOYMENT IN GOOGLE APPS SCRIPT
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyG9PjgN164fEd2SED1WXy3g9c62bRdFH1AvlzdaPYPzYKAiPaFAX9ROr2ELzXH8bvNgw/exec";
     
     let staffOrders = [];
     let staffProducts = [];
     let currentEditingOrderId = null;
-    let finalImageValue = ""; // Stores either URL or Base64 uploaded string
+    let finalImageValue = "";
 
     window.onload = function() {
       const isLogged = sessionStorage.getItem('hy_staff_logged');
@@ -659,6 +660,7 @@
 
       fetch(SCRIPT_URL, {
         method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           action: 'updateOrderDetails',
           orderId: currentEditingOrderId,
@@ -743,7 +745,6 @@
       renderProductsCatalog(filtered);
     }
 
-    // Mutually Exclusive Image Source Logic
     function handleUrlInput() {
       const urlVal = document.getElementById('prodImage').value.trim();
       const fileInput = document.getElementById('prodFile');
@@ -779,9 +780,33 @@
 
         const reader = new FileReader();
         reader.onload = function(e) {
-          finalImageValue = e.target.result; // Base64 Data URL
-          previewImg.src = finalImageValue;
-          previewContainer.classList.remove('hidden');
+          const img = new Image();
+          img.onload = function() {
+            const canvas = document.createElement('canvas');
+            let maxDim = 400;
+            let width = img.width;
+            let height = img.height;
+            if (width > height) {
+              if (width > maxDim) {
+                height = Math.round((height * maxDim) / width);
+                width = maxDim;
+              }
+            } else {
+              if (height > maxDim) {
+                width = Math.round((width * maxDim) / height);
+                height = maxDim;
+              }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            finalImageValue = canvas.toDataURL('image/jpeg', 0.7);
+
+            previewImg.src = finalImageValue;
+            previewContainer.classList.remove('hidden');
+          };
+          img.src = e.target.result;
         };
         reader.readAsDataURL(file);
       } else {
@@ -856,14 +881,19 @@
       const editIdx = document.getElementById('prodEditIndex').value;
 
       if(!title || !price || !finalImageValue) {
-        showToast('Please provide product title, price & image (URL or Upload).');
+        showToast('Please provide title, price & image.');
         return;
       }
 
       let payloadAction = editIdx === '' ? 'addProduct' : 'updateProduct';
       
+      const saveBtn = document.getElementById('saveProductBtn');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Saving to Google Sheet...`;
+
       fetch(SCRIPT_URL, {
         method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           action: payloadAction,
           index: editIdx,
@@ -876,11 +906,19 @@
       })
       .then(res => res.json())
       .then(data => {
-        closeProductModal();
-        showToast('Product successfully saved & synced!');
-        fetchStaffProducts();
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Google Sheet`;
+        if (data.success || data.status === 'success') {
+          closeProductModal();
+          showToast('Product saved successfully!');
+          fetchStaffProducts();
+        } else {
+          showToast('Error syncing with Google Sheet.');
+        }
       })
       .catch(err => {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Google Sheet`;
         showToast('Error syncing with Google Sheet.');
       });
     }
