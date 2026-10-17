@@ -989,30 +989,19 @@
       grid.innerHTML = products.map((p, idx) => {
         let imgUrl = formatImageUrl(p.image);
         let productDesc = p.description || p.dis || '';
-        
-        // Print Badge (Patti) on Card
-        let printBadgeHtml = '';
-        if (p.printType === 'With Print') {
-          printBadgeHtml = `<span class="absolute top-2 left-2 bg-brand-600 text-white text-[9px] font-black px-2.5 py-0.5 rounded-md shadow uppercase tracking-wider"><i class="fa-solid fa-print mr-1"></i>With Print</span>`;
-        } else {
-          printBadgeHtml = `<span class="absolute top-2 left-2 bg-slate-800/80 backdrop-blur-sm text-slate-200 text-[9px] font-bold px-2 py-0.5 rounded-md shadow uppercase tracking-wider">Non-Print</span>`;
-        }
-
         return `
           <div onclick='openProductDetail(${idx})' class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between cursor-pointer group">
             <div>
-              <div class="aspect-square bg-slate-100 overflow-hidden relative">
+              <div class="aspect-square bg-slate-100 overflow-hidden">
                 <img src="${imgUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://via.placeholder.com/250x200?text=Image+Not+Found'">
-                ${printBadgeHtml}
               </div>
               <div class="p-2 sm:p-4 space-y-1">
                 <h3 class="font-bold text-slate-800 text-[11px] sm:text-sm line-clamp-2 group-hover:text-brand-600 transition-colors">${p.title}</h3>
                 <p class="text-[10px] sm:text-[11px] text-slate-500 line-clamp-2">${productDesc}</p>
               </div>
             </div>
-            <div class="p-2 sm:p-4 pt-0 flex items-center justify-between">
+            <div class="p-2 sm:p-4 pt-0">
               <div class="text-brand-600 font-extrabold text-xs sm:text-base">PKR ${Number(p.price).toLocaleString()}</div>
-              <span class="bg-slate-900 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-xl group-hover:bg-brand-600 transition-colors">View</span>
             </div>
           </div>
         `;
