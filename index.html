@@ -169,7 +169,6 @@
       <button onclick="switchPage('home'); filterCat('Decor', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Home Decor</button>
       <button onclick="switchPage('home'); filterCat('Photo', null); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Photo Keepsakes</button>
       
-      <!-- My Orders Button only inside Menu Drawer -->
       <button id="mobileMyOrdersMenuBtn" onclick="openMyOrdersPage(); closeMobileMenu();" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-brand-600 bg-brand-50 font-bold">
         <i class="fa-solid fa-box-archive"></i> My Orders & Invoices
       </button>
@@ -589,7 +588,6 @@
           <p class="text-slate-400 text-xs leading-relaxed">
             Your premier destination for high-quality personalized gifts, customized acrylic lights, and luxury keepsake boxes.
           </p>
-          <!-- Social Media Icons (WhatsApp, Facebook, Instagram) -->
           <div class="flex items-center gap-3 pt-2">
             <a href="https://wa.me/923209306672" target="_blank" title="WhatsApp" class="w-8 h-8 rounded-full bg-slate-900 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors">
               <i class="fa-brands fa-whatsapp text-sm"></i>
@@ -1400,140 +1398,4 @@
     }
 
     function closeOrderSuccessModal() {
-      document.getElementById('orderSuccessModal').classList.add('hidden');
-      switchPage('myOrders');
-    }
-
-    function trackOrder() {
-      const orderIdInput = document.getElementById('orderIdInput').value.trim().toUpperCase();
-      const resBox = document.getElementById('trackResult');
-
-      if (!orderIdInput) {
-        showToast('Please enter a valid Order ID.', 'fa-circle-info text-amber-400');
-        return;
-      }
-
-      setBtnLoading('trackBtn', true, 'Track Order', 'fa-solid fa-magnifying-glass');
-      resBox.classList.remove('hidden');
-      resBox.innerHTML = '<p class="text-center font-semibold text-slate-600 py-4"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-2"></i> Fetching live shipment details...</p>';
-
-      let localOrders = JSON.parse(localStorage.getItem('hy_local_orders') || '[]');
-      let foundOrder = localOrders.find(o => o.orderId.toUpperCase() === orderIdInput);
-
-      if (foundOrder) {
-        setTimeout(() => {
-          setBtnLoading('trackBtn', false, 'Track Order', 'fa-solid fa-magnifying-glass');
-          displayTrackingResult(foundOrder, resBox);
-        }, 300);
-        return;
-      }
-
-      fetch(SCRIPT_URL + '?action=trackOrder&orderId=' + encodeURIComponent(orderIdInput))
-        .then(res => res.json())
-        .then(data => {
-          setBtnLoading('trackBtn', false, 'Track Order', 'fa-solid fa-magnifying-glass');
-          if (data && data.success && data.order) {
-            displayTrackingResult(data.order, resBox);
-          } else {
-            resBox.innerHTML = `<p class="text-center text-red-500 font-semibold py-4"><i class="fa-solid fa-circle-xmark mr-1"></i> No shipment found with Order ID "${orderIdInput}". Please check the ID.</p>`;
-          }
-        })
-        .catch(err => {
-          setBtnLoading('trackBtn', false, 'Track Order', 'fa-solid fa-magnifying-glass');
-          resBox.innerHTML = `<p class="text-center text-red-500 font-semibold py-4">Unable to retrieve tracking information right now. Please try again.</p>`;
-        });
-    }
-
-    function displayTrackingResult(o, resBox) {
-      let statusLower = (o.status || 'Confirmed').toLowerCase();
-      let widthPct = 25;
-      let s1 = true, s2 = false, s3 = false, s4 = false;
-
-      if (statusLower.includes('processing') || statusLower.includes('confirmed')) {
-        widthPct = 25;
-        s1 = true;
-      } else if (statusLower.includes('dispatched') || statusLower.includes('shipped') || statusLower.includes('transit')) {
-        widthPct = 50;
-        s1 = true; s2 = true;
-      } else if (statusLower.includes('out for delivery')) {
-        widthPct = 75;
-        s1 = true; s2 = true; s3 = true;
-      } else if (statusLower.includes('delivered')) {
-        widthPct = 100;
-        s1 = true; s2 = true; s3 = true; s4 = true;
-      }
-
-      resBox.innerHTML = `
-        <div class="border-b border-slate-200 pb-3 mb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-          <div>
-            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Tracking Reference</span>
-            <h4 class="text-base sm:text-lg font-extrabold text-slate-900">${o.orderId}</h4>
-          </div>
-          <div class="px-3 py-1 bg-brand-50 border border-brand-200 text-brand-700 rounded-full text-xs font-bold flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-brand-600 animate-pulse"></span>
-            <span>${o.status || 'Confirmed'}</span>
-          </div>
-        </div>
-
-        <div class="py-4 px-1">
-          <div class="relative flex items-center justify-between max-w-md mx-auto">
-            <div class="absolute top-1/2 left-0 right-0 h-1 bg-slate-200 -translate-y-1/2 -z-0"></div>
-            <div class="absolute top-1/2 left-0 h-1 bg-brand-600 -translate-y-1/2 -z-0 transition-all duration-500" style="width: ${widthPct}%;"></div>
-
-            <div class="text-center z-10">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 mx-auto rounded-full ${s1 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
-                <i class="fa-solid fa-check"></i>
-              </div>
-              <span class="text-[9px] font-semibold text-slate-700 mt-1 block">Placed</span>
-            </div>
-            <div class="text-center z-10">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 mx-auto rounded-full ${s2 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
-                <i class="fa-solid fa-box-open"></i>
-              </div>
-              <span class="text-[9px] font-semibold text-slate-700 mt-1 block">Dispatched</span>
-            </div>
-            <div class="text-center z-10">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 mx-auto rounded-full ${s3 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
-                <i class="fa-solid fa-truck-fast"></i>
-              </div>
-              <span class="text-[9px] font-semibold text-slate-700 mt-1 block">On The Way</span>
-            </div>
-            <div class="text-center z-10">
-              <div class="w-7 h-7 sm:w-8 sm:h-8 mx-auto rounded-full ${s4 ? 'bg-brand-600 text-white' : 'bg-slate-200 text-slate-400'} text-xs font-bold flex items-center justify-center shadow">
-                <i class="fa-solid fa-house-chimney"></i>
-              </div>
-              <span class="text-[9px] font-semibold text-slate-700 mt-1 block">Delivered</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-3 border-t border-slate-200 text-xs">
-          <div class="bg-white p-2.5 rounded-xl border border-slate-100 space-y-1">
-            <span class="text-slate-400 block text-[9px]">Recipient Details:</span>
-            <strong class="text-slate-800 block">${o.customerName}</strong>
-            <span class="text-slate-500 block">${o.phone}</span>
-          </div>
-          <div class="bg-white p-2.5 rounded-xl border border-slate-100 space-y-1">
-            <span class="text-slate-400 block text-[9px]">Order Summary:</span>
-            <strong class="text-slate-800 block truncate">${o.items}</strong>
-            <span class="text-brand-600 font-extrabold block">Total: PKR ${Number(o.totalAmount).toLocaleString()}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    const mobileDrawer = document.getElementById('mobileDrawer');
-    const mobileDrawerBackdrop = document.getElementById('mobileDrawerBackdrop');
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      mobileDrawer.classList.remove('-translate-x-full');
-      mobileDrawerBackdrop.classList.remove('hidden');
-    });
-    function closeMobileMenu() {
-      mobileDrawer.classList.add('-translate-x-full');
-      mobileDrawerBackdrop.classList.add('hidden');
-    }
-    document.getElementById('closeMobileDrawerBtn').addEventListener('click', closeMobileMenu);
-    mobileDrawerBackdrop.addEventListener('click', closeMobileMenu);
-  </script>
-</body>
-</html>
+      document.getElementById('orderSuccess
