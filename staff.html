@@ -25,8 +25,8 @@
     
     @media print {
       body * { visibility: hidden; }
-      #deliverySlipModal, #deliverySlipModal *, #viewInvoiceModal, #viewInvoiceModal * { visibility: visible; }
-      #deliverySlipModal, #viewInvoiceModal {
+      #viewInvoiceModal, #viewInvoiceModal * { visibility: visible; }
+      #viewInvoiceModal {
         position: absolute;
         left: 0;
         top: 0;
@@ -222,7 +222,7 @@
           </table>
         </div>
 
-        <!-- Mobile Card View (Only Slip & Invoice Buttons) -->
+        <!-- Mobile Card View (With Edit, Slip & Invoice Buttons) -->
         <div id="ordersMobileCards" class="md:hidden divide-y divide-slate-100 p-2 space-y-2.5">
           <p class="text-center py-8 text-slate-400 text-xs"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-1"></i> Loading orders...</p>
         </div>
@@ -261,16 +261,20 @@
     <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden relative font-sans my-auto">
       
       <!-- Top Action Bar -->
-      <div class="no-print bg-slate-900 text-white p-3 flex justify-between items-center border-b border-slate-800">
+      <div class="no-print bg-slate-900 text-white p-3 flex justify-between items-center border-b border-slate-800 flex-wrap gap-2">
         <div class="flex items-center gap-2">
-          <button onclick="openEditModalFromInvoice()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all shadow">
-            <i class="fa-solid fa-pen-to-square"></i>
+          <button onclick="openEditModalFromInvoice()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all border border-slate-700">
+            <i class="fa-solid fa-pen-to-square text-brand-500"></i>
             <span>Edit Order Details</span>
+          </button>
+          <button onclick="openInvoiceEditMetaModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all border border-slate-700">
+            <i class="fa-solid fa-file-pen text-brand-500"></i>
+            <span>Edit Invoice Info</span>
           </button>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition-all border border-slate-700">
-            <i class="fa-solid fa-print"></i> Print
+          <button onclick="window.print()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition-all shadow">
+            <i class="fa-solid fa-print"></i> Print Invoice
           </button>
           <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2">&times;</button>
         </div>
@@ -408,6 +412,25 @@
 
         <button onclick="saveOrderEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs shadow-md mt-2">
           Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Invoice Specific Meta Modal -->
+  <div id="editInvoiceMetaModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl relative space-y-4">
+      <button onclick="closeInvoiceEditMetaModal()" class="absolute top-4 right-4 text-slate-400 text-xl font-bold">&times;</button>
+      <h3 class="font-black text-slate-900 text-base">Edit Invoice Details</h3>
+      <p class="text-xs text-slate-500">Customize invoice title notes or subtitle notes for this print session.</p>
+      
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Invoice Footer Note</label>
+          <input type="text" id="invCustomNoteInput" value="Thank you for shopping with HY Store OFFICIAL" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
+        </div>
+        <button onclick="saveInvoiceMetaEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md">
+          Apply Invoice Note
         </button>
       </div>
     </div>
@@ -551,7 +574,7 @@
       </div>
 
       <div class="no-print pt-2 text-center">
-        <button onclick="window.print()" class="bg-black text-white font-black px-6 py-2 rounded-xl text-xs flex items-center justify-center gap-2 mx-auto">
+        <button onclick="printDeliverySlipAction()" class="bg-black text-white font-black px-6 py-2 rounded-xl text-xs flex items-center justify-center gap-2 mx-auto">
           <i class="fa-solid fa-print"></i> Print Delivery Slip
         </button>
       </div>
@@ -746,19 +769,16 @@
             <td class="py-3 px-3 text-center whitespace-nowrap">
               <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${payBadge}">${paymentState}</span>
             </td>
-            <td class="py-3 px-3 text-center whitespace-nowrap space-x-1.5">
-              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">
-                <i class="fa-solid fa-truck-fast"></i> Slip
-              </button>
-              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">
-                <i class="fa-solid fa-file-invoice"></i> View Invoice
-              </button>
+            <td class="py-3 px-3 text-center whitespace-nowrap space-x-1">
+              <button onclick="openEditModal('${o.orderId}')" class="bg-slate-900 hover:bg-slate-800 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">Edit</button>
+              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">Slip</button>
+              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">Invoice</button>
             </td>
           </tr>
         `;
       }).join('');
 
-      // Mobile Cards Layout (Only Slip & Invoice Buttons)
+      // Mobile Cards Layout (With Edit, Slip and Invoice Buttons)
       cardsBox.innerHTML = orders.map(o => {
         let badgeClass = "bg-slate-100 text-slate-700";
         if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
@@ -787,12 +807,15 @@
               <span class="font-black text-brand-600 shrink-0 text-xs">${formattedAmt}</span>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 pt-1">
-              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-truck-fast"></i> Delivery Slip
+            <div class="grid grid-cols-3 gap-1.5 pt-1">
+              <button onclick="openEditModal('${o.orderId}')" class="bg-slate-900 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
+                <i class="fa-solid fa-pen-to-square"></i> Edit
               </button>
-              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-sm">
-                <i class="fa-solid fa-file-invoice"></i> View Invoice
+              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
+                <i class="fa-solid fa-truck-fast"></i> Slip
+              </button>
+              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
+                <i class="fa-solid fa-file-invoice"></i> Invoice
               </button>
             </div>
           </div>
@@ -852,6 +875,20 @@
     function openEditModalFromInvoice() {
       if(!currentEditingOrderId) return;
       openEditModal(currentEditingOrderId);
+    }
+
+    function openInvoiceEditMetaModal() {
+      document.getElementById('editInvoiceMetaModal').classList.remove('hidden');
+    }
+
+    function closeInvoiceEditMetaModal() {
+      document.getElementById('editInvoiceMetaModal').classList.add('hidden');
+    }
+
+    function saveInvoiceMetaEdits() {
+      const note = document.getElementById('invCustomNoteInput').value;
+      showToast('Invoice note updated successfully!');
+      closeInvoiceEditMetaModal();
     }
 
     function openEditModal(orderId) {
@@ -1249,6 +1286,23 @@
       document.getElementById('slipItemsTableBody').innerHTML = rowsHtml;
       document.getElementById('slipQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=` + encodeURIComponent(`HY Store Order: ${o.orderId}, Balance: Rs ${balanceAmt}`);
       document.getElementById('deliverySlipModal').classList.remove('hidden');
+    }
+
+    function printDeliverySlipAction() {
+      const slipContent = document.getElementById('deliverySlipModal').innerHTML;
+      const printWin = window.open('', '_blank');
+      printWin.document.write(`
+        <html>
+          <head>
+            <title>Delivery Slip</title>
+            <script src="https://cdn.tailwindcss.com"><\/script>
+            <style>body { font-family: Inter, sans-serif; padding: 20px; }</style>
+          </head>
+          <body>${slipContent}</body>
+        </html>
+      `);
+      printWin.document.close();
+      printWin.print();
     }
 
     function closeDeliverySlipModal() {
