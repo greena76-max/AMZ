@@ -269,7 +269,7 @@
           </button>
           <button onclick="openInvoiceEditMetaModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all border border-slate-700">
             <i class="fa-solid fa-file-pen text-brand-500"></i>
-            <span>Edit Invoice Info</span>
+            <span>Edit Invoice Note</span>
           </button>
         </div>
         <div class="flex items-center gap-2">
@@ -361,37 +361,50 @@
         </div>
 
         <div class="border-t border-slate-200 pt-3 text-center text-[10px] text-slate-400 font-medium">
-          <p>Thank you for shopping with HY Store OFFICIAL | Mandi Bahauddin, Pakistan</p>
+          <p id="invFooterNoteText">Thank you for shopping with HY Store OFFICIAL | Mandi Bahauddin, Pakistan</p>
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- Edit Order Modal -->
+  <!-- Complete Edit Order Modal with All Fields -->
   <div id="editOrderModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative space-y-4 max-h-[90vh] overflow-y-auto">
       <button onclick="closeEditModal()" class="absolute top-4 right-4 text-slate-400 text-xl font-bold">&times;</button>
-      <h3 class="font-black text-slate-900 text-base">Edit Order & Payment Status</h3>
+      <h3 class="font-black text-slate-900 text-base">Edit Order Details & Customer Info</h3>
       <p class="text-xs text-slate-500">Editing Order ID: <strong id="editTargetOrderId" class="text-brand-600">HY-XXXX</strong></p>
       
       <div class="space-y-3 text-xs">
         <div>
-          <label class="block font-bold text-slate-700 mb-1">Customer Name</label>
+          <label class="block font-bold text-slate-700 mb-1">Customer Full Name</label>
           <input type="text" id="editCustomerName" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
         </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Phone Number</label>
+          <input type="text" id="editPhone" placeholder="03209306672" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Delivery Address</label>
+          <textarea id="editAddress" rows="2" placeholder="Complete address..." class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium"></textarea>
+        </div>
+
         <div>
           <label class="block font-bold text-slate-700 mb-1">Items Description</label>
-          <input type="text" id="editItems" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
+          <input type="text" id="editItems" placeholder="Item name x1, Item 2..." class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
         </div>
+
         <div>
           <label class="block font-bold text-slate-700 mb-1">Total Amount (PKR)</label>
           <input type="number" id="editAmount" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-bold text-brand-600">
         </div>
+
         <div class="grid grid-cols-2 gap-2">
           <div>
             <label class="block font-bold text-slate-700 mb-1">Order Status</label>
-            <select id="editStatus" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl font-semibold outline-none">
+            <select id="editStatus" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-semibold outline-none">
               <option value="Pending">Pending</option>
               <option value="Processing">Processing</option>
               <option value="Dispatched">Dispatched</option>
@@ -402,7 +415,7 @@
           </div>
           <div>
             <label class="block font-bold text-slate-700 mb-1">Payment State</label>
-            <select id="editPaymentState" class="w-full p-2 bg-slate-50 border border-slate-300 rounded-xl font-bold outline-none text-brand-600">
+            <select id="editPaymentState" class="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-xl font-bold outline-none text-brand-600">
               <option value="Pending">Pending Invoice</option>
               <option value="Partial Paid">Partial Paid</option>
               <option value="Paid">Paid</option>
@@ -411,7 +424,7 @@
         </div>
 
         <button onclick="saveOrderEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs shadow-md mt-2">
-          Save Changes
+          Save All Changes to Sheet
         </button>
       </div>
     </div>
@@ -421,13 +434,13 @@
   <div id="editInvoiceMetaModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl relative space-y-4">
       <button onclick="closeInvoiceEditMetaModal()" class="absolute top-4 right-4 text-slate-400 text-xl font-bold">&times;</button>
-      <h3 class="font-black text-slate-900 text-base">Edit Invoice Details</h3>
-      <p class="text-xs text-slate-500">Customize invoice title notes or subtitle notes for this print session.</p>
+      <h3 class="font-black text-slate-900 text-base">Edit Invoice Footer Note</h3>
+      <p class="text-xs text-slate-500">Customize invoice bottom message for printing.</p>
       
       <div class="space-y-3 text-xs">
         <div>
           <label class="block font-bold text-slate-700 mb-1">Invoice Footer Note</label>
-          <input type="text" id="invCustomNoteInput" value="Thank you for shopping with HY Store OFFICIAL" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
+          <input type="text" id="invCustomNoteInput" value="Thank you for shopping with HY Store OFFICIAL | Mandi Bahauddin, Pakistan" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
         </div>
         <button onclick="saveInvoiceMetaEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md">
           Apply Invoice Note
@@ -778,7 +791,7 @@
         `;
       }).join('');
 
-      // Mobile Cards Layout (With Edit, Slip and Invoice Buttons)
+      // Mobile Cards Layout
       cardsBox.innerHTML = orders.map(o => {
         let badgeClass = "bg-slate-100 text-slate-700";
         if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
@@ -887,6 +900,7 @@
 
     function saveInvoiceMetaEdits() {
       const note = document.getElementById('invCustomNoteInput').value;
+      document.getElementById('invFooterNoteText').innerText = note;
       showToast('Invoice note updated successfully!');
       closeInvoiceEditMetaModal();
     }
@@ -897,6 +911,8 @@
       currentEditingOrderId = orderId;
       document.getElementById('editTargetOrderId').innerText = orderId;
       document.getElementById('editCustomerName').value = o.customerName || '';
+      document.getElementById('editPhone').value = o.phone || '';
+      document.getElementById('editAddress').value = o.address || '';
       document.getElementById('editItems').value = o.items || '';
       document.getElementById('editAmount').value = o.totalAmount || 0;
       document.getElementById('editStatus').value = o.status || 'Pending';
@@ -910,6 +926,8 @@
 
     function saveOrderEdits() {
       const customerName = document.getElementById('editCustomerName').value.trim();
+      const phone = document.getElementById('editPhone').value.trim();
+      const address = document.getElementById('editAddress').value.trim();
       const items = document.getElementById('editItems').value.trim();
       const totalAmount = document.getElementById('editAmount').value.trim();
       const status = document.getElementById('editStatus').value;
@@ -922,6 +940,8 @@
           action: 'updateOrderDetails',
           orderId: currentEditingOrderId,
           customerName: customerName,
+          phone: phone,
+          address: address,
           items: items,
           totalAmount: totalAmount,
           status: status,
@@ -932,7 +952,7 @@
       .then(data => {
         if (data.success) {
           closeEditModal();
-          showToast('Order details updated!');
+          showToast('Order details updated successfully!');
           fetchStaffOrders();
           if(!document.getElementById('viewInvoiceModal').classList.contains('hidden')) {
             openInvoiceModal(currentEditingOrderId);
