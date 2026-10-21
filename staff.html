@@ -6,23 +6,35 @@
   <title>HY Store - Staff Operations Dashboard</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#e02424', 600: '#d9232d', 700: '#b01820' }
+          }
+        }
+      }
+    }
+  </script>
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Barcode+128&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
     body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
     .font-serif-title { font-family: 'Playfair Display', serif; }
+    .barcode-font { font-family: 'Libre Barcode 128', cursive; font-size: 42px; line-height: 1; }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     
     @media print {
       body * { visibility: hidden; }
-      #viewInvoiceModal, #viewInvoiceModal * { visibility: visible; }
-      #viewInvoiceModal {
+      #viewInvoiceModal, #viewInvoiceModal *, #deliverySlipModal, #deliverySlipModal * { visibility: visible; }
+      #viewInvoiceModal, #deliverySlipModal {
         position: absolute; left: 0; top: 0; width: 100% !important; height: 100% !important;
         background: #ffffff !important; display: block !important; padding: 0 !important;
       }
@@ -31,6 +43,43 @@
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased h-screen flex overflow-hidden">
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
+      <div class="text-center space-y-2">
+        <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto shadow-lg border border-slate-100 flex items-center justify-center bg-white p-1">
+          <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" alt="HY Store Logo" class="w-full h-full object-contain">
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-900">HY STORE OFFICIAL</h2>
+        <p class="text-xs text-slate-500">Staff Dashboard Login</p>
+      </div>
+
+      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
+          <div class="relative">
+            <input type="text" id="loginUser" required placeholder="Enter username" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+            <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Password</label>
+          <div class="relative">
+            <input type="password" id="loginPass" required placeholder="Enter password" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
+            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+          </div>
+        </div>
+
+        <p id="loginError" class="text-xs text-brand-600 font-semibold text-center hidden">Invalid username or password!</p>
+
+        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20">
+          Login to Dashboard
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- LEFT SIDEBAR -->
   <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-20">
@@ -43,12 +92,12 @@
           </div>
           <span class="font-extrabold text-sm text-white tracking-wide">HY STORE</span>
         </div>
-        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Staff</span>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-brand-500/20 text-brand-500 border border-brand-500/30">Staff</span>
       </div>
 
       <!-- Navigation Links -->
       <nav class="p-4 space-y-1">
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all bg-indigo-600 text-white shadow-sm">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-sm">
           <i class="fa-solid fa-chart-pie w-5 text-sm"></i>
           <span>Dashboard</span>
         </button>
@@ -60,7 +109,7 @@
 
         <button onclick="switchTab('orders')" id="nav-orders" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all hover:bg-slate-800 hover:text-white text-slate-300">
           <i class="fa-solid fa-cart-shopping w-5 text-sm"></i>
-          <span>Orders (Cards View)</span>
+          <span>Orders Cards</span>
         </button>
 
         <button onclick="switchTab('invoices')" id="nav-invoices" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all hover:bg-slate-800 hover:text-white text-slate-300">
@@ -77,12 +126,15 @@
 
     <!-- Sidebar Footer -->
     <div class="p-4 border-t border-slate-800 space-y-2">
-      <a href="https://hystoreofficial.com" target="_blank" class="flex items-center space-x-2 text-xs text-slate-400 hover:text-indigo-400 transition">
+      <div class="text-[11px] text-slate-400">
+        Refresh Count: <strong id="refreshCounter" class="text-brand-500 font-bold">1 / 3</strong>
+      </div>
+      <a href="https://hystoreofficial.com" target="_blank" class="flex items-center space-x-2 text-xs text-slate-400 hover:text-brand-500 transition">
         <i class="fa-solid fa-globe"></i>
         <span>hystoreofficial.com</span>
         <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-auto"></i>
       </a>
-      <button onclick="handleLogout()" class="w-full text-left text-xs font-bold text-red-400 hover:text-red-300 pt-1 flex items-center justify-between">
+      <button onclick="handleLogout()" class="w-full text-left text-xs font-bold text-brand-500 hover:text-red-300 pt-1 flex items-center justify-between">
         <span>Logout Session</span>
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
       </button>
@@ -96,11 +148,14 @@
     <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
       <h1 id="page-title" class="text-lg font-bold text-slate-800">Dashboard Overview & Analytics</h1>
       <div class="flex items-center space-x-4">
+        <!-- TOP RIGHT USER DETAILS -->
         <div class="text-right">
-          <p class="text-xs text-slate-500">Logistics & Operations</p>
-          <p id="loggedInUserBadge" class="text-xs font-bold text-indigo-600">Official Staff Portal</p>
+          <p id="topUserName" class="text-xs font-black text-slate-900 leading-tight">M. Ibrahim</p>
+          <p id="topUserRole" class="text-[10px] font-bold text-brand-600 flex items-center justify-end gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Staff Account Active
+          </p>
         </div>
-        <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center font-bold text-indigo-600 border border-slate-300 text-xs">
+        <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 border border-brand-200 flex items-center justify-center font-black text-xs shadow-sm" id="topUserAvatar">
           HY
         </div>
       </div>
@@ -127,7 +182,7 @@
               <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Orders</p>
               <h3 id="stat-orders" class="text-xl font-bold text-slate-800 mt-1">0</h3>
             </div>
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg">
+            <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg">
               <i class="fa-solid fa-cart-flatbed"></i>
             </div>
           </div>
@@ -164,20 +219,19 @@
           <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
             <div>
               <h4 class="text-sm font-bold text-slate-800 mb-4">Quick Shortcuts</h4>
-              <p class="text-xs text-slate-500 mb-4">Fast actions to manage your store:</p>
               <div class="space-y-3">
-                <button onclick="switchTab('customers'); openModal('modal-customer');" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition flex items-center justify-between">
-                  <span class="text-xs font-medium text-slate-700"><i class="fa-solid fa-user-plus text-indigo-600 mr-2"></i> Add Customer First</span>
+                <button onclick="switchTab('customers'); openModal('modal-customer');" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 transition flex items-center justify-between">
+                  <span class="text-xs font-medium text-slate-700"><i class="fa-solid fa-user-plus text-brand-600 mr-2"></i> Add Customer First</span>
                   <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
                 </button>
-                <button onclick="openCreateOrderModal()" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition flex items-center justify-between">
-                  <span class="text-xs font-medium text-slate-700"><i class="fa-solid fa-plus text-indigo-600 mr-2"></i> Create New Order</span>
+                <button onclick="openCreateOrderModal()" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-brand-500 hover:bg-brand-50/50 transition flex items-center justify-between">
+                  <span class="text-xs font-medium text-slate-700"><i class="fa-solid fa-plus text-brand-600 mr-2"></i> Create New Order</span>
                   <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
                 </button>
               </div>
             </div>
             <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400 text-center">
-              Official Store Website: <a href="https://hystoreofficial.com" target="_blank" class="text-indigo-600 font-bold underline">hystoreofficial.com</a>
+              Official Store Website: <a href="https://hystoreofficial.com" target="_blank" class="text-brand-600 font-bold underline">hystoreofficial.com</a>
             </div>
           </div>
         </div>
@@ -188,20 +242,18 @@
         <div class="flex justify-between items-center bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
           <div>
             <h2 class="text-base font-bold text-slate-800">Customer Management</h2>
-            <p class="text-xs text-slate-500">Registered customers here will populate in Orders & Invoices creation.</p>
+            <p class="text-xs text-slate-500">Registered customers here will populate in Orders & Invoices dropdowns.</p>
           </div>
-          <button onclick="openModal('modal-customer')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+          <button onclick="openModal('modal-customer')" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
             <i class="fa-solid fa-user-plus"></i>
             <span>Add Customer</span>
           </button>
         </div>
 
-        <div id="customersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Populated dynamically -->
-        </div>
+        <div id="customersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
-      <!-- 3. ORDERS VIEW (CARDS ONLY - NO TABLE) -->
+      <!-- 3. ORDERS VIEW (CARDS ONLY) -->
       <section id="view-orders" class="hidden space-y-6">
         <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-5 rounded-xl border border-slate-200 shadow-sm gap-3">
           <div class="flex items-center gap-2 w-full sm:w-auto">
@@ -216,16 +268,13 @@
               <option value="Cancelled">Cancelled</option>
             </select>
           </div>
-          <button onclick="openCreateOrderModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition w-full sm:w-auto">
+          <button onclick="openCreateOrderModal()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition w-full sm:w-auto">
             <i class="fa-solid fa-cart-plus"></i>
             <span>Create Order</span>
           </button>
         </div>
 
-        <!-- Orders Cards Container ONLY -->
-        <div id="ordersCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Dynamically filled with order cards -->
-        </div>
+        <div id="ordersCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
       <!-- 4. INVOICES VIEW -->
@@ -235,15 +284,13 @@
             <h2 class="text-base font-bold text-slate-800">Invoices Directory</h2>
             <p class="text-xs text-slate-500">Official billing statements linked directly to orders and customers.</p>
           </div>
-          <button onclick="openCreateOrderModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+          <button onclick="openCreateOrderModal()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
             <i class="fa-solid fa-file-circle-plus"></i>
             <span>Create Invoice Order</span>
           </button>
         </div>
 
-        <div id="invoicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- Dynamically loaded -->
-        </div>
+        <div id="invoicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
       <!-- 5. PRODUCTS VIEW -->
@@ -251,17 +298,15 @@
         <div class="flex justify-between items-center bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
           <div>
             <h2 class="text-base font-bold text-slate-800">Inventory Catalog Products</h2>
-            <p class="text-xs text-slate-500">Products synced live with Google Sheets.</p>
+            <p class="text-xs text-slate-500">Manage products, update prices, and upload images.</p>
           </div>
-          <button onclick="openModal('modal-product')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
-            <i class="fa-solid fa-box"></i>
+          <button onclick="openAddProductModal()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+            <i class="fa-solid fa-plus"></i>
             <span>Add Product</span>
           </button>
         </div>
 
-        <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <!-- Dynamically loaded -->
-        </div>
+        <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </section>
 
     </div>
@@ -277,29 +322,29 @@
       <form onsubmit="saveCustomer(event)" class="p-5 space-y-3.5 text-xs">
         <div>
           <label class="block font-semibold text-slate-600 mb-1">Full Name *</label>
-          <input type="text" id="cust-name" required placeholder="e.g. Muhammad Abdullah" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-indigo-500">
+          <input type="text" id="cust-name" required placeholder="e.g. Muhammad Abdullah" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-brand-500">
         </div>
         <div>
           <label class="block font-semibold text-slate-600 mb-1">Mobile No *</label>
-          <input type="tel" id="cust-mobile" required placeholder="03209306672" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-indigo-500">
+          <input type="tel" id="cust-mobile" required placeholder="03209306672" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-brand-500">
         </div>
         <div>
           <label class="block font-semibold text-slate-600 mb-1">Email Address</label>
-          <input type="email" id="cust-email" placeholder="customer@example.com" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-indigo-500">
+          <input type="email" id="cust-email" placeholder="customer@example.com" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-brand-500">
         </div>
         <div>
           <label class="block font-semibold text-slate-600 mb-1">Complete Address *</label>
-          <textarea id="cust-address" required placeholder="Full shipping address..." rows="2" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+          <textarea id="cust-address" required placeholder="Full shipping address..." rows="2" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none focus:ring-2 focus:ring-brand-500"></textarea>
         </div>
         <div class="pt-2 flex space-x-3">
           <button type="button" onclick="closeModal('modal-customer')" class="w-1/2 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-bold hover:bg-slate-50">Cancel</button>
-          <button type="submit" class="w-1/2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow">Save Customer</button>
+          <button type="submit" class="w-1/2 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold shadow">Save Customer</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL: CREATE ORDER (REQUIRES MANDATORY CUSTOMER) -->
+  <!-- MODAL: CREATE ORDER (DYNAMIC PRODUCT SELECT & AUTO PRICE) -->
   <div id="modal-order" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
     <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden max-h-[90vh] overflow-y-auto">
       <div class="p-5 border-b border-slate-100 flex justify-between items-center">
@@ -309,18 +354,18 @@
       <form onsubmit="saveOrder(event)" class="p-5 space-y-3.5 text-xs">
         <div>
           <label class="block font-semibold text-slate-600 mb-1">Select Customer (Mandatory) *</label>
-          <select id="order-customer-select" required class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-slate-800 outline-none focus:ring-2 focus:ring-indigo-500">
-            <!-- Populated dynamically -->
+          <select id="order-customer-select" required class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-slate-800 outline-none focus:ring-2 focus:ring-brand-500">
           </select>
         </div>
         <div>
-          <label class="block font-semibold text-slate-600 mb-1">Items / Product Details *</label>
-          <input type="text" id="order-items-input" required placeholder="Teddy Bear / Pink x1" class="w-full border border-slate-300 rounded-xl p-2.5 font-medium outline-none">
+          <label class="block font-semibold text-slate-600 mb-1">Select Product from Catalog *</label>
+          <select id="order-product-select" onchange="autoFillProductPrice()" required class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-slate-800 outline-none focus:ring-2 focus:ring-brand-500">
+          </select>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold text-slate-600 mb-1">Total Amount (PKR) *</label>
-            <input type="number" id="order-total-amount" oninput="calcNewOrderBalance()" required placeholder="3100" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-indigo-600 outline-none">
+            <input type="number" id="order-total-amount" oninput="calcNewOrderBalance()" required placeholder="3100" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-brand-600 outline-none">
           </div>
           <div>
             <label class="block font-semibold text-slate-600 mb-1">Paid Amount (PKR)</label>
@@ -329,7 +374,7 @@
         </div>
         <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
           <span class="font-bold text-slate-600">Calculated Balance Due:</span>
-          <span id="orderNewBalanceDisplay" class="font-black text-red-600">PKR 0</span>
+          <span id="orderNewBalanceDisplay" class="font-black text-brand-600">PKR 0</span>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
@@ -344,7 +389,7 @@
           </div>
           <div>
             <label class="block font-semibold text-slate-600 mb-1">Payment State</label>
-            <select id="order-paystate-select" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-indigo-600 outline-none">
+            <select id="order-paystate-select" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-brand-600 outline-none">
               <option value="Pending">Pending</option>
               <option value="Partial Paid">Partial Paid</option>
               <option value="Paid">Paid</option>
@@ -353,7 +398,49 @@
         </div>
         <div class="pt-2 flex space-x-3">
           <button type="button" onclick="closeModal('modal-order')" class="w-1/2 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-bold hover:bg-slate-50">Cancel</button>
-          <button type="submit" class="w-1/2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow">Create Order</button>
+          <button type="submit" class="w-1/2 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold shadow">Create Order</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD/EDIT PRODUCT (WITH IMAGE UPLOAD & FULL EDITING) -->
+  <div id="modal-product" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden max-h-[90vh] overflow-y-auto">
+      <div class="p-5 border-b border-slate-100 flex justify-between items-center">
+        <h3 id="productModalTitle" class="font-bold text-slate-800 text-sm">Add New Product</h3>
+        <button onclick="closeModal('modal-product')" class="text-slate-400 hover:text-slate-600 font-bold">&times;</button>
+      </div>
+      <form onsubmit="saveProduct(event)" class="p-5 space-y-3.5 text-xs">
+        <input type="hidden" id="prodEditIndex" value="">
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Product Title *</label>
+          <input type="text" id="prod-name" required placeholder="e.g. Custom LED Photo Lamp" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Category *</label>
+          <select id="prod-cat" class="w-full border border-slate-300 rounded-lg p-2.5 font-semibold outline-none">
+            <option value="Mugs & Drinkware">Mugs & Drinkware</option>
+            <option value="Home Decor">Home Decor</option>
+            <option value="Photo Keepsakes">Photo Keepsakes</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Price (PKR) *</label>
+          <input type="number" id="prod-price" required placeholder="2499" class="w-full border border-slate-300 rounded-lg p-2.5 font-bold text-brand-600 outline-none">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Product Image URL</label>
+          <input type="text" id="prod-img-url" placeholder="https://..." class="w-full border border-slate-300 rounded-lg p-2.5 font-mono text-[11px] outline-none">
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-600 mb-1">Description</label>
+          <textarea id="prod-desc" rows="2" placeholder="Product details..." class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none"></textarea>
+        </div>
+        <div class="pt-2 flex space-x-3">
+          <button type="button" onclick="closeModal('modal-product')" class="w-1/2 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-bold hover:bg-slate-50">Cancel</button>
+          <button type="submit" class="w-1/2 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl font-bold shadow">Save & Sync Product</button>
         </div>
       </form>
     </div>
@@ -383,7 +470,7 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold text-slate-600 mb-1">Total Amount (PKR)</label>
-            <input type="number" id="editTotalAmount" oninput="calcEditOrderBalance()" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-indigo-600 outline-none">
+            <input type="number" id="editTotalAmount" oninput="calcEditOrderBalance()" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-brand-600 outline-none">
           </div>
           <div>
             <label class="block font-semibold text-slate-600 mb-1">Paid Amount (PKR)</label>
@@ -392,7 +479,7 @@
         </div>
         <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
           <span class="font-bold text-slate-600">Remaining Balance Due:</span>
-          <span id="editBalanceDisplay" class="font-black text-red-600">PKR 0</span>
+          <span id="editBalanceDisplay" class="font-black text-brand-600">PKR 0</span>
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div>
@@ -408,91 +495,135 @@
           </div>
           <div>
             <label class="block font-semibold text-slate-600 mb-1">Payment State</label>
-            <select id="editPaymentState" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-indigo-600 outline-none">
+            <select id="editPaymentState" class="w-full border border-slate-300 rounded-xl p-2.5 font-bold text-brand-600 outline-none">
               <option value="Pending">Pending</option>
               <option value="Partial Paid">Partial Paid</option>
               <option value="Paid">Paid</option>
             </select>
           </div>
         </div>
-        <button onclick="saveEditOrderAction()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow mt-2">
+        <button onclick="saveEditOrderAction()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow mt-2">
           Save Changes & Draft WhatsApp Message
         </button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: ADD PRODUCT -->
-  <div id="modal-product" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
-    <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
-      <div class="p-5 border-b border-slate-100 flex justify-between items-center">
-        <h3 class="font-bold text-slate-800 text-sm">Add Inventory Product</h3>
-        <button onclick="closeModal('modal-product')" class="text-slate-400 hover:text-slate-600 font-bold">&times;</button>
+  <!-- MODAL: RESTORED PROFESSIONAL DELIVERY SLIP WITH BARCODE & QR -->
+  <div id="deliverySlipModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-start justify-center p-4 overflow-y-auto">
+    <div class="bg-white text-black w-full max-w-[145mm] p-6 border-2 border-black shadow-2xl relative font-sans my-auto">
+      <button onclick="closeModal('deliverySlipModal')" class="no-print absolute top-3 right-3 text-black hover:text-red-600 text-2xl font-black">&times;</button>
+
+      <div class="flex justify-between items-start border-b-2 border-black pb-3 mb-3">
+        <div>
+          <h1 class="text-lg font-black tracking-tight leading-none">HY STORE OFFICIAL</h1>
+          <p class="text-[11px] mt-1">King Road, Mandi Bahauddin</p>
+          <p class="text-[11px]">hystoreofficial.com</p>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] font-black uppercase tracking-wider block">DELIVERY SLIP</span>
+          <h2 id="slipOrderId" class="text-xl font-black leading-tight">HY-8094</h2>
+          <p class="text-[9px] font-semibold mt-0.5">Date: <span id="slipDate">--/--/----</span></p>
+        </div>
       </div>
-      <form onsubmit="saveProduct(event)" class="p-5 space-y-3.5 text-xs">
-        <div>
-          <label class="block font-semibold text-slate-600 mb-1">Product Title *</label>
-          <input type="text" id="prod-name" required placeholder="e.g. Custom LED Photo Lamp" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none">
+
+      <div class="grid grid-cols-2 gap-3 border-b-2 border-black pb-3 mb-3 text-xs">
+        <div class="border-r border-black pr-2">
+          <h3 class="text-[10px] font-black uppercase tracking-wider border-b border-black pb-0.5 mb-1">DELIVER TO</h3>
+          <p id="slipCustomerName" class="font-black">Customer Name</p>
+          <p id="slipAddress" class="text-[11px] leading-tight mt-0.5">Address here</p>
+          <p id="slipPhone" class="text-[11px] font-bold mt-0.5">Phone</p>
         </div>
         <div>
-          <label class="block font-semibold text-slate-600 mb-1">Category *</label>
-          <input type="text" id="prod-cat" required placeholder="e.g. Home Decor" class="w-full border border-slate-300 rounded-lg p-2.5 font-medium outline-none">
+          <h3 class="text-[10px] font-black uppercase tracking-wider border-b border-black pb-0.5 mb-1">ORDER FINANCIALS</h3>
+          <p class="text-[11px]">Status: <strong id="slipStatus" class="font-black">Ready</strong></p>
+          <p class="text-[11px]">Total: <strong id="slipTotal" class="font-black">Rs 0</strong></p>
+          <p class="text-[11px]">Paid: <strong id="slipPaid" class="font-black">Rs 0</strong></p>
+          <p class="text-[11px]">Balance Due (COD): <strong id="slipBalance" class="font-black text-brand-600">Rs 0</strong></p>
         </div>
-        <div>
-          <label class="block font-semibold text-slate-600 mb-1">Price (PKR) *</label>
-          <input type="number" id="prod-price" required placeholder="2499" class="w-full border border-slate-300 rounded-lg p-2.5 font-bold text-indigo-600 outline-none">
+      </div>
+
+      <div class="mb-3">
+        <table class="w-full border-collapse border-2 border-black text-[11px]">
+          <thead>
+            <tr class="bg-black text-white font-black text-left">
+              <th class="p-1.5 border-r border-black w-6 text-center">#</th>
+              <th class="p-1.5 border-r border-black">Item Description</th>
+              <th class="p-1.5 w-10 text-center">Qty</th>
+            </tr>
+          </thead>
+          <tbody id="slipItemsTableBody" class="divide-y border-b-2 border-black text-black font-semibold">
+            <tr>
+              <td class="p-1.5 border-r border-black text-center">1</td>
+              <td class="p-1.5 border-r border-black" id="slipItemDesc">Item Name</td>
+              <td class="p-1.5 text-center font-bold">1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flex items-center justify-center gap-4 my-3 border-b-2 border-black pb-3">
+        <div class="text-center">
+          <div id="slipBarcode" class="barcode-font tracking-widest text-black">HY-8094</div>
+          <span id="slipBarcodeText" class="text-[10px] font-black tracking-widest block -mt-2">HY-8094</span>
         </div>
-        <div class="pt-2 flex space-x-3">
-          <button type="button" onclick="closeModal('modal-product')" class="w-1/2 py-2.5 border border-slate-300 rounded-xl text-slate-600 font-bold hover:bg-slate-50">Cancel</button>
-          <button type="submit" class="w-1/2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow">Save Product</button>
+        <div class="text-center border-l border-black pl-4">
+          <img id="slipQrCode" src="" alt="QR Code" class="w-14 h-14 object-contain bg-white p-0.5 border border-black mx-auto">
+          <span class="text-[7px] font-black block mt-0.5">SCAN ORDER</span>
         </div>
-      </form>
+      </div>
+
+      <div class="no-print pt-2 text-center">
+        <button onclick="window.print()" class="bg-black text-white font-black px-6 py-2 rounded-xl text-xs flex items-center justify-center gap-2 mx-auto">
+          <i class="fa-solid fa-print"></i> Print Delivery Slip
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- MODAL: PRINTABLE A4 INVOICE -->
+  <!-- MODAL: RED VIP A4 PRINTABLE INVOICE -->
   <div id="viewInvoiceModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden relative font-sans my-auto">
+    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl overflow-hidden relative font-sans my-auto border-2 border-brand-600">
       <div class="no-print bg-slate-900 text-white p-3 flex justify-between items-center">
-        <span class="text-xs font-bold text-slate-300">Official A4 Printable Invoice</span>
+        <span class="text-xs font-bold text-slate-300">Official Red VIP A4 Invoice</span>
         <div class="flex gap-2">
-          <button onclick="window.print()" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow">
+          <button onclick="window.print()" class="bg-brand-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow">
             <i class="fa-solid fa-print"></i> Print Invoice
           </button>
           <button onclick="closeModal('viewInvoiceModal')" class="text-slate-400 hover:text-white font-bold px-2">&times;</button>
         </div>
       </div>
       <div class="p-8 space-y-6">
-        <div class="flex justify-between items-start border-b-2 border-indigo-600 pb-4">
+        <div class="flex justify-between items-start border-b-2 border-brand-600 pb-4">
           <div class="flex items-center gap-3">
             <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-12 h-12 object-contain">
             <div>
               <h1 class="font-serif-title text-xl font-black text-slate-900">HY STORE OFFICIAL</h1>
-              <span class="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">Gifts & Keepsakes Pakistan</span>
+              <span class="text-[10px] font-bold text-brand-600 uppercase tracking-widest">Gifts & Keepsakes Pakistan</span>
             </div>
           </div>
           <div class="text-right">
-            <span class="bg-indigo-50 text-indigo-700 text-xs font-black px-3 py-1 rounded-full uppercase">Tax Invoice</span>
+            <span class="bg-brand-50 text-brand-700 border border-brand-200 text-xs font-black px-3 py-1 rounded-full uppercase">Tax Invoice</span>
             <h2 id="invId" class="font-mono text-base font-black text-slate-900 mt-1">HY-0000</h2>
             <p id="invDate" class="text-[10px] text-slate-400 font-bold">Date: --/--/----</p>
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-xl border">
+        <div class="grid grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
           <div>
-            <span class="text-indigo-700 uppercase font-bold text-[10px] block mb-1">Customer Info:</span>
+            <span class="text-brand-700 uppercase font-bold text-[10px] block mb-1">Customer Info:</span>
             <strong id="invCustName" class="text-slate-900 text-sm block">Customer</strong>
             <span id="invCustPhone" class="text-slate-600 block mt-0.5">Phone: --</span>
             <span id="invCustAddress" class="text-slate-600 block mt-0.5">Address: --</span>
           </div>
           <div class="text-right space-y-1">
-            <span class="text-indigo-700 uppercase font-bold text-[10px] block mb-1">Order Status:</span>
+            <span class="text-brand-700 uppercase font-bold text-[10px] block mb-1">Order Status:</span>
             <span class="text-slate-600 block">Status: <strong id="invStatus" class="text-emerald-600 font-bold">Ready</strong></span>
-            <span class="text-slate-600 block">Payment State: <strong id="invPaymentState" class="text-indigo-600 font-bold">Pending</strong></span>
+            <span class="text-slate-600 block">Payment State: <strong id="invPaymentState" class="text-brand-600 font-bold">Pending</strong></span>
           </div>
         </div>
-        <div class="border rounded-xl overflow-hidden text-xs">
+        <div class="border border-slate-200 rounded-xl overflow-hidden text-xs">
           <table class="w-full text-left">
-            <thead class="bg-indigo-600 text-white uppercase text-[10px] font-bold">
+            <thead class="bg-brand-600 text-white uppercase text-[10px] font-bold">
               <tr>
                 <th class="p-3">#</th>
                 <th class="p-3">Item Description</th>
@@ -500,12 +631,11 @@
                 <th class="p-3 text-right">Amount</th>
               </tr>
             </thead>
-            <tbody id="invItemsTable" class="divide-y bg-white"></tbody>
+            <tbody id="invItemsTable" class="divide-y divide-slate-200 bg-white"></tbody>
           </table>
         </div>
-        <!-- Financial Paid & Balance Breakdown -->
         <div class="flex justify-end pt-2">
-          <div class="w-72 bg-slate-50 p-4 rounded-xl border space-y-2 text-xs">
+          <div class="w-72 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
             <div class="flex justify-between text-slate-600">
               <span>Total Amount:</span>
               <span id="invTotalAmount" class="font-bold text-slate-900">PKR 0</span>
@@ -514,13 +644,13 @@
               <span>Amount Paid:</span>
               <span id="invPaidAmount" class="font-bold text-emerald-600">PKR 0</span>
             </div>
-            <div class="flex justify-between font-extrabold text-sm border-t pt-2 text-slate-900">
+            <div class="flex justify-between font-extrabold text-sm border-t border-slate-200 pt-2 text-slate-900">
               <span>Balance Remaining:</span>
-              <span id="invBalanceAmount" class="text-indigo-600 font-black">PKR 0</span>
+              <span id="invBalanceAmount" class="text-brand-600 font-black">PKR 0</span>
             </div>
           </div>
         </div>
-        <div class="border-t pt-4 text-center text-[10px] text-slate-400">
+        <div class="border-t border-slate-200 pt-4 text-center text-[10px] text-slate-400">
           <p>Thank you for shopping with HY Store OFFICIAL | hystoreofficial.com</p>
         </div>
       </div>
@@ -535,16 +665,78 @@
     let products = [];
     let analyticsChartInstance = null;
 
+    // REFRESH COUNTER & AUTO-LOGOUT LOGIC (3 REFRESHES)
     window.onload = function() {
+      let isLogged = sessionStorage.getItem('hy_staff_logged');
+      let loggedUser = sessionStorage.getItem('hy_logged_user_name') || 'M. Ibrahim';
+
+      if (isLogged !== 'true') {
+        document.getElementById('loginModal').classList.remove('hidden');
+      } else {
+        document.getElementById('loginModal').classList.add('hidden');
+        
+        // Count Refreshes
+        let refreshCount = Number(sessionStorage.getItem('hy_refresh_count') || 0) + 1;
+        sessionStorage.setItem('hy_refresh_count', refreshCount);
+        
+        document.getElementById('refreshCounter').innerText = refreshCount + ' / 3';
+
+        if (refreshCount >= 3) {
+          alert("Security Notice: Session expired due to 3 page refreshes. Please login again.");
+          handleLogout();
+          return;
+        }
+
+        // Display Logged In User in Top-Right
+        document.getElementById('topUserName').innerText = loggedUser;
+        document.getElementById('topUserAvatar').innerText = loggedUser.split(' ').map(n=>n[0]).join('');
+
+        fetchStaffOrders();
+        fetchStaffProducts();
+        initChart();
+      }
+
       if(customers.length === 0) {
         customers = [
           { id: 'CUST-101', name: 'muhammad abdullah Sajid', phone: '923471136415', email: 'abdullah@example.com', address: 'Mandi Bahauddin, City: mandi' }
         ];
         localStorage.setItem('hy_customers', JSON.stringify(customers));
       }
-      fetchStaffOrders();
-      initChart();
     };
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
+
+      let isValid = false;
+      let displayName = '';
+
+      if (user === 'Usman' && pass === '114477') { isValid = true; displayName = 'Usman'; }
+      else if (user === 'Admin' && pass === 'Admin') { isValid = true; displayName = 'Admin'; }
+      else if (user === 'M.ibrahim' && pass === '034711') { isValid = true; displayName = 'M. Ibrahim'; }
+
+      if (isValid) {
+        sessionStorage.setItem('hy_staff_logged', 'true');
+        sessionStorage.setItem('hy_logged_user_name', displayName);
+        sessionStorage.setItem('hy_refresh_count', '1'); // Reset refresh count on new login
+        document.getElementById('loginModal').classList.add('hidden');
+        
+        document.getElementById('topUserName').innerText = displayName;
+        document.getElementById('topUserAvatar').innerText = displayName.split(' ').map(n=>n[0]).join('');
+
+        fetchStaffOrders();
+        fetchStaffProducts();
+        initChart();
+      } else {
+        document.getElementById('loginError').classList.remove('hidden');
+      }
+    }
+
+    function handleLogout() {
+      sessionStorage.clear();
+      window.location.reload();
+    }
 
     function switchTab(tab) {
       const tabs = ['dashboard', 'customers', 'orders', 'invoices', 'products'];
@@ -562,13 +754,13 @@
       });
 
       document.getElementById(`view-${tab}`).classList.remove('hidden');
-      document.getElementById(`nav-${tab}`).className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all bg-indigo-600 text-white shadow-sm";
+      document.getElementById(`nav-${tab}`).className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-xs font-bold transition-all bg-brand-600 text-white shadow-sm";
       document.getElementById('page-title').innerText = titles[tab];
 
       if(tab === 'customers') renderCustomers();
       if(tab === 'orders') renderOrders();
       if(tab === 'invoices') renderInvoices();
-      if(tab === 'products') fetchStaffProducts();
+      if(tab === 'products') renderProducts();
     }
 
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
@@ -583,8 +775,17 @@
             updateDashboardStats();
             renderOrders();
           }
-        })
-        .catch(err => { console.log(err); });
+        }).catch(err => { console.log(err); });
+    }
+
+    function fetchStaffProducts() {
+      fetch(SCRIPT_URL + '?action=getProducts')
+        .then(res => res.json())
+        .then(data => {
+          products = data || [];
+          renderProducts();
+          updateDashboardStats();
+        });
     }
 
     function updateDashboardStats() {
@@ -666,7 +867,7 @@
         return `
           <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
             <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <span class="font-mono font-black text-indigo-600 text-sm">${o.orderId}</span>
+              <span class="font-mono font-black text-brand-600 text-sm">${o.orderId}</span>
               <div class="flex items-center gap-1.5">
                 <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${payBadge}">${o.paymentState || 'Pending'}</span>
                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">${o.status || 'Pending'}</span>
@@ -685,16 +886,19 @@
                 <span class="text-slate-500">Total: <strong class="text-slate-900">PKR ${tot.toLocaleString()}</strong></span>
                 <span class="text-emerald-600 font-bold">Paid: PKR ${paid.toLocaleString()}</span>
               </div>
-              <div class="text-right font-black text-indigo-600 text-[11px]">
+              <div class="text-right font-black text-brand-600 text-[11px]">
                 Balance Due: PKR ${bal.toLocaleString()}
               </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 pt-1">
+            <div class="grid grid-cols-3 gap-1.5 pt-1">
               <button onclick="openEditOrderModal('${o.orderId}')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
                 <i class="fa-solid fa-pen-to-square"></i> Edit
               </button>
-              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
+              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
+                <i class="fa-solid fa-truck-fast"></i> Slip
+              </button>
+              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1">
                 <i class="fa-solid fa-file-invoice"></i> Invoice
               </button>
             </div>
@@ -710,13 +914,23 @@
         openModal('modal-customer');
         return;
       }
-      const select = document.getElementById('order-customer-select');
-      select.innerHTML = customers.map(c => `<option value="${c.id}">${c.name} (${c.phone})</option>`).join('');
-      document.getElementById('order-items-input').value = '';
-      document.getElementById('order-total-amount').value = '';
-      document.getElementById('order-paid-amount').value = '0';
-      calcNewOrderBalance();
+      const custSelect = document.getElementById('order-customer-select');
+      custSelect.innerHTML = customers.map(c => `<option value="${c.id}">${c.name} (${c.phone})</option>`).join('');
+      
+      const prodSelect = document.getElementById('order-product-select');
+      prodSelect.innerHTML = products.map((p, idx) => `<option value="${idx}">${p.title} - PKR ${p.price}</option>`).join('');
+
+      autoFillProductPrice();
       openModal('modal-order');
+    }
+
+    function autoFillProductPrice() {
+      const idx = document.getElementById('order-product-select').value;
+      const p = products[idx];
+      if(p) {
+        document.getElementById('order-total-amount').value = p.price || 0;
+        calcNewOrderBalance();
+      }
     }
 
     function calcNewOrderBalance() {
@@ -731,6 +945,9 @@
       const custId = document.getElementById('order-customer-select').value;
       const cust = customers.find(c => c.id === custId);
 
+      const pIdx = document.getElementById('order-product-select').value;
+      const prod = products[pIdx];
+
       const tot = Number(document.getElementById('order-total-amount').value);
       const paid = Number(document.getElementById('order-paid-amount').value);
 
@@ -739,7 +956,7 @@
         customerName: cust ? cust.name : 'Customer',
         phone: cust ? cust.phone : '',
         address: cust ? cust.address : '',
-        items: document.getElementById('order-items-input').value.trim(),
+        items: prod ? prod.title : 'Custom Product',
         totalAmount: tot,
         paidAmount: paid,
         status: document.getElementById('order-status-select').value,
@@ -796,7 +1013,6 @@
       generateProfessionalWhatsAppMsg(o);
     }
 
-    // PROFESSIONAL ENGLISH WHATSAPP STATUS GENERATOR
     function generateProfessionalWhatsAppMsg(o) {
       if(!o.phone) return;
       let cleanPhone = o.phone.replace(/\D/g, '');
@@ -828,19 +1044,46 @@
       window.open(`https://wa.me/${cleanPhone}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
+    // DELIVERY SLIP ACTION
+    function printDeliverySlip(orderId) {
+      const o = orders.find(item => item.orderId === orderId);
+      if(!o) return;
+
+      document.getElementById('slipOrderId').innerText = o.orderId;
+      document.getElementById('slipBarcodeText').innerText = o.orderId;
+      document.getElementById('slipBarcode').innerText = o.orderId;
+      document.getElementById('slipDate').innerText = new Date().toLocaleDateString();
+      document.getElementById('slipCustomerName').innerText = o.customerName || 'Customer';
+      document.getElementById('slipPhone').innerText = o.phone || 'N/A';
+      document.getElementById('slipAddress').innerText = o.address || 'N/A';
+      document.getElementById('slipStatus').innerText = o.status || 'Ready';
+      document.getElementById('slipItemDesc').innerText = o.items;
+      
+      let tot = Number(o.totalAmount || 0);
+      let paid = Number(o.paidAmount || 0);
+      let bal = tot - paid;
+
+      document.getElementById('slipTotal').innerText = 'Rs ' + tot.toLocaleString();
+      document.getElementById('slipPaid').innerText = 'Rs ' + paid.toLocaleString();
+      document.getElementById('slipBalance').innerText = 'Rs ' + bal.toLocaleString();
+
+      document.getElementById('slipQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=` + encodeURIComponent(`HY Store Order: ${o.orderId}, Balance: Rs ${bal}`);
+      openModal('deliverySlipModal');
+    }
+
     // INVOICES WORKFLOW
     function renderInvoices() {
       const grid = document.getElementById('invoicesGrid');
       grid.innerHTML = orders.map(o => `
         <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-2">
           <div class="flex justify-between items-center">
-            <span class="font-mono font-black text-indigo-600 text-sm">${o.orderId}</span>
+            <span class="font-mono font-black text-brand-600 text-sm">${o.orderId}</span>
             <span class="text-xs font-bold text-slate-700">${o.customerName}</span>
           </div>
           <p class="text-xs text-slate-600">Total: <strong>PKR ${Number(o.totalAmount || 0).toLocaleString()}</strong></p>
           <p class="text-xs text-emerald-600 font-bold">Paid: PKR ${Number(o.paidAmount || 0).toLocaleString()}</p>
-          <button onclick="openInvoiceModal('${o.orderId}')" class="w-full bg-indigo-600 text-white font-bold py-2 rounded-xl text-xs mt-2">
-            View Printable A4 Invoice
+          <button onclick="openInvoiceModal('${o.orderId}')" class="w-full bg-brand-600 text-white font-bold py-2 rounded-xl text-xs mt-2">
+            View Printable A4 Red Invoice
           </button>
         </div>
       `).join('');
@@ -879,49 +1122,78 @@
     }
 
     // PRODUCTS WORKFLOW
-    function fetchStaffProducts() {
-      fetch(SCRIPT_URL + '?action=getProducts')
-        .then(res => res.json())
-        .then(data => {
-          products = data || [];
-          renderProducts();
-          updateDashboardStats();
-        });
+    function openAddProductModal() {
+      document.getElementById('productModalTitle').innerText = 'Add New Product';
+      document.getElementById('prodEditIndex').value = '';
+      document.getElementById('prod-name').value = '';
+      document.getElementById('prod-price').value = '';
+      document.getElementById('prod-img-url').value = '';
+      document.getElementById('prod-desc').value = '';
+      openModal('modal-product');
+    }
+
+    function openEditProductModal(idx) {
+      const p = products[idx];
+      if(!p) return;
+      document.getElementById('productModalTitle').innerText = 'Edit Product';
+      document.getElementById('prodEditIndex').value = idx;
+      document.getElementById('prod-name').value = p.title || '';
+      document.getElementById('prod-cat').value = p.category || 'Mugs & Drinkware';
+      document.getElementById('prod-price').value = p.price || '';
+      document.getElementById('prod-img-url').value = p.image || '';
+      document.getElementById('prod-desc').value = p.description || '';
+      openModal('modal-product');
     }
 
     function renderProducts() {
       const grid = document.getElementById('productsGrid');
-      grid.innerHTML = products.map(p => `
-        <div class="bg-white rounded-2xl border border-slate-200 p-3 shadow-sm space-y-1">
-          <span class="text-[9px] font-extrabold uppercase text-indigo-600">${p.category || 'General'}</span>
-          <h4 class="font-bold text-slate-900 text-xs truncate">${p.title}</h4>
-          <span class="font-black text-indigo-600 text-xs block">PKR ${Number(p.price || 0).toLocaleString()}</span>
+      grid.innerHTML = products.map((p, idx) => `
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="aspect-square bg-slate-100 overflow-hidden relative">
+              <img src="${p.image || 'https://via.placeholder.com/250x200?text=Product'}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Image'">
+            </div>
+            <div class="p-3 space-y-1">
+              <span class="text-[9px] font-extrabold uppercase text-brand-600">${p.category || 'General'}</span>
+              <h4 class="font-bold text-slate-900 text-xs truncate">${p.title}</h4>
+            </div>
+          </div>
+          <div class="p-3 pt-0 flex items-center justify-between border-t border-slate-100 mt-2">
+            <span class="font-black text-brand-600 text-xs">PKR ${Number(p.price || 0).toLocaleString()}</span>
+            <button onclick="openEditProductModal(${idx})" class="bg-slate-900 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">Edit</button>
+          </div>
         </div>
       `).join('');
     }
 
     function saveProduct(e) {
       e.preventDefault();
-      const newP = {
-        title: document.getElementById('prod-name').value.trim(),
-        category: document.getElementById('prod-cat').value.trim(),
-        price: document.getElementById('prod-price').value.trim(),
-        printType: 'Non-Print', image: '', description: ''
-      };
+      const editIdx = document.getElementById('prodEditIndex').value;
+      const title = document.getElementById('prod-name').value.trim();
+      const price = document.getElementById('prod-price').value.trim();
+      const category = document.getElementById('prod-cat').value;
+      const image = document.getElementById('prod-img-url').value.trim();
+      const description = document.getElementById('prod-desc').value.trim();
+
+      let actionPayload = editIdx === '' ? 'addProduct' : 'updateProduct';
 
       fetch(SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'addProduct', ...newP })
+        body: JSON.stringify({
+          action: actionPayload,
+          index: editIdx,
+          title: title,
+          price: price,
+          category: category,
+          printType: 'Non-Print',
+          image: image,
+          description: description
+        })
       }).then(() => {
         closeModal('modal-product');
         fetchStaffProducts();
       });
-    }
-
-    function handleLogout() {
-      sessionStorage.clear();
-      window.location.reload();
     }
 
     function initChart() {
@@ -933,8 +1205,8 @@
           datasets: [{
             label: 'Revenue (PKR)',
             data: [15000, 22000, 18000, 31000, 28000, 42000, 50000],
-            borderColor: '#4f46e5',
-            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+            borderColor: '#e02424',
+            backgroundColor: 'rgba(224, 36, 36, 0.1)',
             fill: true,
             tension: 0.4
           }]
