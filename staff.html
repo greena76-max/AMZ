@@ -1,1449 +1,890 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full bg-slate-100">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>HY Store | Staff Dashboard & VIP Invoices</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { 500: '#e02424', 600: '#d9232d', 700: '#b01820' }
-          }
-        }
-      }
-    }
-  </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Libre+Barcode+128&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-    .font-serif-title { font-family: 'Playfair Display', serif; }
-    .barcode-font { font-family: 'Libre Barcode 128', cursive; font-size: 42px; line-height: 1; }
-    
-    @media print {
-      body * { visibility: hidden; }
-      #viewInvoiceModal, #viewInvoiceModal * { visibility: visible; }
-      #viewInvoiceModal {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100% !important;
-        height: 100% !important;
-        background: #ffffff !important;
-        display: block !important;
-        padding: 0 !important;
-      }
-      .no-print { display: none !important; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HY Store - Staff Operations Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
 </head>
-<body class="min-h-screen flex flex-col text-slate-800 bg-slate-50 pb-12 sm:pb-0">
+<body class="bg-slate-50 text-slate-800 antialiased h-screen flex overflow-hidden">
 
-  <!-- Dashboard Login Modal -->
-  <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
-      <div class="text-center space-y-2">
-        <div class="w-16 h-16 rounded-2xl overflow-hidden mx-auto shadow-lg border border-slate-100 flex items-center justify-center bg-white p-1">
-          <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" alt="HY Store Logo" class="w-full h-full object-contain">
-        </div>
-        <h2 class="text-xl font-extrabold text-slate-900">HY STORE OFFICIAL</h2>
-        <p class="text-xs text-slate-500">Staff Dashboard Login</p>
-      </div>
-
-      <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between flex-shrink-0 z-20">
         <div>
-          <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username</label>
-          <div class="relative">
-            <input type="text" id="loginUser" required placeholder="Enter username" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-            <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-bold text-slate-700 uppercase tracking-wider mb-1.5">Password</label>
-          <div class="relative">
-            <input type="password" id="loginPass" required placeholder="Enter password" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-            <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-          </div>
-        </div>
-
-        <p id="loginError" class="text-xs text-red-500 font-semibold text-center hidden">Invalid username or password!</p>
-
-        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20">
-          Login to Dashboard
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Product Page Password Security Lock Modal -->
-  <div id="productLockModal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-md hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-5 text-center">
-      <div class="w-14 h-14 bg-red-50 text-brand-600 rounded-2xl mx-auto flex items-center justify-center text-xl shadow-inner border border-brand-100">
-        <i class="fa-solid fa-shield-halved"></i>
-      </div>
-      <div>
-        <h3 class="font-black text-slate-900 text-base">Product Catalog Locked</h3>
-        <p class="text-xs text-slate-500 mt-1">Enter authorized product access password to manage catalog.</p>
-      </div>
-
-      <form onsubmit="handleProductUnlock(event)" class="space-y-3 text-left">
-        <div>
-          <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider mb-1">Product Page Password</label>
-          <input type="password" id="productUnlockInput" required placeholder="Enter password (123hyi)" class="w-full px-3.5 py-3 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-bold text-slate-800">
-        </div>
-        <p id="productLockError" class="text-[11px] text-red-500 font-semibold text-center hidden">Incorrect Password! Try again.</p>
-
-        <div class="grid grid-cols-2 gap-2 pt-1">
-          <button type="button" onclick="switchStaffTab('orders')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs transition-all">Cancel</button>
-          <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl text-xs transition-all shadow-md">Unlock</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Header -->
-  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
-      
-      <div class="flex items-center justify-between w-full sm:w-auto">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden bg-white p-0.5 shrink-0 shadow-md flex items-center justify-center">
-            <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" alt="HY Store Logo" class="w-full h-full object-contain">
-          </div>
-          <div>
-            <h1 class="font-black text-sm sm:text-base tracking-wide text-white leading-tight">HY STORE OFFICIAL</h1>
-            <p class="text-[9px] sm:text-[10px] text-slate-400 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span> Staff Dashboard
-            </p>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-2 sm:hidden">
-          <span id="loggedInUserBadgeMobile" class="bg-slate-800 text-brand-500 font-extrabold text-[10px] px-2 py-1 rounded-lg border border-slate-700">Staff</span>
-          <button onclick="handleLogout()" class="bg-slate-800 text-slate-300 p-2 rounded-lg text-xs" title="Logout">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto border-t sm:border-t-0 border-slate-800 pt-2 sm:pt-0">
-        <div class="flex items-center gap-1.5 w-full sm:w-auto">
-          <button onclick="switchStaffTab('orders')" id="tabBtnOrders" class="flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm">
-            <i class="fa-solid fa-boxes-stacked"></i> Orders
-          </button>
-          <button onclick="switchStaffTab('products')" id="tabBtnProducts" class="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700">
-            <i class="fa-solid fa-lock text-amber-400 text-[10px] mr-0.5"></i> Products
-          </button>
-        </div>
-
-        <div class="hidden sm:flex items-center gap-2">
-          <span id="loggedInUserBadge" class="bg-slate-800 text-brand-500 font-bold text-xs px-2.5 py-1.5 rounded-xl border border-slate-700">Staff</span>
-          <button onclick="handleLogout()" class="bg-slate-800 hover:bg-red-600 text-slate-300 hover:text-white text-xs font-bold p-2.5 rounded-xl transition-all border border-slate-700" title="Logout">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </header>
-
-  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 space-y-4">
-
-    <!-- ORDERS SECTION -->
-    <div id="sectionOrders" class="space-y-4">
-      
-      <!-- Stats Grid -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
-        <div class="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-          <div>
-            <p class="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-400">Orders</p>
-            <h3 id="statTotalOrders" class="text-sm sm:text-lg font-black text-slate-900">0</h3>
-          </div>
-        </div>
-
-        <div class="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm shrink-0">
-            <i class="fa-solid fa-clock"></i>
-          </div>
-          <div>
-            <p class="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-400">Pending</p>
-            <h3 id="statPending" class="text-sm sm:text-lg font-black text-slate-900">0</h3>
-          </div>
-        </div>
-
-        <div class="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold text-sm shrink-0">
-            <i class="fa-solid fa-truck-fast"></i>
-          </div>
-          <div>
-            <p class="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-400">Delivered</p>
-            <h3 id="statDelivered" class="text-sm sm:text-lg font-black text-slate-900">0</h3>
-          </div>
-        </div>
-
-        <div class="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold text-sm shrink-0">
-            <i class="fa-solid fa-wallet"></i>
-          </div>
-          <div class="overflow-hidden">
-            <p class="text-[9px] sm:text-[10px] uppercase font-extrabold text-slate-400">Revenue</p>
-            <h3 id="statRevenue" class="text-xs sm:text-base font-black text-brand-600 truncate">PKR 0</h3>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controls & Filter Bar -->
-      <div class="bg-white p-3 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-2.5 items-center justify-between">
-        <div class="relative w-full sm:w-80">
-          <input type="text" id="staffSearch" oninput="filterStaffTable()" placeholder="Search Order ID, Name, Phone..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-        </div>
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-          <select id="statusFilter" onchange="filterStaffTable()" class="bg-slate-50 border border-slate-200 text-xs font-bold rounded-xl px-3 py-2 outline-none w-full sm:w-auto">
-            <option value="ALL">All Statuses</option>
-            <option value="Pending">Pending</option>
-            <option value="Processing">Processing</option>
-            <option value="Dispatched">Dispatched</option>
-            <option value="Out for Delivery">Out for Delivery</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
-          <button onclick="fetchStaffOrders()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold px-3 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-sm shrink-0">
-            <i class="fa-solid fa-rotate"></i> <span class="hidden sm:inline">Refresh</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Responsive Orders List -->
-      <div class="space-y-3">
-        
-        <!-- Desktop Table View -->
-        <div class="hidden md:block bg-white rounded-2xl border border-slate-200 shadow-sm overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-slate-50 text-slate-500 uppercase text-[10px] font-extrabold tracking-wider border-b border-slate-200">
-                <th class="py-3 px-3">Order ID</th>
-                <th class="py-3 px-3">Customer Info</th>
-                <th class="py-3 px-3">Items / Details</th>
-                <th class="py-3 px-3">Total Amount</th>
-                <th class="py-3 px-3">Status</th>
-                <th class="py-3 px-3 text-center">Payment</th>
-                <th class="py-3 px-3 text-center">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="ordersTableBody" class="text-xs divide-y divide-slate-100">
-              <tr>
-                <td colspan="7" class="text-center py-12 text-slate-400 font-medium">
-                  <i class="fa-solid fa-spinner animate-spin text-brand-600 text-xl mb-2 block"></i> Loading orders...
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Mobile & Desktop Modern Card Grid View -->
-        <div id="ordersCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <p class="col-span-full text-center py-8 text-slate-400 text-xs"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-1"></i> Loading orders...</p>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- PRODUCTS SECTION (PROTECTED BY PASSWORD) -->
-    <div id="sectionProducts" class="space-y-4 hidden">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
-        <div>
-          <h2 class="font-extrabold text-base sm:text-lg text-slate-900 flex items-center gap-2">
-            <span>Manage Catalog Products</span>
-            <span class="bg-emerald-50 text-emerald-700 text-[10px] px-2 py-0.5 rounded-full border border-emerald-200"><i class="fa-solid fa-lock-open mr-1"></i> Unlocked</span>
-          </h2>
-          <p class="text-xs text-slate-500">Add, edit, or delete items directly synced with Google Sheets.</p>
-        </div>
-        <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-md">
-          <i class="fa-solid fa-plus"></i> Add New Product
-        </button>
-      </div>
-
-      <div class="bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-        <div class="relative max-w-md">
-          <input type="text" id="productSearchInput" oninput="filterProductsCatalog()" placeholder="Search product by title..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-brand-500 font-medium">
-          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-        </div>
-
-        <div id="staffProductsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-          <p class="col-span-full text-center py-8 text-slate-400 text-xs">Loading store products...</p>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- PROFESSIONAL VIP A4 INVOICE MODAL -->
-  <div id="viewInvoiceModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden relative font-sans my-auto">
-      
-      <!-- Top Action Bar -->
-      <div class="no-print bg-slate-900 text-white p-3 flex justify-between items-center border-b border-slate-800 flex-wrap gap-2">
-        <div class="flex items-center gap-2">
-          <button onclick="openEditModalFromInvoice()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all border border-slate-700">
-            <i class="fa-solid fa-pen-to-square text-brand-500"></i>
-            <span>Edit Order Details</span>
-          </button>
-          <button onclick="openInvoiceEditMetaModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition-all border border-slate-700">
-            <i class="fa-solid fa-file-pen text-brand-500"></i>
-            <span>Edit Invoice Note</span>
-          </button>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="window.print()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition-all shadow">
-            <i class="fa-solid fa-print"></i> Print Invoice
-          </button>
-          <button onclick="closeInvoiceModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2">&times;</button>
-        </div>
-      </div>
-
-      <!-- High Quality Printable A4 Invoice Body -->
-      <div class="p-6 sm:p-10 space-y-6 bg-white">
-        
-        <!-- Header -->
-        <div class="flex justify-between items-start border-b-2 border-brand-600 pb-5">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-white rounded-xl shadow border border-slate-200 p-1 flex items-center justify-center">
-              <img src="logo.png" onerror="this.onerror=null; this.src='https://hystoreofficial.com/logo.png';" class="w-full h-full object-contain">
-            </div>
-            <div>
-              <h1 class="font-serif-title text-xl sm:text-2xl font-black text-slate-900 leading-tight">HY STORE OFFICIAL</h1>
-              <span class="text-[10px] font-extrabold uppercase tracking-widest text-brand-600">Gifts & Keepsakes Pakistan</span>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="inline-block bg-brand-50 text-brand-700 border border-brand-200 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider mb-1">Tax Invoice</span>
-            <h2 id="invOrderId" class="font-mono text-base sm:text-lg font-black text-slate-900">HY-XXXX</h2>
-            <p id="invDate" class="text-[10px] text-slate-400 font-bold">Date: --/--/----</p>
-          </div>
-        </div>
-
-        <!-- Address & Order Info Box -->
-        <div class="grid grid-cols-2 gap-4 text-xs bg-slate-50 p-4 rounded-xl border border-slate-200">
-          <div>
-            <span class="text-brand-700 uppercase font-bold text-[10px] block mb-1">Customer / Shipping Address:</span>
-            <strong id="invCustName" class="text-slate-900 text-sm block">Customer Name</strong>
-            <span id="invCustPhone" class="text-slate-600 block"><i class="fa-solid fa-phone mr-1 text-brand-600"></i> --</span>
-            <span id="invCustAddress" class="text-slate-600 block mt-1 leading-relaxed"><i class="fa-solid fa-location-dot mr-1 text-brand-600"></i> Address --</span>
-          </div>
-          <div class="text-right space-y-1">
-            <span class="text-brand-700 uppercase font-bold text-[10px] block mb-1">Order Status Info:</span>
-            <span class="text-slate-600 block">Order Status: <strong id="invStatusBadge" class="text-emerald-600 font-bold">Processing</strong></span>
-            <span class="text-slate-600 block">Payment State: <strong id="invPayStateBadge" class="text-brand-600 font-bold">Pending</strong></span>
-            <span class="text-slate-600 block">Payment Method: <strong>Cash on Delivery (COD)</strong></span>
-          </div>
-        </div>
-
-        <!-- Itemized Breakdown Table -->
-        <div class="space-y-2">
-          <h3 class="font-bold text-xs text-slate-700 uppercase tracking-wider">Itemized Breakdown</h3>
-          <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-            <table class="w-full text-left text-xs">
-              <thead class="bg-brand-600 text-white uppercase font-bold text-[10px]">
-                <tr>
-                  <th class="p-3">#</th>
-                  <th class="p-3">Description / Item Name</th>
-                  <th class="p-3 text-center">Qty</th>
-                  <th class="p-3 text-right">Amount</th>
-                </tr>
-              </thead>
-              <tbody id="invItemsTableBody" class="divide-y divide-slate-200 bg-white">
-                <tr>
-                  <td class="p-3 text-slate-400">1</td>
-                  <td class="p-3 font-semibold text-slate-800">Sample Item</td>
-                  <td class="p-3 text-center font-bold">1</td>
-                  <td class="p-3 text-right font-bold text-slate-900">PKR 0</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Calculation Summary -->
-        <div class="flex justify-end pt-2">
-          <div class="w-full sm:w-72 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 text-xs">
-            <div class="flex justify-between text-slate-600">
-              <span>Subtotal Amount:</span>
-              <span id="invSubtotal" class="font-bold text-slate-900">PKR 0</span>
-            </div>
-            <div class="flex justify-between text-slate-600">
-              <span>Shipping Delivery:</span>
-              <span class="text-emerald-600 font-bold">FREE</span>
-            </div>
-            <div class="flex justify-between font-extrabold text-sm border-t border-slate-200 pt-2 text-slate-900">
-              <span>Grand Total:</span>
-              <span id="invGrandTotal" class="text-brand-600 font-black">PKR 0</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="border-t border-slate-200 pt-4 text-center text-[10px] text-slate-400 font-medium">
-          <p id="invFooterNoteText">Thank you for shopping with HY Store OFFICIAL | Mandi Bahauddin, Pakistan</p>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- COMPLETE DEDICATED EDIT ORDER PANEL (MODAL) -->
-  <div id="editOrderModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative space-y-5 max-h-[90vh] overflow-y-auto border border-slate-200">
-      <button onclick="closeEditModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
-      
-      <div>
-        <h3 class="font-black text-slate-900 text-lg flex items-center gap-2">
-          <i class="fa-solid fa-pen-to-square text-brand-600"></i> Edit Order Details
-        </h3>
-        <p class="text-xs text-slate-500 mt-0.5">Target Order ID: <strong id="editTargetOrderId" class="font-mono text-brand-600">HY-XXXX</strong></p>
-      </div>
-      
-      <div class="space-y-3.5 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Customer Full Name</label>
-          <input type="text" id="editCustomerName" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-medium focus:ring-2 focus:ring-brand-500">
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Phone Number (For WhatsApp Draft)</label>
-          <input type="text" id="editPhone" placeholder="03209306672" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-medium focus:ring-2 focus:ring-brand-500">
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Delivery Address</label>
-          <textarea id="editAddress" rows="2" placeholder="Complete address..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-medium focus:ring-2 focus:ring-brand-500"></textarea>
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Items Description</label>
-          <input type="text" id="editItems" placeholder="Item name x1, Item 2..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-medium focus:ring-2 focus:ring-brand-500">
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Total Amount (PKR)</label>
-          <input type="number" id="editAmount" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none font-black text-brand-600 focus:ring-2 focus:ring-brand-500">
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Order Status</label>
-            <select id="editStatus" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-semibold outline-none focus:ring-2 focus:ring-brand-500">
-              <option value="Pending">Pending</option>
-              <option value="Processing">Processing</option>
-              <option value="Dispatched">Dispatched</option>
-              <option value="Out for Delivery">Out for Delivery</option>
-              <option value="Delivered">Delivered</option>
-              <option value="Cancelled">Cancelled</option>
-            </select>
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Payment State</label>
-            <select id="editPaymentState" class="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold outline-none text-brand-600 focus:ring-2 focus:ring-brand-500">
-              <option value="Pending">Pending</option>
-              <option value="Partial Paid">Partial Paid</option>
-              <option value="Paid">Paid</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- WhatsApp Status Update Notification Note Box -->
-        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl flex items-start gap-2.5 text-emerald-900">
-          <i class="fa-brands fa-whatsapp text-emerald-600 text-base mt-0.5"></i>
-          <div>
-            <strong class="block font-bold text-[11px]">WhatsApp Status Draft Note</strong>
-            <span class="text-[10px] text-emerald-700 leading-tight block mt-0.5">Saving updates will automatically draft a WhatsApp notification message for the customer regarding their current order stage.</span>
-          </div>
-        </div>
-
-        <button onclick="saveOrderEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition-all text-xs shadow-lg shadow-brand-600/20 mt-2">
-          Save Changes & Draft WhatsApp Update
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Invoice Specific Meta Modal -->
-  <div id="editInvoiceMetaModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl relative space-y-4">
-      <button onclick="closeInvoiceEditMetaModal()" class="absolute top-4 right-4 text-slate-400 text-xl font-bold">&times;</button>
-      <h3 class="font-black text-slate-900 text-base">Edit Invoice Footer Note</h3>
-      <p class="text-xs text-slate-500">Customize invoice bottom message for printing.</p>
-      
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Invoice Footer Note</label>
-          <input type="text" id="invCustomNoteInput" value="Thank you for shopping with HY Store OFFICIAL | Mandi Bahauddin, Pakistan" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none font-medium">
-        </div>
-        <button onclick="saveInvoiceMetaEdits()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-2.5 rounded-xl transition-all text-xs shadow-md">
-          Apply Invoice Note
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Product Modal -->
-  <div id="productModal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 shadow-2xl relative space-y-3 max-h-[95vh] overflow-y-auto">
-      <button onclick="closeProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
-      <h3 id="productModalTitle" class="font-black text-base text-slate-900">Add New Product</h3>
-      
-      <div class="space-y-3 text-xs">
-        <input type="hidden" id="prodEditIndex" value="">
-        
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Product Title</label>
-          <input type="text" id="prodTitle" placeholder="e.g. Custom LED Photo Lamp" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none focus:border-brand-500 font-medium">
-        </div>
-
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Price (PKR)</label>
-            <input type="number" id="prodPrice" placeholder="e.g. 2499" class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none focus:border-brand-500 font-bold text-brand-600">
-          </div>
-          <div>
-            <label class="block font-bold text-slate-700 mb-1">Category</label>
-            <select id="prodCategory" class="w-full px-3 py-2 bg-white border border-slate-300 rounded-xl outline-none focus:border-brand-500 font-semibold">
-              <option value="Mugs & Drinkware">Mugs & Drinkware</option>
-              <option value="Home Decor">Home Decor</option>
-              <option value="Photo Keepsakes">Photo Keepsakes</option>
-              <option value="Accessories">Accessories</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Print Checkbox Option -->
-        <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl flex items-center justify-between">
-          <div>
-            <strong class="block font-bold text-slate-800">Print Option Status</strong>
-            <span class="text-[10px] text-slate-500">Check if product includes custom printing on website.</span>
-          </div>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" id="prodPrintCheck" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-600"></div>
-          </label>
-        </div>
-
-        <div class="space-y-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-          <div class="flex justify-between items-center">
-            <label class="block font-bold text-slate-700 text-[11px] uppercase">Product Image</label>
-            <button id="clearPicBtn" onclick="clearSelectedPic()" class="hidden text-[10px] text-red-600 font-bold hover:underline">
-              <i class="fa-solid fa-trash-can"></i> Remove Photo
-            </button>
-          </div>
-          
-          <div>
-            <label class="block text-[10px] font-semibold text-slate-500 mb-1">Option 1: Paste Image URL</label>
-            <input type="text" id="prodImage" oninput="handleUrlInput()" placeholder="https://..." class="w-full px-3 py-2 border border-slate-300 rounded-lg outline-none font-mono text-[11px] bg-white">
-          </div>
-
-          <div class="text-center font-bold text-slate-400 text-[10px]">- OR -</div>
-
-          <div>
-            <label class="block text-[10px] font-semibold text-slate-500 mb-1">Option 2: Upload Photo</label>
-            <input type="file" id="prodFile" accept="image/*" onchange="handleFileUpload(event)" class="w-full text-xs text-slate-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-brand-50 file:text-brand-700 cursor-pointer">
-          </div>
-          
-          <div id="imagePreviewContainer" class="hidden pt-2 text-center">
-            <img id="prodImagePreview" src="" class="w-16 h-16 object-cover rounded-lg border border-slate-300 mx-auto">
-          </div>
-        </div>
-
-        <div>
-          <label class="block font-bold text-slate-700 mb-1">Product Description</label>
-          <textarea id="prodDesc" rows="2" placeholder="Enter product details..." class="w-full px-3 py-2 border border-slate-300 rounded-xl outline-none focus:border-brand-500 font-medium"></textarea>
-        </div>
-
-        <button id="saveProductBtn" onclick="saveProductData()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl transition-all text-xs shadow-md mt-2 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Google Sheet
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Delivery Slip Modal -->
-  <div id="deliverySlipModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-start justify-start p-2 overflow-y-auto">
-    <div class="exact-delivery-card bg-white text-black w-full max-w-[145mm] p-5 border-2 border-black shadow-2xl relative font-sans my-auto mx-auto">
-      <button onclick="closeDeliverySlipModal()" class="no-print absolute top-3 right-3 text-black hover:text-red-600 text-2xl font-black">&times;</button>
-
-      <div class="flex justify-between items-start border-b-2 border-black pb-3 mb-3">
-        <div>
-          <h1 class="text-lg font-black text-black tracking-tight leading-none">HY STORE OFFICIAL</h1>
-          <p class="text-[11px] text-black mt-1">King Road, Mandi Bahauddin</p>
-          <p class="text-[11px] text-black">hystoreofficial.com</p>
-        </div>
-        <div class="text-right">
-          <span class="text-[10px] font-black uppercase tracking-wider text-black block">DELIVERY SLIP</span>
-          <h2 id="slipOrderId" class="text-xl font-black text-black leading-tight">HY-8094</h2>
-          <p class="text-[9px] text-black font-semibold mt-0.5">Date: <span id="slipDate">16 Oct 2026</span></p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-3 border-b-2 border-black pb-3 mb-3">
-        <div class="border-r border-black pr-2">
-          <h3 class="text-[10px] font-black uppercase tracking-wider text-black border-b border-black pb-0.5 mb-1">DELIVER TO</h3>
-          <p id="slipCustomerName" class="text-xs font-black text-black">Customer Name</p>
-          <p id="slipAddress" class="text-[11px] text-black leading-tight mt-0.5">Address here</p>
-          <p id="slipPhone" class="text-[11px] font-bold text-black mt-0.5">Phone</p>
-        </div>
-        <div>
-          <h3 class="text-[10px] font-black uppercase tracking-wider text-black border-b border-black pb-0.5 mb-1">ORDER INFO</h3>
-          <p class="text-[11px] text-black">Status: <strong id="slipStatus" class="font-black">Ready</strong></p>
-          <p class="text-[11px] text-black">Tracking: <strong id="slipTracking" class="font-black">TRK-9770</strong></p>
-          <p class="text-[11px] text-black">Total: <strong id="slipTotal" class="font-black">Rs 0.00</strong></p>
-          <p class="text-[11px] text-black">Paid: <strong id="slipPaid" class="font-black">Rs 0.00</strong></p>
-          <p class="text-[11px] text-black">Balance: <strong id="slipBalance" class="font-black">Rs 0.00</strong></p>
-        </div>
-      </div>
-
-      <div class="mb-3">
-        <table class="w-full border-collapse border-2 border-black text-[11px]">
-          <thead>
-            <tr class="bg-black text-white font-black text-left">
-              <th class="p-1.5 border-r border-black w-6 text-center">#</th>
-              <th class="p-1.5 border-r border-black">Item</th>
-              <th class="p-1.5 w-10 text-center">Qty</th>
-            </tr>
-          </thead>
-          <tbody id="slipItemsTableBody" class="divide-y border-b-2 border-black text-black font-semibold">
-            <tr>
-              <td class="p-1.5 border-r border-black text-center">1</td>
-              <td class="p-1.5 border-r border-black">Item Name</td>
-              <td class="p-1.5 text-center font-bold">1</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="flex items-center justify-center gap-4 my-3 border-b-2 border-black pb-3">
-        <div class="text-center">
-          <div id="slipBarcode" class="barcode-font tracking-widest text-black">HY-8094</div>
-          <span id="slipBarcodeText" class="text-[10px] font-black tracking-widest text-black block -mt-2">HY-8094</span>
-        </div>
-        <div class="text-center border-l border-black pl-4">
-          <img id="slipQrCode" src="" alt="QR Code" class="w-14 h-14 object-contain bg-white p-0.5 border border-black mx-auto">
-          <span class="text-[7px] font-black block mt-0.5">SCAN ORDER</span>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-6 text-center text-[10px] font-black pt-1 mb-2">
-        <div class="border-t border-black pt-1"><span>RECEIVED BY</span></div>
-        <div class="border-t border-black pt-1"><span>AUTHORIZED</span></div>
-      </div>
-
-      <div class="no-print pt-2 text-center">
-        <button onclick="printDeliverySlipAction()" class="bg-black text-white font-black px-6 py-2 rounded-xl text-xs flex items-center justify-center gap-2 mx-auto">
-          <i class="fa-solid fa-print"></i> Print Delivery Slip
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="customToast" class="fixed bottom-4 right-4 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl border border-slate-800 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
-    <i class="fa-solid fa-circle-check text-emerald-400"></i>
-    <span id="toastMsg">Success!</span>
-  </div>
-
-  <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbySltlwYRrlxHigPeWoZnmuNKgyaUyktoCKPWPDHKK5AXVRgIqVr1UgnNMcb7s4SFjT3Q/exec";
-    
-    let staffOrders = [];
-    let staffProducts = [];
-    let currentEditingOrderId = null;
-    let finalImageValue = "";
-
-    window.onload = function() {
-      const isLogged = sessionStorage.getItem('hy_staff_logged');
-      const loggedUser = sessionStorage.getItem('hy_logged_user_name');
-      if(isLogged === 'true') {
-        document.getElementById('loginModal').classList.add('hidden');
-        if(loggedUser) {
-          document.getElementById('loggedInUserBadge').innerText = loggedUser;
-          document.getElementById('loggedInUserBadgeMobile').innerText = loggedUser.split(' ')[0];
-        }
-        fetchStaffOrders();
-      } else {
-        document.getElementById('loginModal').classList.remove('hidden');
-      }
-    };
-
-    function handleLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('loginUser').value.trim();
-      const pass = document.getElementById('loginPass').value.trim();
-      const errEl = document.getElementById('loginError');
-
-      let isValid = false;
-      let displayName = '';
-
-      if(user === 'Usman' && pass === '114477') {
-        isValid = true;
-        displayName = 'Usman';
-      } else if(user === 'Admin' && pass === 'Admin') {
-        isValid = true;
-        displayName = 'Admin';
-      } else if(user === 'M.ibrahim' && pass === '034711') {
-        isValid = true;
-        displayName = 'M. Ibrahim';
-      }
-
-      if(isValid) {
-        sessionStorage.setItem('hy_staff_logged', 'true');
-        sessionStorage.setItem('hy_logged_user_name', displayName);
-        document.getElementById('loginModal').classList.add('hidden');
-        errEl.classList.add('hidden');
-        document.getElementById('loggedInUserBadge').innerText = displayName;
-        document.getElementById('loggedInUserBadgeMobile').innerText = displayName;
-        fetchStaffOrders();
-        showToast('Logged in as ' + displayName + '!');
-      } else {
-        errEl.classList.remove('hidden');
-      }
-    }
-
-    function handleLogout() {
-      sessionStorage.removeItem('hy_staff_logged');
-      sessionStorage.removeItem('hy_logged_user_name');
-      sessionStorage.removeItem('hy_product_unlocked');
-      window.location.reload();
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('customToast');
-      document.getElementById('toastMsg').innerText = msg;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 3000);
-    }
-
-    function switchStaffTab(tab) {
-      const secOrders = document.getElementById('sectionOrders');
-      const secProducts = document.getElementById('sectionProducts');
-      const btnOrders = document.getElementById('tabBtnOrders');
-      const btnProducts = document.getElementById('tabBtnProducts');
-      const productLockModal = document.getElementById('productLockModal');
-
-      if(tab === 'orders') {
-        secOrders.classList.remove('hidden');
-        secProducts.classList.add('hidden');
-        productLockModal.classList.add('hidden');
-        btnOrders.className = "flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm";
-        btnProducts.className = "flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700";
-      } else {
-        if(sessionStorage.getItem('hy_product_unlocked') === 'true') {
-          secOrders.classList.add('hidden');
-          secProducts.classList.remove('hidden');
-          productLockModal.classList.add('hidden');
-          btnProducts.className = "flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm";
-          btnOrders.className = "flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700";
-          fetchStaffProducts();
-        } else {
-          productLockModal.classList.remove('hidden');
-        }
-      }
-    }
-
-    function handleProductUnlock(e) {
-      e.preventDefault();
-      const inputPass = document.getElementById('productUnlockInput').value.trim();
-      const errEl = document.getElementById('productLockError');
-
-      if(inputPass === '123hyi') {
-        sessionStorage.setItem('hy_product_unlocked', 'true');
-        document.getElementById('productLockModal').classList.add('hidden');
-        errEl.classList.add('hidden');
-        document.getElementById('productUnlockInput').value = '';
-        
-        const secOrders = document.getElementById('sectionOrders');
-        const secProducts = document.getElementById('sectionProducts');
-        const btnOrders = document.getElementById('tabBtnOrders');
-        const btnProducts = document.getElementById('tabBtnProducts');
-
-        secOrders.classList.add('hidden');
-        secProducts.classList.remove('hidden');
-        btnProducts.className = "flex-1 sm:flex-none bg-brand-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 shadow-sm";
-        btnOrders.className = "flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3.5 py-2 rounded-xl transition-all flex items-center justify-center gap-1.5 border border-slate-700";
-        fetchStaffProducts();
-        showToast('Product Catalog Unlocked!');
-      } else {
-        errEl.classList.remove('hidden');
-      }
-    }
-
-    function fetchStaffOrders() {
-      const tbody = document.getElementById('ordersTableBody');
-      const cardsGrid = document.getElementById('ordersCardsGrid');
-      tbody.innerHTML = `<tr><td colspan="7" class="text-center py-12 text-slate-400 font-medium"><i class="fa-solid fa-spinner animate-spin text-brand-600 text-xl mb-2 block"></i> Loading orders...</td></tr>`;
-      cardsGrid.innerHTML = `<p class="col-span-full text-center py-8 text-slate-400 text-xs"><i class="fa-solid fa-spinner animate-spin text-brand-600 mr-1"></i> Loading orders...</p>`;
-
-      fetch(SCRIPT_URL + '?action=getStaffOrders')
-        .then(res => res.json())
-        .then(data => {
-          if(data.success) {
-            staffOrders = data.orders || [];
-            updateDashboardStats(staffOrders);
-            renderOrdersUI(staffOrders);
-          } else {
-            tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-red-500">Failed to load orders.</td></tr>`;
-            cardsGrid.innerHTML = `<p class="col-span-full text-center py-8 text-red-500 text-xs">Failed to load orders.</p>`;
-          }
-        })
-        .catch(err => {
-          tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-red-500">Network Error.</td></tr>`;
-          cardsGrid.innerHTML = `<p class="col-span-full text-center py-8 text-red-500 text-xs">Network Error.</p>`;
-        });
-    }
-
-    function updateDashboardStats(orders) {
-      const totalOrders = orders.length;
-      let pendingCount = 0;
-      let deliveredCount = 0;
-      let totalRevenue = 0;
-
-      orders.forEach(o => {
-        const st = (o.status || 'Pending').toLowerCase();
-        if(st === 'pending') pendingCount++;
-        if(st === 'delivered') deliveredCount++;
-        if(st !== 'cancelled') {
-          let num = Number(o.totalAmount || 0);
-          if(!isNaN(num)) totalRevenue += num;
-        }
-      });
-
-      document.getElementById('statTotalOrders').innerText = totalOrders;
-      document.getElementById('statPending').innerText = pendingCount;
-      document.getElementById('statDelivered').innerText = deliveredCount;
-      document.getElementById('statRevenue').innerText = 'PKR ' + totalRevenue.toLocaleString();
-    }
-
-    function renderOrdersUI(orders) {
-      const tbody = document.getElementById('ordersTableBody');
-      const cardsGrid = document.getElementById('ordersCardsGrid');
-
-      if (!orders || orders.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">No orders found.</td></tr>`;
-        cardsGrid.innerHTML = `<p class="col-span-full text-center py-8 text-slate-400 text-xs">No orders found.</p>`;
-        return;
-      }
-
-      tbody.innerHTML = orders.map(o => {
-        let badgeClass = "bg-slate-100 text-slate-700";
-        if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
-        else if(o.status === "Dispatched" || o.status === "Out for Delivery") badgeClass = "bg-blue-100 text-blue-800";
-        else if(o.status === "Processing") badgeClass = "bg-amber-100 text-amber-800";
-        else if(o.status === "Cancelled") badgeClass = "bg-red-100 text-red-800";
-
-        let paymentState = o.paymentState || 'Pending';
-        let payBadge = "bg-amber-50 text-amber-700 border-amber-200";
-        if(paymentState === 'Paid') payBadge = "bg-emerald-50 text-emerald-700 border-emerald-200";
-        else if(paymentState === 'Partial Paid') payBadge = "bg-blue-50 text-blue-700 border-blue-200";
-
-        let amtNum = Number(o.totalAmount || 0);
-        let formattedAmt = isNaN(amtNum) ? 'PKR 0' : 'PKR ' + amtNum.toLocaleString();
-
-        return `
-          <tr class="hover:bg-slate-50 transition-colors">
-            <td class="py-3 px-3 font-mono font-bold text-slate-900 whitespace-nowrap">${o.orderId}</td>
-            <td class="py-3 px-3">
-              <strong class="block text-slate-800">${o.customerName}</strong>
-              <span class="text-[11px] text-slate-500 block">${o.phone}</span>
-              <span class="text-[10px] text-slate-400 block max-w-[180px] truncate">${o.address}</span>
-            </td>
-            <td class="py-3 px-3 text-slate-700 max-w-[180px] truncate">${o.items}</td>
-            <td class="py-3 px-3 font-extrabold text-brand-600 whitespace-nowrap">${formattedAmt}</td>
-            <td class="py-3 px-3 whitespace-nowrap">
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold ${badgeClass}">${o.status || 'Pending'}</span>
-            </td>
-            <td class="py-3 px-3 text-center whitespace-nowrap">
-              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${payBadge}">${paymentState}</span>
-            </td>
-            <td class="py-3 px-3 text-center whitespace-nowrap space-x-1">
-              <button onclick="openEditModal('${o.orderId}')" class="bg-slate-900 hover:bg-slate-800 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">Edit</button>
-              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">Slip</button>
-              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all shadow-sm">Invoice</button>
-            </td>
-          </tr>
-        `;
-      }).join('');
-
-      cardsGrid.innerHTML = orders.map(o => {
-        let badgeClass = "bg-slate-100 text-slate-700";
-        if(o.status === "Delivered") badgeClass = "bg-emerald-100 text-emerald-800";
-        else if(o.status === "Dispatched" || o.status === "Out for Delivery") badgeClass = "bg-blue-100 text-blue-800";
-        else if(o.status === "Processing") badgeClass = "bg-amber-100 text-amber-800";
-        else if(o.status === "Cancelled") badgeClass = "bg-red-100 text-red-800";
-
-        let paymentState = o.paymentState || 'Pending';
-        let payBadge = "bg-amber-50 text-amber-700 border-amber-200";
-        if(paymentState === 'Paid') payBadge = "bg-emerald-50 text-emerald-700 border-emerald-200";
-        else if(paymentState === 'Partial Paid') payBadge = "bg-blue-50 text-blue-700 border-blue-200";
-
-        let amtNum = Number(o.totalAmount || 0);
-        let formattedAmt = isNaN(amtNum) ? 'PKR 0' : 'PKR ' + amtNum.toLocaleString();
-
-        return `
-          <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <span class="font-mono font-black text-brand-600 text-sm">${o.orderId}</span>
-              <div class="flex items-center gap-1.5">
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ${payBadge}">${paymentState}</span>
-                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass}">${o.status || 'Pending'}</span>
-              </div>
-            </div>
-
-            <div class="space-y-1">
-              <strong class="text-slate-900 text-xs block font-bold">${o.customerName}</strong>
-              <p class="text-[11px] text-slate-600"><i class="fa-solid fa-phone text-slate-400 mr-1.5"></i>${o.phone}</p>
-              <p class="text-[10px] text-slate-500 truncate"><i class="fa-solid fa-location-dot text-slate-400 mr-1.5"></i>${o.address}</p>
-            </div>
-
-            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 flex justify-between items-center shadow-inner">
-              <span class="text-[11px] font-medium text-slate-700 truncate pr-2">${o.items}</span>
-              <span class="font-black text-brand-600 shrink-0 text-xs">${formattedAmt}</span>
-            </div>
-
-            <div class="grid grid-cols-3 gap-1.5 pt-1">
-              <button onclick="openEditModal('${o.orderId}')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1 transition-all">
-                <i class="fa-solid fa-pen-to-square"></i> Edit
-              </button>
-              <button onclick="printDeliverySlip('${o.orderId}')" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1 transition-all">
-                <i class="fa-solid fa-truck-fast"></i> Slip
-              </button>
-              <button onclick="openInvoiceModal('${o.orderId}')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 rounded-xl text-[11px] flex items-center justify-center gap-1 transition-all">
-                <i class="fa-solid fa-file-invoice"></i> Invoice
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function filterStaffTable() {
-      const q = document.getElementById('staffSearch').value.toLowerCase();
-      const status = document.getElementById('statusFilter').value;
-
-      const filtered = staffOrders.filter(o => {
-        const matchesSearch = o.orderId.toLowerCase().includes(q) || o.customerName.toLowerCase().includes(q) || o.phone.toLowerCase().includes(q);
-        const matchesStatus = (status === 'ALL') || (o.status === status);
-        return matchesSearch && matchesStatus;
-      });
-
-      renderOrdersUI(filtered);
-    }
-
-    function openInvoiceModal(orderId) {
-      const o = staffOrders.find(item => item.orderId === orderId);
-      if(!o) return;
-
-      currentEditingOrderId = orderId;
-
-      document.getElementById('invOrderId').innerText = o.orderId;
-      document.getElementById('invDate').innerText = 'Date: ' + new Date().toLocaleDateString();
-      document.getElementById('invCustName').innerText = o.customerName || 'Customer';
-      document.getElementById('invCustPhone').innerText = o.phone || 'N/A';
-      document.getElementById('invCustAddress').innerText = o.address || 'N/A';
-      document.getElementById('invStatusBadge').innerText = o.status || 'Processing';
-      document.getElementById('invPayStateBadge').innerText = o.paymentState || 'Pending';
-
-      let totAmt = Number(o.totalAmount || 0);
-      document.getElementById('invSubtotal').innerText = 'PKR ' + totAmt.toLocaleString();
-      document.getElementById('invGrandTotal').innerText = 'PKR ' + totAmt.toLocaleString();
-
-      let itemsList = (o.items || '').split(',');
-      let rowsHtml = itemsList.map((itemStr, idx) => `
-        <tr>
-          <td class="p-3 text-slate-400 font-bold">${idx + 1}</td>
-          <td class="p-3 font-semibold text-slate-800">${itemStr.trim()}</td>
-          <td class="p-3 text-center font-bold">1</td>
-          <td class="p-3 text-right font-extrabold text-slate-900">PKR ${totAmt.toLocaleString()}</td>
-        </tr>
-      `).join('');
-
-      document.getElementById('invItemsTableBody').innerHTML = rowsHtml;
-      document.getElementById('viewInvoiceModal').classList.remove('hidden');
-    }
-
-    function closeInvoiceModal() {
-      document.getElementById('viewInvoiceModal').classList.add('hidden');
-    }
-
-    function openEditModalFromInvoice() {
-      if(!currentEditingOrderId) return;
-      openEditModal(currentEditingOrderId);
-    }
-
-    function openInvoiceEditMetaModal() {
-      document.getElementById('editInvoiceMetaModal').classList.remove('hidden');
-    }
-
-    function closeInvoiceEditMetaModal() {
-      document.getElementById('editInvoiceMetaModal').classList.add('hidden');
-    }
-
-    function saveInvoiceMetaEdits() {
-      const note = document.getElementById('invCustomNoteInput').value;
-      document.getElementById('invFooterNoteText').innerText = note;
-      showToast('Invoice note updated successfully!');
-      closeInvoiceEditMetaModal();
-    }
-
-    function openEditModal(orderId) {
-      const o = staffOrders.find(item => item.orderId === orderId);
-      if(!o) return;
-      currentEditingOrderId = orderId;
-      document.getElementById('editTargetOrderId').innerText = orderId;
-      document.getElementById('editCustomerName').value = o.customerName || '';
-      document.getElementById('editPhone').value = o.phone || '';
-      document.getElementById('editAddress').value = o.address || '';
-      document.getElementById('editItems').value = o.items || '';
-      document.getElementById('editAmount').value = o.totalAmount || 0;
-      document.getElementById('editStatus').value = o.status || 'Pending';
-      document.getElementById('editPaymentState').value = o.paymentState || 'Pending';
-      document.getElementById('editOrderModal').classList.remove('hidden');
-    }
-
-    function closeEditModal() {
-      document.getElementById('editOrderModal').classList.add('hidden');
-    }
-
-    function saveOrderEdits() {
-      const customerName = document.getElementById('editCustomerName').value.trim();
-      const phone = document.getElementById('editPhone').value.trim();
-      const address = document.getElementById('editAddress').value.trim();
-      const items = document.getElementById('editItems').value.trim();
-      const totalAmount = document.getElementById('editAmount').value.trim();
-      const status = document.getElementById('editStatus').value;
-      const paymentState = document.getElementById('editPaymentState').value;
-
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          action: 'updateOrderDetails',
-          orderId: currentEditingOrderId,
-          customerName: customerName,
-          phone: phone,
-          address: address,
-          items: items,
-          totalAmount: totalAmount,
-          status: status,
-          paymentState: paymentState
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          closeEditModal();
-          showToast('Order details updated successfully!');
-          fetchStaffOrders();
-          
-          // Draft WhatsApp Message for Customer Status Update
-          if(phone) {
-            let cleanPhone = phone.replace(/\D/g, '');
-            if(cleanPhone.startsWith('0')) cleanPhone = '92' + cleanPhone.substring(1);
-            let waMsg = encodeURIComponent(`Hello ${customerName}, aap ka order (${currentEditingOrderId}) is waqt "${status}" stage par hai. Shukriya! - HY Store Official`);
-            window.open(`https://wa.me/${cleanPhone}?text=${waMsg}`, '_blank');
-          }
-
-          if(!document.getElementById('viewInvoiceModal').classList.contains('hidden')) {
-            openInvoiceModal(currentEditingOrderId);
-          }
-        } else {
-          alert('Failed to update order.');
-        }
-      });
-    }
-
-    function fetchStaffProducts() {
-      fetch(SCRIPT_URL + '?action=getProducts')
-        .then(res => res.json())
-        .then(data => {
-          staffProducts = data || [];
-          renderProductsCatalog(staffProducts);
-        })
-        .catch(err => {
-          document.getElementById('staffProductsGrid').innerHTML = '<p class="col-span-full text-center text-red-500 py-6">Failed to load products.</p>';
-        });
-    }
-
-    function formatImageUrl(url) {
-      if (!url) return 'https://via.placeholder.com/250x200?text=Product+Image';
-      let str = url.toString().trim();
-      if (str.includes('drive.google.com')) {
-        let match = str.match(/\/d\/([^\/]+)/) || str.match(/id=([^&]+)/);
-        if (match && match[1]) {
-          return 'https://drive.google.com/uc?export=view&id=' + match[1];
-        }
-      }
-      return str;
-    }
-
-    function renderProductsCatalog(products) {
-      const grid = document.getElementById('staffProductsGrid');
-      const validProducts = products.filter(p => p.title && p.title.toString().trim() !== '');
-
-      if(!validProducts || validProducts.length === 0) {
-        grid.innerHTML = '<p class="col-span-full text-center py-8 text-slate-400">No products found.</p>';
-        return;
-      }
-
-      grid.innerHTML = validProducts.map((p, idx) => {
-        let actualIndex = products.findIndex(item => item === p);
-        let img = formatImageUrl(p.image);
-        let titleVal = p.title || 'No Title';
-        let priceVal = Number(p.price || 0);
-        let catVal = p.category || 'General';
-        
-        let printTypeVal = (p.printType === 'With Print') 
-          ? '<span class="text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200"><i class="fa-solid fa-check mr-1"></i>With Print</span>' 
-          : '<span class="text-slate-500 font-medium bg-slate-100 px-2 py-0.5 rounded border border-slate-200">Non-Print</span>';
-
-        return `
-          <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm flex flex-col justify-between group relative">
-            <div>
-              <div class="aspect-square bg-slate-100 overflow-hidden relative">
-                <img src="${img}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/250x200?text=Image'">
-                <button onclick="deleteProductFromSheet(${actualIndex}, '${titleVal.replace(/'/g, "\\'")}')" title="Delete Product" class="absolute top-1.5 right-1.5 bg-red-600 text-white w-7 h-7 rounded-full flex items-center justify-center shadow transition-all">
-                  <i class="fa-solid fa-trash-can text-[10px]"></i>
-                </button>
-              </div>
-              <div class="p-2.5 space-y-1">
-                <div class="flex justify-between items-center text-[9px] font-extrabold uppercase tracking-wider">
-                  <span class="text-brand-600 truncate">${catVal}</span>
+            <!-- Brand Header -->
+            <div class="h-16 flex items-center justify-between px-6 bg-slate-950 border-b border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white text-lg shadow-lg">HY</div>
+                    <span class="font-bold text-lg text-white tracking-wide">HY STORE</span>
                 </div>
-                <h4 class="font-bold text-slate-900 text-xs line-clamp-1">${titleVal}</h4>
-                <div class="pt-1">${printTypeVal}</div>
-              </div>
+                <span class="text-xs font-semibold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">Staff</span>
             </div>
-            <div class="p-2.5 pt-0 flex items-center justify-between border-t border-slate-100 mt-1">
-              <span class="font-black text-brand-600 text-xs">PKR ${priceVal.toLocaleString()}</span>
-              <button onclick="openEditProductModal(${actualIndex})" class="bg-slate-900 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">Edit</button>
+
+            <!-- Navigation Links -->
+            <nav class="p-4 space-y-1">
+                <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 bg-indigo-600 text-white shadow-sm">
+                    <i class="fa-solid fa-chart-pie w-5"></i>
+                    <span>Dashboard</span>
+                </button>
+
+                <button onclick="switchTab('customers')" id="nav-customers" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-users w-5"></i>
+                    <span>Customers</span>
+                </button>
+
+                <button onclick="switchTab('orders')" id="nav-orders" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-cart-shopping w-5"></i>
+                    <span>Orders</span>
+                </button>
+
+                <button onclick="switchTab('invoices')" id="nav-invoices" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-file-invoice-dollar w-5"></i>
+                    <span>Invoices</span>
+                </button>
+
+                <button onclick="switchTab('products')" id="nav-products" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 hover:bg-slate-800 hover:text-white">
+                    <i class="fa-solid fa-box-archive w-5"></i>
+                    <span>Products</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="p-4 border-t border-slate-800">
+            <a href="https://hystoreofficial.com" target="_blank" class="flex items-center space-x-2 text-xs text-slate-400 hover:text-indigo-400 transition">
+                <i class="fa-solid fa-globe"></i>
+                <span>hystoreofficial.com</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-auto"></i>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
+        
+        <!-- Top Navbar -->
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
+            <h1 id="page-title" class="text-xl font-bold text-slate-800">Dashboard Overview</h1>
+            <div class="flex items-center space-x-4">
+                <div class="text-right">
+                    <p class="text-xs text-slate-500">Logistics & Operations</p>
+                    <p class="text-sm font-semibold text-slate-700">Official Staff Portal</p>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-indigo-600 border border-slate-300">
+                    HY
+                </div>
             </div>
-          </div>
-        `;
-      }).join('');
-    }
+        </header>
 
-    function filterProductsCatalog() {
-      const q = document.getElementById('productSearchInput').value.toLowerCase();
-      const filtered = staffProducts.filter(p => {
-        let titleStr = (p.title || '').toLowerCase();
-        let catStr = (p.category || '').toLowerCase();
-        return titleStr.includes(q) || catStr.includes(q);
-      });
-      renderProductsCatalog(filtered);
-    }
+        <!-- Dynamic Content Body -->
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
 
-    function handleUrlInput() {
-      const urlVal = document.getElementById('prodImage').value.trim();
-      const fileInput = document.getElementById('prodFile');
-      const previewContainer = document.getElementById('imagePreviewContainer');
-      const previewImg = document.getElementById('prodImagePreview');
-      const clearBtn = document.getElementById('clearPicBtn');
+            <!-- 1. DASHBOARD VIEW -->
+            <section id="view-dashboard" class="space-y-6">
+                <!-- Stat Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Sales</p>
+                            <h3 id="stat-sales" class="text-2xl font-bold text-slate-800 mt-1">PKR 0</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                    </div>
 
-      if (urlVal.length > 0) {
-        fileInput.value = "";
-        fileInput.disabled = true;
-        fileInput.classList.add('opacity-50');
-        finalImageValue = urlVal;
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Orders</p>
+                            <h3 id="stat-orders" class="text-2xl font-bold text-slate-800 mt-1">0</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-cart-flatbed"></i>
+                        </div>
+                    </div>
 
-        previewImg.src = formatImageUrl(urlVal);
-        previewContainer.classList.remove('hidden');
-        clearBtn.classList.remove('hidden');
-      } else {
-        fileInput.disabled = false;
-        fileInput.classList.remove('opacity-50');
-        finalImageValue = "";
-        previewContainer.classList.add('hidden');
-        clearBtn.classList.add('hidden');
-      }
-    }
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Customers</p>
+                            <h3 id="stat-customers" class="text-2xl font-bold text-slate-800 mt-1">0</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
 
-    function handleFileUpload(event) {
-      const file = event.target.files[0];
-      const urlInput = document.getElementById('prodImage');
-      const previewContainer = document.getElementById('imagePreviewContainer');
-      const previewImg = document.getElementById('prodImagePreview');
-      const clearBtn = document.getElementById('clearPicBtn');
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Products</p>
+                            <h3 id="stat-products" class="text-2xl font-bold text-slate-800 mt-1">0</h3>
+                        </div>
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </div>
+                    </div>
+                </div>
 
-      if (file) {
-        urlInput.value = "";
-        urlInput.disabled = true;
-        urlInput.classList.add('opacity-50');
+                <!-- Charts & Recent Activity -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h4 class="text-base font-bold text-slate-800 mb-4">Sales & Orders Performance Analytics</h4>
+                        <div class="h-64">
+                            <canvas id="analyticsChart"></canvas>
+                        </div>
+                    </div>
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = new Image();
-          img.onload = function() {
-            const canvas = document.createElement('canvas');
-            let maxDim = 400;
-            let width = img.width;
-            let height = img.height;
-            if (width > height) {
-              if (width > maxDim) {
-                height = Math.round((height * maxDim) / width);
-                width = maxDim;
-              }
-            } else {
-              if (height > maxDim) {
-                width = Math.round((width * maxDim) / height);
-                height = maxDim;
-              }
-            }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            finalImageValue = canvas.toDataURL('image/jpeg', 0.7);
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-base font-bold text-slate-800 mb-4">Quick Shortcuts</h4>
+                            <p class="text-xs text-slate-500 mb-4">Fast actions to create records instantly:</p>
+                            <div class="space-y-3">
+                                <button onclick="switchTab('customers')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition flex items-center justify-between">
+                                    <span class="text-sm font-medium text-slate-700"><i class="fa-solid fa-user-plus text-indigo-600 mr-2"></i> Add Customer First</span>
+                                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                                </button>
+                                <button onclick="switchTab('orders')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition flex items-center justify-between">
+                                    <span class="text-sm font-medium text-slate-700"><i class="fa-solid fa-plus text-indigo-600 mr-2"></i> Create New Order</span>
+                                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                                </button>
+                                <button onclick="switchTab('invoices')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50/50 transition flex items-center justify-between">
+                                    <span class="text-sm font-medium text-slate-700"><i class="fa-solid fa-receipt text-indigo-600 mr-2"></i> Issue New Invoice</span>
+                                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-400 text-center">
+                            Connected to <a href="https://hystoreofficial.com" class="text-indigo-600 underline font-semibold">hystoreofficial.com</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            previewImg.src = finalImageValue;
-            previewContainer.classList.remove('hidden');
-            clearBtn.classList.remove('hidden');
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        urlInput.disabled = false;
-        urlInput.classList.remove('opacity-50');
-        finalImageValue = "";
-        previewContainer.classList.add('hidden');
-        clearBtn.classList.add('hidden');
-      }
-    }
+            <!-- 2. CUSTOMERS VIEW -->
+            <section id="view-customers" class="hidden space-y-6">
+                <div class="flex justify-between items-center bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Customer Management</h2>
+                        <p class="text-xs text-slate-500">Customers added here will automatically populate in Orders & Invoices dropdowns.</p>
+                    </div>
+                    <button onclick="openModal('modal-customer')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Add Customer</span>
+                    </button>
+                </div>
 
-    function clearSelectedPic() {
-      document.getElementById('prodImage').value = "";
-      document.getElementById('prodImage').disabled = false;
-      document.getElementById('prodImage').classList.remove('opacity-50');
-      
-      document.getElementById('prodFile').value = "";
-      document.getElementById('prodFile').disabled = false;
-      document.getElementById('prodFile').classList.remove('opacity-50');
-      
-      finalImageValue = "";
-      document.getElementById('imagePreviewContainer').classList.add('hidden');
-      document.getElementById('clearPicBtn').classList.add('hidden');
-      showToast('Photo removed!');
-    }
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                <th class="p-4">Customer ID</th>
+                                <th class="p-4">Name</th>
+                                <th class="p-4">Mobile No</th>
+                                <th class="p-4">Email</th>
+                                <th class="p-4">Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-customers" class="divide-y divide-slate-200 text-sm">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-    function openAddProductModal() {
-      document.getElementById('productModalTitle').innerText = 'Add New Product';
-      document.getElementById('prodEditIndex').value = '';
-      document.getElementById('prodTitle').value = '';
-      document.getElementById('prodPrice').value = '';
-      document.getElementById('prodCategory').value = 'Mugs & Drinkware';
-      document.getElementById('prodPrintCheck').checked = false;
-      document.getElementById('prodImage').value = '';
-      document.getElementById('prodImage').disabled = false;
-      document.getElementById('prodImage').classList.remove('opacity-50');
-      document.getElementById('prodFile').value = '';
-      document.getElementById('prodFile').disabled = false;
-      document.getElementById('prodFile').classList.remove('opacity-50');
-      document.getElementById('prodDesc').value = '';
-      document.getElementById('imagePreviewContainer').classList.add('hidden');
-      document.getElementById('clearPicBtn').classList.add('hidden');
-      finalImageValue = "";
-      document.getElementById('productModal').classList.remove('hidden');
-    }
+            <!-- 3. ORDERS VIEW -->
+            <section id="view-orders" class="hidden space-y-6">
+                <div class="flex justify-between items-center bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Order Management</h2>
+                        <p class="text-xs text-slate-500">Select pre-registered customers to assign orders and generate status notification updates.</p>
+                    </div>
+                    <button onclick="openCreateOrderModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span>Create Order</span>
+                    </button>
+                </div>
 
-    function openEditProductModal(idx) {
-      const p = staffProducts[idx];
-      if(!p) return;
-      
-      document.getElementById('productModalTitle').innerText = 'Edit Product';
-      document.getElementById('prodEditIndex').value = idx;
-      
-      document.getElementById('prodTitle').value = p.title || '';
-      document.getElementById('prodPrice').value = p.price || '';
-      document.getElementById('prodCategory').value = p.category || 'Home Decor';
-      
-      document.getElementById('prodPrintCheck').checked = (p.printType === 'With Print');
-      
-      const imgVal = p.image || '';
-      finalImageValue = imgVal;
-      
-      if (imgVal.startsWith('data:image') || !imgVal.includes('http')) {
-        document.getElementById('prodImage').value = '';
-        document.getElementById('prodImage').disabled = true;
-        document.getElementById('prodImage').classList.add('opacity-50');
-      } else {
-        document.getElementById('prodImage').value = imgVal;
-        document.getElementById('prodFile').value = '';
-        document.getElementById('prodFile').disabled = true;
-        document.getElementById('prodFile').classList.add('opacity-50');
-      }
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                <th class="p-4">Order Ref</th>
+                                <th class="p-4">Customer Details</th>
+                                <th class="p-4">Product</th>
+                                <th class="p-4">Amount</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4 text-right">Actions / WhatsApp Message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-orders" class="divide-y divide-slate-200 text-sm">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-      if (imgVal) {
-        document.getElementById('prodImagePreview').src = formatImageUrl(imgVal);
-        document.getElementById('imagePreviewContainer').classList.remove('hidden');
-        document.getElementById('clearPicBtn').classList.remove('hidden');
-      } else {
-        document.getElementById('imagePreviewContainer').classList.add('hidden');
-        document.getElementById('clearPicBtn').classList.add('hidden');
-      }
+            <!-- 4. INVOICES VIEW -->
+            <section id="view-invoices" class="hidden space-y-6">
+                <div class="flex justify-between items-center bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Invoices</h2>
+                        <p class="text-xs text-slate-500">Issue official billing statements linked directly to registered customers.</p>
+                    </div>
+                    <button onclick="openCreateInvoiceModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+                        <i class="fa-solid fa-file-circle-plus"></i>
+                        <span>Create Invoice</span>
+                    </button>
+                </div>
 
-      document.getElementById('prodDesc').value = p.description || '';
-      document.getElementById('productModal').classList.remove('hidden');
-    }
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                <th class="p-4">Invoice #</th>
+                                <th class="p-4">Customer</th>
+                                <th class="p-4">Description</th>
+                                <th class="p-4">Amount</th>
+                                <th class="p-4">Payment Status</th>
+                                <th class="p-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-invoices" class="divide-y divide-slate-200 text-sm">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-    function deleteProductFromSheet(idx, title) {
-      if(!confirm(`Kia aap "${title}" product ko delete karna chahte hain?`)) {
-        return;
-      }
+            <!-- 5. PRODUCTS VIEW -->
+            <section id="view-products" class="hidden space-y-6">
+                <div class="flex justify-between items-center bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-800">Inventory Products</h2>
+                        <p class="text-xs text-slate-500">Manage catalog items available for customer orders.</p>
+                    </div>
+                    <button onclick="openModal('modal-product')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg flex items-center space-x-2 shadow-sm transition">
+                        <i class="fa-solid fa-box"></i>
+                        <span>Add Product</span>
+                    </button>
+                </div>
 
-      showToast('Deleting product...');
+                <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                                <th class="p-4">Product ID</th>
+                                <th class="p-4">Title</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Price (PKR)</th>
+                                <th class="p-4">Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-products" class="divide-y divide-slate-200 text-sm">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          action: 'updateProduct',
-          index: idx,
-          title: '',
-          price: '',
-          category: '',
-          printType: '',
-          image: '',
-          description: ''
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        showToast('Product deleted!');
-        fetchStaffProducts();
-      })
-      .catch(err => {
-        showToast('Product deleted!');
-        fetchStaffProducts();
-      });
-    }
+        </div>
+    </main>
 
-    function closeProductModal() {
-      document.getElementById('productModal').classList.add('hidden');
-    }
+    <!-- MODAL: ADD CUSTOMER -->
+    <div id="modal-customer" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white w-full max-w-md rounded-xl shadow-xl overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="font-bold text-slate-800">Add New Customer</h3>
+                <button onclick="closeModal('modal-customer')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveCustomer(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name *</label>
+                    <input type="text" id="cust-name" required placeholder="e.g. Ali Raza" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Mobile No *</label>
+                    <input type="tel" id="cust-mobile" required placeholder="e.g. 03001234567" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Email Address *</label>
+                    <input type="email" id="cust-email" required placeholder="e.g. ali@example.com" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Address *</label>
+                    <textarea id="cust-address" required placeholder="Full shipping address..." rows="3" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+                </div>
+                <div class="pt-2 flex space-x-3">
+                    <button type="button" onclick="closeModal('modal-customer')" class="w-1/2 py-2.5 text-sm border border-slate-300 rounded-lg text-slate-600 font-medium hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="w-1/2 py-2.5 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium">Save Customer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    function saveProductData() {
-      const title = document.getElementById('prodTitle').value.trim();
-      const price = document.getElementById('prodPrice').value.trim();
-      const category = document.getElementById('prodCategory').value;
-      const printType = document.getElementById('prodPrintCheck').checked ? 'With Print' : 'Non-Print';
-      const description = document.getElementById('prodDesc').value.trim();
-      const editIdx = document.getElementById('prodEditIndex').value;
+    <!-- MODAL: CREATE ORDER -->
+    <div id="modal-order" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white w-full max-w-md rounded-xl shadow-xl overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="font-bold text-slate-800">Create New Order</h3>
+                <button onclick="closeModal('modal-order')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveOrder(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Select Customer *</label>
+                    <select id="order-customer-select" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <!-- Populated dynamic options -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Select Product *</label>
+                    <select id="order-product-select" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <!-- Populated dynamic options -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Total Amount (PKR) *</label>
+                    <input type="number" id="order-amount" required placeholder="1500" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div class="pt-2 flex space-x-3">
+                    <button type="button" onclick="closeModal('modal-order')" class="w-1/2 py-2.5 text-sm border border-slate-300 rounded-lg text-slate-600 font-medium hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="w-1/2 py-2.5 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium">Create Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-      if(!title || !price || !finalImageValue) {
-        showToast('Please fill all fields.');
-        return;
-      }
+    <!-- MODAL: CREATE INVOICE -->
+    <div id="modal-invoice" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white w-full max-w-md rounded-xl shadow-xl overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="font-bold text-slate-800">Generate Invoice</h3>
+                <button onclick="closeModal('modal-invoice')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveInvoice(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Select Customer *</label>
+                    <select id="invoice-customer-select" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <!-- Dynamic options -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Description / Items *</label>
+                    <input type="text" id="invoice-desc" required placeholder="e.g. Premium Smart Watch Billing" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Amount Due (PKR) *</label>
+                    <input type="number" id="invoice-amount" required placeholder="2500" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div class="pt-2 flex space-x-3">
+                    <button type="button" onclick="closeModal('modal-invoice')" class="w-1/2 py-2.5 text-sm border border-slate-300 rounded-lg text-slate-600 font-medium hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="w-1/2 py-2.5 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium">Issue Invoice</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-      let payloadAction = editIdx === '' ? 'addProduct' : 'updateProduct';
-      
-      const saveBtn = document.getElementById('saveProductBtn');
-      saveBtn.disabled = true;
-      saveBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Syncing...`;
+    <!-- MODAL: ADD PRODUCT -->
+    <div id="modal-product" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white w-full max-w-md rounded-xl shadow-xl overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="font-bold text-slate-800">Add Inventory Product</h3>
+                <button onclick="closeModal('modal-product')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="saveProduct(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Product Title *</label>
+                    <input type="text" id="prod-name" required placeholder="e.g. Wireless Earbuds Pro" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Category *</label>
+                    <input type="text" id="prod-cat" required placeholder="e.g. Electronics" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Price (PKR) *</label>
+                        <input type="number" id="prod-price" required placeholder="3499" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Initial Stock *</label>
+                        <input type="number" id="prod-stock" required placeholder="50" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    </div>
+                </div>
+                <div class="pt-2 flex space-x-3">
+                    <button type="button" onclick="closeModal('modal-product')" class="w-1/2 py-2.5 text-sm border border-slate-300 rounded-lg text-slate-600 font-medium hover:bg-slate-50">Cancel</button>
+                    <button type="submit" class="w-1/2 py-2.5 text-sm bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          action: payloadAction,
-          index: editIdx,
-          title: title,
-          price: price,
-          category: category,
-          printType: printType,
-          image: finalImageValue,
-          description: description
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        saveBtn.disabled = false;
-        saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Google Sheet`;
-        if (data.success || data.status === 'success') {
-          closeProductModal();
-          showToast('Product saved successfully!');
-          fetchStaffProducts();
-        } else {
-          showToast('Error syncing.');
+    <!-- MODAL: WHATSAPP MESSAGE PREVIEW -->
+    <div id="modal-whatsapp" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white w-full max-w-lg rounded-xl shadow-xl overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-emerald-600 text-white">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    <h3 class="font-bold">Official Professional WhatsApp Dispatch</h3>
+                </div>
+                <button onclick="closeModal('modal-whatsapp')" class="text-white/80 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <p class="text-xs text-slate-500">Below is the automatically generated detailed status updates message formatted for your customer:</p>
+                <textarea id="whatsapp-text-area" readonly class="w-full h-52 bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs font-mono text-slate-700 focus:outline-none custom-scrollbar"></textarea>
+                <div class="flex space-x-3">
+                    <button onclick="copyWhatsAppMessage()" class="w-1/2 py-2.5 text-sm bg-slate-800 hover:bg-slate-900 text-white rounded-lg font-medium flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy Text</span>
+                    </button>
+                    <a id="whatsapp-direct-link" target="_blank" href="#" class="w-1/2 py-2.5 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium flex items-center justify-center space-x-2">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>Send Direct</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATA STORES
+        let customers = [
+            { id: 'CUST-101', name: 'Muhammad Ahmed', mobile: '03001234567', email: 'ahmed@gmail.com', address: 'House 42, Block B, Johar Town, Lahore' },
+            { id: 'CUST-102', name: 'Fatima Malik', mobile: '03219876543', email: 'fatima@yahoo.com', address: 'Apartment 4B, Gulberg Heights, Lahore' }
+        ];
+
+        let products = [
+            { id: 'PRD-501', title: 'HY Ultra Smart Watch', category: 'Gadgets', price: 4999, stock: 25 },
+            { id: 'PRD-502', title: 'HY Active Noise Earbuds', category: 'Audio', price: 3200, stock: 40 }
+        ];
+
+        let orders = [
+            { ref: 'HY-ORD-8801', customerId: 'CUST-101', productId: 'PRD-501', amount: 4999, status: 'Processing' }
+        ];
+
+        let invoices = [
+            { id: 'INV-3001', customerId: 'CUST-101', desc: 'HY Ultra Smart Watch Purchase', amount: 4999, status: 'Unpaid' }
+        ];
+
+        let analyticsChartInstance = null;
+
+        // INITIALIZATION
+        document.addEventListener("DOMContentLoaded", () => {
+            renderAll();
+            initChart();
+        });
+
+        // TAB SWITCHING
+        function switchTab(tab) {
+            const tabs = ['dashboard', 'customers', 'orders', 'invoices', 'products'];
+            const titles = {
+                dashboard: 'Dashboard Overview & Analytics',
+                customers: 'Customer Directory',
+                orders: 'Customer Orders Management',
+                invoices: 'Billing & Invoices',
+                products: 'Product Inventory'
+            };
+
+            tabs.forEach(t => {
+                const navBtn = document.getElementById(`nav-${t}`);
+                const view = document.getElementById(`view-${t}`);
+                
+                if (t === tab) {
+                    view.classList.remove('hidden');
+                    navBtn.className = "nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 bg-indigo-600 text-white shadow-sm";
+                } else {
+                    view.classList.add('hidden');
+                    navBtn.className = "nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-150 hover:bg-slate-800 hover:text-white";
+                }
+            });
+
+            document.getElementById('page-title').innerText = titles[tab];
         }
-      })
-      .catch(err => {
-        saveBtn.disabled = false;
-        saveBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Google Sheet`;
-        showToast('Error syncing.');
-      });
-    }
 
-    function printDeliverySlip(orderId) {
-      const o = staffOrders.find(item => item.orderId === orderId);
-      if(!o) return;
+        // RENDER FUNCTIONS
+        function renderAll() {
+            renderCustomers();
+            renderProducts();
+            renderOrders();
+            renderInvoices();
+            updateDashboardStats();
+        }
 
-      document.getElementById('slipOrderId').innerText = o.orderId;
-      document.getElementById('slipBarcodeText').innerText = o.orderId;
-      document.getElementById('slipBarcode').innerText = o.orderId;
-      document.getElementById('slipDate').innerText = new Date().toLocaleDateString();
-      document.getElementById('slipCustomerName').innerText = o.customerName || 'Customer';
-      document.getElementById('slipPhone').innerText = o.phone || 'N/A';
-      document.getElementById('slipAddress').innerText = o.address || 'N/A';
-      document.getElementById('slipStatus').innerText = o.status || 'Ready';
-      document.getElementById('slipTracking').innerText = 'TRK-' + (o.orderId.replace('HY-', ''));
-      
-      let totAmt = Number(o.totalAmount || 0);
-      let payState = o.paymentState || 'Pending';
-      let paidAmt = payState === 'Paid' ? totAmt : (payState === 'Partial Paid' ? Math.round(totAmt / 2) : 0);
-      let balanceAmt = totAmt - paidAmt;
+        function renderCustomers() {
+            const tbody = document.getElementById('table-customers');
+            if (customers.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">No customers registered yet. Please click "Add Customer" to start.</td></tr>`;
+                return;
+            }
 
-      document.getElementById('slipTotal').innerText = 'Rs ' + totAmt.toLocaleString();
-      document.getElementById('slipPaid').innerText = 'Rs ' + paidAmt.toLocaleString();
-      document.getElementById('slipBalance').innerText = 'Rs ' + balanceAmt.toLocaleString();
+            tbody.innerHTML = customers.map(c => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-4 font-semibold text-indigo-600">${c.id}</td>
+                    <td class="p-4 font-medium text-slate-800">${c.name}</td>
+                    <td class="p-4 text-slate-600">${c.mobile}</td>
+                    <td class="p-4 text-slate-600">${c.email}</td>
+                    <td class="p-4 text-slate-500 text-xs max-w-xs truncate">${c.address}</td>
+                </tr>
+            `).join('');
+        }
 
-      let itemsList = (o.items || '').split(',');
-      let rowsHtml = itemsList.map((itemStr, idx) => `
-        <tr>
-          <td class="p-1.5 border-r border-black text-center">${idx + 1}</td>
-          <td class="p-1.5 border-r border-black uppercase font-bold">${itemStr.trim()}</td>
-          <td class="p-1.5 text-center font-black">1</td>
-        </tr>
-      `).join('');
+        function renderProducts() {
+            const tbody = document.getElementById('table-products');
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">No products added.</td></tr>`;
+                return;
+            }
 
-      document.getElementById('slipItemsTableBody').innerHTML = rowsHtml;
-      document.getElementById('slipQrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=` + encodeURIComponent(`HY Store Order: ${o.orderId}, Balance: Rs ${balanceAmt}`);
-      document.getElementById('deliverySlipModal').classList.remove('hidden');
-    }
+            tbody.innerHTML = products.map(p => `
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="p-4 font-semibold text-slate-500">${p.id}</td>
+                    <td class="p-4 font-medium text-slate-800">${p.title}</td>
+                    <td class="p-4 text-slate-600">${p.category}</td>
+                    <td class="p-4 font-semibold text-slate-800">PKR ${p.price.toLocaleString()}</td>
+                    <td class="p-4"><span class="px-2 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">${p.stock} units</span></td>
+                </tr>
+            `).join('');
+        }
 
-    function printDeliverySlipAction() {
-      const slipContent = document.getElementById('deliverySlipModal').innerHTML;
-      const printWin = window.open('', '_blank');
-      printWin.document.write(`
-        <html>
-          <head>
-            <title>Delivery Slip</title>
-            <script src="https://cdn.tailwindcss.com"><\/script>
-            <style>body { font-family: Inter, sans-serif; padding: 20px; }</style>
-          </head>
-          <body>${slipContent}</body>
-        </html>
-      `);
-      printWin.document.close();
-      printWin.print();
-    }
+        function renderOrders() {
+            const tbody = document.getElementById('table-orders');
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">No active orders found.</td></tr>`;
+                return;
+            }
 
-    function closeDeliverySlipModal() {
-      document.getElementById('deliverySlipModal').classList.add('hidden');
-    }
-  </script>
+            tbody.innerHTML = orders.map(o => {
+                const customer = customers.find(c => c.id === o.customerId) || { name: 'Unknown', mobile: 'N/A' };
+                const product = products.find(p => p.id === o.productId) || { title: 'General Item' };
+
+                let statusBadge = '';
+                if(o.status === 'Processing') statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800">Processing</span>';
+                else if(o.status === 'Shipped') statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">Shipped</span>';
+                else if(o.status === 'Delivered') statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">Delivered</span>';
+                else statusBadge = '<span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-800">' + o.status + '</span>';
+
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-4 font-bold text-slate-800">${o.ref}</td>
+                        <td class="p-4">
+                            <div class="font-medium text-slate-800">${customer.name}</div>
+                            <div class="text-xs text-slate-500">${customer.mobile}</div>
+                        </td>
+                        <td class="p-4 text-slate-600">${product.title}</td>
+                        <td class="p-4 font-semibold text-slate-800">PKR ${parseInt(o.amount).toLocaleString()}</td>
+                        <td class="p-4">
+                            <select onchange="updateOrderStatus('${o.ref}', this.value)" class="text-xs font-semibold border border-slate-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                                <option value="Processing" ${o.status === 'Processing' ? 'selected' : ''}>Processing</option>
+                                <option value="Shipped" ${o.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                                <option value="Delivered" ${o.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                            </select>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="generateWhatsAppMessage('${o.ref}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium px-3 py-1.5 rounded inline-flex items-center space-x-1.5 shadow-sm transition">
+                                <i class="fa-brands fa-whatsapp text-sm"></i>
+                                <span>Get Status Msg</span>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderInvoices() {
+            const tbody = document.getElementById('table-invoices');
+            if (invoices.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400">No invoices issued yet.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = invoices.map(i => {
+                const customer = customers.find(c => c.id === i.customerId) || { name: 'Unknown' };
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="p-4 font-bold text-indigo-600">${i.id}</td>
+                        <td class="p-4 font-medium text-slate-800">${customer.name}</td>
+                        <td class="p-4 text-slate-600">${i.desc}</td>
+                        <td class="p-4 font-semibold text-slate-800">PKR ${parseInt(i.amount).toLocaleString()}</td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded-full text-xs font-semibold ${i.status === 'Paid' ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}">
+                                ${i.status}
+                            </span>
+                        </td>
+                        <td class="p-4 text-right">
+                            <button onclick="toggleInvoiceStatus('${i.id}')" class="text-xs text-indigo-600 hover:text-indigo-900 font-semibold underline">
+                                Mark as ${i.status === 'Paid' ? 'Unpaid' : 'Paid'}
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updateDashboardStats() {
+            const totalSales = orders.reduce((sum, o) => sum + parseInt(o.amount), 0);
+            document.getElementById('stat-sales').innerText = `PKR ${totalSales.toLocaleString()}`;
+            document.getElementById('stat-orders').innerText = orders.length;
+            document.getElementById('stat-customers').innerText = customers.length;
+            document.getElementById('stat-products').innerText = products.length;
+        }
+
+        // CUSTOMER CHECK LOGIC FOR CREATING ORDERS & INVOICES
+        function openCreateOrderModal() {
+            if (customers.length === 0) {
+                alert("NOTICE: Pehlay customer add krna lazmi hai! Customers tab mian ja kr add customer krayn.");
+                switchTab('customers');
+                openModal('modal-customer');
+                return;
+            }
+
+            const custSelect = document.getElementById('order-customer-select');
+            custSelect.innerHTML = customers.map(c => `<option value="${c.id}">${c.name} (${c.mobile})</option>`).join('');
+
+            const prodSelect = document.getElementById('order-product-select');
+            prodSelect.innerHTML = products.map(p => `<option value="${p.id}">${p.title} - PKR ${p.price}</option>`).join('');
+
+            openModal('modal-order');
+        }
+
+        function openCreateInvoiceModal() {
+            if (customers.length === 0) {
+                alert("NOTICE: Pehlay customer add krna lazmi hai! Customers tab mian ja kr add customer krayn.");
+                switchTab('customers');
+                openModal('modal-customer');
+                return;
+            }
+
+            const custSelect = document.getElementById('invoice-customer-select');
+            custSelect.innerHTML = customers.map(c => `<option value="${c.id}">${c.name} (${c.mobile})</option>`).join('');
+
+            openModal('modal-invoice');
+        }
+
+        // SAVE LOGIC
+        function saveCustomer(e) {
+            e.preventDefault();
+            const newCust = {
+                id: 'CUST-' + Math.floor(100 + Math.random() * 900),
+                name: document.getElementById('cust-name').value,
+                mobile: document.getElementById('cust-mobile').value,
+                email: document.getElementById('cust-email').value,
+                address: document.getElementById('cust-address').value
+            };
+            customers.push(newCust);
+            closeModal('modal-customer');
+            e.target.reset();
+            renderAll();
+            alert("Customer added successfully!");
+        }
+
+        function saveOrder(e) {
+            e.preventDefault();
+            const newOrder = {
+                ref: 'HY-ORD-' + Math.floor(1000 + Math.random() * 9000),
+                customerId: document.getElementById('order-customer-select').value,
+                productId: document.getElementById('order-product-select').value,
+                amount: document.getElementById('order-amount').value,
+                status: 'Processing'
+            };
+            orders.push(newOrder);
+            closeModal('modal-order');
+            e.target.reset();
+            renderAll();
+            updateChart();
+            alert("Order created successfully!");
+        }
+
+        function saveInvoice(e) {
+            e.preventDefault();
+            const newInv = {
+                id: 'INV-' + Math.floor(1000 + Math.random() * 9000),
+                customerId: document.getElementById('invoice-customer-select').value,
+                desc: document.getElementById('invoice-desc').value,
+                amount: document.getElementById('invoice-amount').value,
+                status: 'Unpaid'
+            };
+            invoices.push(newInv);
+            closeModal('modal-invoice');
+            e.target.reset();
+            renderAll();
+            alert("Invoice issued successfully!");
+        }
+
+        function saveProduct(e) {
+            e.preventDefault();
+            const newProd = {
+                id: 'PRD-' + Math.floor(100 + Math.random() * 900),
+                title: document.getElementById('prod-name').value,
+                category: document.getElementById('prod-cat').value,
+                price: parseInt(document.getElementById('prod-price').value),
+                stock: parseInt(document.getElementById('prod-stock').value)
+            };
+            products.push(newProd);
+            closeModal('modal-product');
+            e.target.reset();
+            renderAll();
+            alert("Product registered in inventory!");
+        }
+
+        function updateOrderStatus(ref, newStatus) {
+            const order = orders.find(o => o.ref === ref);
+            if(order) {
+                order.status = newStatus;
+                renderOrders();
+            }
+        }
+
+        function toggleInvoiceStatus(id) {
+            const inv = invoices.find(i => i.id === id);
+            if(inv) {
+                inv.status = inv.status === 'Paid' ? 'Unpaid' : 'Paid';
+                renderInvoices();
+            }
+        }
+
+        // PROFESSIONAL ENGLISH WHATSAPP MESSAGE GENERATOR WITH WEBSITE & REF LINKS
+        function generateWhatsAppMessage(orderRef) {
+            const order = orders.find(o => o.ref === orderRef);
+            if (!order) return;
+
+            const customer = customers.find(c => c.id === order.customerId) || { name: 'Valued Customer', mobile: '', address: 'N/A' };
+            const product = products.find(p => p.id === order.productId) || { title: 'Ordered Item' };
+
+            const websiteUrl = "https://hystoreofficial.com";
+            const trackingUrl = `${websiteUrl}/track?ref=${order.ref}`;
+
+            let msg = `*OFFICIAL ORDER STATUS UPDATE - HY STORE*\n`;
+            msg += `----------------------------------------\n`;
+            msg += `Dear *${customer.name}*,\n\n`;
+            msg += `Thank you for shopping with HY Store. We are pleased to provide you with an update regarding your recent order.\n\n`;
+            msg += `*ORDER SUMMARY DETAILS:*\n`;
+            msg += `• *Order Reference:* ${order.ref}\n`;
+            msg += `• *Item Description:* ${product.title}\n`;
+            msg += `• *Total Payable:* PKR ${parseInt(order.amount).toLocaleString()}\n`;
+            msg += `• *Current Status:* *[ ${order.status.toUpperCase()} ]*\n`;
+            msg += `• *Delivery Address:* ${customer.address}\n\n`;
+
+            if (order.status === 'Processing') {
+                msg += `*STATUS DETAILS:*\nYour order has been verified and is currently being processed at our central fulfillment warehouse. It is being securely packed for dispatch.\n\n`;
+            } else if (order.status === 'Shipped') {
+                msg += `*STATUS DETAILS:*\nGreat news! Your package has been dispatched via our courier logistics partner. It is currently in transit to your designated shipping destination.\n\n`;
+            } else if (order.status === 'Delivered') {
+                msg += `*STATUS DETAILS:*\nYour order has been successfully delivered! We hope you love your purchase. Thank you for choosing HY Store.\n\n`;
+            }
+
+            msg += `*TRACKING & STORE DIRECTORY:*\n`;
+            msg += `You can review your complete order details, track live progress, and browse our newest premium arrivals anytime on our official online catalog:\n`;
+            msg += `🔗 *Official Website:* ${websiteUrl}\n`;
+            msg += `🔗 *Direct Reference Link:* ${trackingUrl}\n\n`;
+            msg += `If you have any questions or require support, feel free to reply directly to this message.\n\n`;
+            msg += `Warm Regards,\n`;
+            msg += `*HY Store Operations & Support Team*\n`;
+            msg += `🌐 ${websiteUrl}`;
+
+            document.getElementById('whatsapp-text-area').value = msg;
+            
+            // Clean mobile number for WhatsApp web direct API link
+            let cleanNum = customer.mobile.replace(/[^0-9]/g, '');
+            if(cleanNum.startsWith('0')) cleanNum = '92' + cleanNum.substring(1);
+            
+            const waUrl = `https://wa.me/${cleanNum}?text=${encodeURIComponent(msg)}`;
+            document.getElementById('whatsapp-direct-link').href = waUrl;
+
+            openModal('modal-whatsapp');
+        }
+
+        function copyWhatsAppMessage() {
+            const textArea = document.getElementById('whatsapp-text-area');
+            textArea.select();
+            document.execCommand('copy');
+            alert("Professional status update message copied to clipboard!");
+        }
+
+        // MODAL UTILITIES
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // CHART.JS ANALYTICS LOGIC
+        function initChart() {
+            const ctx = document.getElementById('analyticsChart').getContext('2d');
+            analyticsChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [
+                        {
+                            label: 'Revenue (PKR)',
+                            data: [12000, 19000, 15000, 22000, 30000, 25000, 38000],
+                            borderColor: '#4f46e5',
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Orders Count',
+                            data: [4, 6, 5, 8, 12, 9, 15],
+                            borderColor: '#10b981',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { size: 10 } }
+                        },
+                        y1: {
+                            position: 'right',
+                            beginAtZero: true,
+                            grid: { drawOnChartArea: false },
+                            ticks: { font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { size: 10 } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { boxWidth: 12, font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChart() {
+            if(analyticsChartInstance) {
+                const totalRev = orders.reduce((s, o) => s + parseInt(o.amount), 0);
+                analyticsChartInstance.data.datasets[0].data[6] = totalRev;
+                analyticsChartInstance.data.datasets[1].data[6] = orders.length;
+                analyticsChartInstance.update();
+            }
+        }
+    </script>
 </body>
 </html>
