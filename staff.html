@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Fonts -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Libre+Barcode+128&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -137,7 +137,6 @@
 
   <!-- MAIN CONTENT AREA -->
   <main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50">
-    
     <!-- Top Navbar -->
     <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 flex-shrink-0">
       <h1 id="page-title" class="text-lg font-bold text-slate-800">Dashboard Overview & Analytics</h1>
@@ -242,7 +241,6 @@
             <span>Add Customer</span>
           </button>
         </div>
-
         <div id="customersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
@@ -266,7 +264,6 @@
             <span>Create Order</span>
           </button>
         </div>
-
         <div id="ordersCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
@@ -282,7 +279,6 @@
             <span>Create Invoice Order</span>
           </button>
         </div>
-
         <div id="invoicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
@@ -298,7 +294,6 @@
             <span>Add Product</span>
           </button>
         </div>
-
         <div id="productsGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"></div>
       </section>
 
@@ -445,7 +440,7 @@
   <div id="modal-edit-order" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden flex items-center justify-center z-50 p-4">
     <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden max-h-[90vh] overflow-y-auto">
       <div class="p-5 border-b border-slate-100 flex justify-between items-center">
-        <h3 class="font-bold text-slate-800 text-sm">Edit Order & Sync to Backend</h3>
+        <h3 class="font-bold text-slate-800 text-sm">Edit Order Details & Status</h3>
         <button onclick="closeModal('modal-edit-order')" class="text-slate-400 hover:text-slate-600 font-bold">&times;</button>
       </div>
       <div class="p-5 space-y-3 text-xs">
@@ -497,7 +492,7 @@
             </select>
           </div>
         </div>
-        <button id="saveEditBtn" onclick="saveEditOrderAction()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow mt-2 flex items-center justify-center gap-1">
+        <button id="saveEditBtn" onclick="saveEditOrderAction()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow mt-2 flex items-center justify-center gap-2">
           <span>Save Changes to Google Sheet</span>
         </button>
       </div>
@@ -668,7 +663,6 @@
         document.getElementById('loginModal').classList.remove('hidden');
       } else {
         document.getElementById('loginModal').classList.add('hidden');
-
         document.getElementById('topUserName').innerText = loggedUser;
         document.getElementById('topUserAvatar').innerText = loggedUser.split(' ').map(n=>n[0]).join('');
 
@@ -736,7 +730,6 @@
         products: 'Product Inventory Catalog'
       };
 
-      // Save tab to maintain position after refresh
       localStorage.setItem('hy_active_tab', tab);
 
       tabs.forEach(t => {
@@ -1033,7 +1026,7 @@
       const paymentState = document.getElementById('editPaymentState').value;
 
       const btn = document.getElementById('saveEditBtn');
-      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Saving to Sheet...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin font-bold"></i> Saving to Sheet...';
       btn.disabled = true;
 
       fetch(SCRIPT_URL, {
@@ -1065,17 +1058,8 @@
       .catch(err => {
         btn.innerHTML = 'Save Changes to Google Sheet';
         btn.disabled = false;
-        o.customerName = customerName;
-        o.phone = phone;
-        o.items = items;
-        o.totalAmount = totalAmount;
-        o.paidAmount = paidAmount;
-        o.status = status;
-        o.paymentState = paymentState;
         closeModal('modal-edit-order');
-        renderOrders();
-        updateDashboardStats();
-        generateProfessionalWhatsAppMsg(o);
+        fetchStaffOrders();
       });
     }
 
