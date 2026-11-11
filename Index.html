@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#030617">
+  <title>HY STORE | Coming Soon</title>
+  <style>
+    :root {
+      --background: #030617;
+      --surface: #101b35;
+      --red: #d9242d;
+      --white: #ffffff;
+      --muted: #aeb8cc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(ellipse at 50% 38%, rgba(217, 36, 45, 0.12), transparent 55%),
+        var(--background);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    main {
+      width: min(100%, 760px);
+      padding: clamp(34px, 7vw, 68px) clamp(22px, 6vw, 58px);
+      border: 1px solid rgba(217, 36, 45, 0.28);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(16, 27, 53, 0.94), rgba(3, 6, 23, 0.96));
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+    }
+
+    .announcement {
+      display: inline-block;
+      margin: 0 0 28px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      line-height: 1.4;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 7vw, 58px);
+      font-weight: 800;
+      letter-spacing: 0.035em;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+
+    .accent {
+      display: block;
+      margin-top: 8px;
+      color: var(--red);
+    }
+
+    .message {
+      max-width: 520px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: clamp(14px, 2.5vw, 17px);
+      line-height: 1.75;
+    }
+
+    .footer {
+      margin: 38px 0 0;
+      color: #77839c;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+    }
+
+    @media (max-width: 420px) {
+      main { border-radius: 17px; }
+      .announcement { font-size: 11px; letter-spacing: 0.13em; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="announcement">NEW VERSION COMING</p>
+    <h1>
+      WEBSITE
+      <span class="accent">UNDER MAINTENANCE</span>
+    </h1>
+    <p class="message">
+      We’re making improvements to bring you a better shopping experience.
+      Our website will be back online soon. Thank you for your patience.
+    </p>
+    <p class="footer">HY STORE OFFICIAL</p>
+  </main>
+</body>
+</html>
